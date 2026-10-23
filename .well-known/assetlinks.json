@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.imkorea2414.speedread",
+      "sha256_cert_fingerprints": [
+        "36:A0:CB:80:53:A6:39:63:72:FA:BF:C6:58:21:47:FB:61:E3:E9:97:25:AF:62:06:8F:C3:34:18:95:89:5C:A8"
+      ]
+    }
+  }
+]
