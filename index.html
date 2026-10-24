@@ -133,6 +133,11 @@ button.brand:focus-visible{outline:2px solid var(--signal);outline-offset:4px;bo
 .pausebtn i{display:block;width:16px;height:18px;border-left:5px solid var(--ink);border-right:5px solid var(--ink)}
 .pausebtn[hidden]{display:none}
 .stagewrap{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:0 28px}
+.stagewrap[data-vpos="top"]{justify-content:flex-start;padding-top:3vh}
+.stagewrap[data-vpos="bot"]{justify-content:flex-end;padding-bottom:2vh}
+.phase .vpos{color:var(--signal);font-weight:500}
+.steps li.quote{color:var(--muted);font-style:italic}
+.steps li.quote::before{content:'“';font-style:normal}
 .phase{font-size:16px;color:var(--muted);min-height:1.6em;text-align:center}
 .phase b{color:var(--ink);font-weight:600}
 svg.stage{width:min(100%,1240px);max-width:100%;height:auto;touch-action:none;user-select:none;-webkit-user-select:none;margin-top:12px}
@@ -265,6 +270,12 @@ svg.stage.eyes .ptr{display:none}
 .blinkq .g2{margin-top:20px}
 .blinkq .hint{margin-top:14px}
 .s2h{margin-top:48px}
+svg.stage.spread .link{stroke:var(--faint);stroke-width:1.1;vector-effect:non-scaling-stroke}
+svg.stage.spread .rail.ret{fill:none}
+svg.stage .c.mk{fill:var(--signal);stroke:var(--signal)}
+svg.stage .c.mk + .clab{fill:var(--paper)}
+svg.stage.marking{cursor:pointer}
+.phase .mkok{height:36px;padding:0 18px;margin-left:10px;font-size:14px;vertical-align:middle}
 svg.stage.spread .page{fill:var(--paper);stroke:var(--line);stroke-width:1;vector-effect:non-scaling-stroke}
 svg.stage.spread .gutter{stroke-width:1.5;vector-effect:non-scaling-stroke}
 svg.stage.spread .rail{stroke-width:1.4;stroke-dasharray:1 6;vector-effect:non-scaling-stroke}
@@ -558,6 +569,11 @@ svg.stage g.sp.flip{animation:flip .26s ease-out}
           <div class="seg" id="segRounds" role="group" data-ia="roundsH"></div>
           <div class="hint" id="roundsHint"></div>
         </div>
+        <div class="grp" id="gCount" hidden>
+          <h3 data-i="countH"></h3>
+          <div class="seg" id="segCount" role="group" data-ia="countH"></div>
+          <div class="hint" id="countHint"></div>
+        </div>
         <div class="grp" id="gTurn" hidden>
           <h3 data-i="turnH"></h3>
           <div class="seg" id="segTurn" role="group" data-ia="turnH"></div>
@@ -779,7 +795,10 @@ const I18N = {
   checkLabel:'반응 점검', checkH:'방금 훈련에서 있었던 일을 고르세요', checkSub:'여러 개를 고를 수 있습니다. 기록은 Progress의 반응 기록에 쓰입니다.',
   advC:'제2단계 C 모형 (p.66~97, 쪽당 15줄)', advCNote:'추정값입니다. 스캔본에서 제1단계 모형과의 비율로 계산했습니다. 책을 자로 재서 고쳐 주세요: 원 지름, 위아래 줄 간격(원 중심 사이), 한 쪽 안의 줄 길이(왼쪽 원 중심~오른쪽 원 중심), 두 쪽 사이 간격(왼쪽 쪽 오른쪽 원 중심~오른쪽 쪽 왼쪽 원 중심).',
   pitchL:'줄 간격', rowL:'한 쪽 줄 길이', cgapL:'두 쪽 사이 간격',
-  s2H:'제2단계 미리 해 보기', s2Sub:'원전 초기 과정에서는 Day 4부터',
+  s2H:'다른 훈련 미리 해 보기', s2Sub:'48일 과정에서는 날마다 정해진 훈련이 열립니다',
+  measC:'측정', markC:'1분이 지났습니다. <b>마지막으로 본 원</b>을 누르세요. 쪽은 ←/→로 오갈 수 있습니다.', markCsel:'원 <b>{n}개</b>까지 봤습니다', visGate:'원전이 말하는 1분에 1,200개(p.154 ⑲)까지 {n}개 남았습니다', visGateOk:'1분에 {n}개 — 원전이 말하는 1,200개(p.154 ⑲) 이상입니다',
+  countH:'원 하나에서 세는 수', countHint:'원전: "하나, 둘, 셋"을 세며 주시하고, 또는 "하나에서 다섯", "하나에서 일곱"을 센다.',
+  vpos_top:'쪽 맨 윗줄', vpos_mid:'쪽 가운데 줄', vpos_bot:'쪽 맨 아랫줄', vpos_topS:'두 쪽 맨 윗줄', vpos_midS:'두 쪽 가운데 줄', vpos_botS:'두 쪽 맨 아랫줄',
   turnH:'책장 넘기기', turnHand:'직접 넘기기', turnAuto:'자동',
   turnHintHand:'쪽이 바뀌는 순간 원이 멈춥니다. 오른쪽 쪽 아래를 누르거나 → 키를 누르면 책장이 넘어가고 다음 원이 이어집니다. 넘기는 데 걸린 시간을 기록합니다.',
   turnHintAuto:'책장이 저절로 넘어갑니다. 손 동작 없이 눈의 이동만 연습할 때 씁니다. 원전은 오른손으로 넘기므로 익숙해지면 직접 넘기기로 바꾸세요.',
@@ -826,7 +845,10 @@ const I18N = {
   checkLabel:'Reaction check', checkH:'What happened during that training?', checkSub:'Choose all that apply. These feed the reaction log in Progress.',
   advC:'Stage 2 Format C frames (pp.66–97, 15 rows per page)', advCNote:'These are estimates, worked out from the scan as ratios to the stage 1 frame. Please measure the book with a ruler and correct them: circle diameter, row spacing (center to center), row length within one page (left circle center to right circle center), and the gap between pages (right circle on the left page to left circle on the right page).',
   pitchL:'Row spacing', rowL:'Row length per page', cgapL:'Gap between pages',
-  s2H:'Try stage 2 early', s2Sub:'From day 4 of the initial stage in the source',
+  s2H:'Try other trainings early', s2Sub:'In the 48-day course, each day opens its set trainings',
+  measC:'Check', markC:'Time is up. Tap the <b>last circle you saw</b>. Use ←/→ to move between pages.', markCsel:'You reached <b>{n} circles</b>', visGate:'{n} to go to the source’s 1,200 a minute (p.154 ⑲)', visGateOk:'{n} a minute — at or above the source’s 1,200 (p.154 ⑲)',
+  countH:'Count per circle', countHint:'Source: watch each circle while counting "one, two, three" — or "one to five", "one to seven".',
+  vpos_top:'Top row of the page', vpos_mid:'Middle row of the page', vpos_bot:'Bottom row of the page', vpos_topS:'Top row of the spread', vpos_midS:'Middle row of the spread', vpos_botS:'Bottom row of the spread',
   turnH:'Page turning', turnHand:'Turn by hand', turnAuto:'Automatic',
   turnHintHand:'At each page change the circle waits. Tap the lower part of the right page or press → to turn, and the next circle follows. The time you take to turn is recorded.',
   turnHintAuto:'Pages turn by themselves — for practicing the eye movement without the hand. The source turns with the right hand, so switch to turning by hand once you’re used to it.',
@@ -903,14 +925,14 @@ const L = o => (o && typeof o === 'object') ? (o[lang] ?? o.ko) : o;
 /* =============== training definitions =============== */
 const DRILLS = {
  'A-I': {
-  id:'A-I', frame:'A', beats:3, introMode:'trace', next:'B-I', tag:'TRAINING 01',
+  id:'A-I', frame:'A', beats:3, counts:[3,5,7], vpos:'top', introMode:'trace', next:'B-I', tag:'TRAINING 01',
   name:{ko:'기본단계 A-I', en:'Basic stage A-I'},
   title:{ko:'기본단계 훈련 A-I', en:'Basic stage training A-I'},
   lead:{ko:'눈의 힘을 한 점에 모아 초점을 맺고, 그 힘을 유지한 채 천천히 다음 점으로 옮겨 가는 훈련입니다.', en:'Gather the strength of your eyes on one point, focus, and move slowly to the next point while holding that strength.'},
   steps:[
    {ko:'등을 기대지 말고 허리를 펴고 앉아, 화면과 일정한 거리를 유지합니다.', en:'Sit upright without leaning back and keep a steady distance from the screen.'},
    {ko:'도입: 파랗게 강조되는 원을 손가락이나 마우스로 짚으며 따라갑니다.', en:'Intro: trace the blue highlighted circle with your finger or mouse.'},
-   {ko:'훈련: 손을 떼고 눈으로만 따라갑니다. 원 하나를 바라보는 동안 마음속으로 "하나, 둘, 셋"을 셉니다.', en:'Training: hands off, follow with your eyes only. While looking at each circle, count "one, two, three" silently.'},
+   {ko:'훈련: 손을 떼고 눈으로만 따라갑니다. 원 하나를 바라보는 동안 마음속으로 수를 셉니다({cnt}).', en:'Training: hands off, follow with your eyes only. While looking at each circle, count {cnt} silently.'},
    {must:1, tag:'src', ref:'p.51', ko:'훈련이 끝날 때까지 눈을 깜박이지 않습니다. 눈물이 흐르는 것은 원전에서 설명하는 정상 반응입니다 (p.51, p.56).', en:'Do not blink until the training ends. Tearing up is a normal reaction as described in the source (p.51, p.56).'},
    {tag:'guide', ko:'깜박였다면 멈추지 말고, 다시 눈을 크게 뜨고 이어 갑니다. 처음에는 대부분 깜박입니다.', en:'If you blink, don’t stop. Open your eyes wide again and keep going. Most people blink at first.'},
    {tag:'safe', ko:'통증이나 심한 따가움, 흐려 보임이 계속되면 바로 멈춥니다. 콘택트렌즈는 빼고 합니다. 안구건조증이 있거나 눈 수술을 받았다면 안과 의사와 먼저 상의하세요.', en:'Stop at once if pain, severe stinging or blurred vision persists. Take out contact lenses first. If you have dry eye or have had eye surgery, talk to an eye doctor first.'}
@@ -922,11 +944,11 @@ const DRILLS = {
    {k:'p5', intro:60, train:300, label:{ko:'5분', en:'5 min'}, hint:{ko:'3분과 원전 8분 사이의 중간 단계. 원전에 없는 값으로, 서비스가 정한 단계입니다.', en:'A middle step between 3 min and the source’s 8 min. Not in the source; set by this service.'}},
    {k:'book', intro:60, train:480, label:{ko:'8분', en:'8 min'}, hint:{ko:'원전 A-I 훈련 시간 하한 (p.53)', en:'Lower bound of A-I training time in the source (p.53)'}}
   ], def:'day1', ladder:['day1','p5','book'], bookTrain:{min:480, label:{ko:'8~15분', en:'8–15 min'}, ref:'p.53'}, rounds:[1,2], roundsHint:{ko:'원전 A-I 훈련회수 1~2', en:'Source A-I rounds: 1–2'},
-  pace:{ko:'빠르기 1.0× = 원 하나에 3초. 원전에는 초 단위 값이 없어 추정값이며, 훈련 중 −/+로 바꿀 수 있습니다.', en:'Pace 1.0× = 3 s per circle. The source gives no value in seconds, so this is an estimate; adjust with −/+ during training.'},
+  pace:{ko:'빠르기 1.0× = 원 하나에 {sec}초 (한 박에 1초). 원전에는 초 단위 값이 없어 추정값이며, 훈련 중 −/+로 바꿀 수 있습니다.', en:'Pace 1.0× = {sec} s per circle (1 s per count). The source gives no value in seconds, so this is an estimate; adjust with −/+ during training.'},
   cdIntroMsg:{ko:'강조되는 원을 손가락이나 마우스로 짚으며 따라가세요.', en:'Trace the highlighted circle with your finger or mouse.'},
   cdTrainMsg:{ko:'손을 떼고 눈으로만 따라갑니다. 끝날 때까지 눈을 깜박이지 않습니다. 깜박였다면 다시 크게 뜨고 이어 가세요.', en:'Hands off — follow with your eyes only. Do not blink until it ends. If you blink, open wide again and keep going.'},
   phIntro:{ko:'<b>도입</b> 손가락이나 마우스로 강조된 원을 짚으며 따라가기', en:'<b>Intro</b> Trace the highlighted circle with your finger or mouse'},
-  phTrain:{ko:'<b>훈련</b> 눈으로만 따라가기, 원마다 "하나, 둘, 셋", 끝날 때까지 깜박이지 않기', en:'<b>Training</b> Eyes only, "one, two, three" per circle, no blinking until the end'},
+  phTrain:{ko:'<b>훈련</b> 눈으로만 따라가기, 원마다 {cnt}, 끝날 때까지 깜박이지 않기', en:'<b>Training</b> Eyes only, {cnt} per circle, no blinking until the end'},
   passL:{ko:'좌우 끝 도달', en:'End-to-end sweeps'},
   chips:[
    ['tears',{ko:'눈물이 흘렀다',en:'My eyes teared up'}],['sting',{ko:'눈이 따가웠다',en:'My eyes stung'}],
@@ -935,7 +957,7 @@ const DRILLS = {
   note:{ko:'원전은 기본단계 훈련 중 눈물이 흐르는 것을 정상 반응으로 설명합니다 (p.51, p.56).', en:'The source describes tearing up during basic-stage training as a normal reaction (p.51, p.56).'}
  },
  'B-I': {
-  id:'B-I', frame:'B', beats:1, introMode:'tap', next:'measure', tag:'TRAINING 02',
+  id:'B-I', frame:'B', beats:1, vpos:'top', introMode:'tap', next:'measure', tag:'TRAINING 02',
   name:{ko:'제1단계 B-I', en:'Stage 1 B-I'},
   title:{ko:'제1단계 훈련 B-I', en:'Stage 1 training B-I'},
   lead:{ko:'눈의 초점을 한쪽 끝에서 반대쪽 끝으로 옮겨 맺으며, 눈동자 움직임의 폭과 탄력을 기르는 훈련입니다.', en:'Shift your focus from one end of the row to the other, building the range and spring of your eye movements.'},
@@ -1041,6 +1063,131 @@ const DRILLS = {
  });
 })();
 const S2_IDS = ['C-I-1','C-I-2','C-II-1','C-II-2','C-III','C-IV'];
+
+/* ---- stage 3 (Format D) — 원전 pp.98–124 ---- */
+const CPM_STEPS = [30, 45, 60, 90, 120, 150, 180, 240, 300, 400, 500, 600, 800, 1000, 1200, 1500];
+(() => {
+ const base = (fmt, extra) => ({
+  frame:'D', fmt, dense:true, beats:1, introMode:'tap', kind:'spread', cpmSteps:true,
+  pace:{ko:'빠르기: 1분에 원 120개로 시작합니다. 원전에는 처음 빠르기 값이 없어 추정값이며, 훈련 중 ↑/↓로 1분에 30~1,500개 사이에서 바꿀 수 있습니다. 원전은 약 3주 훈련 뒤 시각능력이 1분에 1,200개 이상이 되면 중간 글줄까지 모두 지각된다고 합니다 (p.154 ⑲).', en:'Pace: starts at 120 circles a minute. The source gives no starting value, so this is an estimate; change it with ↑/↓ during training, from 30 to 1,500 a minute. The source says that after about three weeks, once visual ability reaches 1,200 a minute or more, the lines in between are perceived too (p.154 ⑲).'},
+  cdIntroMsg:{ko:'오른손 둘째 손가락으로 원을 짚고, 화살표를 따라 밀고 나가세요.', en:'Touch the circle with your right index finger and push along the arrows.'},
+  cdTrainMsg:{ko:'손을 떼고 눈으로만 원을 하나씩 밀고 나갑니다. 끝날 때까지 깜박이지 않습니다. 깜박였다면 다시 크게 뜨고 이어 가세요.', en:'Hands off — push through the circles one by one with your eyes only. Do not blink until it ends. If you blink, open wide again and keep going.'},
+  phIntro:{ko:'<b>도입</b> 손가락으로 원을 짚고 화살표를 따라 밀고 나가기', en:'<b>Intro</b> Touch each circle and push along the arrows'},
+  phTrain:{ko:'<b>훈련</b> 눈으로 원을 하나씩 밀고 나가기, 점선도 같은 빠르기로', en:'<b>Training</b> Eyes push through each circle; read the dotted line at the same speed'},
+  passL:{ko:'지나간 원', en:'Circles covered'},
+  chips:[
+   ['tears',{ko:'눈물이 흘렀다',en:'My eyes teared up'}],['head',{ko:'고개가 좌우로 움직였다',en:'My head moved side to side'}],
+   ['skip',{ko:'원을 건너뛰었다',en:'I skipped circles'}],['uneven',{ko:'원과 점선의 빠르기가 달랐다',en:'Circles and dotted lines went at different speeds'}],
+   ['stall',{ko:'눈의 움직임이 멈췄다',en:'My eye movement stalled'}],['neck',{ko:'목과 어깨에 힘이 들어갔다',en:'My neck and shoulders tensed'}],
+   ['none',{ko:'특별한 반응 없음',en:'Nothing notable'}]
+  ],
+  note:{ko:'원전은 원을 읽어 나가는 속도와 점선을 읽어 나가는 속도가 같아야 하고, 속도가 다르면 잘못된 훈련이 된다고 합니다 (p.100 ⑫⑬).', en:'The source says the speed through the circles and along the dotted lines must be the same; if they differ, the training goes wrong (p.100 ⑫⑬).'},
+  ...extra
+ });
+ const S_POSTURE = {ko:'등을 기대지 말고 앉아, 콧날을 두 쪽 사이의 가운데 선에 맞춥니다 (p.100 ⑦).', en:'Sit upright without leaning back and line your nose up with the center line between the two pages (p.100 ⑦).'};
+ const S_INTRO = {ko:'도입: 오른손 둘째 손가락 끝으로 출발점을 짚고, 화살표 방향으로 등속도와 율동적인 운동으로 밀고 나갑니다. 줄 끝에서는 점선 줄을 따라 다음 줄로 이행합니다 (p.102).', en:'Intro: touch the starting point with your right index fingertip and push along the arrows with an even, rhythmic motion. At the end of a row, follow the dotted line to the next row (p.102).'};
+ const S_PUSH = {tag:'src', ref:'p.100', ko:'첫째 원부터 열째 원까지 화살표를 따라 손가락으로 밀고 나가듯이 눈으로 읽어 나가고, 이어서 점선을 같은 속도로 읽어 나갑니다 (p.100 ⑩~⑫). 제2단계처럼 뛰어넘지 않습니다 (p.111 ③).', en:'Read from the first to the tenth circle along the arrows as if pushing with your finger, then read the dotted line at the same speed (p.100 ⑩–⑫). Do not jump as in stage 2 (p.111 ③).'};
+ const S_TRAIN = {ko:'훈련: 손을 떼고 눈으로 훈련합니다. 오른손은 오른쪽 책장을 넘길 준비를 합니다 (p.102).', en:'Training: hands off, train with your eyes. Your right hand gets ready to turn the right page (p.102).'};
+ const S_BLINK = {must:1, tag:'src', ref:'p.101', ko:'눈을 활짝 크게 뜨고, 깜박이지 않고 계속 훈련합니다 (p.101 ㊲).', en:'Keep your eyes wide open and keep training without blinking (p.101 ㊲).'};
+ const S_GUIDE = {tag:'guide', ko:'깜박였다면 멈추지 말고, 다시 눈을 크게 뜨고 이어 갑니다.', en:'If you blink, don’t stop. Open your eyes wide again and keep going.'};
+ const S_SAFE = {tag:'safe', ko:'통증이나 심한 따가움, 흐려 보임이 계속되면 바로 멈춥니다. 콘택트렌즈는 빼고 합니다.', en:'Stop at once if pain, severe stinging or blurred vision persists. Take out contact lenses first.'};
+ const S_TURN = {tag:'design', ko:'화면에서는 오른쪽 쪽 아래 모서리를 누르거나 → 키를 눌러 책장을 넘깁니다 (원전 p.101 ⑳ "오른손은 준비된 자세로 있다가 신속하게 책장을 넘긴다").', en:'On screen, turn the page by tapping the lower corner of the right page or pressing → (source p.101 ⑳: "the right hand waits ready, then turns the page quickly").'};
+ const pr = (k, i, t, ko, en, hko, hen) => ({ k, intro:i, train:t, label:{ko, en}, hint:{ko:hko, en:hen} });
+ const DEMO = pr('demo', 10, 20, '20초 체험', '20 s trial', '빠른 체험용 (원전 기준보다 짧음)', 'Quick trial (shorter than the source standard)');
+ const steps = (...mid) => [S_POSTURE, S_INTRO, S_PUSH, ...mid, S_TRAIN, S_BLINK, S_GUIDE, S_SAFE];
+ Object.assign(DRILLS, {
+  'D-I-1': base('I-1', { id:'D-I-1', next:'D-I-2', tag:'TRAINING 09',
+   name:{ko:'제3단계 D-I-1', en:'Stage 3 D-I-1'}, title:{ko:'제3단계 D-I-1 쪽 이행', en:'Stage 3 D-I-1: Moving across pages'},
+   lead:{ko:'원 열 개가 이어진 줄을 하나씩 밀고 나가며, 왼쪽 쪽 마지막 줄에서 오른쪽 쪽 첫 줄로 넘어가는 훈련입니다. 책 읽는 활동과 가장 비슷한 훈련입니다 (p.98 J.1 ④).', en:'Push through rows of ten linked circles, crossing from the last row of the left page to the first row of the right page. This is the training closest to reading a book (p.98 J.1 ④).'},
+   steps: steps({ko:'왼쪽 쪽 맨 밑줄의 원1부터 읽고, 바로 이어서 오른쪽 쪽 맨 윗줄 끝의 원2까지 빠르게 읽어 나갑니다 (p.100 ⑮⑯).', en:'Read from circle 1 on the left page’s bottom row and carry straight on to circle 2 at the end of the right page’s top row (p.100 ⑮⑯).'}),
+   src:{ko:'근거: 『과학적 속독법』 제3단계 훈련 p.98~106. 훈련 투입 방법 p.103: D-I-1 도입 0.5분, 훈련 1분, 훈련회수 1~3.', en:'Source: "Scientific Speed Reading", stage 3 training pp.98–106. Training schedule p.103: D-I-1 intro 0.5 min, training 1 min, 1–3 rounds.'},
+   presets:[DEMO, pr('book', 30, 60, '1분', '1 min', '원전 D-I-1 (p.103: 도입 0.5분, 훈련 1분)', 'Source D-I-1 (p.103: intro 0.5 min, training 1 min)')], def:'book',
+   bookTrain:{min:60, label:{ko:'1분', en:'1 min'}, ref:'p.103'}, rounds:[1,2,3], roundsHint:{ko:'원전 D-I-1 훈련회수 1~3', en:'Source D-I-1 rounds: 1–3'} }),
+  'D-I-2': base('I-2', { id:'D-I-2', next:'D-II-1', tag:'TRAINING 10', turns:true,
+   name:{ko:'제3단계 D-I-2', en:'Stage 3 D-I-2'}, title:{ko:'제3단계 D-I-2 책장 넘기기', en:'Stage 3 D-I-2: Turning the page'},
+   lead:{ko:'오른쪽 쪽 마지막 줄을 밀고 나간 뒤 책장을 넘기고, 다음 쪽 첫 줄로 이어 가는 훈련입니다.', en:'Push through the last row of the right page, turn the page, and carry on into the first row of the next page.'},
+   steps: steps({ko:'오른쪽 쪽 맨 밑줄의 원1부터 읽고, 책장을 넘겨 다음 쪽 첫 줄의 맨 마지막 원2까지 읽어 나갑니다 (p.100 ⑱⑲).', en:'Read from circle 1 on the right page’s bottom row, turn the page, and read on to circle 2 at the end of the next page’s first row (p.100 ⑱⑲).'}, S_TURN),
+   src:{ko:'근거: 『과학적 속독법』 제3단계 훈련 p.98~106. 훈련 투입 방법 p.103: D-I-2 도입 0.5분, 훈련 1~2분, 훈련회수 1~3.', en:'Source: "Scientific Speed Reading", stage 3 training pp.98–106. Training schedule p.103: D-I-2 intro 0.5 min, training 1–2 min, 1–3 rounds.'},
+   presets:[DEMO, pr('b1', 30, 60, '1분', '1 min', '원전 D-I-2 훈련 시간 하한 (p.103)', 'Lower bound of source D-I-2 training time (p.103)'), pr('b2', 30, 120, '2분', '2 min', '원전 D-I-2 훈련 시간 상한 (p.103)', 'Upper bound of source D-I-2 training time (p.103)')], def:'b1',
+   bookTrain:{min:60, label:{ko:'1~2분', en:'1–2 min'}, ref:'p.103'}, rounds:[1,2,3], roundsHint:{ko:'원전 D-I-2 훈련회수 1~3', en:'Source D-I-2 rounds: 1–3'} }),
+  'D-II-1': base('II-1', { id:'D-II-1', next:'D-II-2', tag:'TRAINING 11',
+   name:{ko:'제3단계 D-II-1', en:'Stage 3 D-II-1'}, title:{ko:'제3단계 D-II-1 여러 줄 쪽 이행', en:'Stage 3 D-II-1: Several rows across pages'},
+   lead:{ko:'왼쪽 쪽 아래 네 줄과 오른쪽 쪽 위 네 줄을, 줄 사이 점선까지 같은 빠르기로 이어 읽는 훈련입니다.', en:'Read four rows at the bottom of the left page and four at the top of the right page, dotted lines included, at one speed.'},
+   steps: steps(),
+   src:{ko:'근거: 『과학적 속독법』 모형 D-II-1 p.107~109. 훈련 투입 방법 p.107: 도입 1분, 훈련 1분, 훈련회수 1~3.', en:'Source: "Scientific Speed Reading", frame D-II-1 pp.107–109. Training schedule p.107: intro 1 min, training 1 min, 1–3 rounds.'},
+   presets:[DEMO, pr('book', 60, 60, '1분', '1 min', '원전 D-II-1 (p.107: 도입 1분, 훈련 1분)', 'Source D-II-1 (p.107: intro 1 min, training 1 min)')], def:'book',
+   bookTrain:{min:60, label:{ko:'1분', en:'1 min'}, ref:'p.107'}, rounds:[1,2,3], roundsHint:{ko:'원전 D-II-1 훈련회수 1~3', en:'Source D-II-1 rounds: 1–3'} }),
+  'D-II-2': base('II-2', { id:'D-II-2', next:'D-III', tag:'TRAINING 12', turns:true,
+   name:{ko:'제3단계 D-II-2', en:'Stage 3 D-II-2'}, title:{ko:'제3단계 D-II-2 여러 줄 책장 넘기기', en:'Stage 3 D-II-2: Several rows with a page turn'},
+   lead:{ko:'오른쪽 쪽 아래 네 줄을 읽고 책장을 넘겨, 다음 쪽 위 네 줄로 이어 읽는 훈련입니다.', en:'Read four rows at the bottom of the right page, turn the page, and carry on into four rows at the top of the next page.'},
+   steps: steps(S_TURN),
+   src:{ko:'근거: 『과학적 속독법』 모형 D-II-2 p.107, p.109~110. 훈련 투입 방법 p.107: 도입 1분, 훈련 1~2분, 훈련회수 1~3.', en:'Source: "Scientific Speed Reading", frame D-II-2 p.107, pp.109–110. Training schedule p.107: intro 1 min, training 1–2 min, 1–3 rounds.'},
+   presets:[DEMO, pr('b1', 60, 60, '1분', '1 min', '원전 D-II-2 훈련 시간 하한 (p.107)', 'Lower bound of source D-II-2 training time (p.107)'), pr('b2', 60, 120, '2분', '2 min', '원전 D-II-2 훈련 시간 상한 (p.107)', 'Upper bound of source D-II-2 training time (p.107)')], def:'b1',
+   bookTrain:{min:60, label:{ko:'1~2분', en:'1–2 min'}, ref:'p.107'}, rounds:[1,2,3], roundsHint:{ko:'원전 D-II-2 훈련회수 1~3', en:'Source D-II-2 rounds: 1–3'} }),
+  'D-III': base('III', { id:'D-III', next:'D-IV', tag:'TRAINING 13', parts:true,
+   name:{ko:'제3단계 D-III 사방훈련', en:'Stage 3 D-III four-corner'}, title:{ko:'제3단계 D-III 사방훈련', en:'Stage 3 D-III: Four-corner training'},
+   lead:{ko:'두 쪽의 네 곳에서 네 줄짜리 묶음을 밀고 나가는 훈련입니다. 어느 자리에서든 같은 빠르기를 유지하게 합니다.', en:'Push through a four-row block in each of four places on the spread, keeping the same speed anywhere.'},
+   steps:[S_POSTURE, {ko:'원1에서 원2까지 훈련한 다음, 곧 이어서 원2에서 다시 원1로 되돌아가 같은 방법대로 반복합니다 (p.111 ①).', en:'Go from circle 1 to circle 2, then go straight back from circle 2 to circle 1 and repeat the same way (p.111 ①).'}, {ko:'등속도 운동으로, 손으로 한 다음 눈으로 봅니다. 제2단계처럼 뛰어넘지 않고 밀고 나갑니다 (p.111 ②③).', en:'Keep an even pace — first with your hand, then with your eyes. Push through instead of jumping as in stage 2 (p.111 ②③).'}, {ko:'같은 방법으로 III-2에서 III-4까지 훈련하고, 4곳 가운데 가장 안 되는 곳을 더 연습합니다 (p.111 ④⑤).', en:'Do III-2 to III-4 the same way, then practice more on whichever place went worst (p.111 ④⑤).'}, S_BLINK, S_GUIDE, S_SAFE],
+   src:{ko:'근거: 『과학적 속독법』 사방훈련 모형 D-III p.111~113. 훈련 투입 방법 p.111: 모형마다 도입 0.5~1분, 훈련 1분, 훈련회수 1.', en:'Source: "Scientific Speed Reading", four-corner frames D-III pp.111–113. Training schedule p.111: each frame intro 0.5–1 min, training 1 min, 1 round.'},
+   presets:[DEMO, pr('b30', 30, 60, '도입 30초', 'Intro 30 s', '원전 D-III 모형마다 도입 0.5분, 훈련 1분 (p.111)', 'Source D-III per frame: intro 0.5 min, training 1 min (p.111)'), pr('b60', 60, 60, '도입 1분', 'Intro 1 min', '원전 D-III 모형마다 도입 1분, 훈련 1분 (p.111)', 'Source D-III per frame: intro 1 min, training 1 min (p.111)')], def:'b30',
+   bookTrain:{min:60, label:{ko:'모형마다 1분', en:'1 min per frame'}, ref:'p.111'}, rounds:[1], roundsHint:{ko:'원전 D-III 훈련회수 1 (모형마다)', en:'Source D-III rounds: 1 per frame'} }),
+  'D-IV': base('IV', { id:'D-IV', next:'D-CHK', tag:'TRAINING 14', turns:true,
+   name:{ko:'제3단계 D-IV', en:'Stage 3 D-IV'}, title:{ko:'제3단계 D-IV 연속 쪽 훈련', en:'Stage 3 D-IV: Continuous pages'},
+   lead:{ko:'한 쪽에 원 150개(10개 × 15줄)씩, 9쪽 1,350개를 차례로 밀고 나가는 훈련입니다. 줄 바꾸기, 쪽 이행, 책장 넘기기를 실제 책 읽기처럼 잇습니다.', en:'Push through 150 circles a page (10 × 15 rows), 1,350 across nine pages, in order — row changes, page changes and page turns linked as in real reading.'},
+   steps: steps(S_TURN, {ko:'여백의 숫자 10, 50, 100 … 1,350은 원전 모형에 적힌 원의 개수를 그대로 옮긴 것입니다 (p.115 ③).', en:'The margin numbers 10, 50, 100 … 1,350 are the circle counts printed in the source frame (p.115 ③).'}),
+   src:{ko:'근거: 『과학적 속독법』 제3단계 훈련 모형 D-IV p.114~124. 훈련 투입 방법 p.114: 도입 1분, 훈련 2~3분, 훈련회수 1.', en:'Source: "Scientific Speed Reading", stage 3 frame D-IV pp.114–124. Training schedule p.114: intro 1 min, training 2–3 min, 1 round.'},
+   presets:[pr('demo', 10, 30, '30초 체험', '30 s trial', '빠른 체험용 (원전 기준보다 짧음)', 'Quick trial (shorter than the source standard)'), pr('b2', 60, 120, '2분', '2 min', '원전 D-IV 훈련 시간 하한 (p.114)', 'Lower bound of source D-IV training time (p.114)'), pr('b3', 60, 180, '3분', '3 min', '원전 D-IV 훈련 시간 상한 (p.114)', 'Upper bound of source D-IV training time (p.114)')], def:'b2',
+   bookTrain:{min:120, label:{ko:'2~3분', en:'2–3 min'}, ref:'p.114'}, rounds:[1], roundsHint:{ko:'원전 D-IV 훈련회수 1', en:'Source D-IV rounds: 1'} }),
+  'D-CHK': base('IV', { id:'D-CHK', next:'measure', tag:'CHECK 02', turns:true, free:true, introMode:'none',
+   name:{ko:'시각능력 1분 측정', en:'1-minute visual-ability check'}, title:{ko:'시각능력 1분 측정', en:'1-minute visual-ability check'},
+   lead:{ko:'D-IV 모형의 원과 화살표를 1분 동안 내 빠르기로 읽어 나가고, 어디까지 갔는지 표시해 1분에 원 몇 개를 보는지 잽니다 (p.115 시각능력 측정자료).', en:'Read the circles and arrows of the D-IV frame at your own pace for one minute, then mark where you got to, to see how many circles you take in per minute (p.115, visual-ability measurement).'},
+   steps:[S_POSTURE, {tag:'src', ref:'p.115', ko:'원과 화살표를 차례대로 읽어 나갑니다. 보면서 지나가고, 이어서 점선을 따라 등속도로 계속해서 멈추지 않고 읽어 나갑니다 (p.115 ①).', en:'Read the circles and arrows in order, seeing them as you pass; then follow the dotted line at an even speed without stopping (p.115 ①).'}, {tag:'src', ref:'p.115', ko:'원의 개수만 셉니다. 한 줄에 10개, 한 쪽에 15줄이므로 한 쪽의 원은 150개입니다 (p.115 ②③).', en:'Only the circles are counted: 10 a row, 15 rows a page, so 150 circles a page (p.115 ②③).'}, {ko:'1분이 지나면 화면이 멈춥니다. 마지막으로 본 원을 누르세요. 원전에서 연필로 표시하는 것(p.115 ④)을 화면에서 하는 방법입니다.', en:'After one minute the screen stops. Tap the last circle you saw. This stands in for the source’s pencil mark (p.115 ④).', tag:'design'}, {tag:'design', ko:'책장은 오른쪽 쪽 아래를 누르거나 → 키로 넘기고, ← 키로 돌아갑니다. 빠르기 표시는 없습니다.', en:'Turn pages by tapping the lower right page or pressing →; go back with ←. There is no pacer.'}, S_BLINK, S_SAFE],
+   src:{ko:'근거: 『과학적 속독법』 시각능력 측정자료 p.115, 모형 D-IV p.116~124. 1분에 1,200개 이상의 의미 p.154 ⑲.', en:'Source: "Scientific Speed Reading", visual-ability measurement p.115, frame D-IV pp.116–124. Meaning of 1,200 a minute or more: p.154 ⑲.'},
+   presets:[pr('book', 0, 60, '1분', '1 min', '원전 시각능력 측정: 1분 (p.115 ④)', 'Source visual-ability check: 1 minute (p.115 ④)')], def:'book',
+   bookTrain:{min:60, label:{ko:'1분', en:'1 min'}, ref:'p.115'}, rounds:[1], roundsHint:{ko:'측정은 한 번', en:'One check'},
+   phTrain:{ko:'<b>측정</b> 원과 점선을 멈추지 않고 읽어 나가기', en:'<b>Check</b> Read circles and dotted lines without stopping'},
+   passL:{ko:'1분에 본 원', en:'Circles in one minute'} })
+ });
+})();
+const S3_IDS = ['D-I-1','D-I-2','D-II-1','D-II-2','D-III','D-IV','D-CHK'];
+
+/* ---- A-II, A-III, B-II, B-III: the same frames printed at other rows of the page (p.54~55, p.59~61) ---- */
+(() => {
+ const A = DRILLS['A-I'], B = DRILLS['B-I'];
+ const posStep = (ko, en, ref) => ({ tag:'src', ref, ko, en });
+ const quote = (ko, en, ref) => ({ tag:'src', ref, ko, en });
+ const insertAt = (steps, i, ...add) => steps.slice(0, i).concat(add, steps.slice(i));
+ const DEMO_A = A.presets[0], DAY1_A = A.presets[1];
+ A.steps = insertAt(A.steps, 1, posStep('모형 I은 쪽의 맨 윗줄에 있는 원 13개입니다 (p.54 "1·1 모형 I").', 'Frame I is the row of 13 circles at the top of the page (p.54, "1·1 Frame I").', 'p.54'));
+ A.quote = { ko:'"황소공격형으로 쏘아보아라. 바늘(송곳) 끝으로 꽂는 것처럼 쏘아보자. 마음의 면도날을 만들어 파고들며 천천히 힘주어 이동하자."', en:'"Glare in the charging-bull posture. Glare as if pinning it with the point of a needle (an awl). Make a razor of the mind, dig in, and move slowly and with force."', ref:'p.54' };
+ DRILLS['A-II'] = Object.assign({}, A, { id:'A-II', vpos:'mid', next:'A-III', tag:'TRAINING 01 · II',
+  name:{ko:'기본단계 A-II', en:'Basic stage A-II'}, title:{ko:'기본단계 훈련 A-II', en:'Basic stage training A-II'},
+  steps: insertAt(A.steps.filter((x, i) => i !== 1), 1, posStep('모형 II는 쪽의 가운데 줄에 있는 원 13개입니다 (p.54 "1·2 모형 II").', 'Frame II is the row of 13 circles in the middle of the page (p.54, "1·2 Frame II").', 'p.54')),
+  quote:{ ko:'"멈춤식 쏘아보기: 집중과 확산의 갈등 이용 / 이동식 쏘아보기: 멈춤과 이동의 갈등 이용"', en:'"Stop-glare: use the tension between focusing and spreading out. Move-glare: use the tension between stopping and moving."', ref:'p.54' },
+  src:{ko:'근거: 『과학적 속독법』 기본단계 훈련 p.50~55. 훈련 투입 방법 p.53: A-II 도입 1~3분, 훈련 5~10분, 훈련회수 0~1, 방향 좌⇄우.', en:'Source: "Scientific Speed Reading", basic-stage training pp.50–55. Training schedule p.53: A-II intro 1–3 min, training 5–10 min, 0–1 rounds, direction left⇄right.'},
+  presets:[DEMO_A, DAY1_A, {k:'book', intro:60, train:300, label:{ko:'5분', en:'5 min'}, hint:{ko:'원전 A-II 훈련 시간 하한 (p.53)', en:'Lower bound of A-II training time in the source (p.53)'}}],
+  ladder:['day1','book'], bookTrain:{min:300, label:{ko:'5~10분', en:'5–10 min'}, ref:'p.53'},
+  rounds:[1], roundsHint:{ko:'원전 A-II 훈련회수 0~1 (건너뛸 수 있음)', en:'Source A-II rounds: 0–1 (may be skipped)'} });
+ DRILLS['A-III'] = Object.assign({}, A, { id:'A-III', vpos:'bot', next:'B-I', tag:'TRAINING 01 · III',
+  name:{ko:'기본단계 A-III', en:'Basic stage A-III'}, title:{ko:'기본단계 훈련 A-III', en:'Basic stage training A-III'},
+  steps: insertAt(A.steps.filter((x, i) => i !== 1), 1, posStep('모형 III은 쪽의 맨 아랫줄에 있는 원 13개입니다 (p.54 "1·3 모형 III").', 'Frame III is the row of 13 circles at the bottom of the page (p.54, "1·3 Frame III").', 'p.54')),
+  quote:{ ko:'"잠재의식(潛在意識)으로 빠져들자. 최면상태(催眠狀態)로 들어가자."', en:'"Sink into the subconscious. Enter a trance-like state."', ref:'p.55' },
+  src:{ko:'근거: 『과학적 속독법』 기본단계 훈련 p.50~55. 훈련 투입 방법 p.53: A-III 도입 1~3분, 훈련 8~15분, 훈련회수 1~2, 방향 좌⇄우.', en:'Source: "Scientific Speed Reading", basic-stage training pp.50–55. Training schedule p.53: A-III intro 1–3 min, training 8–15 min, 1–2 rounds, direction left⇄right.'},
+  roundsHint:{ko:'원전 A-III 훈련회수 1~2', en:'Source A-III rounds: 1–2'} });
+ A.next = 'B-I';
+ B.steps = insertAt(B.steps, 1, posStep('모형 I은 펼친 두 쪽의 맨 윗줄입니다 (p.59).', 'Frame I is the top row of the open two-page spread (p.59).', 'p.59'));
+ const bClone = (id, vpos, ko, en, rounds, rko, ren, next) => Object.assign({}, B, { id, vpos, next, tag:'TRAINING 02 · ' + id.split('-')[1],
+  name:{ko:'제1단계 ' + id, en:'Stage 1 ' + id}, title:{ko:'제1단계 훈련 ' + id, en:'Stage 1 training ' + id},
+  steps: insertAt(B.steps.filter((x, i) => i !== 1), 1, posStep(ko, en, 'p.59')),
+  src:{ko:'근거: 『과학적 속독법』 제1단계 훈련 p.56~61. 훈련 투입 방법 p.59: ' + id + ' 도입 0.5~1분, 훈련 1분, 훈련회수 ' + rko + ', 방향 좌⇄우.', en:'Source: "Scientific Speed Reading", stage 1 training pp.56–61. Training schedule p.59: ' + id + ' intro 0.5–1 min, training 1 min, ' + ren + ' rounds, direction left⇄right.'},
+  rounds, roundsHint:{ko:'원전 ' + id + ' 훈련회수 ' + rko, en:'Source ' + id + ' rounds: ' + ren} });
+ DRILLS['B-II'] = bClone('B-II', 'mid', '모형 II는 펼친 두 쪽의 가운데 줄입니다 (p.59).', 'Frame II is the middle row of the open two-page spread (p.59).', [1], '1', '1', 'B-III');
+ DRILLS['B-III'] = bClone('B-III', 'bot', '모형 III은 펼친 두 쪽의 맨 아랫줄입니다 (p.59).', 'Frame III is the bottom row of the open two-page spread (p.59).', [1,2], '1~2', '1–2', 'measure');
+})();
+const EXTRA_IDS = ['A-II','A-III','B-II','B-III', ...S2_IDS, ...S3_IDS];
+const CNT_WORDS = { 3:{ko:'"하나, 둘, 셋"', en:'"one, two, three"'}, 5:{ko:'"하나"부터 "다섯"까지', en:'"one" to "five"'}, 7:{ko:'"하나"부터 "일곱"까지', en:'"one" to "seven"'} };
+const beatsOf = D => D.counts ? Number((cfg[D.id] && cfg[D.id].count) || D.beats) : D.beats;
+const fx = (str, D) => String(str).replace('{cnt}', L(CNT_WORDS[beatsOf(D)] || CNT_WORDS[3])).replace('{sec}', beatsOf(D));
 
 const MEASURE = {
  id:'measure', tag:'CHECK 01',
@@ -1224,7 +1371,7 @@ const fmtFloor = s => { s = Math.max(0, Math.floor(s)); return Math.floor(s/60) 
 const nf = n => Number(n).toLocaleString(lang === 'ko' ? 'ko-KR' : 'en-US');
 const todayStr = () => { const d = new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); };
 const cfg = store.get(K_CFG, {});
-for (const id in DRILLS){ cfg[id] = Object.assign({ preset: DRILLS[id].def, rounds: DRILLS[id].rounds[0] }, DRILLS[id].turns ? { turn: 'hand' } : {}, DRILLS[id].parts ? { part: 'all' } : {}, cfg[id] || {}); }
+for (const id in DRILLS){ cfg[id] = Object.assign({ preset: DRILLS[id].def, rounds: DRILLS[id].rounds[0] }, DRILLS[id].turns ? { turn: 'hand' } : {}, DRILLS[id].parts ? { part: 'all' } : {}, DRILLS[id].counts ? { count: 3 } : {}, cfg[id] || {}); }
 cfg.measure = Object.assign({ mode: 'normal' }, cfg.measure || {});
 const saveCfg = () => store.set(K_CFG, cfg);
 const presetOf = id => DRILLS[id].presets.find(p => p.k === cfg[id].preset) || DRILLS[id].presets[1];
@@ -1311,19 +1458,33 @@ function spreadGeo(b){
     x: (page, side) => (page === 'L' ? mo : pw + mi) + (side === 'R' ? b.cRow : 0),
     y: i => mt + i * b.cPitch };
 }
-// rows: [{sp, page, i, lab:{L,R}, num}] in reading order; returns pts/seq/rows
+// rows: [{sp, page, i, lab:{L,R}, num, n}] in reading order; returns pts/seq/rows
+// n > 2 (stage 3): circles chained in the row; the dotted return line to the next row is read at the same speed (p.100 ⑫),
+// so it gets n-2 virtual pacer points.
 function rowsToG(rows, b, mode){
   const g = spreadGeo(b), pts = [], seq = [], R = b.cDiam / 2;
-  rows.forEach(r => {
-    r.L = pts.length; pts.push({ x: g.x(r.page, 'L'), y: g.y(r.i), sp: r.sp, side: 'L', lab: r.lab && r.lab.L });
-    r.R = pts.length; pts.push({ x: g.x(r.page, 'R'), y: g.y(r.i), sp: r.sp, side: 'R', lab: r.lab && r.lab.R });
-    seq.push(r.L, r.R);
+  rows.forEach((r, ri) => {
+    const n = r.n || 2, xL = g.x(r.page, 'L'), xR = g.x(r.page, 'R'), y = g.y(r.i);
+    r.ids = [];
+    for (let j = 0; j < n; j++){
+      const side = j === 0 ? 'L' : j === n - 1 ? 'R' : 'M';
+      const lab = r.lab ? (j === 0 ? r.lab.L : j === n - 1 ? r.lab.R : null) : null;
+      r.ids.push(pts.length); pts.push({ x: xL + (xR - xL) * j / (n - 1), y, sp: r.sp, side, lab });
+      seq.push(pts.length - 1);
+    }
+    r.L = r.ids[0]; r.R = r.ids[n - 1];
+    const nx = rows[ri + 1];
+    r.ret = n > 2 && nx && nx.sp === r.sp && nx.page === r.page && nx.i === r.i + 1;
+    if (r.ret){
+      const ym = y + b.cPitch / 2;
+      for (let k = 1; k <= n - 2; k++){ pts.push({ x: xR - (xR - xL) * k / (n - 1), y: ym, sp: r.sp, side: 'V', virtual: true }); seq.push(pts.length - 1); }
+    }
   });
   return { kind: 'spread', geo: g, vb: [g.W, g.H], R, pitch: b.cPitch, pts, seq, rows, mode: mode || 'cycle',
-           nSp: Math.max(...rows.map(r => r.sp)) + 1 };
+           dense: rows.some(r => (r.n || 2) > 2), nSp: Math.max(...rows.map(r => r.sp)) + 1 };
 }
-function buildC(fmt, part, b){
-  const rows = [], add = (sp, page, i, lab) => rows.push({ sp, page, i, lab });
+function buildC(fmt, part, b, dense){
+  const n = dense ? 10 : 2, rows = [], add = (sp, page, i, lab) => rows.push({ sp, page, i, lab, n });
   const last = C_ROWS - 1;
   if (fmt === 'I-1'){ add(0, 'L', last, { L: '1' }); add(0, 'R', 0, { R: '2' }); }
   else if (fmt === 'I-2'){ add(0, 'R', last, { L: '1' }); add(1, 'L', 0, { R: '2' }); }
@@ -1331,16 +1492,20 @@ function buildC(fmt, part, b){
   else if (fmt === 'II-2'){ for (let i = last - 3; i <= last; i++) add(0, 'R', i, i === last ? { L: '1' } : null); for (let i = 0; i < 4; i++) add(1, 'L', i, i === 0 ? { R: '2' } : null); }
   else if (fmt === 'III'){
     const pos = { 1: ['L', 0], 2: ['L', last - 3], 3: ['R', 0], 4: ['R', last - 3] }[part];
-    for (let k = 0; k < 4; k++) add(0, pos[0], pos[1] + k, { L: String(2 * k + 1), R: String(2 * k + 2) });
+    for (let k = 0; k < 4; k++){
+      const lab = dense ? (k === 0 ? { L: '1' } : k === 3 ? { R: '2' } : null) : { L: String(2 * k + 1), R: String(2 * k + 2) };
+      add(0, pos[0], pos[1] + k, lab);
+    }
   }
   else if (fmt === 'IV'){
-    for (let pg = 0; pg < 20; pg++){
+    const pages = dense ? 9 : 20;                      // C-IV pp.78–97 (3,000), D-IV pp.116–124 (1,350)
+    for (let pg = 0; pg < pages; pg++){
       const sp = Math.floor(pg / 2), page = pg % 2 ? 'R' : 'L';
       for (let i = 0; i < C_ROWS; i++){
         const lab = {};
         if (i === last) lab.L = '1';
         if (i === 0 && pg > 0) lab.R = '2';
-        const r = { sp, page, i, lab };
+        const r = { sp, page, i, lab, n };
         if (i === 0 || i === 4 || i === 9 || i === last) r.num = (pg * C_ROWS + i + 1) * 10;
         rows.push(r);
       }
@@ -1449,7 +1614,7 @@ function renderDash(){
     ul.append(li);
   });
   const tdy = loadT().filter(r => r.date === todayStr() && !r.aborted), s2 = $('#s2Rows'); s2.innerHTML = '';
-  S2_IDS.forEach(id => {
+  EXTRA_IDS.forEach(id => {
     const done = tdy.some(r => r.frame === id), li = document.createElement('li');
     li.innerHTML = '<button type="button"><span class="dot ' + (done ? 'done' : '') + '"></span><span class="nm">' + esc(L(DRILLS[id].name)) +
       '</span><span class="plan">' + esc(planText(id)) + '</span><span class="st ' + (done ? 'done' : '') + '">' + T(done ? 'stDone' : 'stTodo') + '</span></button>';
@@ -1500,9 +1665,10 @@ function openBrief(id){
   $('#bBrand').textContent = D.tag;
   $('#bTitle').textContent = L(D.title);
   $('#bLead').textContent = L(D.lead);
-  $('#bSteps').innerHTML = D.steps.map(s => '<li' + (s.must ? ' class="must"' : '') + '><span>' + esc(L(s)) + (s.tag ? ' ' + tagHtml(s.tag, s.ref) : '') + '</span></li>').join('');
+  $('#bSteps').innerHTML = D.steps.map(s => '<li' + (s.must ? ' class="must"' : '') + '><span>' + esc(fx(L(s), D)) + (s.tag ? ' ' + tagHtml(s.tag, s.ref) : '') + '</span></li>').join('') +
+    (D.quote ? '<li class="quote"><span>' + esc(L(D.quote)) + ' ' + tagHtml('src', D.quote.ref) + '</span></li>' : '');
   $('#bSrc').textContent = L(D.src);
-  $('#gRounds').hidden = isM; $('#planSum').hidden = isM; $('#gTurn').hidden = true; $('#gPart').hidden = true; $('#gPassage').hidden = !isM; $('#briefCal').hidden = isM;
+  $('#gRounds').hidden = isM; $('#planSum').hidden = isM; $('#gTurn').hidden = true; $('#gPart').hidden = true; $('#gCount').hidden = true; $('#gPassage').hidden = !isM; $('#briefCal').hidden = isM;
   if (isM){
     $('#gTimeH').textContent = T('measMode');
     segButtons($('#segTime'), [{ v:'normal', label:T('modeNormal') }, { v:'max', label:T('modeMax') }], cfg.measure.mode, v => { cfg.measure.mode = v; saveCfg(); briefHints(); });
@@ -1516,7 +1682,11 @@ function openBrief(id){
     segButtons($('#segRounds'), D.rounds.map(r => ({ v:r, label: lang === 'ko' ? r + '회' : String(r) })), cfg[id].rounds, v => { cfg[id].rounds = Number(v); saveCfg(); briefHints(); });
     $('#roundsHint').textContent = L(D.roundsHint);
     $('#keysHint').textContent = T(D.kind === 'spread' ? 'keysC' : 'keys');
-    $('#gTurn').hidden = !D.turns; $('#gPart').hidden = !D.parts;
+    $('#gTurn').hidden = !D.turns; $('#gPart').hidden = !D.parts; $('#gCount').hidden = !D.counts;
+    if (D.counts){
+      segButtons($('#segCount'), D.counts.map(n => ({ v:n, label:L(CNT_WORDS[n]).replace(/"/g, '') })), cfg[id].count, v => { cfg[id].count = Number(v); saveCfg(); openBrief(id); });
+      $('#countHint').innerHTML = esc(T('countHint')) + ' ' + tagHtml('src', 'p.52 ⑦');
+    }
     if (D.turns){
       const th = () => { $('#turnHint').innerHTML = esc(T(cfg[id].turn === 'hand' ? 'turnHintHand' : 'turnHintAuto')) + ' ' + tagHtml('design'); };
       segButtons($('#segTurn'), [{ v:'hand', label:T('turnHand') }, { v:'auto', label:T('turnAuto') }], cfg[id].turn, v => { cfg[id].turn = v; saveCfg(); th(); });
@@ -1552,7 +1722,7 @@ function briefHints(){
     cmp += '<br>' + (ko ? '단계적으로 늘리기: ' + names + '. 같은 시간을 끝까지 ' + LADDER_N + '번 마치면 다음 시간을 권합니다.' : 'Step up: ' + names + '. After finishing the same time ' + LADDER_N + ' times, the next one is suggested.') + tagHtml('design');
   }
   cmp += '</div>';
-  $('#timeHint').innerHTML = esc(L(p.hint)) + '<br>' + esc(L(D.pace)) + cmp;
+  $('#timeHint').innerHTML = esc(L(p.hint)) + '<br>' + esc(fx(L(D.pace), D)) + cmp;
   $('#sumIntro').textContent = fmt(p.intro); $('#sumTrain').textContent = fmt(p.train);
   const np = D.parts ? (cfg[id].part === 'all' ? 4 : 1) : 1;
   $('#sumRounds').textContent = r + (np > 1 ? ' × 4' : ''); $('#sumTotal').textContent = fmt((p.intro + p.train * r) * np);
@@ -1569,7 +1739,7 @@ function buildStage(D){
   const b = book();
   stage.innerHTML = '';
   if (D.kind === 'spread'){
-    G = buildC(D.fmt, S && S.parts ? S.parts[S.partI] : 1, b);
+    G = buildC(D.fmt, S && S.parts ? S.parts[S.partI] : 1, b, D.dense);
     G.k = D.beats;
     stage.setAttribute('viewBox', '0 0 ' + G.vb[0].toFixed(2) + ' ' + G.vb[1].toFixed(2));
     stage.classList.add('spread');
@@ -1589,7 +1759,7 @@ function buildStage(D){
   const F = FRAMES[D.frame];
   const R = 0.5 * F.diam(b) / F.span(b) * (F.x1 - F.x0);
   const cx = i => F.x0 + i * (F.x1 - F.x0) / (F.n - 1);
-  G = { kind: 'line', F, R, k: D.beats, vb: [1000, 260], pts: [], seq: [], mode: F.n === 2 ? 'cycle' : 'bounce', shownSp: 0 };
+  G = { kind: 'line', F, R, k: beatsOf(D), vb: [1000, 260], pts: [], seq: [], mode: F.n === 2 ? 'cycle' : 'bounce', shownSp: 0 };
   for (let i = 0; i < F.n; i++){ G.pts.push({ x: cx(i), y: CY, sp: 0 }); G.seq.push(i); }
   stage.setAttribute('aria-label', D.frame === 'A' ? (lang === 'ko' ? '훈련 틀: 한 줄로 놓인 원 13개' : 'Training frame: 13 circles in a row') : (lang === 'ko' ? '훈련 틀: 두 쪽에 걸친 한 줄의 양 끝 원' : 'Training frame: two end circles across a two-page row'));
   if (F.gutter) mk('line', { class: 'gutter', x1: 500, y1: CY - 90, x2: 500, y2: CY + 90 });
@@ -1619,9 +1789,22 @@ function drawSpread(sp, anim){
   G.circ = {};
   G.rows.filter(r => r.sp === sp).forEach(r => {
     const a = G.pts[r.L], z = G.pts[r.R], s = R * 0.5;
-    add('line', { class: 'rail', x1: a.x + R + 1.4, y1: a.y, x2: z.x - R - 1.4, y2: z.y });
-    add('path', { class: 'arw', d: `M${z.x - R - 0.5} ${z.y}l${-s * 1.5} ${-s / 2}v${s}Z` });
-    [r.L, r.R].forEach(pi => {
+    if (r.ids.length > 2){
+      for (let j = 0; j < r.ids.length - 1; j++){
+        const p = G.pts[r.ids[j]], q = G.pts[r.ids[j + 1]];
+        add('line', { class: 'link', x1: p.x + R + 0.5, y1: p.y, x2: q.x - R - 1.4, y2: q.y });
+        add('path', { class: 'arw', d: `M${q.x - R - 0.3} ${q.y}l${-s * 1.3} ${-s * 0.45}v${s * 0.9}Z` });
+      }
+      if (r.ret){
+        const ym = a.y + G.pitch / 2, yn = a.y + G.pitch;
+        add('path', { class: 'rail ret', fill: 'none', d: `M${z.x} ${z.y + R + 0.6}V${ym}H${a.x}V${yn - R - 1.3}` });
+        add('path', { class: 'arw', d: `M${a.x} ${yn - R - 0.3}l${-s * 0.45} ${-s * 1.3}h${s * 0.9}Z` });
+      }
+    } else {
+      add('line', { class: 'rail', x1: a.x + R + 1.4, y1: a.y, x2: z.x - R - 1.4, y2: z.y });
+      add('path', { class: 'arw', d: `M${z.x - R - 0.5} ${z.y}l${-s * 1.5} ${-s / 2}v${s}Z` });
+    }
+    r.ids.forEach(pi => {
       const p = G.pts[pi];
       G.circ[pi] = add('circle', { class: 'c', cx: p.x, cy: p.y, r: R });
       if (p.lab) add('text', { class: 'clab', x: p.x, y: p.y + R * 0.05, 'font-size': (R * 1.15).toFixed(2), 'text-anchor': 'middle', 'dominant-baseline': 'central' }, p.lab);
@@ -1654,6 +1837,7 @@ function sizeStage(D){
   info.textContent = pct >= 99 ? T('angleFull', { d: cal.distance }) : (G.kind === 'spread' && pct < 30) ? T('angleTiny', { p: pct }) : T('anglePart', { p: pct });
 }
 function drawPacer(pos, beatT){
+  if (S && S.D.free){ beatEl.setAttribute('cx', -50); beatEl.setAttribute('cy', -50); return; }
   const pi = G.seq[pos], p = G.pts[pi];
   const vis = p.sp === G.shownSp && !(S && S.waitTurn);
   if (G.kind === 'spread'){ for (const k in G.circ) G.circ[k].classList.toggle('on', vis && +k === pi); }
@@ -1675,7 +1859,8 @@ function doTurn(){
 function setPhaseLabel(){
   let pre = '';
   if (S.parts) pre = '<b>III-' + S.parts[S.partI] + '</b>' + (S.parts.length > 1 ? ' (' + (S.partI + 1) + '/' + S.parts.length + ')' : '') + ' · ';
-  $('#phaseLabel').innerHTML = S.waitTurn ? T('turnMsg') : pre + L(S.phase === 'intro' ? S.D.phIntro : S.D.phTrain);
+  if (S.D.vpos) pre = '<span class="vpos">' + T('vpos_' + S.D.vpos + (S.D.frame === 'B' ? 'S' : '')) + '</span> · ' + pre;
+  $('#phaseLabel').innerHTML = S.waitTurn ? T('turnMsg') : pre + fx(L(S.phase === 'intro' ? S.D.phIntro : S.D.phTrain), S.D);
 }
 
 /* =============== training session =============== */
@@ -1688,9 +1873,46 @@ function toSvg(e){
 const tol = () => G.kind === 'spread' ? Math.max(G.R * 2.2, 4) : Math.max(G.R * 1.7, 30);
 const nearTarget = p => { if (!p || S.waitTurn) return false; const t = G.pts[G.seq[S.pos]]; return t.sp === G.shownSp && Math.hypot(p.x - t.x, p.y - t.y) <= tol(); };
 stage.addEventListener('pointermove', e => { if (S) S.ptr = toSvg(e); });
+function freeTurn(dir){
+  if (!S || !S.D.free || (S.phase !== 'train' && S.phase !== 'mark') || S.paused) return;
+  const sp = Math.min(G.nSp - 1, Math.max(0, G.shownSp + dir));
+  if (sp !== G.shownSp) drawSpread(sp, true);
+  if (S.phase === 'mark') markSet(null);
+}
+function markSet(pi){
+  S.mark = pi;
+  for (const k in G.circ) G.circ[k].classList.toggle('mk', +k === pi);
+  if (pi == null){ $('#phaseLabel').innerHTML = T('markC'); return; }
+  const idx = G.seq.indexOf(pi), n = G.seq.slice(0, idx + 1).filter(q => !G.pts[q].virtual).length;
+  S.markN = n;
+  $('#phaseLabel').innerHTML = T('markCsel', { n: nf(n) }) + ' <button class="btn solid mkok" id="markOk">' + esc(T('confirm')) + '</button>';
+}
+function startMark(){
+  cancelAnimationFrame(raf);
+  S.phase = 'mark'; S.timeLeft = 0; renderHud();
+  $('#pauseBtn').hidden = true;
+  stage.classList.remove('eyes'); stage.classList.add('marking');
+  markSet(null);
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('#markOk') || !S || S.phase !== 'mark' || S.mark == null) return;
+  S.passes = S.markN; S.roundsDone = 1; S.trainedMs = S.trainSec * 1000;
+  stage.classList.remove('marking');
+  finish(false);
+});
 stage.addEventListener('pointerdown', e => {
   if (!S) return;
   S.ptr = toSvg(e);
+  if (S.D.free && S.ptr){
+    if (S.phase === 'mark'){
+      let best = null, bd = 1e9;
+      G.seq.forEach(q => { const t = G.pts[q]; if (t.virtual || t.sp !== G.shownSp) return; const d = Math.hypot(t.x - S.ptr.x, t.y - S.ptr.y); if (d < bd){ bd = d; best = q; } });
+      if (best != null && bd <= G.R * 2.2){ markSet(best); return; }
+    }
+    if (S.ptr.y > G.geo.H * 0.5 && S.ptr.x > G.geo.W - 24){ freeTurn(1); return; }
+    if (S.ptr.y > G.geo.H * 0.5 && S.ptr.x < 24){ freeTurn(-1); return; }
+    return;
+  }
   if (S.waitTurn && G.kind === 'spread' && S.ptr && S.ptr.x > G.geo.pw && S.ptr.y > G.geo.H * 0.5){ doTurn(); return; }
   if (S.phase === 'intro' && !S.paused && S.D.introMode === 'tap' && !S.waitTurn){
     if (nearTarget(S.ptr)) S.win.tap = true;
@@ -1711,20 +1933,21 @@ function exitImmersive(){
 }
 function startSession(id){
   const D = DRILLS[id], p = presetOf(id);
-  S = { D, presetK: p.k, introSec: p.intro, trainSec: p.train, roundsTotal: cfg[id].rounds, round: 1, roundsDone: 0,
+  S = { D, presetK: p.k, cpm: D.cpmSteps ? (cfg[id].cpm || 120) : 0, mark: null, introSec: p.intro, trainSec: p.train, roundsTotal: cfg[id].rounds, round: 1, roundsDone: 0,
         phase: 'count', pace: 1, timeLeft: p.intro, pos: 0, dir: 1, beatT: 0,
         waitTurn: false, turnT0: 0, turnMs: [], turnMode: D.turns ? cfg[id].turn : null,
         parts: D.parts ? (cfg[id].part === 'all' ? [1, 2, 3, 4] : [Number(cfg[id].part)]) : null, partI: 0, partStat: [], h0: 0, s0: 0,
         passes: 0, hits: 0, samples: 0, win: { tap: false, near: 0, n: 0 },
         trainedMs: 0, paceMs: 0, paused: false, aborted: false, ptr: null };
   $('#pTag').textContent = D.tag; $('#pName').textContent = L(D.name);
+  document.querySelector('.stagewrap').dataset.vpos = D.vpos || '';
   show('player');
   buildStage(D);
   enterImmersive();
   $('#pauseOvl').classList.remove('on');
   $('#phaseLabel').innerHTML = '';
   renderHud(); drawPacer(0, 0);
-  countdown(3, T('introL'), L(D.cdIntroMsg), () => beginPhase('intro'));
+  countdown(3, D.free ? T('measC') : T('introL'), L(D.free ? D.cdTrainMsg : D.cdIntroMsg), () => beginPhase(D.free ? 'train' : 'intro'));
 }
 function countdown(n, head, msg, done){
   S.phase = 'count';
@@ -1754,6 +1977,7 @@ function beginPhase(ph){
 }
 function closeWindow(){
   if (S.phase !== 'intro' || S.D.introMode !== 'tap') return;
+  if (S.win.n === 0 && !S.win.tap) return;          // a dotted-line (virtual) step: nothing to tap
   const ok = S.win.tap || (S.win.n > 0 && S.win.near / S.win.n >= 0.6);
   S.samples++; if (ok) S.hits++;
   S.win = { tap: false, near: 0, n: 0 };
@@ -1768,7 +1992,7 @@ function step(){
   S.pos = np;
   if (S.phase === 'train'){
     if (G.kind === 'line'){ if (G.pts.length === 2 || pi === 0 || pi === G.pts.length - 1) S.passes++; }
-    else if (G.pts[pi].side === 'R') S.passes++;
+    else if (G.dense ? !G.pts[pi].virtual : G.pts[pi].side === 'R') S.passes++;
   }
   if (nxSp !== curSp){
     if (nxSp > curSp && S.turnMode === 'hand'){ S.waitTurn = true; S.turnT0 = performance.now(); G.corner.classList.add('on'); setPhaseLabel(); }
@@ -1779,13 +2003,13 @@ function tick(now){
   const dt = Math.min(now - last, 100); last = now;
   if (S && !S.paused && (S.phase === 'intro' || S.phase === 'train')){
     S.timeLeft -= dt / 1000;
-    if (!S.waitTurn){
-      S.beatT += dt * S.pace / 1000;            // 1 beat = 1 s at 1.0×
+    if (!S.waitTurn && !S.D.free){
+      S.beatT += dt * (S.D.cpmSteps ? S.cpm / 60 : S.pace) / 1000;            // 1 beat = 1 s at 1.0×
       while (!S.waitTurn && S.beatT >= G.k){ S.beatT -= G.k; step(); }
       if (S.waitTurn) S.beatT = 0;
     }
-    if (S.phase === 'train'){ S.trainedMs += dt; S.paceMs += dt * S.pace; }
-    if (S.phase === 'intro' && !S.waitTurn){
+    if (S.phase === 'train'){ S.trainedMs += dt; S.paceMs += dt * (S.D.cpmSteps ? S.cpm : S.pace); }
+    if (S.phase === 'intro' && !S.waitTurn && !G.pts[G.seq[S.pos]].virtual){
       if (S.D.introMode === 'trace'){ S.samples++; if (nearTarget(S.ptr)) S.hits++; }
       else { S.win.n++; if (nearTarget(S.ptr)) S.win.near++; }
     }
@@ -1803,10 +2027,11 @@ function renderHud(){
   $('#hTime').textContent = fmt(S.timeLeft);
   $('#hRound').textContent = S.round + ' / ' + S.roundsTotal;
   $('#hAcc').textContent = S.samples ? Math.round(S.hits / S.samples * 100) + '%' : '—';
-  $('#hPace').textContent = (S.pace % 1 === 0 ? S.pace.toFixed(1) : String(S.pace)) + '×';
+  $('#hPace').textContent = S.D.free ? '—' : S.D.cpmSteps ? nf(S.cpm) + (lang === 'ko' ? '/분' : '/min') : (S.pace % 1 === 0 ? S.pace.toFixed(1) : String(S.pace)) + '×';
 }
 function endPhase(){
   cancelAnimationFrame(raf);
+  if (S.D.free && S.phase === 'train'){ startMark(); return; }
   if (S.phase === 'intro'){
     if (S.parts){ const dh = S.hits - S.h0, ds = S.samples - S.s0; S.partStat[S.partI] = { part: S.parts[S.partI], acc: ds ? Math.round(dh / ds * 100) : null }; }
     S.waitTurn = false; S.pos = 0; if (G.kind === 'spread'){ G.corner.classList.remove('on'); if (G.shownSp !== firstSp()) drawSpread(firstSp()); }
@@ -1828,7 +2053,7 @@ function endPhase(){
 }
 function finish(aborted){
   cancelAnimationFrame(raf); clearInterval(cdTimer);
-  S.aborted = aborted; S.phase = 'done'; S.waitTurn = false;
+  S.aborted = aborted; S.phase = 'done'; S.waitTurn = false; stage.classList.remove('marking');
   exitImmersive();
   const box = $('#chips'); box.innerHTML = '';
   S.D.chips.forEach(([k, label]) => {
@@ -1856,13 +2081,20 @@ function setPaused(v){
 $('#pauseBtn').addEventListener('click', () => setPaused(true));
 $('#resumeBtn').addEventListener('click', () => setPaused(false));
 $('#quitBtn').addEventListener('click', () => { $('#pauseOvl').classList.remove('on'); finish(true); });
-const changePace = d => { if (!S) return; S.pace = Math.min(3, Math.max(0.5, Math.round((S.pace + d) * 4) / 4)); renderHud(); };
+const changePace = d => {
+  if (!S) return;
+  if (S.D.cpmSteps){ const i = Math.max(0, CPM_STEPS.indexOf(S.cpm)); S.cpm = CPM_STEPS[Math.min(CPM_STEPS.length - 1, Math.max(0, i + Math.sign(d)))]; }
+  else S.pace = Math.min(3, Math.max(0.5, Math.round((S.pace + d) * 4) / 4));
+  renderHud();
+};
 $('#paceDown').addEventListener('click', () => changePace(-0.25));
 $('#paceUp').addEventListener('click', () => changePace(0.25));
 document.addEventListener('keydown', e => {
   if ($('#player').classList.contains('on') && S){
     if (e.code === 'Space'){ e.preventDefault(); setPaused(!S.paused); }
     else if (e.key === 'Escape') setPaused(true);
+    else if (S.D.free && (e.key === 'ArrowRight' || e.key === 'PageDown')){ e.preventDefault(); freeTurn(1); }
+    else if (S.D.free && (e.key === 'ArrowLeft' || e.key === 'PageUp')){ e.preventDefault(); freeTurn(-1); }
     else if (G && G.kind === 'spread' && (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === 'PageDown')){ e.preventDefault(); doTurn(); }
     else if (G && G.kind === 'spread' && e.key === 'ArrowLeft'){ e.preventDefault(); }
     else if (e.key === 'ArrowRight' || e.key === 'ArrowUp'){ e.preventDefault(); changePace(0.25); }
@@ -1891,6 +2123,7 @@ $('#toResult').addEventListener('click', () => {
   const trainSec = Math.round(S.trainedMs / 1000);
   const avgPace = S.trainedMs ? S.paceMs / S.trainedMs : S.pace;
   const reactions = [...document.querySelectorAll('#chips button[aria-pressed="true"]')].map(b => b.dataset.k);
+  if (S.D.cpmSteps && !S.D.free){ cfg[S.D.id].cpm = S.cpm; saveCfg(); }
   const rec = { date: todayStr(), ts: Date.now(), frame: S.D.id, trainSec, rounds: S.roundsDone, roundsTotal: S.roundsTotal,
                 passes: S.passes, pace: Math.round(avgPace * 100) / 100, accuracy: acc, aborted: S.aborted, reactions,
                 preset: S.presetK, turns: S.turnMs.length, turnAvgMs: S.turnMs.length ? Math.round(S.turnMs.reduce((a, b) => a + b, 0) / S.turnMs.length) : null,
@@ -1904,7 +2137,7 @@ $('#toResult').addEventListener('click', () => {
   $('#rTime').textContent = fmtFloor(trainSec);
   $('#rRounds').textContent = S.roundsDone + '/' + S.roundsTotal;
   $('#rAcc').innerHTML = acc === null ? '—' : acc + '<small>%</small>';
-  $('#rPace').innerHTML = (Math.round(avgPace * 100) / 100).toFixed(2).replace(/0$/, '') + '<small>×</small>';
+  $('#rPace').innerHTML = S.D.free ? '—' : S.D.cpmSteps ? nf(Math.round(avgPace)) + '<small>' + (lang === 'ko' ? '/분' : '/min') + '</small>' : (Math.round(avgPace * 100) / 100).toFixed(2).replace(/0$/, '') + '<small>×</small>';
   $('#rPassL').textContent = L(S.D.passL);
   $('#rPasses').textContent = nf(S.passes);
   { const ko = lang === 'ko';
@@ -1927,6 +2160,7 @@ $('#toResult').addEventListener('click', () => {
   if (trainSec > bestTime) parts.push(T('bTime', { t: fmtFloor(trainSec) }) + T('newBest'));
   else if (bestTime) parts.push(T('bTime', { t: fmtFloor(bestTime) }));
   $('#rBest').textContent = parts.length ? parts.join(', ') : '—';
+  if (S.D.free) $('#rBest').textContent = S.passes >= 1200 ? T('visGateOk', { n: nf(S.passes) }) : T('visGate', { n: nf(1200 - S.passes) });
   $('#rPrev').textContent = prev ? T('prevRec', { a: (prev.accuracy ?? '—') + (prev.accuracy != null ? '%' : ''), t: fmtFloor(prev.trainSec), p: prev.pace }) : T('first');
   const nxt = S.D.next;
   $('#nextBtn').textContent = 'NEXT  ·  ' + (nxt === 'measure' ? L(MEASURE.name) : L(DRILLS[nxt].name));
