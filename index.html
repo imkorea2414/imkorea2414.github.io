@@ -270,6 +270,31 @@ svg.stage.eyes .ptr{display:none}
 .blinkq .g2{margin-top:20px}
 .blinkq .hint{margin-top:14px}
 .s2h{margin-top:48px}
+.pg-sub{margin:4px 0 12px}
+.chart{width:100%;height:auto;display:block;margin-top:8px;overflow:visible}
+.chart .cg{stroke:var(--line);stroke-width:1}
+.chart .ct{fill:var(--muted);font-size:12px;font-family:var(--num);font-variant-numeric:tabular-nums}
+.chart .cl{fill:none;stroke:var(--signal);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.chart .cd{fill:var(--signal);stroke:var(--paper);stroke-width:2}
+.chart .chit{fill:transparent;cursor:default}
+.chart .cpt:hover .cd{r:6}
+.chart .cv{fill:var(--ink);font-size:14px;font-weight:600;font-family:var(--num)}
+.chart .cref{stroke:var(--muted);stroke-width:1.25;stroke-dasharray:4 4}
+.chart .cref-t{fill:var(--muted)}
+.ptab{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px;font-variant-numeric:tabular-nums}
+.ptab th{font-size:12px;font-weight:500;color:var(--muted);text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--line)}
+.ptab td{padding:9px 12px 9px 0;border-bottom:1px solid var(--line)}
+.hbars{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.hbars li{display:grid;grid-template-columns:minmax(0,1.4fr) 2fr 3.2em;gap:12px;align-items:center;font-size:14px}
+.hb-k{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hb-bar{height:10px;background:var(--line);border-radius:4px;overflow:hidden}
+.hb-bar i{display:block;height:100%;background:var(--signal);border-radius:0 4px 4px 0}
+.hb-v{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px}
+.cu-stats .v small{white-space:nowrap}
+#pgStats .v{white-space:nowrap}
+@media (max-width:760px){#pgStats .v{font-size:34px}#pgStats .v small{font-size:15px}}
+.pg-two{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+@media (max-width:760px){.pg-two{grid-template-columns:1fr;gap:0}}
 .rmphase{text-align:center;padding:8px 24px 0;min-height:2.2em}
 .rmwrap{position:relative}
 .rmbar{position:absolute;left:0;top:0;width:28px;height:4px;border-radius:2px;background:var(--signal);opacity:0;pointer-events:none;will-change:transform}
@@ -459,6 +484,33 @@ svg.stage g.sp.flip{animation:flip .26s ease-out}
     </div>
 
     <p class="foot" data-i="foot"></p>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<section class="screen" id="prog" data-ia="progLabel">
+  <div class="wrap">
+    <header class="top sticky">
+      <button class="brand homebtn" data-i="brand"></button>
+      <div class="hdr-r">
+        <nav class="nav" data-ia="navLabel"></nav>
+        <div class="prefs"></div>
+      </div>
+    </header>
+    <h1 class="cu-h1" data-i="pgH1"></h1>
+    <p class="cu-lead" data-i="pgLead"></p>
+    <div class="cu-stats" id="pgStats"></div>
+    <h2 class="cu-sec" data-i="pgSpeedH"></h2>
+    <p class="cu-note pg-sub" data-i="pgSpeedSub"></p>
+    <div id="pgSpeedChart"></div>
+    <h2 class="cu-sec" data-i="pgVisH"></h2>
+    <p class="cu-note pg-sub" data-i="pgVisSub"></p>
+    <div id="pgVisChart"></div>
+    <div class="pg-two">
+      <div><h2 class="cu-sec" data-i="pgDayH"></h2><div id="pgDayChart"></div></div>
+      <div><h2 class="cu-sec" data-i="pgReactH"></h2><div id="pgReact"></div><h2 class="cu-sec" data-i="pgBlinkH"></h2><div id="pgBlink"></div></div>
+    </div>
+    <p class="cu-note" data-i="pgFoot"></p>
   </div>
 </section>
 
@@ -837,6 +889,16 @@ const I18N = {
   s2H:'다른 훈련 미리 해 보기', s2Sub:'48일 과정에서는 날마다 정해진 훈련이 열립니다',
   rowPlanC:'1:00 원 세기', reviewT:'정리 {m}분', stSoon:'준비 중', rmName:'독서활동 R.M.', dayDone:'Day {d} 완료. 내일 Day {n}이 열립니다', dayFinish:'오늘 훈련 마치기',
   turnMsgRm:'<b>책장 넘기기</b> 오른쪽 쪽 아래를 누르거나 → 키',
+  progLabel:'진행 기록', pgH1:'진행 기록', pgLead:'날마다 쌓인 측정과 훈련 기록입니다. 기록은 이 기기에만 저장됩니다.',
+  pgDays:'마친 날', pgTime:'전체 훈련 시간', pgSpeed:'독서 속도', pgVis:'시각능력', pgDate:'날짜', uPerMin:'개/분', uTimes:'번',
+  pgSpeedH:'독서 속도 (1분 형성평가)', pgSpeedSub:'제목부터 1분 동안 읽은 글자 수입니다. 점에 마우스를 올리면 이해도와 R.E.I.가 보입니다.',
+  pgSpeedNone:'아직 1분 형성평가 기록이 없습니다. 오늘의 훈련 마지막에 1분 형성평가를 하면 여기에 쌓입니다.',
+  pgVisH:'시각능력 형성평가', pgVisSub:'원전 p.150의 시각능력 형성평가 그래프를 옮긴 것입니다. 1분 동안 본 원의 개수이며, 점선은 원전이 말하는 1분에 1,200개입니다 (p.154 ⑲).',
+  pgVisRef:'1,200개/분 (p.154 ⑲)', pgVisNone:'아직 시각능력 측정 기록이 없습니다. 제3단계가 시작되는 Day 9부터 날마다 측정합니다. 다른 훈련 목록에서 미리 해 볼 수도 있습니다.',
+  pgDayH:'날짜별 훈련 시간', pgDayNone:'아직 훈련 기록이 없습니다.',
+  pgReactH:'자주 나온 반응', pgReactNone:'훈련 뒤 반응 점검에서 고른 항목이 여기에 모입니다.',
+  pgBlinkH:'훈련 중 깜박임', pgBlinkNone:'훈련 뒤 깜박임 횟수를 고르면 여기에 모입니다.',
+  pgFoot:'훈련 시간에는 도입, 훈련, 1분 측정 시간이 들어가고, 정리 시간은 빠집니다.',
   measC:'측정', markC:'1분이 지났습니다. <b>마지막으로 본 원</b>을 누르세요. 쪽은 ←/→로 오갈 수 있습니다.', markCsel:'원 <b>{n}개</b>까지 봤습니다', visGate:'원전이 말하는 1분에 1,200개(p.154 ⑲)까지 {n}개 남았습니다', visGateOk:'1분에 {n}개 — 원전이 말하는 1,200개(p.154 ⑲) 이상입니다',
   countH:'원 하나에서 세는 수', countHint:'원전: "하나, 둘, 셋"을 세며 주시하고, 또는 "하나에서 다섯", "하나에서 일곱"을 센다.',
   vpos_top:'쪽 맨 윗줄', vpos_mid:'쪽 가운데 줄', vpos_bot:'쪽 맨 아랫줄', vpos_topS:'두 쪽 맨 윗줄', vpos_midS:'두 쪽 가운데 줄', vpos_botS:'두 쪽 맨 아랫줄',
@@ -889,6 +951,16 @@ const I18N = {
   s2H:'Try other trainings early', s2Sub:'In the 48-day course, each day opens its set trainings',
   rowPlanC:'1:00 circle count', reviewT:'review {m} min', stSoon:'Coming soon', rmName:'Reading activity R.M.', dayDone:'Day {d} done. Day {n} opens tomorrow', dayFinish:'Finish today’s training',
   turnMsgRm:'<b>Turn the page</b> Tap the lower right page or press →',
+  progLabel:'Progress', pgH1:'Progress', pgLead:'Your measurements and training, day by day. Records are stored on this device only.',
+  pgDays:'Days done', pgTime:'Total training time', pgSpeed:'Reading speed', pgVis:'Visual ability', pgDate:'Date', uPerMin:'/min', uTimes:'×',
+  pgSpeedH:'Reading speed (1-minute check)', pgSpeedSub:'Words read in one minute from the title. Hover a point to see comprehension and R.E.I.',
+  pgSpeedNone:'No 1-minute checks yet. Do the 1-minute check at the end of today’s training and it will show here.',
+  pgVisH:'Visual-ability record', pgVisSub:'Follows the visual-ability chart on p.150 of the source: circles seen in one minute. The dashed line is the source’s 1,200 a minute (p.154 ⑲).',
+  pgVisRef:'1,200/min (p.154 ⑲)', pgVisNone:'No visual-ability checks yet. They run daily from day 9, when stage 3 starts; you can also try one from the other-trainings list.',
+  pgDayH:'Training time by day', pgDayNone:'No training records yet.',
+  pgReactH:'Most frequent reactions', pgReactNone:'Items you pick in the post-training check collect here.',
+  pgBlinkH:'Blinking during training', pgBlinkNone:'Blink counts you pick after training collect here.',
+  pgFoot:'Training time includes intro, training and 1-minute checks, not review time.',
   measC:'Check', markC:'Time is up. Tap the <b>last circle you saw</b>. Use ←/→ to move between pages.', markCsel:'You reached <b>{n} circles</b>', visGate:'{n} to go to the source’s 1,200 a minute (p.154 ⑲)', visGateOk:'{n} a minute — at or above the source’s 1,200 (p.154 ⑲)',
   countH:'Count per circle', countHint:'Source: watch each circle while counting "one, two, three" — or "one to five", "one to seven".',
   vpos_top:'Top row of the page', vpos_mid:'Middle row of the page', vpos_bot:'Bottom row of the page', vpos_topS:'Top row of the spread', vpos_midS:'Middle row of the spread', vpos_botS:'Bottom row of the spread',
@@ -1347,8 +1419,75 @@ const tagHtml = (kind, ref) => kind === 'src' ? '<span class="tag src">' + (lang
 const rangeBar = (a, b) => '<div class="rng" aria-hidden="true"><i style="left:' + (a / 60 * 100) + '%;width:' + Math.max(2, (b - a) / 60 * 100) + '%"></i></div><div class="rng-ax" aria-hidden="true"><span>0</span><span>30</span><span>60' + (lang === 'ko' ? '분' : ' min') + '</span></div>';
 const curLevel = () => LEVELS.find(l => CU_TODAY >= l.days[0] && CU_TODAY <= l.days[1]) || LEVELS[0];
 
+/* =============== Progress =============== */
+const shortDate = d => { const [y, m, dd] = d.split('-'); return Number(m) + '/' + Number(dd); };
+// Single-series line chart, one y axis. pts: [{x label, y, tip}]
+function lineChart(pts, o){
+  const narrow = document.documentElement.clientWidth < 600, W = narrow ? 360 : 640, H = narrow ? 200 : 220, L = 46, R = 16, Tp = 16, B = 30, iw = W - L - R, ih = H - Tp - B;
+  const ys = pts.map(p => p.y), lo = o.min ?? 0, hi0 = Math.max(o.max ?? 0, ...ys, o.ref || 0), step = niceStep(hi0 - lo), hi = Math.ceil(hi0 / step) * step || step;
+  const X = i => L + (pts.length === 1 ? iw / 2 : i * iw / (pts.length - 1)), Y = v => Tp + ih - (v - lo) / (hi - lo) * ih;
+  let g = '';
+  for (let v = lo; v <= hi + 1e-9; v += step) g += `<line x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}" class="cg"/><text x="${L - 8}" y="${Y(v) + 4}" text-anchor="end" class="ct">${nf(v)}</text>`;
+  if (o.ref) g += `<line x1="${L}" x2="${W - R}" y1="${Y(o.ref)}" y2="${Y(o.ref)}" class="cref"/><text x="${L + 4}" y="${Y(o.ref) - 6}" text-anchor="start" class="ct cref-t">${esc(o.refLabel)}</text>`;
+  const every = Math.max(1, Math.ceil(pts.length / (narrow ? 4 : 8)));
+  pts.forEach((p, i) => { if (i % every === 0 || i === pts.length - 1) g += `<text x="${X(i)}" y="${H - 8}" text-anchor="middle" class="ct">${esc(p.x)}</text>`; });
+  if (pts.length > 1) g += `<polyline class="cl" points="${pts.map((p, i) => X(i) + ',' + Y(p.y)).join(' ')}"/>`;
+  pts.forEach((p, i) => { g += `<g class="cpt"><circle cx="${X(i)}" cy="${Y(p.y)}" r="14" class="chit"><title>${esc(p.tip)}</title></circle><circle cx="${X(i)}" cy="${Y(p.y)}" r="4.5" class="cd"/></g>`; });
+  const lastP = pts.at(-1);
+  g += `<text x="${Math.min(X(pts.length - 1), W - R - 4)}" y="${Y(lastP.y) - 12}" text-anchor="${pts.length > 1 ? 'end' : 'middle'}" class="cv">${nf(lastP.y)}</text>`;
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.label)}">${g}</svg>`;
+}
+// Horizontal bars for counts (one hue), labels in text ink.
+function barList(rows, o){
+  const max = Math.max(1, ...rows.map(r => r.v));
+  return '<ul class="hbars" aria-label="' + esc(o.label) + '">' + rows.map(r =>
+    `<li title="${esc(r.k)}: ${nf(r.v)}${esc(o.unit || '')}"><span class="hb-k">${esc(r.k)}</span><span class="hb-bar"><i style="width:${Math.max(2, r.v / max * 100)}%"></i></span><span class="hb-v">${nf(r.v)}${esc(o.unit || '')}</span></li>`).join('') + '</ul>';
+}
+function niceStep(span){ const raw = Math.max(1, span) / 4, p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10) * p; }
+function renderProgress(){
+  const ko = lang === 'ko', ms = loadM(), ts = loadT(), pr = loadProg();
+  const doneDays = Object.keys(pr.done).length;
+  const total = ts.reduce((a, r) => a + (r.trainSec || 0), 0) + ms.reduce((a, r) => a + (r.elapsed || 0), 0);
+  const vis = ts.filter(r => r.frame === 'D-CHK' && !r.aborted);
+  const lastM = ms.at(-1), lastV = vis.at(-1);
+  const unitS = m => m && m.unit === 'words' ? T('uSpeedEn') : T('uSpeedKo');
+  $('#pgStats').innerHTML =
+    `<div><div class="v num">${doneDays}<small>/ 48</small></div><div class="l">${T('pgDays')}</div></div>` +
+    `<div><div class="v num">${Math.round(total / 60)}<small>${T('uMin')}</small></div><div class="l">${T('pgTime')}</div></div>` +
+    `<div><div class="v num">${lastM ? nf(lastM.speed) + '<small>' + unitS(lastM) + '</small>' : '—'}</div><div class="l">${T('pgSpeed')}</div></div>` +
+    `<div><div class="v num">${lastV ? nf(lastV.passes) + '<small>' + T('uPerMin') + '</small>' : '—'}</div><div class="l">${T('pgVis')}</div></div>`;
+  const empty = k => `<p class="empty">${T(k)}</p>`;
+  // reading speed (current language)
+  const mL = ms.filter(m => m.lang === lang);
+  $('#pgSpeedChart').innerHTML = mL.length ? lineChart(mL.map(m => ({ x: shortDate(m.date), y: m.speed, tip: shortDate(m.date) + ' · ' + nf(m.speed) + unitS(m) + (m.comp != null ? ' · ' + T('compL') + ' ' + m.comp + '%' : '') + (m.rei != null ? ' · R.E.I. ' + nf(m.rei) : '') })), { label: T('pgSpeedH') }) +
+    '<table class="ptab"><thead><tr><th>' + T('pgDate') + '</th><th>' + T('pgSpeed') + '</th><th>' + T('compL') + '</th><th>R.E.I.</th></tr></thead><tbody>' +
+    mL.slice(-5).reverse().map(m => `<tr><td>${shortDate(m.date)}</td><td>${nf(m.speed)} ${unitS(m)}</td><td>${m.comp == null ? '—' : m.comp + '%'}</td><td>${m.rei == null ? '—' : nf(m.rei)}</td></tr>`).join('') + '</tbody></table>'
+    : empty('pgSpeedNone');
+  // visual ability (p.150)
+  $('#pgVisChart').innerHTML = vis.length ? lineChart(vis.map(r => ({ x: shortDate(r.date), y: r.passes, tip: shortDate(r.date) + ' · ' + nf(r.passes) + T('uPerMin') })), { label: T('pgVisH'), ref: 1200, refLabel: T('pgVisRef') }) : empty('pgVisNone');
+  // minutes per day, last 14 dates with records
+  const byDay = {};
+  ts.forEach(r => { byDay[r.date] = (byDay[r.date] || 0) + (r.trainSec || 0); });
+  ms.forEach(r => { byDay[r.date] = (byDay[r.date] || 0) + (r.elapsed || 0); });
+  const dk = Object.keys(byDay).sort((a, b) => new Date(a) - new Date(b)).slice(-14);
+  $('#pgDayChart').innerHTML = dk.length ? barList(dk.map(d => ({ k: shortDate(d), v: Math.round(byDay[d] / 60) })), { label: T('pgDayH'), unit: T('uMin') }) : empty('pgDayNone');
+  // reactions and blinks
+  const lab = {};
+  Object.values(DRILLS).forEach(D => (D.chips || []).forEach(([k, l]) => { if (!lab[k]) lab[k] = L(l); }));
+  const cnt = {};
+  ts.forEach(r => (r.reactions || []).forEach(k => { if (k !== 'none') cnt[k] = (cnt[k] || 0) + 1; }));
+  const rc = Object.entries(cnt).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([k, v]) => ({ k: lab[k] || k, v }));
+  $('#pgReact').innerHTML = rc.length ? barList(rc, { label: T('pgReactH'), unit: T('uTimes') }) : empty('pgReactNone');
+  const bl = { '0': 0, '1-2': 0, '3-5': 0, '6+': 0 };
+  ts.forEach(r => { if (r.blinks && bl[r.blinks.count] != null) bl[r.blinks.count]++; });
+  const bn = { '0': ko ? '깜박이지 않음' : 'None', '1-2': ko ? '1~2번' : '1–2', '3-5': ko ? '3~5번' : '3–5', '6+': ko ? '6번 이상' : '6+' };
+  const anyB = Object.values(bl).some(v => v);
+  $('#pgBlink').innerHTML = anyB ? barList(Object.keys(bl).map(k => ({ k: bn[k], v: bl[k] })), { label: T('pgBlinkH'), unit: T('uTimes') }) : empty('pgBlinkNone');
+}
+function openProgress(){ renderProgress(); show('prog'); }
+
 function renderNav(){
-  const items = [['Dashboard','dash'],['Training',null],['Test',null],['Progress',null],['Curriculum','curr']];
+  const items = [['Dashboard','dash'],['Training',null],['Test',null],['Progress','prog'],['Curriculum','curr']];
   const on = document.querySelector('.screen.on')?.id;
   document.querySelectorAll('.nav, #tabbar').forEach(nav => {
     nav.innerHTML = '';
@@ -1357,7 +1496,7 @@ function renderNav(){
       if (target){
         el = document.createElement('button'); el.type = 'button'; el.textContent = label;
         if (target === on){ el.className = 'cur'; el.setAttribute('aria-current', 'page'); }
-        el.addEventListener('click', () => { if (target === 'dash'){ curBrief = null; renderDash(); show('dash'); } else openCurriculum(); });
+        el.addEventListener('click', () => { if (target === 'dash'){ curBrief = null; renderDash(); show('dash'); } else if (target === 'prog') openProgress(); else openCurriculum(); });
       } else {
         el = document.createElement('span'); el.textContent = label; el.title = T('navSoon'); el.setAttribute('aria-disabled', 'true');
       }
@@ -1482,7 +1621,7 @@ function show(id, fromPop){
   if (!fromPop) syncHistory(id);
   document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id));
   window.scrollTo(0, 0);
-  const nav = id === 'dash' || id === 'curr';
+  const nav = id === 'dash' || id === 'curr' || id === 'prog';
   document.body.classList.toggle('has-tabs', nav);
   if (nav) renderNav();
 }
@@ -2699,7 +2838,9 @@ function refreshAll(){
   if ($('#curr').classList.contains('on')) renderCurriculum();
   if ($('#brief').classList.contains('on') && curBrief) openBrief(curBrief);
   if ($('#calib').classList.contains('on')) renderCalPreview();
+  if ($('#prog').classList.contains('on')) renderProgress();
 }
+window.addEventListener('resize', () => { if ($('#prog').classList.contains('on')) renderProgress(); });
 applyTheme();
 document.body.classList.add('has-tabs');
 refreshAll();
