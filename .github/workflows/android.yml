@@ -20,10 +20,10 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      # 기본값은 이제 없는 'tools' 패키지를 설치하려다 실패하므로 필요한 것만 지정한다.
       - uses: android-actions/setup-android@v3
-
-      - name: Install Android 16 SDK platform
-        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
 
       - name: Restore upload key
         env:
