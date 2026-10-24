@@ -12,7 +12,7 @@ with sync_playwright() as p:
         print('segs', pg.inner_text('#segTime').replace('\n',' / '))
         print('hint', pg.inner_text('#timeHint'))
         pg.screenshot(path=f'bl-brief-{loc}.png', full_page=True)
-        pg.click('#segTime button:nth-child(1)'); print('demo hint', pg.inner_text('#timeHint').split('\n')[-2:])
+        pg.click('#segTime button:nth-child(2)'); print('demo hint', pg.inner_text('#timeHint').split('\n')[-2:])
         pg.click('#briefGo'); pg.clock.run_for(3500); pg.clock.run_for(16000); pg.clock.run_for(6000); pg.clock.run_for(31000); pg.wait_for_timeout(200)
         print('screen', pg.evaluate("[...document.querySelectorAll('.screen.on')].map(s=>s.id)"))
         print('first hidden', pg.evaluate("document.querySelector('#blinkFirstG').hidden"))

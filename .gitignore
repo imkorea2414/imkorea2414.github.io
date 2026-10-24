@@ -8,3 +8,12 @@ android/local.properties
 tests/*.png
 tools/.built.js
 __pycache__/
+# 원전 스캔 PDF (저작권) — 절대 커밋하지 않는다
+*.pdf
+과학적_속독법*
+# 서명 키·비밀값
+upload.keystore*
+android.keystore
+*.base64
+secrets.txt
+*.p12

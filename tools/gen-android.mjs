@@ -22,4 +22,11 @@ m.iconUrl = 'https://imkorea2414.github.io/icons/icon-512.png';
 m.maskableIconUrl = 'https://imkorea2414.github.io/icons/maskable-512.png';
 m.webManifestUrl = new URL('https://imkorea2414.github.io/manifest.webmanifest');
 await m.saveToFile(out + '/twa-manifest.json');
+// 생성 때 쓴 로컬 주소가 build.gradle에 남지 않게 공개 주소로 바꾼다.
+const fs = await import('node:fs');
+const g = out + '/app/build.gradle';
+fs.writeFileSync(g, fs.readFileSync(g, 'utf8').replaceAll('http://localhost:8765/', 'https://imkorea2414.github.io/'));
+// jcenter는 종료된 저장소라 mavenCentral로 바꾼다.
+const r = out + '/build.gradle';
+fs.writeFileSync(r, fs.readFileSync(r, 'utf8').replaceAll('jcenter()', 'mavenCentral()'));
 console.log('generated', m.packageId, m.host, m.appVersionCode);

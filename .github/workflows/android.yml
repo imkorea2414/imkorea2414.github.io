@@ -3,12 +3,15 @@ name: Android app bundle
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, 'claude/**']
     paths: ['android/**', '.github/workflows/android.yml']
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # 비밀값이 아직 없으면 서명 없이 빌드만 확인한다 (Play Console에는 올릴 수 없는 파일).
+      HAS_KEY: ${{ secrets.KEYSTORE_BASE64 != '' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -25,9 +28,14 @@ jobs:
       - name: Restore upload key
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        if: env.HAS_KEY == 'true'
         run: echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/upload.keystore"
 
-      - name: Build signed bundle and APK
+      - name: Warn when unsigned
+        if: env.HAS_KEY != 'true'
+        run: echo "::warning::KEYSTORE_BASE64 비밀값이 없어 서명되지 않은 파일을 만듭니다. Play Console에는 올릴 수 없습니다."
+
+      - name: Build bundle and APK
         working-directory: android
         env:
           KEYSTORE_FILE: ${{ runner.temp }}/upload.keystore
