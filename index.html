@@ -270,6 +270,14 @@ svg.stage.eyes .ptr{display:none}
 .blinkq .g2{margin-top:20px}
 .blinkq .hint{margin-top:14px}
 .s2h{margin-top:48px}
+.rmphase{text-align:center;padding:8px 24px 0;min-height:2.2em}
+.rmwrap{position:relative}
+.rmbar{position:absolute;left:0;top:0;width:28px;height:4px;border-radius:2px;background:var(--signal);opacity:0;pointer-events:none;will-change:transform}
+.rmbar.gap{height:0;border-top:3px dotted var(--signal);background:none}
+.rmwrap.eyes{cursor:none}
+.rmcorner{position:absolute;right:0;bottom:0;width:0;height:0;border-style:solid;border-width:0 0 56px 56px;border-color:transparent transparent var(--signal) transparent;opacity:0;transition:opacity .2s;pointer-events:none}
+.rmcorner.on{opacity:.85}
+.hud .v.rmpace{font-size:30px}
 svg.stage.spread .link{stroke:var(--faint);stroke-width:1.1;vector-effect:non-scaling-stroke}
 svg.stage.spread .rail.ret{fill:none}
 svg.stage .c.mk{fill:var(--signal);stroke:var(--signal)}
@@ -428,8 +436,8 @@ svg.stage g.sp.flip{animation:flip .26s ease-out}
 
     <div class="hero">
       <div>
-        <div class="day num">DAY 1<span class="of">/ 48</span></div>
-        <div class="lvl"><b>LEVEL 1</b> <span data-i="lvlSub"></span><span class="alldone" id="allDone" hidden data-i="allDone"></span><button class="textbtn tolink" id="toCurr" data-i="toCurr"></button></div>
+        <div class="day num" id="dayNum">DAY 1<span class="of">/ 48</span></div>
+        <div class="lvl"><b id="lvlNum">LEVEL 1</b> <span id="lvlName"></span><span class="alldone" id="allDone" hidden></span><button class="textbtn tolink" id="toCurr" data-i="toCurr"></button></div>
       </div>
       <button class="start" id="dashStart"></button>
     </div>
@@ -607,7 +615,7 @@ svg.stage g.sp.flip{animation:flip .26s ease-out}
   <div class="pbar">
     <div class="pname">
       <div class="t" id="pTag"></div>
-      <div class="n"><span id="pName"></span><span class="lv">LEVEL 1</span></div>
+      <div class="n"><span id="pName"></span><span class="lv" id="pLv">LEVEL 1</span></div>
     </div>
     <button class="pausebtn" id="pauseBtn" data-ia="pauseL"><i></i></button>
   </div>
@@ -683,6 +691,37 @@ svg.stage g.sp.flip{animation:flip .26s ease-out}
       <button class="btn" id="retryBtn">RETRY</button>
       <button class="btn solid" id="nextBtn">NEXT TRAINING</button>
       <button class="linkbtn" id="backBtn">BACK TO DASHBOARD</button>
+    </div>
+  </div>
+</section>
+
+<!-- READING ACTIVITY R.M. -->
+<section class="screen fs" id="rm" data-ia="playerLabel">
+  <div class="pbar">
+    <div class="pname">
+      <div class="t" id="rmTag"></div>
+      <div class="n"><span id="rmName"></span><span class="lv" id="rmLv">LEVEL 1</span></div>
+    </div>
+    <button class="pausebtn" id="rmPauseBtn" data-ia="pauseL"><i></i></button>
+  </div>
+  <div class="phase rmphase" id="rmPhase" aria-live="polite"></div>
+  <div class="rwrap rmwrap" id="rmWrap">
+    <div class="reader" id="rmReader"></div>
+    <div class="rmbar" id="rmBar"></div>
+    <div class="rmcorner" id="rmCorner"></div>
+    <div class="ovl" id="rmCd" aria-live="assertive"><div class="n" id="rmCdNum">3</div><div class="h" id="rmCdH"></div><p id="rmCdP"></p></div>
+    <div class="ovl" id="rmPause">
+      <div class="h" data-i="pausedH"></div>
+      <p data-i="pausedP"></p>
+      <div class="acts"><button class="btn solid" id="rmResume" data-i="resume"></button><button class="btn" id="rmQuit" data-i="endTrain"></button></div>
+    </div>
+  </div>
+  <div class="hud">
+    <div class="time"><div class="l">TIME</div><div class="v" id="rmTime">0:00</div></div>
+    <div><div class="l">ROUND</div><div class="v" id="rmRound">1 / 1</div></div>
+    <div><div class="l">ACCURACY</div><div class="v" id="rmAcc">—</div></div>
+    <div><div class="l">PACE</div>
+      <div class="pace"><button id="rmPaceDown" data-ia="slower">−</button><div class="v rmpace" id="rmPace">—</div><button id="rmPaceUp" data-ia="faster">+</button></div>
     </div>
   </div>
 </section>
@@ -796,6 +835,8 @@ const I18N = {
   advC:'제2단계 C 모형 (p.66~97, 쪽당 15줄)', advCNote:'추정값입니다. 스캔본에서 제1단계 모형과의 비율로 계산했습니다. 책을 자로 재서 고쳐 주세요: 원 지름, 위아래 줄 간격(원 중심 사이), 한 쪽 안의 줄 길이(왼쪽 원 중심~오른쪽 원 중심), 두 쪽 사이 간격(왼쪽 쪽 오른쪽 원 중심~오른쪽 쪽 왼쪽 원 중심).',
   pitchL:'줄 간격', rowL:'한 쪽 줄 길이', cgapL:'두 쪽 사이 간격',
   s2H:'다른 훈련 미리 해 보기', s2Sub:'48일 과정에서는 날마다 정해진 훈련이 열립니다',
+  rowPlanC:'1:00 원 세기', reviewT:'정리 {m}분', stSoon:'준비 중', rmName:'독서활동 R.M.', dayDone:'Day {d} 완료. 내일 Day {n}이 열립니다', dayFinish:'오늘 훈련 마치기',
+  turnMsgRm:'<b>책장 넘기기</b> 오른쪽 쪽 아래를 누르거나 → 키',
   measC:'측정', markC:'1분이 지났습니다. <b>마지막으로 본 원</b>을 누르세요. 쪽은 ←/→로 오갈 수 있습니다.', markCsel:'원 <b>{n}개</b>까지 봤습니다', visGate:'원전이 말하는 1분에 1,200개(p.154 ⑲)까지 {n}개 남았습니다', visGateOk:'1분에 {n}개 — 원전이 말하는 1,200개(p.154 ⑲) 이상입니다',
   countH:'원 하나에서 세는 수', countHint:'원전: "하나, 둘, 셋"을 세며 주시하고, 또는 "하나에서 다섯", "하나에서 일곱"을 센다.',
   vpos_top:'쪽 맨 윗줄', vpos_mid:'쪽 가운데 줄', vpos_bot:'쪽 맨 아랫줄', vpos_topS:'두 쪽 맨 윗줄', vpos_midS:'두 쪽 가운데 줄', vpos_botS:'두 쪽 맨 아랫줄',
@@ -846,6 +887,8 @@ const I18N = {
   advC:'Stage 2 Format C frames (pp.66–97, 15 rows per page)', advCNote:'These are estimates, worked out from the scan as ratios to the stage 1 frame. Please measure the book with a ruler and correct them: circle diameter, row spacing (center to center), row length within one page (left circle center to right circle center), and the gap between pages (right circle on the left page to left circle on the right page).',
   pitchL:'Row spacing', rowL:'Row length per page', cgapL:'Gap between pages',
   s2H:'Try other trainings early', s2Sub:'In the 48-day course, each day opens its set trainings',
+  rowPlanC:'1:00 circle count', reviewT:'review {m} min', stSoon:'Coming soon', rmName:'Reading activity R.M.', dayDone:'Day {d} done. Day {n} opens tomorrow', dayFinish:'Finish today’s training',
+  turnMsgRm:'<b>Turn the page</b> Tap the lower right page or press →',
   measC:'Check', markC:'Time is up. Tap the <b>last circle you saw</b>. Use ←/→ to move between pages.', markCsel:'You reached <b>{n} circles</b>', visGate:'{n} to go to the source’s 1,200 a minute (p.154 ⑲)', visGateOk:'{n} a minute — at or above the source’s 1,200 (p.154 ⑲)',
   countH:'Count per circle', countHint:'Source: watch each circle while counting "one, two, three" — or "one to five", "one to seven".',
   vpos_top:'Top row of the page', vpos_mid:'Middle row of the page', vpos_bot:'Bottom row of the page', vpos_topS:'Top row of the spread', vpos_midS:'Middle row of the spread', vpos_botS:'Bottom row of the spread',
@@ -1076,12 +1119,13 @@ const CPM_STEPS = [30, 45, 60, 90, 120, 150, 180, 240, 300, 400, 500, 600, 800, 
   phTrain:{ko:'<b>훈련</b> 눈으로 원을 하나씩 밀고 나가기, 점선도 같은 빠르기로', en:'<b>Training</b> Eyes push through each circle; read the dotted line at the same speed'},
   passL:{ko:'지나간 원', en:'Circles covered'},
   chips:[
-   ['tears',{ko:'눈물이 흘렀다',en:'My eyes teared up'}],['head',{ko:'고개가 좌우로 움직였다',en:'My head moved side to side'}],
-   ['skip',{ko:'원을 건너뛰었다',en:'I skipped circles'}],['uneven',{ko:'원과 점선의 빠르기가 달랐다',en:'Circles and dotted lines went at different speeds'}],
+   ['tears',{ko:'눈물이 났다',en:'My eyes watered'}],['irregular',{ko:'눈동자의 움직임이 불규칙했다',en:'My eye movement felt irregular'}],
+   ['head',{ko:'고개가 좌우로 움직였다',en:'My head moved side to side'}],['body',{ko:'몸 전체가 움직였다',en:'My whole body moved'}],
+   ['turnblink',{ko:'책장을 넘길 때 깜박이거나 눈이 멈췄다',en:'I blinked or my eyes stopped when turning the page'}],['recheck',{ko:'원 줄이 헷갈려 다시 확인하려 했다',en:'I lost the rows and looked back to check'}],
    ['stall',{ko:'눈의 움직임이 멈췄다',en:'My eye movement stalled'}],['neck',{ko:'목과 어깨에 힘이 들어갔다',en:'My neck and shoulders tensed'}],
    ['none',{ko:'특별한 반응 없음',en:'Nothing notable'}]
   ],
-  note:{ko:'원전은 원을 읽어 나가는 속도와 점선을 읽어 나가는 속도가 같아야 하고, 속도가 다르면 잘못된 훈련이 된다고 합니다 (p.100 ⑫⑬).', en:'The source says the speed through the circles and along the dotted lines must be the same; if they differ, the training goes wrong (p.100 ⑫⑬).'},
+  note:{ko:'원전의 제3단계 훈련 후 반응 점검(p.151)에서 고른 항목입니다. 원전은 원을 읽어 나가는 속도와 점선을 읽어 나가는 속도가 같아야 한다고 합니다 (p.100 ⑫⑬).', en:'These come from the source’s stage 3 post-training checklist (p.151). The source says the speed through the circles and along the dotted lines must be the same (p.100 ⑫⑬).'},
   ...extra
  });
  const S_POSTURE = {ko:'등을 기대지 말고 앉아, 콧날을 두 쪽 사이의 가운데 선에 맞춥니다 (p.100 ⑦).', en:'Sit upright without leaning back and line your nose up with the center line between the two pages (p.100 ⑦).'};
@@ -1133,16 +1177,16 @@ const CPM_STEPS = [30, 45, 60, 90, 120, 150, 180, 240, 300, 400, 500, 600, 800, 
    bookTrain:{min:60, label:{ko:'모형마다 1분', en:'1 min per frame'}, ref:'p.111'}, rounds:[1], roundsHint:{ko:'원전 D-III 훈련회수 1 (모형마다)', en:'Source D-III rounds: 1 per frame'} }),
   'D-IV': base('IV', { id:'D-IV', next:'D-CHK', tag:'TRAINING 14', turns:true,
    name:{ko:'제3단계 D-IV', en:'Stage 3 D-IV'}, title:{ko:'제3단계 D-IV 연속 쪽 훈련', en:'Stage 3 D-IV: Continuous pages'},
-   lead:{ko:'한 쪽에 원 150개(10개 × 15줄)씩, 9쪽 1,350개를 차례로 밀고 나가는 훈련입니다. 줄 바꾸기, 쪽 이행, 책장 넘기기를 실제 책 읽기처럼 잇습니다.', en:'Push through 150 circles a page (10 × 15 rows), 1,350 across nine pages, in order — row changes, page changes and page turns linked as in real reading.'},
-   steps: steps(S_TURN, {ko:'여백의 숫자 10, 50, 100 … 1,350은 원전 모형에 적힌 원의 개수를 그대로 옮긴 것입니다 (p.115 ③).', en:'The margin numbers 10, 50, 100 … 1,350 are the circle counts printed in the source frame (p.115 ③).'}),
-   src:{ko:'근거: 『과학적 속독법』 제3단계 훈련 모형 D-IV p.114~124. 훈련 투입 방법 p.114: 도입 1분, 훈련 2~3분, 훈련회수 1.', en:'Source: "Scientific Speed Reading", stage 3 frame D-IV pp.114–124. Training schedule p.114: intro 1 min, training 2–3 min, 1 round.'},
+   lead:{ko:'한 쪽에 원 150개(10개 × 15줄)씩, 34쪽 5,100개를 차례로 밀고 나가는 훈련입니다. 줄 바꾸기, 쪽 이행, 책장 넘기기를 실제 책 읽기처럼 잇습니다.', en:'Push through 150 circles a page (10 × 15 rows), 5,100 across 34 pages, in order — row changes, page changes and page turns linked as in real reading.'},
+   steps: steps(S_TURN, {ko:'여백의 숫자 10, 50, 100 … 5,100은 원전 모형에 적힌 원의 개수를 그대로 옮긴 것입니다 (p.115 ③).', en:'The margin numbers 10, 50, 100 … 5,100 are the circle counts printed in the source frame (p.115 ③).'}),
+   src:{ko:'근거: 『과학적 속독법』 제3단계 훈련 모형 D-IV p.114~149. 훈련 투입 방법 p.114: 도입 1분, 훈련 2~3분, 훈련회수 1.', en:'Source: "Scientific Speed Reading", stage 3 frame D-IV pp.114–149. Training schedule p.114: intro 1 min, training 2–3 min, 1 round.'},
    presets:[pr('demo', 10, 30, '30초 체험', '30 s trial', '빠른 체험용 (원전 기준보다 짧음)', 'Quick trial (shorter than the source standard)'), pr('b2', 60, 120, '2분', '2 min', '원전 D-IV 훈련 시간 하한 (p.114)', 'Lower bound of source D-IV training time (p.114)'), pr('b3', 60, 180, '3분', '3 min', '원전 D-IV 훈련 시간 상한 (p.114)', 'Upper bound of source D-IV training time (p.114)')], def:'b2',
    bookTrain:{min:120, label:{ko:'2~3분', en:'2–3 min'}, ref:'p.114'}, rounds:[1], roundsHint:{ko:'원전 D-IV 훈련회수 1', en:'Source D-IV rounds: 1'} }),
   'D-CHK': base('IV', { id:'D-CHK', next:'measure', tag:'CHECK 02', turns:true, free:true, introMode:'none',
    name:{ko:'시각능력 1분 측정', en:'1-minute visual-ability check'}, title:{ko:'시각능력 1분 측정', en:'1-minute visual-ability check'},
    lead:{ko:'D-IV 모형의 원과 화살표를 1분 동안 내 빠르기로 읽어 나가고, 어디까지 갔는지 표시해 1분에 원 몇 개를 보는지 잽니다 (p.115 시각능력 측정자료).', en:'Read the circles and arrows of the D-IV frame at your own pace for one minute, then mark where you got to, to see how many circles you take in per minute (p.115, visual-ability measurement).'},
    steps:[S_POSTURE, {tag:'src', ref:'p.115', ko:'원과 화살표를 차례대로 읽어 나갑니다. 보면서 지나가고, 이어서 점선을 따라 등속도로 계속해서 멈추지 않고 읽어 나갑니다 (p.115 ①).', en:'Read the circles and arrows in order, seeing them as you pass; then follow the dotted line at an even speed without stopping (p.115 ①).'}, {tag:'src', ref:'p.115', ko:'원의 개수만 셉니다. 한 줄에 10개, 한 쪽에 15줄이므로 한 쪽의 원은 150개입니다 (p.115 ②③).', en:'Only the circles are counted: 10 a row, 15 rows a page, so 150 circles a page (p.115 ②③).'}, {ko:'1분이 지나면 화면이 멈춥니다. 마지막으로 본 원을 누르세요. 원전에서 연필로 표시하는 것(p.115 ④)을 화면에서 하는 방법입니다.', en:'After one minute the screen stops. Tap the last circle you saw. This stands in for the source’s pencil mark (p.115 ④).', tag:'design'}, {tag:'design', ko:'책장은 오른쪽 쪽 아래를 누르거나 → 키로 넘기고, ← 키로 돌아갑니다. 빠르기 표시는 없습니다.', en:'Turn pages by tapping the lower right page or pressing →; go back with ←. There is no pacer.'}, S_BLINK, S_SAFE],
-   src:{ko:'근거: 『과학적 속독법』 시각능력 측정자료 p.115, 모형 D-IV p.116~124. 1분에 1,200개 이상의 의미 p.154 ⑲.', en:'Source: "Scientific Speed Reading", visual-ability measurement p.115, frame D-IV pp.116–124. Meaning of 1,200 a minute or more: p.154 ⑲.'},
+   src:{ko:'근거: 『과학적 속독법』 시각능력 측정자료 p.115, 모형 D-IV p.116~149. 1분에 1,200개 이상의 의미 p.154 ⑲.', en:'Source: "Scientific Speed Reading", visual-ability measurement p.115, frame D-IV pp.116–149. Meaning of 1,200 a minute or more: p.154 ⑲.'},
    presets:[pr('book', 0, 60, '1분', '1 min', '원전 시각능력 측정: 1분 (p.115 ④)', 'Source visual-ability check: 1 minute (p.115 ④)')], def:'book',
    bookTrain:{min:60, label:{ko:'1분', en:'1 min'}, ref:'p.115'}, rounds:[1], roundsHint:{ko:'측정은 한 번', en:'One check'},
    phTrain:{ko:'<b>측정</b> 원과 점선을 멈추지 않고 읽어 나가기', en:'<b>Check</b> Read circles and dotted lines without stopping'},
@@ -1184,7 +1228,44 @@ const S3_IDS = ['D-I-1','D-I-2','D-II-1','D-II-2','D-III','D-IV','D-CHK'];
  DRILLS['B-II'] = bClone('B-II', 'mid', '모형 II는 펼친 두 쪽의 가운데 줄입니다 (p.59).', 'Frame II is the middle row of the open two-page spread (p.59).', [1], '1', '1', 'B-III');
  DRILLS['B-III'] = bClone('B-III', 'bot', '모형 III은 펼친 두 쪽의 맨 아랫줄입니다 (p.59).', 'Frame III is the bottom row of the open two-page spread (p.59).', [1,2], '1~2', '1–2', 'measure');
 })();
-const EXTRA_IDS = ['A-II','A-III','B-II','B-III', ...S2_IDS, ...S3_IDS];
+/* ---- reading activity R.M. (p.151~154) ---- */
+DRILLS['RM'] = {
+ id:'RM', frame:'R', kind:'reader', beats:1, introMode:'trace', next:'measure', tag:'TRAINING 15', turns:true,
+ name:{ko:'독서활동 R.M.', en:'Reading activity R.M.'}, title:{ko:'독서활동 훈련 R.M.', en:'Reading activity training R.M.'},
+ lead:{ko:'실제 글을 제3단계 훈련 모형대로 읽는 훈련입니다. 독서활동 가운데 속도에 관한 행동만 강조하므로, 내용 이해보다 눈의 움직임에 집중합니다 (p.151 K.1).', en:'Read real text the way you trained in stage 3. Only the speed side of reading is stressed, so focus on your eye movement rather than on understanding (p.151 K.1).'},
+ steps:[
+  {ko:'등을 기대지 말고 앉아, 콧날을 두 쪽 사이의 가운데 선에 맞춥니다 (p.152 K.4 ②).', en:'Sit upright without leaning back and line your nose up with the center line between the two pages (p.152 K.4 ②).'},
+  {ko:'도입: 강조된 막대를 손가락으로 짚으며 따라갑니다. 글줄을 지나고, 글줄 사이의 여백을 따라 왼쪽으로 돌아옵니다.', en:'Intro: follow the highlighted bar with your finger — along the line, then back to the left through the space between lines.', tag:'design'},
+  {tag:'src', ref:'p.153', ko:'첫 줄 첫 글자에 초점을 맞추고, 그 줄의 마지막 글자까지 등속도로 읽어 나갑니다 (p.153 K.5 ①~③).', en:'Focus on the first letter of the first line and read to the line’s last letter at an even speed (p.153 K.5 ①–③).'},
+  {tag:'src', ref:'p.153', ko:'줄 끝에서 다음 줄 첫 글자로 뛰어넘지 않습니다. 글줄 사이의 여백을 제3단계의 점선 줄로 생각하고 읽은 다음, 둘째 줄 첫 글자를 읽습니다 (p.153 K.5 ④~⑨).', en:'Do not jump from the end of a line to the next line’s first letter. Read the space between lines as if it were the stage 3 dotted line, then read the first letter of the next line (p.153 K.5 ④–⑨).'},
+  {tag:'src', ref:'p.153', ko:'짧아서 도중에 끝나는 글줄도 끝까지 이어진 글줄로 생각하고 눈길을 끝까지 잇습니다. 눈의 율동을 일정하게 하기 위해서입니다 (p.153 K.5 ⑪⑫).', en:'Treat a line that ends early as running to the end, and carry your eyes all the way, to keep the rhythm even (p.153 K.5 ⑪⑫).'},
+  {ko:'쪽을 옮겨 갈 때는 제2·3단계와 똑같이 합니다. 눈에 약간 힘을 더 주고, 깜박이지 않고 이행합니다 (p.153 K.5 ⑬⑮).', en:'Move between pages exactly as in stages 2 and 3, with a little more force in your eyes and without blinking (p.153 K.5 ⑬⑮).'},
+  {tag:'design', ko:'화면에서는 오른쪽 쪽 아래를 누르거나 → 키를 눌러 책장을 넘깁니다. 빠르기는 1분에 읽는 글자 수로 대략 표시하며, ↑/↓로 바꿀 수 있습니다.', en:'On screen, turn the page by tapping the lower right page or pressing →. Pace is shown roughly as letters per minute; change it with ↑/↓.'},
+  {must:1, tag:'src', ref:'p.152', ko:'눈을 활짝 크게 뜨고, 깜박이지 않고 책을 읽습니다 (p.152 K.2 ⑤⑥).', en:'Keep your eyes wide open and read without blinking (p.152 K.2 ⑤⑥).'},
+  {tag:'guide', ko:'깜박였다면 멈추지 말고, 다시 눈을 크게 뜨고 이어 갑니다.', en:'If you blink, don’t stop. Open your eyes wide again and keep going.'},
+  {tag:'safe', ko:'통증이나 심한 따가움, 흐려 보임이 계속되면 바로 멈춥니다.', en:'Stop at once if pain, severe stinging or blurred vision persists.'}
+ ],
+ src:{ko:'근거: 『과학적 속독법』 독서활동훈련 p.151~154. 훈련 투입 방법 p.154: 도입 1분, 훈련 1~3분, 훈련회수 1~2. 읽는 글은 이 서비스가 직접 쓴 글입니다.', en:'Source: "Scientific Speed Reading", reading activity training pp.151–154. Training schedule p.154: intro 1 min, training 1–3 min, 1–2 rounds. The texts are written for this service.'},
+ presets:[
+  {k:'demo', intro:10, train:30, label:{ko:'30초 체험', en:'30 s trial'}, hint:{ko:'빠른 체험용 (원전 기준보다 짧음)', en:'Quick trial (shorter than the source standard)'}},
+  {k:'b1', intro:60, train:60, label:{ko:'1분', en:'1 min'}, hint:{ko:'원전 R.M. 훈련 시간 하한 (p.154)', en:'Lower bound of source R.M. training time (p.154)'}},
+  {k:'b3', intro:60, train:180, label:{ko:'3분', en:'3 min'}, hint:{ko:'원전 R.M. 훈련 시간 상한 (p.154)', en:'Upper bound of source R.M. training time (p.154)'}}
+ ], def:'b1', bookTrain:{min:60, label:{ko:'1~3분', en:'1–3 min'}, ref:'p.154'}, rounds:[1,2], roundsHint:{ko:'원전 R.M. 훈련회수 1~2', en:'Source R.M. rounds: 1–2'},
+ pace:{ko:'빠르기: 1분에 약 400자로 시작합니다. 원전에는 처음 빠르기 값이 없어 추정값입니다. 글줄과 여백을 같은 빠르기로 지나가므로, 표시되는 글자 수는 여백을 지나는 시간까지 넣은 값입니다.', en:'Pace: starts at about 400 letters a minute. The source gives no starting value, so this is an estimate. Lines and the spaces between them go at the same speed, so the figure includes the time spent on the spaces.'},
+ cdIntroMsg:{ko:'강조된 막대를 손가락으로 짚으며 따라가세요.', en:'Follow the highlighted bar with your finger.'},
+ cdTrainMsg:{ko:'손을 떼고 눈으로만 글줄과 여백을 따라갑니다. 끝날 때까지 깜박이지 않습니다.', en:'Hands off — follow the lines and the spaces with your eyes only. Do not blink until it ends.'},
+ phIntro:{ko:'<b>도입</b> 손가락으로 막대를 따라가기, 여백에서는 왼쪽으로', en:'<b>Intro</b> Follow the bar with your finger; leftward through the spaces'},
+ phTrain:{ko:'<b>훈련</b> 글줄은 오른쪽으로, 여백은 왼쪽으로, 같은 빠르기로', en:'<b>Training</b> Right along the line, left through the space, at one speed'},
+ passL:{ko:'지나간 글줄', en:'Lines covered'},
+ chips:[
+  ['tears',{ko:'눈물이 났다',en:'My eyes watered'}],['jump',{ko:'줄 끝에서 다음 줄 첫 글자로 뛰어넘었다',en:'I jumped from a line’s end to the next line’s start'}],
+  ['short',{ko:'짧은 줄에서 눈길을 끝까지 잇지 못했다',en:'I didn’t carry my eyes to the end of short lines'}],['turnblink',{ko:'쪽을 옮길 때 깜박였다',en:'I blinked when moving between pages'}],
+  ['head',{ko:'고개가 움직였다',en:'My head moved'}],['none',{ko:'특별한 반응 없음',en:'Nothing notable'}]
+ ],
+ note:{ko:'점검 항목은 원전의 활동형태(p.153 K.5)에서 하지 말라고 한 행동과 지키라고 한 행동을 옮긴 것입니다.', en:'These items restate what the source’s activity rules (p.153 K.5) say to avoid and to keep doing.'}
+};
+
+const EXTRA_IDS = ['A-II','A-III','B-II','B-III', ...S2_IDS, ...S3_IDS, 'RM'];
 const CNT_WORDS = { 3:{ko:'"하나, 둘, 셋"', en:'"one, two, three"'}, 5:{ko:'"하나"부터 "다섯"까지', en:'"one" to "five"'}, 7:{ko:'"하나"부터 "일곱"까지', en:'"one" to "seven"'} };
 const beatsOf = D => D.counts ? Number((cfg[D.id] && cfg[D.id].count) || D.beats) : D.beats;
 const fx = (str, D) => String(str).replace('{cnt}', L(CNT_WORDS[beatsOf(D)] || CNT_WORDS[3])).replace('{sec}', beatsOf(D));
@@ -1250,7 +1331,7 @@ const LEVELS = [
     gate:{ko:'사후 측정 후 수료',en:'Final test, then completion'}, gateSrc:null,
     seq:[ ['s2',30,120], ['basic',30,m(15)], ['s1',30,30], ['s2',30,120], ['s3',30,120], ['rd',30,m(10)], ['basic',30,m(10)], ['s2',30,60], ['s3',30,60], ['rd',30,m(10)] ] }
 ];
-const CU_TODAY = 1;
+let CU_TODAY = 1;
 const fmtDur = s => {
   const mm = Math.floor(s / 60), ss = Math.round(s % 60);
   if (lang === 'ko') return mm && ss ? mm + '분 ' + ss + '초' : mm ? mm + '분' : ss + '초';
@@ -1374,7 +1455,7 @@ const cfg = store.get(K_CFG, {});
 for (const id in DRILLS){ cfg[id] = Object.assign({ preset: DRILLS[id].def, rounds: DRILLS[id].rounds[0] }, DRILLS[id].turns ? { turn: 'hand' } : {}, DRILLS[id].parts ? { part: 'all' } : {}, DRILLS[id].counts ? { count: 3 } : {}, cfg[id] || {}); }
 cfg.measure = Object.assign({ mode: 'normal' }, cfg.measure || {});
 const saveCfg = () => store.set(K_CFG, cfg);
-const presetOf = id => DRILLS[id].presets.find(p => p.k === cfg[id].preset) || DRILLS[id].presets[1];
+const presetOf = id => { const it = planItem(id); if (it && presetSel(id) === 'plan') return planPreset(it); return DRILLS[id].presets.find(p => p.k === cfg[id].preset) || DRILLS[id].presets[1] || DRILLS[id].presets[0]; };
 
 /* Android back button / browser history: one entry above the dashboard */
 let skipPop = false;
@@ -1388,10 +1469,11 @@ function syncHistory(id){
 window.addEventListener('popstate', () => {
   if (skipPop){ skipPop = false; return; }
   const on = (document.querySelector('.screen.on') || {}).id;
-  const hold = ['player', 'mread', 'check', 'mquiz'];
+  const hold = ['player', 'rm', 'mread', 'check', 'mquiz'];
   if (hold.includes(on)){
     try { history.pushState({ sr: 1 }, ''); } catch(e){}
     if (on === 'player' && S && (S.phase === 'intro' || S.phase === 'train')) setPaused(true);
+    if (on === 'rm') rmSetPaused(true);
     return;
   }
   if (on && on !== 'dash'){ pendingBlock = null; curBrief = null; renderDash(); show('dash', true); }
@@ -1498,7 +1580,7 @@ function buildC(fmt, part, b, dense){
     }
   }
   else if (fmt === 'IV'){
-    const pages = dense ? 9 : 20;                      // C-IV pp.78–97 (3,000), D-IV pp.116–124 (1,350)
+    const pages = dense ? 34 : 20;                     // C-IV pp.78–97 (3,000), D-IV pp.116–149 (5,100)
     for (let pg = 0; pg < pages; pg++){
       const sp = Math.floor(pg / 2), page = pg % 2 ? 'R' : 'L';
       for (let i = 0; i < C_ROWS; i++){
@@ -1584,26 +1666,95 @@ $('#dashCalBtn').addEventListener('click', () => openCalib('dash'));
 $('#briefCalBtn').addEventListener('click', () => openCalib('brief'));
 
 /* =============== today's plan / dashboard =============== */
-const BLOCKS = ['A-I', 'B-I', 'measure'];
-function doneToday(){
-  const d = todayStr(), t = loadT().filter(r => r.date === d && !r.aborted), m = loadM().filter(r => r.date === d);
-  return { 'A-I': t.some(r => r.frame === 'A-I'), 'B-I': t.some(r => r.frame === 'B-I'), measure: m.length > 0 };
+/* =============== 48-day course: today's plan =============== */
+const K_PROG = 'sr-proto-prog-v1';
+// Which frame of each training type a day uses rotates through the source's frames (design: the source gives the
+// frames and the time per training type, not which frame on which day).
+const ROT = { basic:['A-I','A-II','A-III'], s1:['B-I','B-II','B-III'], s2:['C-I-1','C-I-2','C-II-1','C-II-2','C-III','C-IV'],
+              s3:['D-I-1','D-I-2','D-II-1','D-II-2','D-III','D-IV'], rd:['RM'] };
+const levelOf = d => LEVELS.find(l => l.id !== 'L0' && d >= l.days[0] && d <= l.days[1]) || LEVELS[1];
+const levelNo = lv => LEVELS.indexOf(lv);
+const r30 = x => Math.max(30, Math.round(x / 30) * 30);
+let PLAN = null;
+const planSel = {};
+function dayPlan(d){
+  const lv = levelOf(d), items = [], seen = {};
+  const pick = (type, k) => { const list = ROT[type]; return list[((k % list.length) + list.length) % list.length]; };
+  const partOf = (id, k) => (id === 'C-III' || id === 'D-III') ? String((Math.floor(k / ROT.s2.length) % 4) + 1) : null;
+  if (lv.seq){
+    lv.seq.forEach(([type, intro, train]) => {
+      seen[type] = (seen[type] || 0) + 1;
+      const k = (d - lv.days[0]) * 2 + seen[type] - 1, id = pick(type, k);
+      items.push({ type, id, intro, train, review: null, part: partOf(id, k), src: 'p.175' });
+    });
+  } else {
+    const active = lv.unlock ? (lv.unlock.find(([a, b]) => d >= a && d <= b) || lv.unlock.at(-1))[2] : ['basic','s1','s2','s3','rd'];
+    lv.blocks.forEach(([type, ir, tr, rv]) => {
+      if (!active.includes(type)) return;
+      const start = lv.unlock ? lv.unlock.find(u => u[2].includes(type))[0] : lv.days[0];
+      const f = Math.min(1, Math.max(0, (d - start) / Math.max(1, lv.days[1] - start)));
+      const k = d - start, id = pick(type, k);
+      items.push({ type, id, intro: ir[0], train: r30(tr[0] + (tr[1] - tr[0]) * f), review: rv, part: partOf(id, k), src: lv.minsRef });
+    });
+  }
+  if (items.some(i => i.type === 's3')) items.push({ type: 'chk', id: 'D-CHK' });
+  items.push({ type: 'measure', id: 'measure' });
+  items.forEach(i => { i.soon = i.id !== 'measure' && !DRILLS[i.id]; });
+  return { d, lv, items };
 }
-const nextBlock = () => { const dn = doneToday(); return BLOCKS.find(b => !dn[b]) || null; };
+const planItem = id => PLAN && PLAN.items.find(i => i.id === id && !i.soon && i.train);
+const planPreset = it => ({ k: 'plan', intro: it.intro, train: it.train,
+  label: { ko: '오늘 계획 ' + fmt(it.train), en: 'Today ' + fmt(it.train) },
+  hint: { ko: '48일 과정 Day ' + PLAN.d + ' 계획. ' + L(PLAN.lv.proc) + ' 시간전략(' + it.src + ')의 범위 안에서, 날이 갈수록 조금씩 늘어나도록 배정했습니다.',
+          en: 'Day ' + PLAN.d + ' of the 48-day course, set within the ' + L(PLAN.lv.proc) + ' time plan (' + it.src + ') and growing a little each day.' } });
+const presetsOf = id => { const it = planItem(id); return it ? [planPreset(it), ...DRILLS[id].presets] : DRILLS[id].presets; };
+const presetSel = id => planItem(id) ? (planSel[id] || 'plan') : cfg[id].preset;
+const blocks = () => PLAN.items.filter(i => !i.soon).map(i => i.id);
+function loadProg(){ return store.get(K_PROG, { day: 1, done: {} }); }
+function syncDay(){
+  const pr = loadProg(), today = todayStr();
+  while (pr.done[pr.day] && pr.done[pr.day] !== today && pr.day < 48) pr.day++;
+  store.set(K_PROG, pr);
+  CU_TODAY = pr.day; PLAN = dayPlan(pr.day);
+  return pr;
+}
+function markDayIfDone(){
+  const pr = loadProg(), dn = doneToday();
+  if (!pr.done[pr.day] && blocks().every(b => dn[b])){ pr.done[pr.day] = todayStr(); store.set(K_PROG, pr); }
+  return pr;
+}
+function doneToday(){
+  const d = todayStr(), t = loadT().filter(r => r.date === d && !r.aborted), m = loadM().filter(r => r.date === d), o = {};
+  (PLAN ? PLAN.items : []).forEach(i => { o[i.id] = i.id === 'measure' ? m.length > 0 : t.some(r => r.frame === i.id); });
+  return o;
+}
+const nextBlock = () => { const dn = doneToday(); return blocks().find(b => !dn[b]) || null; };
 function planText(id){
   if (id === 'measure') return T('rowPlanM');
-  const p = presetOf(id), r = cfg[id].rounds;
-  return T('rowPlan', { i: fmt(p.intro), t: fmt(p.train) }) + (r > 1 ? ' × ' + r : '');
+  if (DRILLS[id] && DRILLS[id].free) return T('rowPlanC');
+  const p = presetOf(id), r = cfg[id].rounds, it = PLAN && PLAN.items.find(i => i.id === id);
+  return T('rowPlan', { i: fmt(p.intro), t: fmt(p.train) }) + (r > 1 ? ' × ' + r : '') +
+    (it && it.part ? ' · III-' + it.part : '') + (it && it.review ? ' · ' + T('reviewT', { m: Math.round(it.review[0] / 60) }) : '');
 }
 function estMin(){
   let s = 180;
-  for (const id of ['A-I','B-I']){ const p = presetOf(id); s += p.intro + p.train * cfg[id].rounds; }
+  PLAN.items.forEach(i => { if (i.soon || i.id === 'measure') return; const p = presetOf(i.id); s += p.intro + p.train * cfg[i.id].rounds + (i.review ? i.review[0] : 0); });
   return Math.ceil(s / 60);
 }
 function renderDash(){
-  const dn = doneToday(), nx = nextBlock();
+  syncDay(); const pr = markDayIfDone();
+  const dn = doneToday(), nx = nextBlock(), lv = PLAN.lv;
+  $('#dayNum').innerHTML = 'DAY ' + PLAN.d + '<span class="of">/ 48</span>';
+  $('#lvlNum').textContent = 'LEVEL ' + levelNo(lv);
+  $('#lvlName').textContent = L(lv.name) + ', ' + L(lv.proc);
   const ul = $('#todayRows'); ul.innerHTML = '';
-  BLOCKS.forEach(id => {
+  PLAN.items.forEach(it => {
+    const id = it.id;
+    if (it.soon){
+      const li = document.createElement('li');
+      li.innerHTML = '<button type="button" disabled><span class="dot"></span><span class="nm">' + esc(T('rmName')) + '</span><span class="plan">' + esc(T('rowPlan', { i: fmt(it.intro), t: fmt(it.train) })) + '</span><span class="st">' + T('stSoon') + '</span></button>';
+      ul.append(li); return;
+    }
     const name = id === 'measure' ? L(MEASURE.name) : L(DRILLS[id].name);
     const st = dn[id] ? 'done' : (id === nx ? 'next' : 'todo');
     const li = document.createElement('li');
@@ -1621,11 +1772,12 @@ function renderDash(){
     li.querySelector('button').addEventListener('click', () => go(id));
     s2.append(li);
   });
-  const n = BLOCKS.filter(b => dn[b]).length;
-  $('#todayBar').style.width = (n / BLOCKS.length * 100) + '%';
+  const B = blocks(), n = B.filter(b => dn[b]).length;
+  $('#todayBar').style.width = (n / B.length * 100) + '%';
   $('#todayEst').textContent = T('est', { n: estMin() });
-  $('#allDone').hidden = n < BLOCKS.length;
-  $('#dashStart').textContent = n === 0 ? T('startBtn') : n < BLOCKS.length ? T('contBtn') : T('againBtn');
+  $('#allDone').hidden = n < B.length;
+  $('#allDone').textContent = PLAN.d < 48 ? T('dayDone', { d: PLAN.d, n: PLAN.d + 1 }) : T('allDone');
+  $('#dashStart').textContent = n === 0 ? T('startBtn') : n < B.length ? T('contBtn') : T('againBtn');
 
   const ms = loadM(), last = ms[ms.length - 1];
   if (last){
@@ -1677,8 +1829,9 @@ function openBrief(id){
   } else {
     $('#gTimeH').textContent = lang === 'ko' ? '훈련 시간' : 'Training time';
     const recK = ladderRec(id);
-    segButtons($('#segTime'), D.presets.map(p => ({ v:p.k, label:L(p.label) })), cfg[id].preset, v => { cfg[id].preset = v; saveCfg(); briefHints(); });
-    if (recK) $('#segTime').querySelectorAll('button').forEach((b, i) => { if (D.presets[i].k === recK) b.insertAdjacentHTML('beforeend', '<span class="rec">' + (lang === 'ko' ? '· 권장' : '· suggested') + '</span>'); });
+    const PS = presetsOf(id);
+    segButtons($('#segTime'), PS.map(p => ({ v:p.k, label:L(p.label) })), presetSel(id), v => { if (planItem(id)) planSel[id] = v; if (v !== 'plan'){ cfg[id].preset = v; saveCfg(); } briefHints(); });
+    if (recK) $('#segTime').querySelectorAll('button').forEach((b, i) => { if (PS[i].k === recK) b.insertAdjacentHTML('beforeend', '<span class="rec">' + (lang === 'ko' ? '· 권장' : '· suggested') + '</span>'); });
     segButtons($('#segRounds'), D.rounds.map(r => ({ v:r, label: lang === 'ko' ? r + '회' : String(r) })), cfg[id].rounds, v => { cfg[id].rounds = Number(v); saveCfg(); briefHints(); });
     $('#roundsHint').textContent = L(D.roundsHint);
     $('#keysHint').textContent = T(D.kind === 'spread' ? 'keysC' : 'keys');
@@ -1724,11 +1877,11 @@ function briefHints(){
   cmp += '</div>';
   $('#timeHint').innerHTML = esc(L(p.hint)) + '<br>' + esc(fx(L(D.pace), D)) + cmp;
   $('#sumIntro').textContent = fmt(p.intro); $('#sumTrain').textContent = fmt(p.train);
-  const np = D.parts ? (cfg[id].part === 'all' ? 4 : 1) : 1;
+  const np = D.parts ? ((planItem(id) && presetSel(id) === 'plan') ? 1 : cfg[id].part === 'all' ? 4 : 1) : 1;
   $('#sumRounds').textContent = r + (np > 1 ? ' × 4' : ''); $('#sumTotal').textContent = fmt((p.intro + p.train * r) * np);
 }
 $('#briefClose').addEventListener('click', () => { curBrief = null; renderDash(); show('dash'); });
-$('#briefGo').addEventListener('click', () => curBrief === 'measure' ? startReading() : startSession(curBrief));
+$('#briefGo').addEventListener('click', () => curBrief === 'measure' ? startReading() : (DRILLS[curBrief].kind === 'reader' ? startRM(curBrief) : startSession(curBrief)));
 
 /* =============== stage =============== */
 const CY = 130, NS = 'http://www.w3.org/2000/svg';
@@ -1936,10 +2089,10 @@ function startSession(id){
   S = { D, presetK: p.k, cpm: D.cpmSteps ? (cfg[id].cpm || 120) : 0, mark: null, introSec: p.intro, trainSec: p.train, roundsTotal: cfg[id].rounds, round: 1, roundsDone: 0,
         phase: 'count', pace: 1, timeLeft: p.intro, pos: 0, dir: 1, beatT: 0,
         waitTurn: false, turnT0: 0, turnMs: [], turnMode: D.turns ? cfg[id].turn : null,
-        parts: D.parts ? (cfg[id].part === 'all' ? [1, 2, 3, 4] : [Number(cfg[id].part)]) : null, partI: 0, partStat: [], h0: 0, s0: 0,
+        parts: D.parts ? ((planItem(id) && presetSel(id) === 'plan' && planItem(id).part) ? [Number(planItem(id).part)] : cfg[id].part === 'all' ? [1, 2, 3, 4] : [Number(cfg[id].part)]) : null, partI: 0, partStat: [], h0: 0, s0: 0,
         passes: 0, hits: 0, samples: 0, win: { tap: false, near: 0, n: 0 },
         trainedMs: 0, paceMs: 0, paused: false, aborted: false, ptr: null };
-  $('#pTag').textContent = D.tag; $('#pName').textContent = L(D.name);
+  $('#pTag').textContent = D.tag; $('#pName').textContent = L(D.name); $('#pLv').textContent = 'LEVEL ' + levelNo(PLAN.lv);
   document.querySelector('.stagewrap').dataset.vpos = D.vpos || '';
   show('player');
   buildStage(D);
@@ -2104,7 +2257,7 @@ document.addEventListener('keydown', e => {
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); turn(-1); }
   }
 });
-document.addEventListener('visibilitychange', () => { if (document.hidden) setPaused(true); });
+document.addEventListener('visibilitychange', () => { if (document.hidden){ setPaused(true); if (typeof rmSetPaused === 'function' && $('#rm').classList.contains('on')) rmSetPaused(true); } });
 
 /* check & result */
 $('#chips').addEventListener('click', e => {
@@ -2124,6 +2277,7 @@ $('#toResult').addEventListener('click', () => {
   const avgPace = S.trainedMs ? S.paceMs / S.trainedMs : S.pace;
   const reactions = [...document.querySelectorAll('#chips button[aria-pressed="true"]')].map(b => b.dataset.k);
   if (S.D.cpmSteps && !S.D.free){ cfg[S.D.id].cpm = S.cpm; saveCfg(); }
+  if (S.D.kind === 'reader' && RMS){ cfg[S.D.id].cpm = RMS.cpm; saveCfg(); }
   const rec = { date: todayStr(), ts: Date.now(), frame: S.D.id, trainSec, rounds: S.roundsDone, roundsTotal: S.roundsTotal,
                 passes: S.passes, pace: Math.round(avgPace * 100) / 100, accuracy: acc, aborted: S.aborted, reactions,
                 preset: S.presetK, turns: S.turnMs.length, turnAvgMs: S.turnMs.length ? Math.round(S.turnMs.reduce((a, b) => a + b, 0) / S.turnMs.length) : null,
@@ -2133,11 +2287,11 @@ $('#toResult').addEventListener('click', () => {
   all.push(rec); store.set(K_TRAIN, all);
 
   $('#rHead').textContent = S.aborted ? 'TRAINING STOPPED' : 'TRAINING COMPLETE';
-  $('#rTag').textContent = L(S.D.name) + ', LEVEL 1';
+  $('#rTag').textContent = L(S.D.name) + ', LEVEL ' + levelNo(PLAN.lv);
   $('#rTime').textContent = fmtFloor(trainSec);
   $('#rRounds').textContent = S.roundsDone + '/' + S.roundsTotal;
   $('#rAcc').innerHTML = acc === null ? '—' : acc + '<small>%</small>';
-  $('#rPace').innerHTML = S.D.free ? '—' : S.D.cpmSteps ? nf(Math.round(avgPace)) + '<small>' + (lang === 'ko' ? '/분' : '/min') + '</small>' : (Math.round(avgPace * 100) / 100).toFixed(2).replace(/0$/, '') + '<small>×</small>';
+  $('#rPace').innerHTML = S.D.free ? '—' : S.D.kind === 'reader' ? nf(Math.round(avgPace)) + '<small>' + (lang === 'ko' ? '자/분' : ' ch/min') + '</small>' : S.D.cpmSteps ? nf(Math.round(avgPace)) + '<small>' + (lang === 'ko' ? '/분' : '/min') + '</small>' : (Math.round(avgPace * 100) / 100).toFixed(2).replace(/0$/, '') + '<small>×</small>';
   $('#rPassL').textContent = L(S.D.passL);
   $('#rPasses').textContent = nf(S.passes);
   { const ko = lang === 'ko';
@@ -2162,13 +2316,14 @@ $('#toResult').addEventListener('click', () => {
   $('#rBest').textContent = parts.length ? parts.join(', ') : '—';
   if (S.D.free) $('#rBest').textContent = S.passes >= 1200 ? T('visGateOk', { n: nf(S.passes) }) : T('visGate', { n: nf(1200 - S.passes) });
   $('#rPrev').textContent = prev ? T('prevRec', { a: (prev.accuracy ?? '—') + (prev.accuracy != null ? '%' : ''), t: fmtFloor(prev.trainSec), p: prev.pace }) : T('first');
-  const nxt = S.D.next;
-  $('#nextBtn').textContent = 'NEXT  ·  ' + (nxt === 'measure' ? L(MEASURE.name) : L(DRILLS[nxt].name));
+  const nxt = nextAfter(S.D);
+  $('#nextBtn').textContent = nxt ? 'NEXT  ·  ' + (nxt === 'measure' ? L(MEASURE.name) : L(DRILLS[nxt].name)) : T('dayFinish');
   show('result');
 });
-$('#retryBtn').addEventListener('click', () => startSession(S.D.id));
+$('#retryBtn').addEventListener('click', () => S.D.kind === 'reader' ? startRM(S.D.id) : startSession(S.D.id));
 document.addEventListener('click', e => { const b = e.target.closest('#partRetry'); if (!b) return; cfg['C-III'].part = b.dataset.p; saveCfg(); startSession('C-III'); });
-$('#nextBtn').addEventListener('click', () => openBrief(S.D.next));
+const nextAfter = D => (PLAN && PLAN.items.some(i => i.id === D.id)) ? (nextBlock() || null) : D.next;
+$('#nextBtn').addEventListener('click', () => { const n = nextAfter(S.D); if (n) openBrief(n); else { curBrief = null; renderDash(); show('dash'); } });
 $('#backBtn').addEventListener('click', () => { curBrief = null; renderDash(); show('dash'); });
 
 /* =============== 1-minute check =============== */
@@ -2241,6 +2396,167 @@ $('#pgNext').addEventListener('click', () => turn(1));
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5){ RS && (RS.swiped = Date.now()); turn(dx < 0 ? 1 : -1); }
   });
 })();
+/* =============== reading activity R.M. (p.151~154) =============== */
+const RM_STEPS = [200, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000, 2500, 3000];
+const rmReader = $('#rmReader'), rmWrap = $('#rmWrap'), rmBar = $('#rmBar');
+let RMS = null;
+function rmPassage(){
+  const list = PASSAGES.filter(p => p.lang === lang);
+  const used = pickPassage();                                  // keep today's 1-minute check passage unseen
+  const others = list.filter(p => p !== used);
+  const n = loadT().filter(r => r.frame === 'RM').length;
+  return (others.length ? others : list)[n % (others.length || list.length)];
+}
+function rmBuildText(P){
+  rmReader.innerHTML = ''; rmReader.setAttribute('lang', P.lang);
+  const h = document.createElement('h3'); h.textContent = P.title; rmReader.append(h);
+  P.paras.forEach(t => { const p = document.createElement('p'); p.textContent = t; rmReader.append(p); });
+}
+function rmLayout(){
+  const gap = parseFloat(getComputedStyle(rmReader).columnGap) || 0;
+  RMS.step = rmReader.clientWidth + gap;
+  RMS.spreads = Math.max(1, Math.round((rmReader.scrollWidth + gap) / RMS.step));
+  RMS.spread = Math.min(RMS.spread, RMS.spreads - 1);
+  rmReader.scrollLeft = RMS.spread * RMS.step;
+  rmSegments();
+}
+// Lines of the visible spread, from the text's own line boxes.
+function rmSegments(){
+  const box = rmReader.getBoundingClientRect(), wr = rmWrap.getBoundingClientRect();
+  const cs = getComputedStyle(rmReader), gap = parseFloat(cs.columnGap) || 0;
+  const ncol = Math.max(1, parseInt(cs.columnCount, 10) || 1), colW = (box.width - gap * (ncol - 1)) / ncol;
+  const rects = [], rg = document.createRange(), walker = document.createTreeWalker(rmReader, NodeFilter.SHOW_TEXT);
+  for (let n = walker.nextNode(); n; n = walker.nextNode()){
+    rg.selectNodeContents(n);
+    for (const r of rg.getClientRects()){
+      if (r.width < 1 || r.left < box.left - 2 || r.right > box.right + 2) continue;
+      rects.push({ col: Math.min(ncol - 1, Math.max(0, Math.floor((r.left - box.left + 2) / (colW + gap)))), top: r.top, bottom: r.bottom });
+    }
+  }
+  rects.sort((a, b) => a.col - b.col || a.top - b.top);
+  const lines = [];
+  rects.forEach(r => { const l = lines.at(-1); if (l && l.col === r.col && Math.abs(l.top - r.top) < 4){ l.bottom = Math.max(l.bottom, r.bottom); } else lines.push({ ...r }); });
+  const fs = parseFloat(cs.fontSize) || 19;
+  RMS.cpl = Math.max(8, colW / (fs * (RMS.P.lang === 'ko' ? 0.98 : 0.5)));      // letters in a full line (approx.)
+  const segs = [], colL = c => box.left - wr.left + c * (colW + gap), colR = c => colL(c) + colW;
+  lines.forEach((l, i) => {
+    const y = l.bottom - wr.top - 2, nx = lines[i + 1];
+    segs.push({ kind: 'line', x0: colL(l.col), x1: colR(l.col), y });
+    if (nx && nx.col === l.col) segs.push({ kind: 'gap', x0: colR(l.col), x1: colL(l.col), y: (l.bottom + nx.top) / 2 - wr.top });
+  });
+  RMS.segs = segs; RMS.seg = 0; RMS.segT = 0;
+  RMS.colW = colW;
+}
+function rmDur(){ return (RMS.cpl / RMS.cpm) * 60 / 2; }      // a line and its gap together take the time to read one line
+function rmDraw(){
+  const sg = RMS.segs[RMS.seg];
+  if (!sg || RMS.waitTurn){ rmBar.style.opacity = 0; return; }
+  const f = Math.min(1, RMS.segT / rmDur()), x = sg.x0 + (sg.x1 - sg.x0) * f;
+  rmBar.style.opacity = 1;
+  rmBar.className = 'rmbar' + (sg.kind === 'gap' ? ' gap' : '');
+  rmBar.style.transform = `translate(${x - 14}px, ${sg.y}px)`;
+  RMS.pos = { x, y: sg.y };
+}
+function rmHud(){
+  $('#rmTime').textContent = fmt(RMS.timeLeft);
+  $('#rmRound').textContent = S.round + ' / ' + S.roundsTotal;
+  $('#rmAcc').textContent = S.samples ? Math.round(S.hits / S.samples * 100) + '%' : '—';
+  $('#rmPace').textContent = (lang === 'ko' ? '약 ' : '~') + nf(RMS.cpm) + (lang === 'ko' ? '자/분' : ' ch/min');
+}
+function rmPhaseLabel(){
+  $('#rmPhase').innerHTML = RMS.waitTurn ? T('turnMsgRm') : L(RMS.phase === 'intro' ? S.D.phIntro : S.D.phTrain);
+}
+function rmNextSpread(){
+  RMS.spread = RMS.spread + 1 < RMS.spreads ? RMS.spread + 1 : 0;
+  rmReader.scrollLeft = RMS.spread * RMS.step;
+  rmSegments();
+}
+function rmTurn(){
+  if (!RMS || !RMS.waitTurn || S.paused) return;
+  S.turnMs.push(performance.now() - RMS.turnT0);
+  RMS.waitTurn = false; $('#rmCorner').classList.remove('on');
+  rmNextSpread(); rmPhaseLabel();
+}
+function rmTick(now){
+  const dt = Math.min(now - last, 100); last = now;
+  if (S && !S.paused && (RMS.phase === 'intro' || RMS.phase === 'train')){
+    RMS.timeLeft -= dt / 1000;
+    if (!RMS.waitTurn){
+      RMS.segT += dt / 1000;
+      while (!RMS.waitTurn && RMS.segT >= rmDur()){
+        RMS.segT -= rmDur(); RMS.seg++;
+        if (RMS.phase === 'train' && RMS.segs[RMS.seg - 1] && RMS.segs[RMS.seg - 1].kind === 'line') S.passes++;
+        if (RMS.seg >= RMS.segs.length){
+          if (S.turnMode === 'hand' && RMS.spreads > 1 && RMS.spread + 1 < RMS.spreads){ RMS.waitTurn = true; RMS.turnT0 = performance.now(); $('#rmCorner').classList.add('on'); rmPhaseLabel(); RMS.segT = 0; }
+          else { rmNextSpread(); }
+        }
+      }
+    }
+    if (RMS.phase === 'intro' && !RMS.waitTurn && RMS.pos){ S.samples++; if (RMS.ptr && Math.hypot(RMS.ptr.x - RMS.pos.x, RMS.ptr.y - RMS.pos.y) < 44) S.hits++; }
+    if (RMS.phase === 'train'){ S.trainedMs += dt; S.paceMs += dt * RMS.cpm; }
+    if (RMS.timeLeft <= 0){ rmEndPhase(); return; }
+  }
+  rmDraw(); rmHud();
+  raf = requestAnimationFrame(rmTick);
+}
+function rmCountdown(n, head, msg, done){
+  RMS.phase = 'count'; $('#rmPauseBtn').hidden = true;
+  $('#rmCdH').textContent = head; $('#rmCdP').textContent = msg; $('#rmCd').classList.add('on');
+  let k = n; $('#rmCdNum').textContent = k;
+  clearInterval(cdTimer);
+  cdTimer = setInterval(() => { k--; if (k <= 0){ clearInterval(cdTimer); $('#rmCd').classList.remove('on'); $('#rmPauseBtn').hidden = false; done(); } else $('#rmCdNum').textContent = k; }, 1000);
+}
+function rmBegin(ph){
+  RMS.phase = ph; RMS.timeLeft = ph === 'intro' ? S.introSec : S.trainSec;
+  RMS.waitTurn = false; $('#rmCorner').classList.remove('on');
+  RMS.spread = 0; rmReader.scrollLeft = 0; rmSegments();
+  rmWrap.classList.toggle('eyes', ph === 'train');
+  rmPhaseLabel();
+  last = performance.now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(rmTick);
+}
+function rmEndPhase(){
+  cancelAnimationFrame(raf);
+  if (RMS.phase === 'intro'){ rmCountdown(3, lang === 'ko' ? '훈련' : 'Training', L(S.D.cdTrainMsg), () => rmBegin('train')); return; }
+  S.roundsDone = S.round;
+  if (S.round < S.roundsTotal){ S.round++; rmCountdown(5, T('cdNext'), T('cdNextMsg', { r: S.round }), () => rmBegin('train')); }
+  else finish(false);
+}
+function startRM(id){
+  const D = DRILLS[id], p = presetOf(id);
+  S = { D, presetK: p.k, introSec: p.intro, trainSec: p.train, roundsTotal: cfg[id].rounds, round: 1, roundsDone: 0, phase: 'rm',
+        pace: 1, passes: 0, hits: 0, samples: 0, trainedMs: 0, paceMs: 0, paused: false, aborted: false, turnMs: [], turnMode: cfg[id].turn, parts: null, win: { n: 0 } };
+  RMS = { P: rmPassage(), phase: 'count', spread: 0, spreads: 1, step: 1, segs: [], seg: 0, segT: 0, timeLeft: p.intro, waitTurn: false, ptr: null,
+          cpm: cfg[id].cpm || RM_STEPS[2] };
+  $('#rmTag').textContent = D.tag; $('#rmName').textContent = L(D.name); $('#rmLv').textContent = 'LEVEL ' + levelNo(PLAN.lv);
+  rmBuildText(RMS.P);
+  show('rm'); enterImmersive();
+  $('#rmPause').classList.remove('on'); $('#rmPhase').innerHTML = '';
+  requestAnimationFrame(() => { rmLayout(); rmHud(); rmCountdown(3, T('introL'), L(D.cdIntroMsg), () => rmBegin('intro')); });
+}
+function rmSetPaused(v){ if (!RMS || (RMS.phase !== 'intro' && RMS.phase !== 'train')) return; S.paused = v; $('#rmPause').classList.toggle('on', v); if (!v){ last = performance.now(); if (RMS.waitTurn) RMS.turnT0 = last; } }
+$('#rmPauseBtn').addEventListener('click', () => rmSetPaused(true));
+$('#rmResume').addEventListener('click', () => rmSetPaused(false));
+$('#rmQuit').addEventListener('click', () => { $('#rmPause').classList.remove('on'); RMS.phase = 'done'; finish(true); });
+const rmPace = d => { const i = Math.max(0, RM_STEPS.indexOf(RMS.cpm)); RMS.cpm = RM_STEPS[Math.min(RM_STEPS.length - 1, Math.max(0, i + d))]; rmHud(); };
+$('#rmPaceDown').addEventListener('click', () => rmPace(-1));
+$('#rmPaceUp').addEventListener('click', () => rmPace(1));
+rmWrap.addEventListener('pointermove', e => { if (RMS){ const w = rmWrap.getBoundingClientRect(); RMS.ptr = { x: e.clientX - w.left, y: e.clientY - w.top }; } });
+rmWrap.addEventListener('pointerdown', e => {
+  if (!RMS) return;
+  const w = rmWrap.getBoundingClientRect(); RMS.ptr = { x: e.clientX - w.left, y: e.clientY - w.top };
+  if (RMS.waitTurn && RMS.ptr.x > w.width * 0.5 && RMS.ptr.y > w.height * 0.5) rmTurn();
+});
+rmWrap.addEventListener('pointerleave', () => { if (RMS) RMS.ptr = null; });
+document.addEventListener('keydown', e => {
+  if (!$('#rm').classList.contains('on') || !RMS) return;
+  if (e.code === 'Space'){ e.preventDefault(); rmSetPaused(!S.paused); }
+  else if (e.key === 'Escape') rmSetPaused(true);
+  else if (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === 'PageDown'){ e.preventDefault(); rmTurn(); }
+  else if (e.key === 'ArrowUp'){ e.preventDefault(); rmPace(1); }
+  else if (e.key === 'ArrowDown'){ e.preventDefault(); rmPace(-1); }
+});
+window.addEventListener('resize', () => { if ($('#rm').classList.contains('on') && RMS) rmLayout(); });
+
 window.addEventListener('resize', () => {
   if ($('#mread').classList.contains('on')) layoutPages();
   if ($('#player').classList.contains('on') && S) sizeStage(S.D);
@@ -2371,7 +2687,7 @@ $('#qSubmit').addEventListener('click', () => {
   $('#mrPrev').textContent = prev ? T('mPrev', { v: nf(prev.speed), u: uS, c: prev.comp == null ? '—' : prev.comp + '%' }) : T('mFirst');
   $('#mrRead').textContent = T('readAmt', { n: nf(Q.count), u: uN, s: Q.elapsed });
   $('#mrNote').textContent = unit === 'chars' ? DYN.ko.mNote : DYN.en.mNoteEn;
-  $('#mrDone').hidden = !BLOCKS.every(b => doneToday()[b]);
+  $('#mrDone').hidden = !blocks().every(b => doneToday()[b]);
   RS = null;
   show('mresult');
 });
