@@ -1,0 +1,26 @@
+from playwright.sync_api import sync_playwright
+URL='file://' + __import__('pathlib').Path(__file__).resolve().parent.parent.joinpath('index.html').as_posix() + ''
+with sync_playwright() as p:
+    b=p.chromium.launch(); pg=b.new_page(viewport={'width':1440,'height':900}, locale='ko-KR'); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
+    pg.clock.install(); pg.goto(URL); pg.wait_for_timeout(200)
+    print('extra', pg.eval_on_selector_all('#s2Rows li .nm','l=>l.map(x=>x.innerText)'))
+    pg.click('#s2Rows li:nth-child(1) button'); pg.wait_for_timeout(100)
+    if pg.evaluate("document.querySelector('#calib').classList.contains('on')"): pg.click('#calibSave'); pg.wait_for_timeout(150)
+    print('A-II steps:', pg.inner_text('#bSteps').replace('\n',' | ')[:500])
+    print('count seg:', pg.inner_text('#segCount').replace('\n',' / '))
+    pg.click('#segCount button:nth-child(2)'); pg.wait_for_timeout(100)
+    print('hint:', pg.inner_text('#timeHint').split('\n')[1])
+    pg.screenshot(path='ab-brief.png', full_page=True)
+    pg.click('#segTime button:nth-child(1)'); pg.click('#briefGo'); pg.clock.run_for(3200); pg.clock.run_for(15000); pg.clock.run_for(3200); pg.clock.run_for(4000); pg.wait_for_timeout(100)
+    print('phase:', pg.inner_text('#phaseLabel'))
+    pg.screenshot(path='ab-A2-train.png')
+    pg.click('#pauseBtn'); pg.click('#quitBtn'); pg.click('#toResult'); pg.click('#backBtn')
+    pg.click('#s2Rows li:nth-child(4) button'); pg.wait_for_timeout(100)
+    print('B-III rounds:', pg.inner_text('#segRounds').replace('\n','/'), '| src:', pg.inner_text('#bSrc')[:80])
+    pg.click('#segTime button:nth-child(1)'); pg.click('#briefGo'); pg.clock.run_for(3200); pg.clock.run_for(10000); pg.clock.run_for(3200); pg.clock.run_for(3000); pg.wait_for_timeout(100)
+    print('phase:', pg.inner_text('#phaseLabel')); pg.screenshot(path='ab-B3-train.png')
+    pg.click('#pauseBtn'); pg.click('#quitBtn'); pg.click('#toResult'); pg.click('#backBtn')
+    # Day1 A-I
+    pg.click('#todayRows li:nth-child(1) button'); pg.wait_for_timeout(100)
+    print('A-I steps first2:', pg.inner_text('#bSteps').split('\n')[:4])
+    print('ERR', errs)

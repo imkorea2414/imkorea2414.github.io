@@ -1,0 +1,26 @@
+from playwright.sync_api import sync_playwright
+with sync_playwright() as p:
+    b=p.chromium.launch(); ctx=b.new_context(viewport={'width':412,'height':900}, locale='ko-KR')
+    pg=ctx.new_page(); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
+    pg.goto('http://localhost:8765/'); pg.wait_for_timeout(1500)
+    print('title', pg.title())
+    print('sw', pg.evaluate("navigator.serviceWorker.getRegistration().then(r=>!!(r&&(r.active||r.installing||r.waiting)))"))
+    m=pg.evaluate("fetch('manifest.webmanifest').then(r=>r.json())"); print('manifest', m['name'], len(m['icons']))
+    # back button flow
+    pg.click('#s2Rows li:nth-child(1) button'); pg.wait_for_timeout(200)
+    print('screen after open', pg.evaluate("document.querySelector('.screen.on').id"))
+    pg.go_back(); pg.wait_for_timeout(300)
+    print('after back', pg.evaluate("document.querySelector('.screen.on').id"), 'state', pg.evaluate("JSON.stringify(history.state)"))
+    pg.click('#s2Rows li:nth-child(1) button'); pg.wait_for_timeout(200)
+    if pg.evaluate("document.querySelector('#calib').classList.contains('on')"): pg.click('#calibSave'); pg.wait_for_timeout(200)
+    print('screen', pg.evaluate("document.querySelector('.screen.on').id"))
+    pg.click('#briefGo'); pg.wait_for_timeout(4500)
+    pg.go_back(); pg.wait_for_timeout(300)
+    print('back during training ->', pg.evaluate("document.querySelector('.screen.on').id"), 'paused', pg.evaluate("document.querySelector('#pauseOvl').classList.contains('on')"))
+    pg.click('#quitBtn'); pg.wait_for_timeout(200); pg.click('#toResult'); pg.click('#backBtn'); pg.wait_for_timeout(400)
+    print('dash state', pg.evaluate("document.querySelector('.screen.on').id"), pg.evaluate("JSON.stringify(history.state)"))
+    # offline reload
+    pg.wait_for_timeout(500); ctx.set_offline(True); pg.reload(); pg.wait_for_timeout(800)
+    print('offline title', pg.title(), 'dash visible', pg.evaluate("!!document.querySelector('#dash.on')"))
+    pg2=ctx.new_page(); pg2.goto('http://localhost:8765/privacy.html'); print('privacy offline', pg2.title())
+    print('ERR', errs)

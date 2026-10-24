@@ -10,7 +10,8 @@
 
 | 경로 | 내용 |
 | --- | --- |
-| `index.html` | 앱 전체 (한 파일) |
+| `src/template.html` | 앱 원본. 고친 뒤 `python3 tools/build.py`로 `index.html` 생성 |
+| `index.html` | 빌드 결과 (직접 고치지 않음) |
 | `manifest.webmanifest`, `sw.js`, `icons/` | 설치·오프라인 동작 |
 | `privacy.html` | 개인정보처리방침 |
 | `.well-known/assetlinks.json` | 웹 주소와 Android 앱을 연결하는 확인 파일 |
@@ -31,3 +32,5 @@
 ## Play Console에 올린 뒤
 
 Play Console → 설정 → 앱 서명(App integrity)에 나오는 **앱 서명 키의 SHA-256 인증서 지문**을 `.well-known/assetlinks.json`의 `sha256_cert_fingerprints`에 추가해야 합니다. 이 지문이 없으면 Play에서 설치한 앱 위쪽에 주소창이 보입니다.
+
+개발 맥락과 원칙, 남은 일은 `CLAUDE.md`에 있습니다.
