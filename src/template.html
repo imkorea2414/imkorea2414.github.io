@@ -1582,8 +1582,9 @@ const store = {
   get(k, d){ try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch(e){ return d; } },
   set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
 };
-// 저장 공간이 부족해도 훈련 기록이 지워지지 않도록 브라우저에 보존을 요청한다 (거절돼도 동작은 같다).
-try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch(e){}
+// 설치된 앱(TWA·홈 화면)으로 실행될 때, 저장 공간이 부족해도 훈련 기록이 지워지지 않도록 보존을 요청한다.
+// 일반 브라우저에서는 묻지 않는다 (Firefox는 이때 허락 창을 띄움). 거절돼도 동작은 같다.
+try { if (navigator.storage && navigator.storage.persist && matchMedia('(display-mode: standalone)').matches) navigator.storage.persist().catch(() => {}); } catch(e){}
 const K_TRAIN = 'sr-proto-v1', K_MEAS = 'sr-proto-meas-v1', K_CAL = 'sr-proto-calib-v1', K_PREF = 'sr-proto-prefs-v1', K_CFG = 'sr-proto-cfg-v1';
 const loadT = () => store.get(K_TRAIN, []), loadM = () => store.get(K_MEAS, []);
 const prefs = store.get(K_PREF, {});
