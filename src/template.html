@@ -16,6 +16,7 @@
 :root{
   --bg:#F4F5F6; --paper:#FFFFFF; --ink:#14171A; --muted:#656B72; --faint:#A7ADB3; --line:#E0E3E7;
   --signal:#2348F5; --ok:#0E8F63; --mark:rgba(35,72,245,.14);
+  --ctl-line:#80868D; --on-signal:#FFFFFF;
   --sans:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   --num:"Barlow Condensed","IBM Plex Sans KR","Arial Narrow",sans-serif;
   color-scheme:light dark;
@@ -26,14 +27,14 @@
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --bg:#0E1013; --paper:#16191D; --ink:#ECEEF0; --muted:#9AA1A8; --faint:#59606A; --line:#2A2F35;
-    --signal:#6684FF; --ok:#3CC08B; --mark:rgba(102,132,255,.22);
+    --signal:#6684FF; --ok:#3CC08B; --mark:rgba(102,132,255,.22); --ctl-line:#6A717B; --on-signal:#0E1013;
   }
 }
 :root[data-theme="light"]{color-scheme:light}
 :root[data-theme="dark"]{
   color-scheme:dark;
   --bg:#0E1013; --paper:#16191D; --ink:#ECEEF0; --muted:#9AA1A8; --faint:#59606A; --line:#2A2F35;
-  --signal:#6684FF; --ok:#3CC08B; --mark:rgba(102,132,255,.22);
+  --signal:#6684FF; --ok:#3CC08B; --mark:rgba(102,132,255,.22); --ctl-line:#6A717B; --on-signal:#0E1013;
 }
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:border-box}
@@ -271,6 +272,11 @@ svg.stage.eyes .ptr{display:none}
 .blinkq h3{font-size:15px;font-weight:600;margin:0 0 10px}
 .blinkq .g2{margin-top:20px}
 .blinkq .hint{margin-top:14px}
+/* 반응 점검 선택 버튼: 선택 안 함 = 중립 바탕·테두리, 선택 = 브랜드 파랑 바탕·테두리·체크 (WCAG 대비 4.5:1 글자, 3:1 테두리) */
+#check .seg{border:0;padding:0;gap:8px}
+#check .seg button,#check .chips button{height:44px;padding:0 18px;border:1px solid var(--ctl-line);border-radius:999px;background:var(--paper);color:var(--ink);font-size:15px;font-weight:500}
+#check .seg button[aria-pressed="true"],#check .chips button[aria-pressed="true"]{background:var(--signal);border-color:var(--signal);color:var(--on-signal);font-weight:600;padding-left:14px;box-shadow:0 0 0 1px var(--signal)}
+#check .seg button[aria-pressed="true"]::before,#check .chips button[aria-pressed="true"]::before{content:"\2713";display:inline-block;margin-right:6px;font-weight:700}
 .s2h{margin-top:48px}
 .pg-sub{margin:4px 0 12px}
 .chart{width:100%;height:auto;display:block;margin-top:8px;overflow:visible}
