@@ -247,6 +247,8 @@ svg.stage.eyes .ptr{display:none}
 .tl-days span{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:22px;text-align:center}
 .tl-today{position:absolute;top:-30px;transform:translateX(-50%);font-size:12px;font-weight:600;color:var(--signal);white-space:nowrap}
 .tl-today::after{content:"";position:absolute;left:50%;top:20px;width:2px;height:54px;background:var(--signal);transform:translateX(-50%)}
+.tl-today.l{transform:translateX(-1px)}.tl-today.l::after{left:0;transform:none}
+.tl-today.r{transform:translateX(calc(-100% + 1px))}.tl-today.r::after{left:auto;right:0;transform:none}
 .ov{width:100%;border-collapse:collapse;margin-top:48px;font-size:15px}
 .ov caption{text-align:left;font-size:17px;font-weight:600;padding-bottom:12px;border-bottom:1px solid var(--ink)}
 .ov th{font-size:12px;font-weight:500;color:var(--muted);text-align:left;padding:12px 16px 10px 0;border-bottom:1px solid var(--line);white-space:nowrap}
@@ -421,6 +423,8 @@ svg.stage g.sp.flip{animation:flip .26s ease-out}
   .ov tr.cur{box-shadow:inset 3px 0 0 var(--signal);padding-left:12px}
   .tl-days span,.tl-seg{min-width:14px}
   .bt th:nth-child(4),.bt td:nth-child(4){display:none}
+  .bt td:first-child{white-space:normal}
+  .bt th,.bt td{padding-right:8px}
   .metrics>div,.rgrid>div{padding-bottom:16px}
   .brief{grid-template-columns:1fr;gap:36px;padding-top:28px}
   .brief h1{font-size:34px}
@@ -1519,7 +1523,7 @@ function renderCurriculum(){
   const pos = (() => { let acc = 0; for (const x of segs){ if (x.l === cur) return (acc + (CU_TODAY - x.l.days[0] + 0.5)) / total * 100; acc += x.n; } return 0; })();
   $('#cuTl').innerHTML =
     '<div class="tl-track">' + segs.map(x => '<div class="tl-seg' + (x.l === cur ? ' cur' : '') + '" style="flex:' + x.n + '" title="' + esc(L(x.l.name)) + '">' + x.l.id + '</div>').join('') +
-    '<div class="tl-today" style="left:' + pos + '%">' + (ko ? '오늘 DAY ' : 'Today DAY ') + CU_TODAY + '</div></div>' +
+    '<div class="tl-today' + (pos < 15 ? ' l' : pos > 85 ? ' r' : '') + '" style="left:' + pos + '%">' + (ko ? '오늘 DAY ' : 'Today DAY ') + CU_TODAY + '</div></div>' +
     '<div class="tl-days">' + segs.map(x => '<span style="flex:' + x.n + '">' + (x.l.days[0] === x.l.days[1] ? x.l.days[0] : x.l.days[0] + '–' + x.l.days[1]) + '</span>').join('') + '</div>';
 
   // overview table
@@ -1578,6 +1582,8 @@ const store = {
   get(k, d){ try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch(e){ return d; } },
   set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
 };
+// 저장 공간이 부족해도 훈련 기록이 지워지지 않도록 브라우저에 보존을 요청한다 (거절돼도 동작은 같다).
+try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch(e){}
 const K_TRAIN = 'sr-proto-v1', K_MEAS = 'sr-proto-meas-v1', K_CAL = 'sr-proto-calib-v1', K_PREF = 'sr-proto-prefs-v1', K_CFG = 'sr-proto-cfg-v1';
 const loadT = () => store.get(K_TRAIN, []), loadM = () => store.get(K_MEAS, []);
 const prefs = store.get(K_PREF, {});
@@ -2219,6 +2225,11 @@ async function enterImmersive(){
   try { if (document.documentElement.requestFullscreen && !document.fullscreenElement) await document.documentElement.requestFullscreen(); } catch(e){}
   try { if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen'); } catch(e){}
 }
+// 앱이 뒤로 갔다 돌아오면 브라우저가 화면 켜짐 잠금을 풀어 버리므로, 훈련 중이면 다시 요청한다.
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState !== 'visible' || !wakeLock || !wakeLock.released) return;
+  try { wakeLock = await navigator.wakeLock.request('screen'); } catch(e){}
+});
 function exitImmersive(){
   try { if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen(); } catch(e){}
   try { if (wakeLock){ wakeLock.release(); wakeLock = null; } } catch(e){}
