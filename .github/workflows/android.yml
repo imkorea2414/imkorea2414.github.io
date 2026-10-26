@@ -47,6 +47,11 @@ jobs:
           chmod +x gradlew
           ./gradlew --no-daemon bundleRelease assembleRelease
 
+      # 서명 인증서 지문(공개 정보)을 로그에 남긴다. .well-known/assetlinks.json의 업로드 키 지문과 같아야 한다.
+      - name: Show signing certificate
+        if: env.HAS_KEY == 'true'
+        run: keytool -printcert -jarfile android/app/build/outputs/bundle/release/*.aab | grep -E 'Owner|SHA256'
+
       - uses: actions/upload-artifact@v4
         with:
           name: speedread-android-${{ github.run_number }}
