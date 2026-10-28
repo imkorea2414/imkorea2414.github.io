@@ -5,7 +5,7 @@ def open_extra(pg, name):
     i=names.index(name); pg.click(f'#s2Rows li:nth-child({i+1}) button'); pg.wait_for_timeout(100)
     if pg.evaluate("document.querySelector('#calib').classList.contains('on')"): pg.click('#calibSave'); pg.wait_for_timeout(150)
 with sync_playwright() as p:
-    b=p.chromium.launch(); pg=b.new_page(viewport={'width':1440,'height':900}, locale='ko-KR'); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
+    b=getattr(p, __import__("os").environ.get("BROWSER", "chromium")).launch(); pg=b.new_page(viewport={'width':1440,'height':900}, locale='ko-KR'); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
     pg.clock.install(); pg.goto(URL); pg.wait_for_timeout(200)
     open_extra(pg,'제3단계 D-I-1'); pg.screenshot(path='d-brief.png', full_page=True)
     pg.click('#briefGo'); pg.clock.run_for(3200)

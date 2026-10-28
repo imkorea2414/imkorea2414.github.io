@@ -10,7 +10,7 @@ for i in range(12):
     M.append({'date':d,'lang':'ko','unit':'chars','speed':480+i*55+random.randint(-40,40),'comp':random.choice([67,100,67,33,100]),'rei':None,'elapsed':60})
 for m in M: m['rei']=round(m['speed']*m['comp']/100)
 with sync_playwright() as p:
-    b=p.chromium.launch()
+    b=getattr(p, __import__("os").environ.get("BROWSER", "chromium")).launch()
     for name,vp,cs in [('desk',(1280,900),'light'),('phone',(390,844),'dark')]:
         pg=b.new_page(viewport={'width':vp[0],'height':vp[1]}, locale='ko-KR', color_scheme=cs); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
         pg.goto(URL); pg.evaluate(f"localStorage.setItem('sr-proto-v1', {json.dumps(json.dumps(T))}); localStorage.setItem('sr-proto-meas-v1', {json.dumps(json.dumps(M))}); localStorage.setItem('sr-proto-prog-v1', JSON.stringify({{day:13, done:{{1:'2026-10-12',2:'2026-10-13',3:'2026-10-14'}}}}))")

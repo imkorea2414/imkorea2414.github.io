@@ -1,7 +1,7 @@
 from playwright.sync_api import sync_playwright
 URL='file://' + __import__('pathlib').Path(__file__).resolve().parent.parent.joinpath('index.html').as_posix() + ''
 with sync_playwright() as p:
-    b=p.chromium.launch()
+    b=getattr(p, __import__("os").environ.get("BROWSER", "chromium")).launch()
     for loc,vp in [('ko-KR',(1366,900)),('en-US',(390,844))]:
         pg=b.new_page(viewport={'width':vp[0],'height':vp[1]}, locale=loc); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
         pg.clock.install(); pg.goto(URL); pg.wait_for_timeout(200)

@@ -11,7 +11,7 @@ Object.defineProperty(document, 'visibilityState', { get: () => window.__vis || 
 Object.defineProperty(document, 'hidden', { get: () => (window.__vis || 'visible') === 'hidden' });
 """
 with sync_playwright() as p:
-    b=p.chromium.launch(); pg=b.new_page(viewport={'width':1366,'height':900}, locale='ko-KR'); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
+    b=getattr(p, __import__("os").environ.get("BROWSER", "chromium")).launch(); pg=b.new_page(viewport={'width':1366,'height':900}, locale='ko-KR'); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
     pg.add_init_script(MOCK); pg.clock.install(); pg.goto(URL); pg.wait_for_timeout(200)
     pg.click('#todayRows li:nth-child(1) button'); pg.wait_for_timeout(100)
     if pg.evaluate("document.querySelector('#calib').classList.contains('on')"): pg.click('#calibSave'); pg.wait_for_timeout(150)

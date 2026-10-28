@@ -2,7 +2,7 @@ from playwright.sync_api import sync_playwright
 import json
 URL='file://' + __import__('pathlib').Path(__file__).resolve().parent.parent.joinpath('index.html').as_posix() + ''
 with sync_playwright() as p:
-    b=p.chromium.launch(); pg=b.new_page(viewport={'width':1280,'height':900}, locale='ko-KR'); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
+    b=getattr(p, __import__("os").environ.get("BROWSER", "chromium")).launch(); pg=b.new_page(viewport={'width':1280,'height':900}, locale='ko-KR'); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
     pg.goto(URL); pg.wait_for_timeout(200)
     print('day', pg.inner_text('#dayNum'), '|', pg.inner_text('#lvlNum'), pg.inner_text('#lvlName'))
     print('rows', pg.eval_on_selector_all('#todayRows li','l=>l.map(x=>x.innerText.replace(/\\n/g," | "))'))

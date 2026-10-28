@@ -22,7 +22,7 @@ JS = """() => {
 }"""
 errs = []
 with sync_playwright() as p:
-    b = p.chromium.launch()
+    b = getattr(p, __import__("os").environ.get("BROWSER", "chromium")).launch()
     for scheme in ['light', 'dark']:
       for loc, vp, mob in [('ko-KR', (360, 740), True), ('en-US', (1366, 900), False), ('en-US', (390, 844), True), ('ko-KR', (1366, 900), False)]:
         pg = b.new_page(viewport={'width': vp[0], 'height': vp[1]}, locale=loc, color_scheme=scheme, is_mobile=mob, has_touch=mob)
