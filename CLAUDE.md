@@ -43,23 +43,25 @@
 | 경로 | 내용 |
 |---|---|
 | `src/template.html` | **앱 원본** (한 파일: HTML+CSS+JS). 여기를 고친다 |
-| `src/passages.json` | 측정·독서용 글 4편 (ko 2, en 2) + 문항 6개씩. `passages.py`가 생성 |
+| `src/passages.json` | 측정·독서용 글 20편 (ko 10, en 10: 등대·꿀벌·종이·한글·소금·철새·시계·제주·현수교·도서관) + 문항 6개씩. `passages.py`와 같은 내용(둘 다 고친다) |
 | `tools/build.py` | `python3 tools/build.py` → `index.html` 생성 + JS 문법 검사 |
 | `index.html` | 빌드 결과 (GitHub Pages가 서비스). 직접 고치지 않는다 |
 | `manifest.webmanifest`, `sw.js`, `icons/` | 설치·오프라인 (PWA). sw는 github.io/localhost에서만 등록 |
 | `privacy.html` | 개인정보처리방침 (한/영). **문의 이메일 자리 비어 있음** |
 | `.well-known/assetlinks.json` | 업로드 키 SHA-256 들어 있음. Play 앱 서명 키 지문 추가 필요 |
 | `android/` | Bubblewrap 1.25.0으로 만든 TWA 프로젝트. 패키지 `io.github.imkorea2414.speedread`, targetSdk 36, minSdk 24 |
-| `.github/workflows/android.yml` | 서명된 `.aab`/`.apk` 빌드 (secrets: KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_PASSWORD) |
+| `.github/workflows/android.yml` | 서명된 `.aab`/`.apk` 빌드 (secrets: KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_PASSWORD 등록 완료). main·`claude/**` push 또는 수동 실행. 로그에 서명 인증서 SHA-256 표시. 빌드 #4 APK로 실기기 테스트 중 |
+| `.github/workflows/tests.yml` | push마다 Chromium·WebKit에서 전체 시나리오 테스트 + index.html이 src와 맞는지 확인 |
 | `tools/gen-android.mjs` | android/ 재생성 스크립트 (로컬 서버 http://localhost:8765 필요, 아래 참고) |
-| `tests/*.py` | Playwright 시나리오 테스트 (`cd tests && python3 dtest.py`). 끝 줄 `ERR []`이면 통과 |
-| `docs/` | 원전 표 이미지 |
+| `tests/*.py` | Playwright 시나리오 테스트. 전체: `python3 tests/run_all.py` (`BROWSER=webkit`이면 Safari 계열). 끝 줄 `ERR []`이면 통과. `compattest.py`는 기기 크기별 화면 넘침·훈련 틀 크기 |
+| `tools/store_shots.py` | Play 스토어 그래픽·스크린샷 생성 → `docs/store/` |
+| `docs/` | 원전 표 이미지, 테스트 체크리스트(실기기·기기별), Play Console 입력값 초안, 스토어 등록정보 초안, 테스터 모집 자료, `store/` 이미지 |
 
 **서명 키는 저장소에 없다.** 사용자가 `upload.keystore`, `upload.keystore.base64`, `secrets.txt`를 따로 보관 중. 절대 커밋하지 않는다.
 
 ## 4. 앱 구조 (src/template.html)
 
-- 화면(`<section class="screen">`): `dash`, `prog`(Progress), `curr`(Curriculum), `calib`(화면 보정), `brief`(훈련 전 안내), `player`(훈련, 전체화면), `rm`(독서활동), `check`(반응 점검), `result`, `mread`(1분 측정 읽기), `mquiz`, `mresult`. `show(id)`로 전환, 안드로이드 뒤로 가기는 history로 처리(훈련 중엔 일시정지).
+- 화면(`<section class="screen">`): `dash`, `train`(Training: 전체 훈련 목록, 어느 훈련이든 열기), `test`(Test: 1분 형성평가·시각능력 측정), `prog`(Progress, 아래쪽에 기록 백업 내보내기·가져오기), `curr`(Curriculum), `calib`(화면 보정), `brief`(훈련 전 안내), `player`(훈련, 전체화면), `rm`(독서활동), `check`(반응 점검), `result`, `mread`(1분 측정 읽기), `mquiz`, `mresult`. `show(id)`로 전환, 안드로이드 뒤로 가기는 history로 처리(훈련 중엔 일시정지).
 - 훈련 정의 `DRILLS[id]`: `A-I~III`, `B-I~III`, `C-I-1, C-I-2, C-II-1, C-II-2, C-III, C-IV`, `D-I-1 … D-IV`, `D-CHK`(시각능력 측정), `RM`. 각자 name/title/lead/steps(tag·ref 포함)/src/presets/bookTrain/rounds/chips/note. `MEASURE`는 1분 형성평가.
 - 훈련 틀
   - A·B: `FRAMES` (SVG viewBox 1000×260), 원전 실측값 `BOOK_DEF` (aDiam 6, aGap 11.8, bDiam 7, bSpan 251 mm, 2026-10-13 사용자 실측).
@@ -69,7 +71,8 @@
 - 책장 넘기기: 쪽이 바뀌면 원이 멈추고, 오른쪽 아래 탭 또는 →로 넘김. 걸린 시간 기록. "자동" 선택 가능.
 - 48일 진행: `LEVELS`(L0~L4, 과정별 시간 범위·원전 쪽수) → `dayPlan(d)`가 그날 훈련/시간 생성. 모형 순환과 시간 증가는 **설계**. 하루 다 마치면 다음 날 Day 열림(`sr-proto-prog-v1`).
 - 지원 범위 (2026-10-29 사용자 결정): iPadOS·iOS·macOS Safari 16.4 이상, Android·Mac Chrome 최신. 새 코드는 이 범위에서 동작하는 기능만 쓴다 (예: Wake Lock·전체 화면 16.4, `storage.persist` 17은 있을 때만 호출). 기기별 테스트는 `docs/기기별_테스트_가이드.md`.
-- 저장: localStorage만 (`sr-proto-v1` 훈련, `-meas-v1` 측정, `-calib-v1`, `-prefs-v1`, `-cfg-v1`, `-prog-v1`). 회원가입 없음(v1 결정).
+- 저장: localStorage만 (`sr-proto-v1` 훈련, `-meas-v1` 측정, `-calib-v1`, `-prefs-v1`, `-cfg-v1`, `-prog-v1`). 회원가입 없음(v1 결정). 백업 파일 형식 `{app:'speedread', v:1, exportedAt, data:{키: 값}}` (`BK_KEYS`).
+- 화면 대응 (설계): 낮은 가로 화면(`orientation:landscape and max-height:500px`)은 훈련 제목줄·정보 칸을 한 줄로 줄임. 너비 360px 미만 화면 보정은 카드를 세로로 세워 표시(보정값은 긴 변 85.6mm 기준 그대로). 화면 켜짐 유지(wake lock)는 앱이 돌아오면 다시 요청, 사용자가 전체 화면을 풀면 일시정지.
 - i18n: `I18N.ko/en`, `DYN`, `data-i`/`data-ia` 속성, `L({ko,en})`, `T(key, vars)`. 테마 auto/light/dark (`data-theme`).
 - 1분 측정: 글자 단위 `[\p{L}\p{N}]` (원전 p.155 규칙과 표본 5줄 일치 확인). 이해도 = 객관식 % (서비스 추가, 9점 척도도 기록). R.E.I. = 속도 × 이해도.
 - 안전·깜박임: 모든 훈련에 `guide`/`safe` 안내, 훈련 뒤 깜박임 횟수·처음 깜박인 때 기록, 기본단계 시간 사다리(3→5→8분, 같은 시간 2번 완료 시 권장) = 설계.
@@ -95,13 +98,13 @@
 
 ## 6. 남은 일 (우선순위 순)
 
-1. **배포 연결**: 저장소 생성 확인 → push → Pages → Actions 빌드. 첫 Gradle 빌드는 아직 한 번도 실행되지 않았다(작업 환경에서 Google 서버 차단). 실패하면 로그 보고 수정.
+1. ~~배포 연결~~ **완료 (10/24~26)**: Pages 배포, Actions 서명 빌드 성공(#4부터 서명), 실기기 APK 테스트 진행 중. 작업 브랜치 `claude/friendly-heisenberg-3dhsah`, main 병합은 사용자 지시가 있을 때만.
 2. **Play 앱 서명 키 지문**을 `.well-known/assetlinks.json`에 추가 (없으면 앱 위에 주소창이 보임).
-3. **측정·독서용 글 20편 이상** (현재 ko 2, en 2). 직접 쓴 글, 사실 확인, 문항 6개(`at` 문구로 위치 지정). `src/passages.py` 형식 그대로.
-4. **스토어 자료**: 앱 이름(30자), 짧은 설명(80자), 자세한 설명(4,000자), 아이콘 512, 그래픽 1024×500, 휴대폰·태블릿 캡처. 건강 효과(시력 향상 등) 표현 금지. "태블릿 권장" 명시.
+3. ~~측정·독서용 글 20편~~ **완료 (10/29, ko 10·en 10)**. 더 늘릴 때도 같은 규칙: 직접 쓴 글, 사실 확인, 문항 6개, 정답 index 0, `at`은 제목+본문에서 한 번만, 글 앞부터 끝까지 고르게.
+4. **스토어 자료**: 초안 완료 (`docs/스토어_등록정보_초안.md`, `docs/store/`). 책 제목 사용 A/B판은 저작권 결정(11/9) 뒤 확정. 건강 효과 표현 금지, "태블릿 권장" 명시.
 5. **책 실측값 반영** (사용자 측정 후 `BOOK_DEF`의 cDiam/cPitch/cRow/cGap, 필요하면 D용 값 분리).
 6. **테스터 피드백 반영** (특히 책장 넘기기 자연스러움, 깜박임, 휴대폰 화면 크기).
-7. Training/Test 메뉴는 아직 비활성(“다음 프로토타입에서 열립니다”). 필요하면 Training = 전체 훈련 목록, Test = 초기/사후 측정으로 연다.
+7. ~~Training/Test 메뉴~~ **완료 (10/29)**: Training = 단계별 전체 훈련 목록(과정에서 처음 배정되는 Day·기록 횟수), Test = 1분 형성평가·시각능력 측정.
 8. 출시 뒤: 회원가입·서버 저장(계정 삭제 포함), 종이책 병행 모드, iOS.
 
 ## 7. 사용자 확인 대기 항목
@@ -111,6 +114,8 @@
 - 추정값: L2 7일/L3 8일 분할, 관문 1,500·2,400개/분, 제3단계 시작 빠르기 120개/분, R.M. 400자/분
 - R.E.I.에 객관식 % 사용 (사용자 명시 확인 없음)
 - 테스트 피드백: 첫 피드백은 "깜박이면 안 되나, 8분 동안 뜨고 있어야 하나" → 안내·기록 추가로 대응함
+- 개인정보처리방침 문의 이메일 (비공개 테스트 시작에 필요), Play 앱 서명 키 SHA-256 (첫 업로드 뒤), 책 실측값(제2·3단계), 책 PDF(원전 확인 작업 때 대화에 첨부)
+- 실기기 확인 대기: 반응 점검 버튼 색, 좁은 화면 보정 카드 세로 표시, Mac Esc 일시정지, iPad 두 번 탭 확대, 휴대폰 가로 훈련 화면 (`docs/기기별_테스트_가이드.md`)
 
 ## 8. 작업 방법
 

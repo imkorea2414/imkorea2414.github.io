@@ -94,6 +94,9 @@ button.brand:focus-visible{outline:2px solid var(--signal);outline-offset:4px;bo
 .rows .plan{color:var(--muted);font-variant-numeric:tabular-nums}
 .rows .st{text-align:right;font-size:13px;color:var(--muted)}
 .rows .st.done{color:var(--ok)}
+.rows .nm .tag{margin-left:8px;vertical-align:1px}
+.trg{margin-top:44px}
+.trg .sect{margin-top:0}
 .bar{height:3px;background:var(--line);margin:20px 0 0;border-radius:2px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--ink);width:0;transition:width .4s ease}
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);margin-top:56px;border-top:1px solid var(--line)}
@@ -460,6 +463,29 @@ svg.stage g.sp.flip{animation:flip .26s ease-out}
   .scale button{height:46px;font-size:19px;border-radius:10px}
 }
 @media (max-width:760px) and (orientation:portrait){.rotate{display:block}}
+/* 휴대폰 가로처럼 낮은 화면: 제목줄과 정보 칸을 한 줄로 줄여 훈련 틀이 보일 높이를 확보한다 (설계) */
+@media (orientation:landscape) and (max-height:500px){
+  .pbar{padding:8px 20px 0;align-items:center}
+  .pname .t{display:none}
+  .pname .n{font-size:16px}.pname .lv{font-size:14px}
+  .pausebtn{width:44px;height:44px}
+  .phase{font-size:13px;min-height:1.3em}
+  .angle{font-size:11px;margin-top:4px}
+  .stagewrap{padding:0 20px}
+  .stagewrap[data-vpos="top"]{padding-top:4px}
+  svg.stage{margin-top:4px}
+  .hud,.rhud{grid-template-columns:repeat(4,1fr)}
+  .rhud{grid-template-columns:1fr 1fr 1.6fr}
+  .hud>div,.hud>div:nth-child(2n){padding:5px 16px 7px;border-bottom:0;border-right:1px solid var(--line)}
+  .hud>div:last-child{border-right:0}
+  .rhud>div:last-child{grid-column:auto}
+  .hud .l{font-size:10px}
+  .hud .v,.hud .time .v{font-size:22px;margin-top:2px}
+  .hud .v.rmpace{font-size:18px}
+  .pace button{width:34px;height:34px}
+  .rwrap{padding:10px 20px 6px}
+  .rprog{margin:8px 20px 0}
+}
 </style>
 </head>
 <body>
@@ -504,6 +530,37 @@ svg.stage g.sp.flip{animation:flip .26s ease-out}
 </section>
 
 <!-- PROGRESS -->
+<section class="screen" id="train" data-ia="trainLabel">
+  <div class="wrap">
+    <header class="top sticky">
+      <button class="brand homebtn" data-i="brand"></button>
+      <div class="hdr-r">
+        <nav class="nav" data-ia="navLabel"></nav>
+        <div class="prefs"></div>
+      </div>
+    </header>
+    <h1 class="cu-h1" data-i="trH1"></h1>
+    <p class="cu-lead" data-i="trLead"></p>
+    <div id="trList"></div>
+  </div>
+</section>
+
+<section class="screen" id="test" data-ia="testLabel">
+  <div class="wrap">
+    <header class="top sticky">
+      <button class="brand homebtn" data-i="brand"></button>
+      <div class="hdr-r">
+        <nav class="nav" data-ia="navLabel"></nav>
+        <div class="prefs"></div>
+      </div>
+    </header>
+    <h1 class="cu-h1" data-i="teH1"></h1>
+    <p class="cu-lead" data-i="teLead"></p>
+    <div id="teList"></div>
+    <p class="cu-note" data-i="teFoot"></p>
+  </div>
+</section>
+
 <section class="screen" id="prog" data-ia="progLabel">
   <div class="wrap">
     <header class="top sticky">
@@ -923,6 +980,10 @@ const I18N = {
   pgReactH:'자주 나온 반응', pgReactNone:'훈련 뒤 반응 점검에서 고른 항목이 여기에 모입니다.',
   pgBlinkH:'훈련 중 깜박임', pgBlinkNone:'훈련 뒤 깜박임 횟수를 고르면 여기에 모입니다.',
   pgFoot:'훈련 시간에는 도입, 훈련, 1분 측정 시간이 들어가고, 정리 시간은 빠집니다.',
+  trainLabel:'Training', trH1:'전체 훈련', trLead:'이 앱의 훈련을 원전의 단계에 따라 모았습니다. 48일 과정에서는 날마다 정해진 훈련이 열리지만, 여기서는 어느 훈련이든 골라 해 볼 수 있습니다.',
+  trNone:'아직 기록 없음', trRecs:'{n}회 · 마지막 {d}', trFrom:'과정 Day {d}',
+  testLabel:'Test', teH1:'측정', teLead:'독서 속도와 시각능력을 언제든 잴 수 있습니다. 48일 과정에서는 날마다 마지막에 1분 형성평가가 들어 있습니다.',
+  teStart:'측정하기', teFoot:'결과 변화는 Progress 화면의 그래프로 볼 수 있습니다.',
   bkH:'기록 백업', bkSub:'기록은 이 기기 안에만 있습니다. 기기를 바꾸거나 브라우저 데이터를 지우기 전에 파일로 내보내 두면, 다른 기기에서 가져와 이어서 할 수 있습니다. 파일은 직접 고른 곳에만 저장되고 어디로도 전송되지 않습니다.',
   bkExport:'파일로 내보내기', bkImport:'파일에서 가져오기', bkDone:'내보냈습니다: {f}',
   bkBad:'이 앱의 백업 파일이 아니거나 파일이 손상되었습니다.', bkCancel:'가져오기를 취소했습니다.',
@@ -989,6 +1050,10 @@ const I18N = {
   pgReactH:'Most frequent reactions', pgReactNone:'Items you pick in the post-training check collect here.',
   pgBlinkH:'Blinking during training', pgBlinkNone:'Blink counts you pick after training collect here.',
   pgFoot:'Training time includes intro, training and 1-minute checks, not review time.',
+  trainLabel:'Training', trH1:'All trainings', trLead:'The trainings in this app, grouped by the stages of the source. The 48-day course opens set trainings each day, but here you can pick any of them.',
+  trNone:'No records yet', trRecs:'{n} times · last {d}', trFrom:'Course day {d}',
+  testLabel:'Test', teH1:'Checks', teLead:'Measure your reading speed and visual span at any time. In the 48-day course, each day ends with a 1-minute check.',
+  teStart:'Start', teFoot:'See how your results change in the Progress charts.',
   bkH:'Back up records', bkSub:'Your records live only on this device. Export them to a file before you switch devices or clear browser data, then import the file to carry on. The file is saved only where you choose and is never sent anywhere.',
   bkExport:'Export to file', bkImport:'Import from file', bkDone:'Exported: {f}',
   bkBad:'This is not a backup file from this app, or the file is damaged.', bkCancel:'Import cancelled.',
@@ -1518,8 +1583,54 @@ function renderProgress(){
 }
 function openProgress(){ renderProgress(); show('prog'); }
 
+/* Training: 모든 훈련 목록 (설계). 대시보드 "다른 훈련 미리 해 보기"처럼 어느 훈련이든 열 수 있고,
+   48일 과정에서 처음 배정되는 날과 기록 횟수를 함께 보여 준다. 쪽수는 각 훈련의 근거(src)에서 가져온다. */
+const TR_GROUPS = [['basic', ['A-I','A-II','A-III']], ['s1', ['B-I','B-II','B-III']], ['s2', S2_IDS], ['s3', S3_IDS.filter(id => id !== 'D-CHK')], ['rd', ['RM']]];
+let firstDays = null;
+function firstDayOf(id){
+  if (!firstDays){ firstDays = {}; for (let d = 1; d <= 48; d++) dayPlan(d).items.forEach(i => { if (!(i.id in firstDays)) firstDays[i.id] = d; }); }
+  return firstDays[id];
+}
+const srcRef = id => (((id === 'measure' ? MEASURE : DRILLS[id]).src || {}).ko || '').match(/p\.\d+(?:~\d+)?/)?.[0] || '';
+function recLine(recs){
+  if (!recs.length) return T('trNone');
+  const last = recs[recs.length - 1];
+  return T('trRecs', { n: recs.length, d: shortDate(last.date) });
+}
+function catalogRow(id, name, recs, st, ref){
+  const li = document.createElement('li');
+  li.innerHTML = '<button type="button"><span class="dot ' + (recs.length ? 'done' : '') + '"></span><span class="nm">' + esc(name) + (ref ? tagHtml('src', ref) : '') +
+    '</span><span class="plan">' + esc(recLine(recs)) + '</span><span class="st">' + esc(st) + '</span></button>';
+  li.querySelector('button').addEventListener('click', () => go(id));
+  return li;
+}
+function renderTraining(){
+  const ts = loadT().filter(r => !r.aborted), box = $('#trList'); box.innerHTML = '';
+  TR_GROUPS.forEach(([type, ids]) => {
+    const g = document.createElement('section'); g.className = 'trg';
+    g.innerHTML = '<div class="sect"><h2>' + esc(L(TR[type])) + '</h2></div><ul class="rows"></ul>';
+    ids.forEach(id => {
+      const fd = firstDayOf(id);
+      g.querySelector('ul').append(catalogRow(id, L(DRILLS[id].name), ts.filter(r => r.frame === id), fd ? T('trFrom', { d: fd }) : '', srcRef(id)));
+    });
+    box.append(g);
+  });
+}
+function openTraining(){ renderTraining(); show('train'); }
+
+/* Test: 1분 형성평가(원전 p.155)와 시각능력 1분 측정(원전 p.115)을 언제든 할 수 있게 모은 화면 (설계). 결과 그래프는 Progress. */
+function renderTest(){
+  const ms = loadM().filter(m => m.lang === lang), vis = loadT().filter(r => r.frame === 'D-CHK' && !r.aborted), ul = document.createElement('ul');
+  ul.className = 'rows';
+  const lastM = ms[ms.length - 1], lastV = vis[vis.length - 1];
+  ul.append(catalogRow('measure', L(MEASURE.name), ms, lastM ? nf(lastM.speed) + (lastM.unit === 'words' ? T('uSpeedEn') : T('uSpeedKo')) : T('teStart'), srcRef('measure')));
+  ul.append(catalogRow('D-CHK', L(DRILLS['D-CHK'].name), vis, lastV ? nf(lastV.passes) + T('uPerMin') : T('teStart'), srcRef('D-CHK')));
+  const box = $('#teList'); box.innerHTML = ''; box.className = 'trg'; box.append(ul);
+}
+function openTest(){ renderTest(); show('test'); }
+
 function renderNav(){
-  const items = [['Dashboard','dash'],['Training',null],['Test',null],['Progress','prog'],['Curriculum','curr']];
+  const items = [['Dashboard','dash'],['Training','train'],['Test','test'],['Progress','prog'],['Curriculum','curr']];
   const on = document.querySelector('.screen.on')?.id;
   document.querySelectorAll('.nav, #tabbar').forEach(nav => {
     nav.innerHTML = '';
@@ -1528,7 +1639,7 @@ function renderNav(){
       if (target){
         el = document.createElement('button'); el.type = 'button'; el.textContent = label;
         if (target === on){ el.className = 'cur'; el.setAttribute('aria-current', 'page'); }
-        el.addEventListener('click', () => { if (target === 'dash'){ curBrief = null; renderDash(); show('dash'); } else if (target === 'prog') openProgress(); else openCurriculum(); });
+        el.addEventListener('click', () => { if (target === 'dash'){ curBrief = null; renderDash(); show('dash'); } else if (target === 'prog') openProgress(); else if (target === 'train') openTraining(); else if (target === 'test') openTest(); else openCurriculum(); });
       } else {
         el = document.createElement('span'); el.textContent = label; el.title = T('navSoon'); el.setAttribute('aria-disabled', 'true');
       }
@@ -1656,7 +1767,7 @@ function show(id, fromPop){
   if (!fromPop) syncHistory(id);
   document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id));
   window.scrollTo(0, 0);
-  const nav = id === 'dash' || id === 'curr' || id === 'prog';
+  const nav = ['dash', 'curr', 'prog', 'train', 'test'].includes(id);
   document.body.classList.toggle('has-tabs', nav);
   if (nav) renderNav();
 }
@@ -2184,7 +2295,10 @@ function drawSpread(sp, anim){
 function sizeStage(D){
   const info = $('#angleInfo'), availW = availStagePx();
   const wrap = document.querySelector('.stagewrap');
-  const availH = Math.max(140, (wrap && wrap.clientHeight ? wrap.clientHeight : innerHeight * 0.6) - 96);
+  // 낮은 가로 화면에서는 위아래 글(단계 표시·시야각 안내)이 실제로 차지하는 높이만 뺀다
+  const low = matchMedia('(orientation:landscape) and (max-height:500px)').matches;
+  const reserve = low ? $('#phaseLabel').offsetHeight + info.offsetHeight + 16 : 96;
+  const availH = Math.max(low ? 60 : 140, (wrap && wrap.clientHeight ? wrap.clientHeight : innerHeight * 0.6) - reserve);
   const maxByH = G.kind === 'spread' ? availH * G.vb[0] / G.vb[1] : Infinity;
   if (!cal){
     stage.style.width = G.kind === 'spread' ? Math.min(availW, maxByH, 1240) + 'px' : '';
@@ -2921,6 +3035,8 @@ function refreshAll(){
   if ($('#brief').classList.contains('on') && curBrief) openBrief(curBrief);
   if ($('#calib').classList.contains('on')) renderCalPreview();
   if ($('#prog').classList.contains('on')) renderProgress();
+  if ($('#train').classList.contains('on')) renderTraining();
+  if ($('#test').classList.contains('on')) renderTest();
 }
 window.addEventListener('resize', () => { if ($('#prog').classList.contains('on')) renderProgress(); });
 applyTheme();
