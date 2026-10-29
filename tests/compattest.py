@@ -11,7 +11,7 @@ PROFILES = [  # 이름, 너비, 높이, 터치 기기, 배율
     ('macbook', 1440, 900, False, 2), ('macbook-small', 1280, 720, False, 2),
 ]
 NAV = "l => [...document.querySelectorAll('#tabbar button, .nav button')].find(b => b.offsetParent && b.textContent == l).click()"
-over = "(() => document.documentElement.scrollWidth - innerWidth)()"
+over = "w => Math.max(document.documentElement.scrollWidth, innerWidth) - w"
 errs = []
 with sync_playwright() as p:
     b = getattr(p, ENGINE).launch()
@@ -24,14 +24,14 @@ with sync_playwright() as p:
         bad = []
         for lab in ['Progress', 'Curriculum', 'Dashboard']:
             pg.evaluate(NAV, lab); pg.wait_for_timeout(80)
-            o = pg.evaluate(over)
+            o = pg.evaluate(over, w)
             if o > 1: bad.append((lab, o))
         pg.click('#todayRows li:nth-child(1) button'); pg.wait_for_timeout(150)
         if pg.evaluate("document.querySelector('#calib').classList.contains('on')"):
-            o = pg.evaluate(over)
+            o = pg.evaluate(over, w)
             if o > 1: bad.append(('calib', o))
             pg.click('#calibSave'); pg.wait_for_timeout(150)
-        o = pg.evaluate(over)
+        o = pg.evaluate(over, w)
         if o > 1: bad.append(('brief', o))
         pg.click('#segTime button:nth-child(2)'); pg.click('#briefGo'); pg.clock.run_for(3500); pg.wait_for_timeout(100)
         # 훈련 화면: 원 배치(svg)가 창 안에 다 보여야 한다
@@ -42,10 +42,10 @@ with sync_playwright() as p:
         elif loc == 'ko-KR': pg.screenshot(path=f'compat-{ENGINE}-{name}-player.png')
         pg.clock.run_for(16000); pg.clock.run_for(6000); pg.clock.run_for(31000); pg.wait_for_timeout(150)
         if pg.evaluate("document.querySelector('#check').classList.contains('on')"):
-            o = pg.evaluate(over)
+            o = pg.evaluate(over, w)
             if o > 1: bad.append(('check', o))
             pg.click('#toResult'); pg.wait_for_timeout(100)
-            o = pg.evaluate(over)
+            o = pg.evaluate(over, w)
             if o > 1: bad.append(('result', o))
         else: bad.append(('no check screen', pg.evaluate("document.querySelector('.screen.on').id")))
         print(ENGINE, name, loc, 'OK' if not bad and not pe else ('BAD', bad, pe))

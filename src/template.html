@@ -8,7 +8,8 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="theme-color" content="#F4F5F6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1013" media="(prefers-color-scheme: dark)">
-<title>Training Player 프로토타입 — Day 1</title>
+<title>속독 트레이닝</title>
+<meta name="apple-mobile-web-app-title" content="속독 트레이닝">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
@@ -40,7 +41,7 @@ html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none !important}
 body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-button{font-family:inherit;color:inherit;cursor:pointer}
+button{font-family:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
 .screen{display:none}
 .screen.on{display:block}
@@ -166,6 +167,7 @@ svg.stage.eyes .ptr{display:none}
 .hud .dim .v{color:var(--faint)}
 .pace{display:flex;align-items:center;gap:12px}
 .pace button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:none;font-size:18px;line-height:1}
+@media (pointer:coarse){.pace button{width:44px;height:44px}}
 .ovl{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;padding:24px;background:color-mix(in srgb,var(--paper) 90%,transparent);z-index:2}
 .ovl.on{display:flex}
 .ovl .n{font-family:var(--num);font-weight:600;font-size:168px;line-height:.9}
@@ -208,6 +210,8 @@ svg.stage.eyes .ptr{display:none}
 .csteps h2{font-size:19px;margin:0 0 4px;font-weight:600}
 .cdesc{color:var(--muted);font-size:15px;margin:0 0 18px;max-width:52ch}
 .cardbox{overflow-x:auto;padding:4px 0 16px}
+.card.tall{aspect-ratio:53.98/85.6}
+@media (max-width:359px){.top{gap:8px}.hdr-r{gap:6px}.pref{padding:0 8px}.top .brand{font-size:14px}}
 .card{width:323px;aspect-ratio:85.6/53.98;border:2px solid var(--ink);border-radius:12px;display:grid;place-items:center;color:var(--muted);font-size:13px}
 .cardctl{display:flex;align-items:center;gap:14px;max-width:520px}
 .cardctl input{flex:1;accent-color:var(--ink)}
@@ -877,7 +881,7 @@ const I18N = {
   back:'Dashboard로 돌아가기',
   cLead:'책을 30cm 거리에서 볼 때와 같은 크기로 훈련 틀이 보이도록 화면을 맞춥니다. 한 번만 하면 되고, 기기나 앉는 위치가 바뀌면 다시 하세요.',
   c1h:'카드 크기 맞추기', c1d:'신용카드나 교통카드처럼 표준 크기 카드를 화면의 사각형에 대고, 사각형이 카드와 똑같아질 때까지 조절하세요.',
-  cardHere:'카드를 여기에 대세요', smaller:'작게', larger:'크게', cardSize:'카드 사각형 크기',
+  cardHere:'카드를 여기에 대세요', cardHereTall:'카드를 세로로 세워 여기에 대세요', smaller:'작게', larger:'크게', cardSize:'카드 사각형 크기',
   c2h:'화면과 눈 사이 거리', c2d:'훈련할 때 앉는 자세 그대로 화면까지의 거리를 고르거나 입력하세요. 자로 한 번 재 보면 가장 정확합니다.',
   distPresets:'거리 예시', d40:'태블릿 거치대 40cm', d50:'노트북 50cm', d65:'모니터 65cm', custom:'직접 입력',
   c3h:'자세와 화면 위치 확인', c3d:'원전의 독서 환경에 맞추고 눈의 부담을 줄이는 배치입니다.',
@@ -939,7 +943,7 @@ const I18N = {
   back:'Back to Dashboard',
   cLead:'Match your screen so the training frame looks the same size as the book viewed from 30 cm. Do this once, and again whenever you change device or seating position.',
   c1h:'Match the card size', c1d:'Hold a standard-size card (credit card, transit card) against the rectangle on screen and adjust until they match exactly.',
-  cardHere:'Hold your card here', smaller:'Smaller', larger:'Larger', cardSize:'Card rectangle size',
+  cardHere:'Hold your card here', cardHereTall:'Hold your card upright here', smaller:'Smaller', larger:'Larger', cardSize:'Card rectangle size',
   c2h:'Distance from eyes to screen', c2d:'Sit as you will during training and choose or enter the distance to the screen. Measuring once with a ruler is most accurate.',
   distPresets:'Distance presets', d40:'Tablet on stand 40 cm', d50:'Laptop 50 cm', d65:'Monitor 65 cm', custom:'Custom',
   c3h:'Check posture and screen position', c3d:'This setup matches the book’s reading environment and reduces eye strain.',
@@ -1672,7 +1676,7 @@ document.addEventListener('click', e => {
 });
 
 /* =============== calibration =============== */
-const CARD_MM = 85.6, BOOK_DIST = 30;
+const CARD_MM = 85.6, CARD_SHORT_MM = 53.98, BOOK_DIST = 30;
 const BOOK_DEF = { aDiam: 6, aGap: 11.8, bDiam: 7, bSpan: 251,   // measured from the printed book, 2026-10-13
   cDiam: 7, cPitch: 11.8, cRow: 116, cGap: 19 };                // Format C: estimated from scan ratios against the measured B frame (needs a ruler check)
 const C_KEYS = ['cDiam','cPitch','cRow','cGap'];
@@ -1768,11 +1772,15 @@ function renderCalPreview(){
 }
 function setCard(px){
   draft.cardPx = Math.max(150, Math.min(700, px));
-  $('#cardRect').style.width = draft.cardPx + 'px';
+  const box = $('.cardbox'), avail = (box && box.clientWidth) || (innerWidth - 40), tall = draft.cardPx > avail - 4;
+  $('#cardRect').classList.toggle('tall', tall);
+  $('#cardRect').style.width = (tall ? draft.cardPx * CARD_SHORT_MM / CARD_MM : draft.cardPx) + 'px';
+  const lab = $('#cardRect span'); lab.dataset.i = tall ? 'cardHereTall' : 'cardHere'; lab.textContent = T(lab.dataset.i);
   $('#cardRange').value = Math.round(draft.cardPx);
   renderCalPreview();
 }
 $('#cardRange').addEventListener('input', e => setCard(Number(e.target.value)));
+window.addEventListener('resize', () => { if ($('#calib').classList.contains('on')) setCard(draft.cardPx); });
 $('#cardMinus').addEventListener('click', () => setCard(draft.cardPx - 1));
 $('#cardPlus').addEventListener('click', () => setCard(draft.cardPx + 1));
 $('#segDist').addEventListener('click', e => {
@@ -1800,6 +1808,7 @@ function openCalib(ret){
   $('#segDist').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', Number(x.dataset.v) === draft.dist ? 'true' : 'false'));
   renderCalPreview();
   show('calib');
+  setCard(draft.cardPx);
 }
 function renderCalLines(){
   $('#dashCalTxt').textContent = calSummary(cal);
@@ -2237,8 +2246,16 @@ document.addEventListener('visibilitychange', async () => {
   if (document.visibilityState !== 'visible' || !wakeLock || !wakeLock.released) return;
   try { wakeLock = await navigator.wakeLock.request('screen'); } catch(e){}
 });
+// 사용자가 Esc·화면 제스처로 전체 화면을 풀면 훈련·독서활동을 일시정지한다. 앱이 스스로 풀 때(fsLeaving)는 제외.
+let fsLeaving = false;
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) return;
+  if (fsLeaving){ fsLeaving = false; return; }
+  if ($('#player').classList.contains('on')) setPaused(true);
+  else if ($('#rm').classList.contains('on')) rmSetPaused(true);
+});
 function exitImmersive(){
-  try { if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen(); } catch(e){}
+  try { if (document.fullscreenElement && document.exitFullscreen){ fsLeaving = true; Promise.resolve(document.exitFullscreen()).catch(() => { fsLeaving = false; }); } } catch(e){}
   try { if (wakeLock){ wakeLock.release(); wakeLock = null; } } catch(e){}
 }
 function startSession(id){
