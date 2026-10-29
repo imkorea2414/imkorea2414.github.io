@@ -283,6 +283,8 @@ svg.stage.eyes .ptr{display:none}
 #check .seg button[aria-pressed="true"]::before,#check .chips button[aria-pressed="true"]::before{content:"\2713";display:inline-block;margin-right:6px;font-weight:700}
 .s2h{margin-top:48px}
 .pg-sub{margin:4px 0 12px}
+.bk{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.bk-msg{margin-top:14px;min-height:1.5em}
 .chart{width:100%;height:auto;display:block;margin-top:8px;overflow:visible}
 .chart .cg{stroke:var(--line);stroke-width:1}
 .chart .ct{fill:var(--muted);font-size:12px;font-family:var(--num);font-variant-numeric:tabular-nums}
@@ -525,6 +527,14 @@ svg.stage g.sp.flip{animation:flip .26s ease-out}
       <div><h2 class="cu-sec" data-i="pgReactH"></h2><div id="pgReact"></div><h2 class="cu-sec" data-i="pgBlinkH"></h2><div id="pgBlink"></div></div>
     </div>
     <p class="cu-note" data-i="pgFoot"></p>
+    <h2 class="cu-sec" data-i="bkH"></h2>
+    <p class="cu-note pg-sub" data-i="bkSub"></p>
+    <div class="bk">
+      <button class="btn" type="button" id="bkExport" data-i="bkExport"></button>
+      <button class="btn" type="button" id="bkImport" data-i="bkImport"></button>
+      <input type="file" id="bkFile" accept="application/json,.json" hidden>
+    </div>
+    <p class="cu-note bk-msg" id="bkMsg" role="status" aria-live="polite"></p>
   </div>
 </section>
 
@@ -913,6 +923,10 @@ const I18N = {
   pgReactH:'자주 나온 반응', pgReactNone:'훈련 뒤 반응 점검에서 고른 항목이 여기에 모입니다.',
   pgBlinkH:'훈련 중 깜박임', pgBlinkNone:'훈련 뒤 깜박임 횟수를 고르면 여기에 모입니다.',
   pgFoot:'훈련 시간에는 도입, 훈련, 1분 측정 시간이 들어가고, 정리 시간은 빠집니다.',
+  bkH:'기록 백업', bkSub:'기록은 이 기기 안에만 있습니다. 기기를 바꾸거나 브라우저 데이터를 지우기 전에 파일로 내보내 두면, 다른 기기에서 가져와 이어서 할 수 있습니다. 파일은 직접 고른 곳에만 저장되고 어디로도 전송되지 않습니다.',
+  bkExport:'파일로 내보내기', bkImport:'파일에서 가져오기', bkDone:'내보냈습니다: {f}',
+  bkBad:'이 앱의 백업 파일이 아니거나 파일이 손상되었습니다.', bkCancel:'가져오기를 취소했습니다.',
+  bkConfirm:'이 기기의 기록을 백업 파일의 기록(훈련 {t}회, 1분 측정 {m}회, Day {d}, {at} 내보냄)으로 바꿉니다. 지금 기록은 사라집니다. 계속할까요?',
   measC:'측정', markC:'1분이 지났습니다. <b>마지막으로 본 원</b>을 누르세요. 쪽은 ←/→로 오갈 수 있습니다.', markCsel:'원 <b>{n}개</b>까지 봤습니다', visGate:'원전이 말하는 1분에 1,200개(p.154 ⑲)까지 {n}개 남았습니다', visGateOk:'1분에 {n}개 — 원전이 말하는 1,200개(p.154 ⑲) 이상입니다',
   countH:'원 하나에서 세는 수', countHint:'원전: "하나, 둘, 셋"을 세며 주시하고, 또는 "하나에서 다섯", "하나에서 일곱"을 센다.',
   vpos_top:'쪽 맨 윗줄', vpos_mid:'쪽 가운데 줄', vpos_bot:'쪽 맨 아랫줄', vpos_topS:'두 쪽 맨 윗줄', vpos_midS:'두 쪽 가운데 줄', vpos_botS:'두 쪽 맨 아랫줄',
@@ -975,6 +989,10 @@ const I18N = {
   pgReactH:'Most frequent reactions', pgReactNone:'Items you pick in the post-training check collect here.',
   pgBlinkH:'Blinking during training', pgBlinkNone:'Blink counts you pick after training collect here.',
   pgFoot:'Training time includes intro, training and 1-minute checks, not review time.',
+  bkH:'Back up records', bkSub:'Your records live only on this device. Export them to a file before you switch devices or clear browser data, then import the file to carry on. The file is saved only where you choose and is never sent anywhere.',
+  bkExport:'Export to file', bkImport:'Import from file', bkDone:'Exported: {f}',
+  bkBad:'This is not a backup file from this app, or the file is damaged.', bkCancel:'Import cancelled.',
+  bkConfirm:'Replace the records on this device with the backup ({t} trainings, {m} one-minute checks, Day {d}, exported {at})? Your current records will be lost.',
   measC:'Check', markC:'Time is up. Tap the <b>last circle you saw</b>. Use ←/→ to move between pages.', markCsel:'You reached <b>{n} circles</b>', visGate:'{n} to go to the source’s 1,200 a minute (p.154 ⑲)', visGateOk:'{n} a minute — at or above the source’s 1,200 (p.154 ⑲)',
   countH:'Count per circle', countHint:'Source: watch each circle while counting "one, two, three" — or "one to five", "one to seven".',
   vpos_top:'Top row of the page', vpos_mid:'Middle row of the page', vpos_bot:'Bottom row of the page', vpos_topS:'Top row of the spread', vpos_midS:'Middle row of the spread', vpos_botS:'Bottom row of the spread',
@@ -1872,6 +1890,35 @@ const presetsOf = id => { const it = planItem(id); return it ? [planPreset(it), 
 const presetSel = id => planItem(id) ? (planSel[id] || 'plan') : cfg[id].preset;
 const blocks = () => PLAN.items.filter(i => !i.soon).map(i => i.id);
 function loadProg(){ return store.get(K_PROG, { day: 1, done: {} }); }
+
+/* 기록 백업 (설계): 기기 안 기록을 JSON 파일로 내보내고, 같은 파일을 다시 가져온다. 서버 전송 없음. */
+const BK_KEYS = [K_TRAIN, K_MEAS, K_CAL, K_PREF, K_CFG, K_PROG];
+function bkMsg(t){ $('#bkMsg').textContent = t; }
+$('#bkExport').addEventListener('click', () => {
+  const data = {};
+  BK_KEYS.forEach(k => { try { const v = localStorage.getItem(k); if (v != null) data[k] = JSON.parse(v); } catch(e){} });
+  const now = new Date(), stamp = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+  const name = 'speedread-backup-' + stamp + '.json';
+  const url = URL.createObjectURL(new Blob([JSON.stringify({ app: 'speedread', v: 1, exportedAt: now.toISOString(), data })], { type: 'application/json' }));
+  const a = document.createElement('a'); a.href = url; a.download = name; document.body.append(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1000);
+  bkMsg(T('bkDone', { f: name }));
+});
+$('#bkImport').addEventListener('click', () => { $('#bkFile').value = ''; $('#bkFile').click(); });
+$('#bkFile').addEventListener('change', async e => {
+  const f = e.target.files && e.target.files[0]; if (!f) return;
+  let b = null;
+  try { b = JSON.parse(await f.text()); } catch(err){}
+  const d = b && b.app === 'speedread' && b.v === 1 && b.data && typeof b.data === 'object' ? b.data : null;
+  const ok = d && Object.keys(d).every(k => BK_KEYS.includes(k))
+    && (d[K_TRAIN] == null || Array.isArray(d[K_TRAIN])) && (d[K_MEAS] == null || Array.isArray(d[K_MEAS]))
+    && (d[K_PROG] == null || (typeof d[K_PROG] === 'object' && Number.isFinite(d[K_PROG].day)));
+  if (!ok){ bkMsg(T('bkBad')); return; }
+  const at = String(b.exportedAt || '').slice(0, 10);
+  if (!confirm(T('bkConfirm', { t: (d[K_TRAIN] || []).length, m: (d[K_MEAS] || []).length, d: d[K_PROG] ? d[K_PROG].day : 1, at }))){ bkMsg(T('bkCancel')); return; }
+  try { BK_KEYS.forEach(k => { if (k in d) localStorage.setItem(k, JSON.stringify(d[k])); else localStorage.removeItem(k); }); } catch(err){ bkMsg(T('bkBad')); return; }
+  location.reload();
+});
 function syncDay(){
   const pr = loadProg(), today = todayStr();
   while (pr.done[pr.day] && pr.done[pr.day] !== today && pr.day < 48) pr.day++;

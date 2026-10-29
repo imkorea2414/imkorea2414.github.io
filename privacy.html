@@ -20,13 +20,14 @@ th,td{text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid var(--lin
 th{font-size:13px;color:var(--muted);font-weight:500}
 .wrap{overflow-x:auto}
 a{color:var(--signal)}
+code{font-size:.9em;overflow-wrap:anywhere}
 .en{margin-top:72px}
 </style>
 </head>
 <body>
 <main>
 <h1>개인정보처리방침</h1>
-<p class="meta">속독 트레이닝 · 시행일 2026년 10월 24일</p>
+<p class="meta">속독 트레이닝 · 시행일 2026년 10월 29일</p>
 
 <p>속독 트레이닝(이하 "앱")은 회원가입이 없고, 이용자의 개인정보를 서버로 보내거나 모으지 않습니다. 훈련 기록은 이용자의 기기 안에만 저장됩니다.</p>
 
@@ -52,7 +53,14 @@ a{color:var(--signal)}
 <p>앱은 글꼴을 표시하기 위해 Google Fonts(fonts.googleapis.com, fonts.gstatic.com)에서 글꼴 파일을 내려받습니다. 이때 일반적인 웹 요청처럼 기기의 IP 주소 등이 Google에 전달될 수 있습니다. 한 번 내려받은 글꼴은 기기에 저장되어 다시 요청하지 않습니다. Google의 처리 방식은 <a href="https://policies.google.com/privacy" rel="noopener">Google 개인정보처리방침</a>을 따릅니다.</p>
 
 <h2>4. 기록 지우기</h2>
-<p>앱을 삭제하거나, 기기 설정에서 앱의 저장공간(데이터)을 지우면 모든 기록이 삭제됩니다. 기록은 기기에만 있으므로, 삭제한 기록은 운영자도 되살릴 수 없습니다.</p>
+<p>기록은 앱이 화면을 보여 주는 데 쓰는 브라우저의 저장공간에 있습니다. Android 앱에서는 Chrome의 저장공간입니다.</p>
+<ul>
+<li>Android: Chrome 앱 → 설정 → 사이트 설정 → 저장된 데이터(또는 모든 사이트)에서 <code>imkorea2414.github.io</code>를 삭제합니다. 앱을 삭제할 때 Chrome이 사이트 데이터 삭제 여부를 묻는 경우도 있습니다.</li>
+<li>웹 브라우저·iPad·Mac: 브라우저 설정에서 <code>imkorea2414.github.io</code>의 사이트 데이터를 삭제합니다.</li>
+</ul>
+<p>기록은 기기에만 있으므로, 삭제한 기록은 운영자도 되살릴 수 없습니다.</p>
+<h2>4-1. 기록 백업 파일</h2>
+<p>Progress 화면의 "파일로 내보내기"를 누르면 위 1번의 기록이 담긴 파일(<code>speedread-backup-날짜.json</code>)이 만들어집니다. 파일은 이용자가 고른 곳에만 저장되며, 앱은 이 파일을 어디로도 보내지 않습니다. 파일을 다른 사람과 공유하면 그 안의 훈련 기록도 함께 전달되니 주의하세요.</p>
 
 <h2>5. 어린이의 개인정보</h2>
 <p>앱은 개인정보를 모으지 않으므로 만 14세 미만 아동의 개인정보도 모으지 않습니다.</p>
@@ -65,7 +73,7 @@ a{color:var(--signal)}
 
 <section class="en" lang="en">
 <h1>Privacy Policy</h1>
-<p class="meta">Speed Reading Training · Effective 24 October 2026</p>
+<p class="meta">Speed Reading Training · Effective 29 October 2026</p>
 <p>The app has no sign-up and does not send or collect personal information. Your training records are stored only on your device.</p>
 <h2>Stored on your device only</h2>
 <p>Training records (date, duration, accuracy, pace, post-training reactions, blink counts), 1-minute check results (characters or words read, comprehension answers and scores), screen calibration values, and settings (language, theme, time choices). None of this is sent to anyone, including the developer.</p>
@@ -74,7 +82,9 @@ a{color:var(--signal)}
 <h2>Requests to other services</h2>
 <p>The app downloads font files from Google Fonts. As with any web request, your device's IP address may be sent to Google. Downloaded fonts are kept on the device. See the <a href="https://policies.google.com/privacy" rel="noopener">Google Privacy Policy</a>.</p>
 <h2>Deleting your records</h2>
-<p>Uninstall the app or clear its storage in your device settings to delete all records. Because records exist only on your device, deleted records cannot be recovered.</p>
+<p>Records live in the browser storage the app uses (Chrome's storage for the Android app). To delete them, remove the site data for <code>imkorea2414.github.io</code> in your browser settings (Android: Chrome → Settings → Site settings → Stored data). Chrome may also offer to clear site data when you uninstall the app. Because records exist only on your device, deleted records cannot be recovered.</p>
+<h2>Backup files</h2>
+<p>"Export to file" on the Progress screen creates a file (<code>speedread-backup-date.json</code>) containing the records above. It is saved only where you choose and the app never sends it anywhere. If you share the file, the training records in it go with it.</p>
 <h2>Contact</h2>
 <p><span>[contact email]</span></p>
 </section>

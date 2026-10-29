@@ -1,0 +1,46 @@
+name: App tests
+
+# 앱 원본·테스트·빌드 도구가 바뀌면 Chromium(Android·Mac Chrome)과 WebKit(Safari 계열)에서 시나리오 테스트를 돌린다.
+on:
+  workflow_dispatch:
+  push:
+    paths: ['src/**', 'tests/**', 'tools/build.py', 'index.html', 'sw.js', 'manifest.webmanifest', '.github/workflows/tests.yml']
+  pull_request:
+    paths: ['src/**', 'tests/**', 'tools/build.py', 'index.html', 'sw.js', 'manifest.webmanifest', '.github/workflows/tests.yml']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Playwright
+        run: |
+          pip install playwright==1.63.0
+          python -m playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Build and check index.html is up to date
+        run: |
+          python3 tools/build.py
+          git diff --exit-code index.html || (echo "::error::index.html이 src와 다릅니다. python3 tools/build.py 후 커밋하세요." && exit 1)
+
+      - name: Run scenario tests
+        env:
+          BROWSER: ${{ matrix.browser }}
+        run: |
+          python3 -m http.server 8765 >/dev/null 2>&1 &
+          sleep 1
+          python3 tests/run_all.py
