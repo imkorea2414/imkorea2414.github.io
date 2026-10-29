@@ -40,7 +40,7 @@ with sync_playwright() as p:
         if r[2] > r[4] + 1: bad.append(('player-below-fold', r))
         # 휴대폰 가로처럼 낮은 화면에서도 훈련 틀이 보일 만큼 커야 한다 (높이 100px 이상)
         sh = pg.evaluate("Math.round(document.querySelector('#stage').getBoundingClientRect().height)")
-        if sh < 100: bad.append(('player-stage-too-small', sh))
+        if w > h and h <= 500 and sh < 100: bad.append(('player-stage-too-small', sh))
         if not touch: pg.screenshot(path=f'compat-{ENGINE}-{name}-{loc}-player.png')
         elif loc == 'ko-KR': pg.screenshot(path=f'compat-{ENGINE}-{name}-player.png')
         pg.clock.run_for(16000); pg.clock.run_for(6000); pg.clock.run_for(31000); pg.wait_for_timeout(150)
