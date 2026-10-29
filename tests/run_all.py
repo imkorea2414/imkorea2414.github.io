@@ -9,7 +9,7 @@ engine = os.environ.get('BROWSER', 'chromium')
 failed = []
 for t in sorted(here.glob('*test.py')):
     try:
-        r = subprocess.run([sys.executable, t.name], cwd=here, capture_output=True, text=True, timeout=900)
+        r = subprocess.run([sys.executable, t.name], cwd=here, capture_output=True, text=True, timeout=900, stdin=subprocess.DEVNULL)
         out = (r.stdout + r.stderr).strip()
     except subprocess.TimeoutExpired:
         out, r = 'TIMEOUT', None

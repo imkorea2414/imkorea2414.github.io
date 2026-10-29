@@ -1,1 +1,1776 @@
-[{"id": "ko-lighthouse", "lang": "ko", "title": "바다 위의 길잡이, 등대", "paras": ["밤바다를 항해하는 배에게 가장 무서운 것은 보이지 않는 육지다. 암초나 얕은 모래톱은 낮에도 알아보기 어렵고, 해가 지면 아예 사라진다. 그래서 사람들은 아주 오래전부터 해안에 불을 밝혀 배에게 위치를 알렸다. 이렇게 시작된 등대는 수천 년 동안 바다의 길잡이 역할을 해 왔다.", "기록에 남은 가장 유명한 등대는 고대 이집트의 알렉산드리아 앞바다, 파로스섬에 세워진 등대다. 기원전 3세기 무렵 완성된 이 탑은 높이가 백 미터를 넘었던 것으로 전해지며, 세계 7대 불가사의 가운데 하나로 꼽혔다. 꼭대기에서는 큰 불을 피웠고, 그 불빛은 먼바다에서도 보였다고 한다. 이 등대는 여러 차례의 지진으로 무너져 지금은 남아 있지 않지만, 그 이름은 몇몇 유럽 언어에서 등대를 뜻하는 말로 남았다.", "오랫동안 등대의 불은 나무나 석탄을 태워 만들었다. 이런 불은 연기가 많고 밝기가 고르지 않았으며, 비바람이 불면 꺼지기 쉬웠다. 이후 양초와 기름 등잔이 쓰이기 시작했지만, 작은 불꽃 하나로는 멀리까지 빛을 보내기 어려웠다. 등대지기들은 밤새 불을 지키고 심지를 다듬으며 불빛이 약해지지 않도록 애썼다.", "큰 변화는 18세기 말에 찾아왔다. 공기가 잘 통하도록 만든 새로운 기름 등잔이 등장하면서 불꽃이 훨씬 밝고 깨끗해졌다. 사람들은 등잔 뒤에 오목한 거울을 달아 사방으로 흩어지는 빛을 한 방향으로 모았다. 하지만 거울은 빛의 일부를 흡수했고, 표면을 늘 닦아 주어야 하는 번거로움도 있었다.", "19세기 초 프랑스의 물리학자 오귀스탱 프레넬은 이 문제를 렌즈로 풀었다. 빛을 멀리 보내려면 두껍고 무거운 렌즈가 필요하다는 것이 당시의 상식이었다. 프레넬은 큰 렌즈를 얇은 고리 모양의 조각으로 나누어 계단처럼 배열하면, 무게는 크게 줄이면서도 빛을 거의 같은 방식으로 모을 수 있다는 점을 알아냈다. 여기에 위아래로 새는 빛까지 프리즘으로 꺾어 모으자, 같은 등불로도 훨씬 먼 곳까지 빛을 보낼 수 있게 되었다. 이 렌즈는 프레넬 렌즈라는 이름으로 전 세계 등대에 퍼져 나갔다.", "등대가 많아지자 새로운 문제가 생겼다. 밤바다에서 보이는 불빛이 모두 비슷하다면, 선원은 지금 보고 있는 것이 어느 등대인지 알 수 없다. 그래서 등대마다 고유한 빛의 신호를 정하게 되었다. 어떤 등대는 몇 초마다 한 번 깜빡이고, 어떤 등대는 두 번 연달아 빛을 낸 뒤 쉬며, 또 어떤 등대는 색이 다른 빛을 번갈아 보낸다. 선원들은 해도와 등대 목록에 적힌 신호를 보고, 눈앞의 불빛이 어느 등대인지 확인할 수 있었다.", "낮에는 불빛 대신 등대의 모양과 색이 표지가 된다. 어떤 등대는 흰색과 붉은색 줄무늬를 두르고, 어떤 등대는 검은 띠를 칠한다. 주변 풍경과 뚜렷하게 구별되도록 칠한 이 무늬 덕분에, 선원들은 멀리서도 등대를 알아볼 수 있다.", "등대를 세우는 일은 그 자체로 큰 도전이었다. 등대가 가장 필요한 곳은 대개 거센 파도가 몰아치는 바위섬이나 암초 위였기 때문이다. 일꾼들은 물이 빠지는 짧은 시간에만 작업할 수 있었고, 무거운 돌을 배로 실어 날라 하나하나 맞물려 쌓아야 했다. 파도의 힘을 견디도록 탑의 아랫부분을 넓고 무겁게 만들고, 돌과 돌이 서로 물리도록 깎아 맞추는 기술이 발전했다. 어떤 등대는 완성하기까지 여러 해가 걸렸고, 공사 도중 폭풍에 쓸려 간 부분을 처음부터 다시 쌓아야 하는 일도 있었다.", "안개가 짙게 낀 날에는 아무리 밝은 불빛도 멀리 가지 못한다. 그래서 많은 등대에는 소리로 위치를 알리는 장치가 함께 설치되었다. 처음에는 종을 치거나 대포를 쏘았고, 나중에는 압축 공기로 낮고 큰 소리를 내는 무적이 쓰였다. 무적도 등대의 불빛처럼 저마다 정해진 간격으로 울려, 선원들은 소리만 듣고도 어느 등대 근처에 있는지 짐작할 수 있었다.", "우리나라에서 근대식 등대가 처음 불을 밝힌 것은 1903년이다. 인천 앞바다의 작은 섬 팔미도에 세워진 이 등대는 인천항으로 드나드는 배들의 길을 비추었다. 그 뒤 우리나라 해안 곳곳에 등대가 세워졌고, 섬이 많고 물길이 복잡한 남해와 서해에서는 특히 중요한 역할을 맡았다.", "등대지기의 하루는 단조로우면서도 바빴다. 해가 지기 전에 등잔에 기름을 채우고 렌즈와 유리창을 닦아 두어야 했다. 밤에는 몇 시간마다 불빛을 살피고 기록을 남겼으며, 날씨가 나빠지면 잠을 거의 자지 못했다. 보급선이 오지 않는 겨울에는 몇 주 동안 바깥세상과 연락이 끊기기도 했다.", "20세기에 들어 등대는 다시 크게 바뀌었다. 기름 대신 전기로 불을 켜게 되었고, 정해진 시간에 저절로 불이 켜지고 꺼지는 장치가 도입되었다. 사람이 밤새 불을 지킬 필요가 줄어들면서 많은 등대가 무인화되었다. 한때 외딴섬에서 가족과 함께 지내며 등대를 지키던 등대지기는 점점 보기 드문 직업이 되었다.", "오늘날 대부분의 배는 위성 신호로 자기 위치를 정확하게 안다. 그렇다면 등대는 이제 필요 없는 것일까? 그렇지 않다. 전자 장비는 고장이 나거나 신호가 끊길 수 있고, 그럴 때 선원이 의지할 수 있는 것은 눈으로 직접 확인하는 표지다. 그래서 여러 나라는 지금도 등대를 관리하며, 위성 항법이 듣지 않는 순간을 대비한 마지막 안전장치로 남겨 두고 있다.", "등대는 또한 바다와 함께 살아온 사람들의 역사를 보여 주는 건축물이기도 하다. 오래된 등대 가운데 일부는 문화유산으로 지정되어 보존되고, 박물관이나 전망대로 바뀌어 여행자를 맞이한다. 밤바다를 비추던 불빛은 이제 기술의 역사와 사람들의 기억을 함께 비추고 있다."], "qs": [{"q": "글에서 가장 유명한 고대 등대가 세워진 곳은 어디인가요?", "o": ["알렉산드리아 앞바다의 파로스섬", "로마 테베레강의 하구", "아테네의 피레우스 항구", "카르타고의 해안 언덕"], "a": 0, "at": "파로스섬에 세워진 등대다"}, {"q": "나무나 석탄을 태운 초기 등대 불의 단점으로 글에서 말한 것은?", "o": ["연기가 많고 밝기가 고르지 않았다", "너무 밝아서 선원의 눈이 부셨다", "불빛의 색이 계속 바뀌었다", "바다 위에서는 전혀 보이지 않았다"], "a": 0, "at": "밝기가 고르지 않았으며"}, {"q": "프레넬 렌즈의 핵심 아이디어는 무엇인가요?", "o": ["큰 렌즈를 얇은 고리 조각으로 나누어 계단처럼 배열했다", "렌즈 두 장을 겹쳐 더 두껍게 만들었다", "거울 여러 장을 둥글게 둘러 빛을 모았다", "렌즈를 물속에 담가 빛을 꺾었다"], "a": 0, "at": "계단처럼 배열하면"}, {"q": "등대마다 고유한 빛의 신호를 정한 이유는 무엇인가요?", "o": ["선원이 어느 등대인지 구별할 수 있게 하려고", "전기를 아끼려고", "철새가 등대에 부딪히지 않게 하려고", "등대지기의 교대 시간을 알리려고"], "a": 0, "at": "고유한 빛의 신호를 정하게 되었다"}, {"q": "우리나라에서 근대식 등대가 처음 불을 밝힌 곳과 해는?", "o": ["1903년, 인천 앞바다 팔미도", "1876년, 부산 영도", "1910년, 울릉도", "1950년, 제주 성산"], "a": 0, "at": "팔미도에 세워진 이 등대는"}, {"q": "위성 항법을 쓰는 오늘날에도 등대를 관리하는 이유는?", "o": ["전자 장비가 고장 나거나 신호가 끊길 때를 대비하려고", "관광 수입을 늘리려고", "법으로 철거가 금지되어 있어서", "등대가 위성 신호를 중계하기 때문에"], "a": 0, "at": "마지막 안전장치로"}]}, {"id": "ko-bees", "lang": "ko", "title": "춤으로 길을 알려 주는 꿀벌", "paras": ["꿀벌 한 마리가 꽃이 가득 핀 들판을 찾아냈다고 해 보자. 이 벌은 벌집으로 돌아와 동료들에게 그곳의 위치를 알려야 한다. 그런데 꿀벌에게는 말도 지도도 없다. 놀랍게도 꿀벌은 몸을 움직이는 방식, 즉 춤으로 이 정보를 전한다.", "이 사실을 밝혀낸 사람은 오스트리아의 동물학자 카를 폰 프리슈다. 그는 수십 년 동안 꿀벌을 관찰하며, 먹이를 찾아 돌아온 벌이 벌집 안에서 특별한 동작을 반복한다는 것을 알아냈다. 그리고 그 동작이 먹이까지의 방향과 거리를 담은 신호라는 것을 실험으로 보여 주었다. 이 연구로 그는 1973년 노벨 생리의학상을 받았다.", "폰 프리슈는 먼저 벌들이 찾아오는 자리에 설탕물 접시를 놓고, 찾아온 벌의 등에 작은 물감 점을 찍어 구별했다. 그런 다음 유리창이 달린 관찰용 벌집을 만들어, 표시된 벌이 돌아와서 어떤 행동을 하는지 지켜보았다. 접시를 벌집 가까이 두거나 멀리 옮기면서, 벌의 동작이 어떻게 달라지는지도 꼼꼼히 기록했다.", "꿀벌 사회에서 먹이를 찾는 일은 나이가 든 일벌이 맡는다. 어린 일벌은 주로 벌집 안에서 애벌레를 돌보고 방을 청소하며 벌집을 짓는다. 몇 주가 지나 바깥일을 시작한 벌 가운데 일부는 정찰벌이 되어 새로운 꽃밭을 찾아 나선다. 정찰벌이 좋은 먹이를 찾아내면, 춤을 통해 더 많은 동료를 그곳으로 불러 모은다.", "관찰 결과 춤은 크게 두 가지로 나뉘었다. 먹이가 벌집 가까이에 있을 때, 벌은 작은 원을 그리며 이리저리 돈다. 이를 원형 춤이라고 한다. 원형 춤은 가까운 곳에 먹이가 있다는 사실을 알릴 뿐, 정확한 방향은 담고 있지 않다. 동료 벌들은 춤추는 벌의 몸에 묻은 꽃 냄새를 단서로 주변을 뒤진다.", "먹이가 멀리 있을 때는 훨씬 정교한 춤이 나타난다. 벌은 한 방향으로 곧게 걸어가며 꽁무니를 좌우로 흔들고, 끝에 이르면 반원을 그리며 출발점으로 돌아온다. 다시 같은 직선을 걸은 뒤에는 반대쪽으로 반원을 그린다. 이 모양이 숫자 8과 비슷하다고 해서 8자 춤, 또는 꽁무니를 흔든다고 해서 흔들기 춤이라고 부른다.", "흔들기 춤의 비밀은 직선 구간에 있다. 벌집 안은 어둡고, 벌들은 수직으로 선 벌집 판 위에서 춤을 춘다. 이때 위쪽은 해가 있는 방향을 뜻한다. 직선이 위쪽을 똑바로 향하면 먹이는 해가 있는 쪽에 있고, 위쪽에서 오른쪽으로 40도 기울어 있으면 먹이는 해가 있는 방향에서 오른쪽으로 40도 떨어진 곳에 있다. 벌은 하늘의 각도를 벌집 판 위의 각도로 바꾸어 전하는 셈이다.", "거리는 직선 구간을 얼마나 오래 걷는지로 나타난다. 먹이가 멀수록 벌은 직선을 더 길게, 더 오랫동안 흔들며 걷는다. 동료 벌들은 춤추는 벌의 몸에 더듬이를 대고 따라 움직이면서 이 신호를 읽는다. 그런 다음 벌집을 나서서 알려 준 방향으로 날아가 먹이를 찾는다.", "춤추는 벌은 먹이의 질에 따라 춤의 열정도 달리한다. 꿀이 진하고 많은 꽃밭을 찾은 벌은 같은 춤을 더 여러 번, 더 힘차게 반복한다. 반대로 먹이가 보잘것없으면 춤을 몇 번 추다 말거나 아예 추지 않는다. 그 결과 더 좋은 먹이터에 더 많은 벌이 모이게 되어, 벌집 전체가 효율적으로 먹이를 거둘 수 있다.", "여기에는 한 가지 어려움이 있다. 해는 시간이 지나면서 하늘을 가로질러 움직인다. 아침에 알려 준 방향을 오후에도 그대로 쓰면 엉뚱한 곳으로 가게 된다. 그런데 꿀벌은 시간이 흐르면 춤의 각도도 그만큼 바꾸었다. 한동안 벌집 안에 머물러 해를 보지 못한 벌도 마찬가지였다. 꿀벌이 몸속에 시간 감각을 지니고 해의 움직임을 계산에 넣는다는 뜻이다.", "흐린 날에도 꿀벌은 쉽게 길을 잃지 않는다. 구름 사이로 조금만 파란 하늘이 보여도, 꿀벌은 사람의 눈에는 보이지 않는 빛의 성질을 읽어 해의 위치를 알아낸다. 이 덕분에 해가 직접 보이지 않을 때에도 방향을 잡을 수 있다.", "춤은 먹이를 찾을 때만 쓰이는 것이 아니다. 봄에 벌집이 둘로 나뉘면, 떠나는 무리는 나뭇가지에 잠시 모여 새 보금자리를 찾는다. 이때 정찰벌들은 나무 구멍 같은 후보지를 둘러보고 돌아와 같은 방식의 춤으로 그 위치를 알린다. 여러 후보지 가운데 가장 많은 정찰벌의 지지를 얻은 곳이 정해지면, 무리 전체가 그곳으로 날아간다.", "처음에 많은 과학자는 작은 곤충이 이렇게 정교한 정보를 주고받는다는 주장을 쉽게 믿지 않았다. 동료 벌들이 춤이 아니라 냄새만 따라가는 것이라는 반론도 있었다. 이후 여러 연구자가 다양한 방법으로 실험을 거듭했고, 춤을 흉내 내는 작은 로봇 벌로 실제 벌을 원하는 곳에 보내는 실험도 이루어졌다. 이런 연구들을 통해 춤이 실제로 방향과 거리를 전한다는 사실이 널리 받아들여졌다.", "꿀벌의 춤은 동물도 약속된 기호로 정보를 전할 수 있음을 보여 준 대표적인 사례다. 벌집 안의 어둠 속에서 펼쳐지는 이 짧은 춤에는 해와 하늘, 시간과 거리가 모두 담겨 있다."], "qs": [{"q": "꿀벌의 춤을 연구해 노벨상을 받은 사람은?", "o": ["카를 폰 프리슈", "찰스 다윈", "그레고어 멘델", "이반 파블로프"], "a": 0, "at": "1973년 노벨 생리의학상을"}, {"q": "폰 프리슈가 실험에서 벌을 구별하려고 쓴 방법은?", "o": ["벌의 등에 작은 물감 점을 찍었다", "벌의 다리에 작은 고리를 달았다", "날개 끝을 조금 잘라 냈다", "벌집을 색깔별로 나누었다"], "a": 0, "at": "작은 물감 점을 찍어 구별했다"}, {"q": "원형 춤이 동료에게 알려 주는 것은?", "o": ["가까운 곳에 먹이가 있다는 사실", "먹이까지의 정확한 방향", "들판에 핀 꽃의 개수", "벌집에 남은 꿀의 양"], "a": 0, "at": "정확한 방향은 담고 있지 않다"}, {"q": "흔들기 춤에서 벌집 판의 위쪽은 무엇을 뜻하나요?", "o": ["해가 있는 방향", "언제나 북쪽", "벌집의 입구", "바람이 불어오는 방향"], "a": 0, "at": "위쪽은 해가 있는 방향을 뜻한다"}, {"q": "먹이까지의 거리는 무엇으로 나타내나요?", "o": ["직선 구간을 걷는 길이와 시간", "반원을 그리는 횟수", "날갯짓 소리의 높낮이", "함께 춤추는 벌의 수"], "a": 0, "at": "직선 구간을 얼마나 오래 걷는지로"}, {"q": "시간이 지나면 꿀벌이 춤의 각도를 바꾸는 이유는?", "o": ["해가 하늘에서 움직이기 때문에", "꽃이 시들기 때문에", "바람의 방향이 바뀌기 때문에", "동료 벌이 지치기 때문에"], "a": 0, "at": "춤의 각도도 그만큼 바꾸었다"}]}, {"id": "en-lighthouse", "lang": "en", "title": "Guides at Sea: The Lighthouse", "paras": ["For a ship sailing at night, the most dangerous thing is land it cannot see. Reefs and shallow sandbanks are hard to spot even in daylight, and after sunset they vanish completely. So for a very long time, people have lit fires on the shore to tell ships where they are. The lighthouse that grew out of this practice has guided sailors for thousands of years.", "The most famous lighthouse on record stood on the island of Pharos, just off Alexandria in ancient Egypt. Finished around the third century BC, the tower is said to have been more than a hundred meters tall, and it was counted among the Seven Wonders of the ancient world. A great fire burned at the top, and its light was reportedly visible far out at sea. Several earthquakes eventually brought it down, but its name survives in a number of European languages as the word for a lighthouse.", "For centuries, lighthouse fires were made by burning wood or coal. These fires were smoky, their brightness was uneven, and wind and rain could easily put them out. Candles and oil lamps came later, but a single small flame could not send light very far. Keepers stayed awake through the night, tending the fire and trimming the wicks so the light would not fade.", "A major change came at the end of the eighteenth century. A new kind of oil lamp, designed to draw in more air, produced a far brighter and cleaner flame. People placed curved mirrors behind these lamps to gather light that would otherwise scatter in every direction and send it out as a single beam. Mirrors, however, absorbed part of the light, and their surfaces had to be polished constantly.", "In the early nineteenth century, the French physicist Augustin Fresnel solved this problem with a lens. The common belief at the time was that sending light far required a thick, heavy lens. Fresnel realized that if a large lens were divided into thin ring-shaped sections arranged like steps, it could gather light in almost the same way while weighing far less. By adding prisms to bend the light that escaped above and below, he made it possible for the same lamp to shine much farther. The Fresnel lens soon spread to lighthouses around the world.", "As lighthouses multiplied, a new problem appeared. If every light on a dark sea looked the same, a sailor could not tell which lighthouse he was looking at. So each lighthouse was given its own light signal. Some flash once every few seconds, some give two quick flashes and then pause, and others alternate between lights of different colors. By checking the signals listed on charts and in lighthouse registers, sailors could identify the light in front of them.", "By day, a lighthouse's shape and color serve as the signal instead. Some towers wear red and white stripes, while others carry bold black bands. Because these patterns stand out clearly against the surrounding landscape, sailors can recognize a lighthouse from a great distance.", "Building a lighthouse was a challenge in itself. The places that needed one most were usually rocky islets or reefs pounded by heavy waves. Workers could labor only during the short hours of low tide, and heavy stones had to be ferried out by boat and fitted together one by one. To withstand the force of the sea, builders made the base of the tower wide and heavy, and they developed ways of cutting stones so that each locked into its neighbors. Some lighthouses took years to finish, and sometimes a section swept away by a storm had to be rebuilt from the beginning.", "On days of thick fog, even the brightest light cannot travel far. Many lighthouses were therefore fitted with devices that announced their position by sound. At first keepers rang bells or fired cannons; later, foghorns driven by compressed air sent out deep, powerful blasts. Like the lights, each foghorn sounded at its own set interval, so sailors could guess which lighthouse they were near from the sound alone.", "In Korea, the first modern lighthouse was lit in 1903. Built on Palmido, a small island off Incheon, it guided ships entering and leaving the port of Incheon. Many more lighthouses followed along the Korean coast, and they became especially important in the southern and western seas, where islands are numerous and channels are complex.", "A keeper's day was both monotonous and busy. Before sunset the lamps had to be filled with oil and the lens and windows cleaned. Through the night the keeper checked the light every few hours and kept a log, and in bad weather there was little chance of sleep. In winter, when supply boats could not come, a lighthouse might be cut off from the outside world for weeks.", "The twentieth century transformed the lighthouse again. Electricity replaced oil, and devices were installed that switched the lights on and off automatically at set times. As the need for someone to watch the light all night disappeared, many lighthouses became unstaffed. The keeper, who once lived on a remote island with his family to tend the light, became an increasingly rare figure.", "Today, most ships know their exact position from satellite signals. Does that mean lighthouses are no longer needed? Not quite. Electronic equipment can fail and signals can drop out, and at those moments a sailor must rely on markers that can be checked with the naked eye. That is why many countries still maintain their lighthouses, keeping them as a last line of safety for the moments when satellite navigation does not work.", "Lighthouses are also buildings that tell the history of people who have lived alongside the sea. Some old lighthouses are protected as cultural heritage, and others have become museums or observation decks that welcome travelers. The light that once swept the night sea now illuminates the history of technology and the memories of the people who depended on it."], "qs": [{"q": "Where did the most famous ancient lighthouse in the passage stand?", "o": ["On the island of Pharos, off Alexandria", "At the mouth of the Tiber in Rome", "In the port of Piraeus near Athens", "On a hill above the coast of Carthage"], "a": 0, "at": "the island of Pharos"}, {"q": "What drawback of early wood and coal fires does the passage mention?", "o": ["They were smoky and their brightness was uneven", "They were so bright they dazzled sailors", "Their color kept changing", "They could not be seen from the water at all"], "a": 0, "at": "their brightness was uneven"}, {"q": "What was the key idea behind the Fresnel lens?", "o": ["Dividing a large lens into thin ring-shaped sections arranged like steps", "Stacking two lenses to make one thicker lens", "Surrounding the lamp with a ring of mirrors", "Submerging the lens in water to bend the light"], "a": 0, "at": "arranged like steps"}, {"q": "Why was each lighthouse given its own light signal?", "o": ["So sailors could tell which lighthouse they were seeing", "To save electricity", "To keep migrating birds from hitting the tower", "To announce when keepers changed shifts"], "a": 0, "at": "its own light signal"}, {"q": "When and where was Korea's first modern lighthouse lit?", "o": ["In 1903, on Palmido off Incheon", "In 1876, on Yeongdo in Busan", "In 1910, on Ulleungdo", "In 1950, at Seongsan on Jeju"], "a": 0, "at": "Built on Palmido"}, {"q": "Why are lighthouses still maintained in the age of satellite navigation?", "o": ["As a backup when electronics fail or signals drop out", "To earn money from tourism", "Because the law forbids tearing them down", "Because lighthouses relay satellite signals"], "a": 0, "at": "a last line of safety"}]}, {"id": "en-bees", "lang": "en", "title": "The Bees That Dance Directions", "paras": ["Imagine a honeybee that has found a field full of flowers. It needs to fly back to the hive and tell its nestmates where the field is. But a honeybee has no words and no maps. Remarkably, it passes on this information through the way it moves its body: through a dance.", "The person who uncovered this was the Austrian zoologist Karl von Frisch. Over several decades of watching honeybees, he noticed that a bee returning from a food source repeated a particular set of movements inside the hive. He then showed through experiments that these movements were a signal carrying both the direction and the distance to the food. For this work he shared the Nobel Prize in Physiology or Medicine in 1973.", "Von Frisch began by placing dishes of sugar water where bees would find them and marking each visiting bee with a small dot of paint on its back. He then built an observation hive with a glass window so he could watch what the marked bees did when they returned. By moving the dishes closer to the hive or farther away, he carefully recorded how the bees' movements changed.", "In a honeybee colony, gathering food is the job of older workers. Young workers mostly stay inside, caring for larvae, cleaning cells and building comb. After a few weeks some begin working outdoors, and a portion of these become scouts that set out to find new patches of flowers. When a scout finds good food, it uses the dance to recruit more nestmates to the spot.", "His observations showed two main kinds of dance. When food was close to the hive, a bee would run around in small circles, first one way and then the other. This is called the round dance. The round dance announces only that food is nearby; it does not contain an exact direction. The other bees search the area using the scent of flowers clinging to the dancer's body as a clue.", "When food is far away, a much more elaborate dance appears. The bee walks in a straight line while waggling its abdomen from side to side, then circles back to the starting point along a half loop. After walking the same straight line again, it loops back on the opposite side. Because the pattern resembles the number eight, it is called the figure-eight dance, or, after the waggling, the waggle dance.", "The secret of the waggle dance lies in the straight run. The inside of the hive is dark, and the bees dance on vertical sheets of comb. On the comb, straight up stands for the direction of the sun. If the straight run points directly upward, the food lies toward the sun; if it tilts forty degrees to the right of vertical, the food lies forty degrees to the right of the sun's direction. In effect, the bee translates an angle in the sky into an angle on the comb.", "Distance is shown by how long the straight run lasts. The farther away the food, the longer the bee keeps walking and waggling along the straight line. Nestmates read this signal by pressing their antennae against the dancer and following its movements. They then leave the hive and fly off in the indicated direction to find the food.", "A dancing bee also adjusts its enthusiasm to the quality of the food. A bee that has found a field rich in sweet nectar repeats the same dance many more times and more vigorously. If the food is poor, it dances only a few rounds or not at all. As a result, more bees gather at the better feeding sites, and the colony as a whole harvests food efficiently.", "There is one complication. The sun moves across the sky as the day goes on. A direction given in the morning would send bees to the wrong place if it were still used in the afternoon. Yet as time passed, the bees changed the angle of their dance by just the right amount. The same was true of bees that had stayed inside the hive for a while without seeing the sun. This means honeybees carry an internal sense of time and take the sun's movement into account.", "Even on cloudy days, honeybees rarely lose their way. If only a small patch of blue sky shows between the clouds, they can read a property of light that human eyes cannot see and work out where the sun is. This lets them keep their bearings even when the sun itself is hidden.", "The dance is not used only for food. When a colony splits in spring, the departing swarm gathers briefly on a branch while it looks for a new home. Scouts inspect candidate sites such as hollow trees, return, and announce their locations with the same kind of dance. Once one site has won the support of the largest number of scouts, the whole swarm flies there.", "At first, many scientists found it hard to believe that such a small insect could exchange such precise information. Some argued that the recruited bees were simply following scent, not the dance. Over the following years, researchers tested the idea again and again in different ways, and experiments were even carried out in which a small robot bee imitating the dance sent real bees to a chosen spot. Through such studies, the idea that the dance truly conveys direction and distance became widely accepted.", "The honeybee dance remains one of the clearest examples showing that animals can share information through agreed-upon signals. In this brief dance, performed in the darkness of the hive, the sun and the sky, time and distance are all brought together."], "qs": [{"q": "Who received a Nobel Prize for research on the honeybee dance?", "o": ["Karl von Frisch", "Charles Darwin", "Gregor Mendel", "Ivan Pavlov"], "a": 0, "at": "Nobel Prize in Physiology or Medicine in 1973"}, {"q": "How did von Frisch tell individual bees apart in his experiments?", "o": ["He marked each bee with a small dot of paint", "He attached tiny rings to their legs", "He trimmed the tips of their wings", "He divided the hive by color"], "a": 0, "at": "a small dot of paint on its back"}, {"q": "What does the round dance tell other bees?", "o": ["That food is nearby", "The exact direction of the food", "How many flowers are in the field", "How much honey is left in the hive"], "a": 0, "at": "it does not contain an exact direction"}, {"q": "In the waggle dance, what does straight up on the comb stand for?", "o": ["The direction of the sun", "Always north", "The entrance of the hive", "The direction the wind is blowing from"], "a": 0, "at": "straight up stands for the direction of the sun"}, {"q": "How is the distance to the food shown?", "o": ["By how long the straight run lasts", "By the number of half loops", "By the pitch of the wing buzz", "By how many bees dance together"], "a": 0, "at": "how long the straight run lasts"}, {"q": "Why do bees change the angle of their dance over time?", "o": ["Because the sun moves across the sky", "Because the flowers wilt", "Because the wind changes direction", "Because the other bees get tired"], "a": 0, "at": "changed the angle of their dance"}]}]
+[
+ {
+  "id": "ko-lighthouse",
+  "lang": "ko",
+  "title": "바다 위의 길잡이, 등대",
+  "paras": [
+   "밤바다를 항해하는 배에게 가장 무서운 것은 보이지 않는 육지다. 암초나 얕은 모래톱은 낮에도 알아보기 어렵고, 해가 지면 아예 사라진다. 그래서 사람들은 아주 오래전부터 해안에 불을 밝혀 배에게 위치를 알렸다. 이렇게 시작된 등대는 수천 년 동안 바다의 길잡이 역할을 해 왔다.",
+   "기록에 남은 가장 유명한 등대는 고대 이집트의 알렉산드리아 앞바다, 파로스섬에 세워진 등대다. 기원전 3세기 무렵 완성된 이 탑은 높이가 백 미터를 넘었던 것으로 전해지며, 세계 7대 불가사의 가운데 하나로 꼽혔다. 꼭대기에서는 큰 불을 피웠고, 그 불빛은 먼바다에서도 보였다고 한다. 이 등대는 여러 차례의 지진으로 무너져 지금은 남아 있지 않지만, 그 이름은 몇몇 유럽 언어에서 등대를 뜻하는 말로 남았다.",
+   "오랫동안 등대의 불은 나무나 석탄을 태워 만들었다. 이런 불은 연기가 많고 밝기가 고르지 않았으며, 비바람이 불면 꺼지기 쉬웠다. 이후 양초와 기름 등잔이 쓰이기 시작했지만, 작은 불꽃 하나로는 멀리까지 빛을 보내기 어려웠다. 등대지기들은 밤새 불을 지키고 심지를 다듬으며 불빛이 약해지지 않도록 애썼다.",
+   "큰 변화는 18세기 말에 찾아왔다. 공기가 잘 통하도록 만든 새로운 기름 등잔이 등장하면서 불꽃이 훨씬 밝고 깨끗해졌다. 사람들은 등잔 뒤에 오목한 거울을 달아 사방으로 흩어지는 빛을 한 방향으로 모았다. 하지만 거울은 빛의 일부를 흡수했고, 표면을 늘 닦아 주어야 하는 번거로움도 있었다.",
+   "19세기 초 프랑스의 물리학자 오귀스탱 프레넬은 이 문제를 렌즈로 풀었다. 빛을 멀리 보내려면 두껍고 무거운 렌즈가 필요하다는 것이 당시의 상식이었다. 프레넬은 큰 렌즈를 얇은 고리 모양의 조각으로 나누어 계단처럼 배열하면, 무게는 크게 줄이면서도 빛을 거의 같은 방식으로 모을 수 있다는 점을 알아냈다. 여기에 위아래로 새는 빛까지 프리즘으로 꺾어 모으자, 같은 등불로도 훨씬 먼 곳까지 빛을 보낼 수 있게 되었다. 이 렌즈는 프레넬 렌즈라는 이름으로 전 세계 등대에 퍼져 나갔다.",
+   "등대가 많아지자 새로운 문제가 생겼다. 밤바다에서 보이는 불빛이 모두 비슷하다면, 선원은 지금 보고 있는 것이 어느 등대인지 알 수 없다. 그래서 등대마다 고유한 빛의 신호를 정하게 되었다. 어떤 등대는 몇 초마다 한 번 깜빡이고, 어떤 등대는 두 번 연달아 빛을 낸 뒤 쉬며, 또 어떤 등대는 색이 다른 빛을 번갈아 보낸다. 선원들은 해도와 등대 목록에 적힌 신호를 보고, 눈앞의 불빛이 어느 등대인지 확인할 수 있었다.",
+   "낮에는 불빛 대신 등대의 모양과 색이 표지가 된다. 어떤 등대는 흰색과 붉은색 줄무늬를 두르고, 어떤 등대는 검은 띠를 칠한다. 주변 풍경과 뚜렷하게 구별되도록 칠한 이 무늬 덕분에, 선원들은 멀리서도 등대를 알아볼 수 있다.",
+   "등대를 세우는 일은 그 자체로 큰 도전이었다. 등대가 가장 필요한 곳은 대개 거센 파도가 몰아치는 바위섬이나 암초 위였기 때문이다. 일꾼들은 물이 빠지는 짧은 시간에만 작업할 수 있었고, 무거운 돌을 배로 실어 날라 하나하나 맞물려 쌓아야 했다. 파도의 힘을 견디도록 탑의 아랫부분을 넓고 무겁게 만들고, 돌과 돌이 서로 물리도록 깎아 맞추는 기술이 발전했다. 어떤 등대는 완성하기까지 여러 해가 걸렸고, 공사 도중 폭풍에 쓸려 간 부분을 처음부터 다시 쌓아야 하는 일도 있었다.",
+   "안개가 짙게 낀 날에는 아무리 밝은 불빛도 멀리 가지 못한다. 그래서 많은 등대에는 소리로 위치를 알리는 장치가 함께 설치되었다. 처음에는 종을 치거나 대포를 쏘았고, 나중에는 압축 공기로 낮고 큰 소리를 내는 무적이 쓰였다. 무적도 등대의 불빛처럼 저마다 정해진 간격으로 울려, 선원들은 소리만 듣고도 어느 등대 근처에 있는지 짐작할 수 있었다.",
+   "우리나라에서 근대식 등대가 처음 불을 밝힌 것은 1903년이다. 인천 앞바다의 작은 섬 팔미도에 세워진 이 등대는 인천항으로 드나드는 배들의 길을 비추었다. 그 뒤 우리나라 해안 곳곳에 등대가 세워졌고, 섬이 많고 물길이 복잡한 남해와 서해에서는 특히 중요한 역할을 맡았다.",
+   "등대지기의 하루는 단조로우면서도 바빴다. 해가 지기 전에 등잔에 기름을 채우고 렌즈와 유리창을 닦아 두어야 했다. 밤에는 몇 시간마다 불빛을 살피고 기록을 남겼으며, 날씨가 나빠지면 잠을 거의 자지 못했다. 보급선이 오지 않는 겨울에는 몇 주 동안 바깥세상과 연락이 끊기기도 했다.",
+   "20세기에 들어 등대는 다시 크게 바뀌었다. 기름 대신 전기로 불을 켜게 되었고, 정해진 시간에 저절로 불이 켜지고 꺼지는 장치가 도입되었다. 사람이 밤새 불을 지킬 필요가 줄어들면서 많은 등대가 무인화되었다. 한때 외딴섬에서 가족과 함께 지내며 등대를 지키던 등대지기는 점점 보기 드문 직업이 되었다.",
+   "오늘날 대부분의 배는 위성 신호로 자기 위치를 정확하게 안다. 그렇다면 등대는 이제 필요 없는 것일까? 그렇지 않다. 전자 장비는 고장이 나거나 신호가 끊길 수 있고, 그럴 때 선원이 의지할 수 있는 것은 눈으로 직접 확인하는 표지다. 그래서 여러 나라는 지금도 등대를 관리하며, 위성 항법이 듣지 않는 순간을 대비한 마지막 안전장치로 남겨 두고 있다.",
+   "등대는 또한 바다와 함께 살아온 사람들의 역사를 보여 주는 건축물이기도 하다. 오래된 등대 가운데 일부는 문화유산으로 지정되어 보존되고, 박물관이나 전망대로 바뀌어 여행자를 맞이한다. 밤바다를 비추던 불빛은 이제 기술의 역사와 사람들의 기억을 함께 비추고 있다."
+  ],
+  "qs": [
+   {
+    "q": "글에서 가장 유명한 고대 등대가 세워진 곳은 어디인가요?",
+    "o": [
+     "알렉산드리아 앞바다의 파로스섬",
+     "로마 테베레강의 하구",
+     "아테네의 피레우스 항구",
+     "카르타고의 해안 언덕"
+    ],
+    "a": 0,
+    "at": "파로스섬에 세워진 등대다"
+   },
+   {
+    "q": "나무나 석탄을 태운 초기 등대 불의 단점으로 글에서 말한 것은?",
+    "o": [
+     "연기가 많고 밝기가 고르지 않았다",
+     "너무 밝아서 선원의 눈이 부셨다",
+     "불빛의 색이 계속 바뀌었다",
+     "바다 위에서는 전혀 보이지 않았다"
+    ],
+    "a": 0,
+    "at": "밝기가 고르지 않았으며"
+   },
+   {
+    "q": "프레넬 렌즈의 핵심 아이디어는 무엇인가요?",
+    "o": [
+     "큰 렌즈를 얇은 고리 조각으로 나누어 계단처럼 배열했다",
+     "렌즈 두 장을 겹쳐 더 두껍게 만들었다",
+     "거울 여러 장을 둥글게 둘러 빛을 모았다",
+     "렌즈를 물속에 담가 빛을 꺾었다"
+    ],
+    "a": 0,
+    "at": "계단처럼 배열하면"
+   },
+   {
+    "q": "등대마다 고유한 빛의 신호를 정한 이유는 무엇인가요?",
+    "o": [
+     "선원이 어느 등대인지 구별할 수 있게 하려고",
+     "전기를 아끼려고",
+     "철새가 등대에 부딪히지 않게 하려고",
+     "등대지기의 교대 시간을 알리려고"
+    ],
+    "a": 0,
+    "at": "고유한 빛의 신호를 정하게 되었다"
+   },
+   {
+    "q": "우리나라에서 근대식 등대가 처음 불을 밝힌 곳과 해는?",
+    "o": [
+     "1903년, 인천 앞바다 팔미도",
+     "1876년, 부산 영도",
+     "1910년, 울릉도",
+     "1950년, 제주 성산"
+    ],
+    "a": 0,
+    "at": "팔미도에 세워진 이 등대는"
+   },
+   {
+    "q": "위성 항법을 쓰는 오늘날에도 등대를 관리하는 이유는?",
+    "o": [
+     "전자 장비가 고장 나거나 신호가 끊길 때를 대비하려고",
+     "관광 수입을 늘리려고",
+     "법으로 철거가 금지되어 있어서",
+     "등대가 위성 신호를 중계하기 때문에"
+    ],
+    "a": 0,
+    "at": "마지막 안전장치로"
+   }
+  ]
+ },
+ {
+  "id": "ko-bees",
+  "lang": "ko",
+  "title": "춤으로 길을 알려 주는 꿀벌",
+  "paras": [
+   "꿀벌 한 마리가 꽃이 가득 핀 들판을 찾아냈다고 해 보자. 이 벌은 벌집으로 돌아와 동료들에게 그곳의 위치를 알려야 한다. 그런데 꿀벌에게는 말도 지도도 없다. 놀랍게도 꿀벌은 몸을 움직이는 방식, 즉 춤으로 이 정보를 전한다.",
+   "이 사실을 밝혀낸 사람은 오스트리아의 동물학자 카를 폰 프리슈다. 그는 수십 년 동안 꿀벌을 관찰하며, 먹이를 찾아 돌아온 벌이 벌집 안에서 특별한 동작을 반복한다는 것을 알아냈다. 그리고 그 동작이 먹이까지의 방향과 거리를 담은 신호라는 것을 실험으로 보여 주었다. 이 연구로 그는 1973년 노벨 생리의학상을 받았다.",
+   "폰 프리슈는 먼저 벌들이 찾아오는 자리에 설탕물 접시를 놓고, 찾아온 벌의 등에 작은 물감 점을 찍어 구별했다. 그런 다음 유리창이 달린 관찰용 벌집을 만들어, 표시된 벌이 돌아와서 어떤 행동을 하는지 지켜보았다. 접시를 벌집 가까이 두거나 멀리 옮기면서, 벌의 동작이 어떻게 달라지는지도 꼼꼼히 기록했다.",
+   "꿀벌 사회에서 먹이를 찾는 일은 나이가 든 일벌이 맡는다. 어린 일벌은 주로 벌집 안에서 애벌레를 돌보고 방을 청소하며 벌집을 짓는다. 몇 주가 지나 바깥일을 시작한 벌 가운데 일부는 정찰벌이 되어 새로운 꽃밭을 찾아 나선다. 정찰벌이 좋은 먹이를 찾아내면, 춤을 통해 더 많은 동료를 그곳으로 불러 모은다.",
+   "관찰 결과 춤은 크게 두 가지로 나뉘었다. 먹이가 벌집 가까이에 있을 때, 벌은 작은 원을 그리며 이리저리 돈다. 이를 원형 춤이라고 한다. 원형 춤은 가까운 곳에 먹이가 있다는 사실을 알릴 뿐, 정확한 방향은 담고 있지 않다. 동료 벌들은 춤추는 벌의 몸에 묻은 꽃 냄새를 단서로 주변을 뒤진다.",
+   "먹이가 멀리 있을 때는 훨씬 정교한 춤이 나타난다. 벌은 한 방향으로 곧게 걸어가며 꽁무니를 좌우로 흔들고, 끝에 이르면 반원을 그리며 출발점으로 돌아온다. 다시 같은 직선을 걸은 뒤에는 반대쪽으로 반원을 그린다. 이 모양이 숫자 8과 비슷하다고 해서 8자 춤, 또는 꽁무니를 흔든다고 해서 흔들기 춤이라고 부른다.",
+   "흔들기 춤의 비밀은 직선 구간에 있다. 벌집 안은 어둡고, 벌들은 수직으로 선 벌집 판 위에서 춤을 춘다. 이때 위쪽은 해가 있는 방향을 뜻한다. 직선이 위쪽을 똑바로 향하면 먹이는 해가 있는 쪽에 있고, 위쪽에서 오른쪽으로 40도 기울어 있으면 먹이는 해가 있는 방향에서 오른쪽으로 40도 떨어진 곳에 있다. 벌은 하늘의 각도를 벌집 판 위의 각도로 바꾸어 전하는 셈이다.",
+   "거리는 직선 구간을 얼마나 오래 걷는지로 나타난다. 먹이가 멀수록 벌은 직선을 더 길게, 더 오랫동안 흔들며 걷는다. 동료 벌들은 춤추는 벌의 몸에 더듬이를 대고 따라 움직이면서 이 신호를 읽는다. 그런 다음 벌집을 나서서 알려 준 방향으로 날아가 먹이를 찾는다.",
+   "춤추는 벌은 먹이의 질에 따라 춤의 열정도 달리한다. 꿀이 진하고 많은 꽃밭을 찾은 벌은 같은 춤을 더 여러 번, 더 힘차게 반복한다. 반대로 먹이가 보잘것없으면 춤을 몇 번 추다 말거나 아예 추지 않는다. 그 결과 더 좋은 먹이터에 더 많은 벌이 모이게 되어, 벌집 전체가 효율적으로 먹이를 거둘 수 있다.",
+   "여기에는 한 가지 어려움이 있다. 해는 시간이 지나면서 하늘을 가로질러 움직인다. 아침에 알려 준 방향을 오후에도 그대로 쓰면 엉뚱한 곳으로 가게 된다. 그런데 꿀벌은 시간이 흐르면 춤의 각도도 그만큼 바꾸었다. 한동안 벌집 안에 머물러 해를 보지 못한 벌도 마찬가지였다. 꿀벌이 몸속에 시간 감각을 지니고 해의 움직임을 계산에 넣는다는 뜻이다.",
+   "흐린 날에도 꿀벌은 쉽게 길을 잃지 않는다. 구름 사이로 조금만 파란 하늘이 보여도, 꿀벌은 사람의 눈에는 보이지 않는 빛의 성질을 읽어 해의 위치를 알아낸다. 이 덕분에 해가 직접 보이지 않을 때에도 방향을 잡을 수 있다.",
+   "춤은 먹이를 찾을 때만 쓰이는 것이 아니다. 봄에 벌집이 둘로 나뉘면, 떠나는 무리는 나뭇가지에 잠시 모여 새 보금자리를 찾는다. 이때 정찰벌들은 나무 구멍 같은 후보지를 둘러보고 돌아와 같은 방식의 춤으로 그 위치를 알린다. 여러 후보지 가운데 가장 많은 정찰벌의 지지를 얻은 곳이 정해지면, 무리 전체가 그곳으로 날아간다.",
+   "처음에 많은 과학자는 작은 곤충이 이렇게 정교한 정보를 주고받는다는 주장을 쉽게 믿지 않았다. 동료 벌들이 춤이 아니라 냄새만 따라가는 것이라는 반론도 있었다. 이후 여러 연구자가 다양한 방법으로 실험을 거듭했고, 춤을 흉내 내는 작은 로봇 벌로 실제 벌을 원하는 곳에 보내는 실험도 이루어졌다. 이런 연구들을 통해 춤이 실제로 방향과 거리를 전한다는 사실이 널리 받아들여졌다.",
+   "꿀벌의 춤은 동물도 약속된 기호로 정보를 전할 수 있음을 보여 준 대표적인 사례다. 벌집 안의 어둠 속에서 펼쳐지는 이 짧은 춤에는 해와 하늘, 시간과 거리가 모두 담겨 있다."
+  ],
+  "qs": [
+   {
+    "q": "꿀벌의 춤을 연구해 노벨상을 받은 사람은?",
+    "o": [
+     "카를 폰 프리슈",
+     "찰스 다윈",
+     "그레고어 멘델",
+     "이반 파블로프"
+    ],
+    "a": 0,
+    "at": "1973년 노벨 생리의학상을"
+   },
+   {
+    "q": "폰 프리슈가 실험에서 벌을 구별하려고 쓴 방법은?",
+    "o": [
+     "벌의 등에 작은 물감 점을 찍었다",
+     "벌의 다리에 작은 고리를 달았다",
+     "날개 끝을 조금 잘라 냈다",
+     "벌집을 색깔별로 나누었다"
+    ],
+    "a": 0,
+    "at": "작은 물감 점을 찍어 구별했다"
+   },
+   {
+    "q": "원형 춤이 동료에게 알려 주는 것은?",
+    "o": [
+     "가까운 곳에 먹이가 있다는 사실",
+     "먹이까지의 정확한 방향",
+     "들판에 핀 꽃의 개수",
+     "벌집에 남은 꿀의 양"
+    ],
+    "a": 0,
+    "at": "정확한 방향은 담고 있지 않다"
+   },
+   {
+    "q": "흔들기 춤에서 벌집 판의 위쪽은 무엇을 뜻하나요?",
+    "o": [
+     "해가 있는 방향",
+     "언제나 북쪽",
+     "벌집의 입구",
+     "바람이 불어오는 방향"
+    ],
+    "a": 0,
+    "at": "위쪽은 해가 있는 방향을 뜻한다"
+   },
+   {
+    "q": "먹이까지의 거리는 무엇으로 나타내나요?",
+    "o": [
+     "직선 구간을 걷는 길이와 시간",
+     "반원을 그리는 횟수",
+     "날갯짓 소리의 높낮이",
+     "함께 춤추는 벌의 수"
+    ],
+    "a": 0,
+    "at": "직선 구간을 얼마나 오래 걷는지로"
+   },
+   {
+    "q": "시간이 지나면 꿀벌이 춤의 각도를 바꾸는 이유는?",
+    "o": [
+     "해가 하늘에서 움직이기 때문에",
+     "꽃이 시들기 때문에",
+     "바람의 방향이 바뀌기 때문에",
+     "동료 벌이 지치기 때문에"
+    ],
+    "a": 0,
+    "at": "춤의 각도도 그만큼 바꾸었다"
+   }
+  ]
+ },
+ {
+  "id": "en-lighthouse",
+  "lang": "en",
+  "title": "Guides at Sea: The Lighthouse",
+  "paras": [
+   "For a ship sailing at night, the most dangerous thing is land it cannot see. Reefs and shallow sandbanks are hard to spot even in daylight, and after sunset they vanish completely. So for a very long time, people have lit fires on the shore to tell ships where they are. The lighthouse that grew out of this practice has guided sailors for thousands of years.",
+   "The most famous lighthouse on record stood on the island of Pharos, just off Alexandria in ancient Egypt. Finished around the third century BC, the tower is said to have been more than a hundred meters tall, and it was counted among the Seven Wonders of the ancient world. A great fire burned at the top, and its light was reportedly visible far out at sea. Several earthquakes eventually brought it down, but its name survives in a number of European languages as the word for a lighthouse.",
+   "For centuries, lighthouse fires were made by burning wood or coal. These fires were smoky, their brightness was uneven, and wind and rain could easily put them out. Candles and oil lamps came later, but a single small flame could not send light very far. Keepers stayed awake through the night, tending the fire and trimming the wicks so the light would not fade.",
+   "A major change came at the end of the eighteenth century. A new kind of oil lamp, designed to draw in more air, produced a far brighter and cleaner flame. People placed curved mirrors behind these lamps to gather light that would otherwise scatter in every direction and send it out as a single beam. Mirrors, however, absorbed part of the light, and their surfaces had to be polished constantly.",
+   "In the early nineteenth century, the French physicist Augustin Fresnel solved this problem with a lens. The common belief at the time was that sending light far required a thick, heavy lens. Fresnel realized that if a large lens were divided into thin ring-shaped sections arranged like steps, it could gather light in almost the same way while weighing far less. By adding prisms to bend the light that escaped above and below, he made it possible for the same lamp to shine much farther. The Fresnel lens soon spread to lighthouses around the world.",
+   "As lighthouses multiplied, a new problem appeared. If every light on a dark sea looked the same, a sailor could not tell which lighthouse he was looking at. So each lighthouse was given its own light signal. Some flash once every few seconds, some give two quick flashes and then pause, and others alternate between lights of different colors. By checking the signals listed on charts and in lighthouse registers, sailors could identify the light in front of them.",
+   "By day, a lighthouse's shape and color serve as the signal instead. Some towers wear red and white stripes, while others carry bold black bands. Because these patterns stand out clearly against the surrounding landscape, sailors can recognize a lighthouse from a great distance.",
+   "Building a lighthouse was a challenge in itself. The places that needed one most were usually rocky islets or reefs pounded by heavy waves. Workers could labor only during the short hours of low tide, and heavy stones had to be ferried out by boat and fitted together one by one. To withstand the force of the sea, builders made the base of the tower wide and heavy, and they developed ways of cutting stones so that each locked into its neighbors. Some lighthouses took years to finish, and sometimes a section swept away by a storm had to be rebuilt from the beginning.",
+   "On days of thick fog, even the brightest light cannot travel far. Many lighthouses were therefore fitted with devices that announced their position by sound. At first keepers rang bells or fired cannons; later, foghorns driven by compressed air sent out deep, powerful blasts. Like the lights, each foghorn sounded at its own set interval, so sailors could guess which lighthouse they were near from the sound alone.",
+   "In Korea, the first modern lighthouse was lit in 1903. Built on Palmido, a small island off Incheon, it guided ships entering and leaving the port of Incheon. Many more lighthouses followed along the Korean coast, and they became especially important in the southern and western seas, where islands are numerous and channels are complex.",
+   "A keeper's day was both monotonous and busy. Before sunset the lamps had to be filled with oil and the lens and windows cleaned. Through the night the keeper checked the light every few hours and kept a log, and in bad weather there was little chance of sleep. In winter, when supply boats could not come, a lighthouse might be cut off from the outside world for weeks.",
+   "The twentieth century transformed the lighthouse again. Electricity replaced oil, and devices were installed that switched the lights on and off automatically at set times. As the need for someone to watch the light all night disappeared, many lighthouses became unstaffed. The keeper, who once lived on a remote island with his family to tend the light, became an increasingly rare figure.",
+   "Today, most ships know their exact position from satellite signals. Does that mean lighthouses are no longer needed? Not quite. Electronic equipment can fail and signals can drop out, and at those moments a sailor must rely on markers that can be checked with the naked eye. That is why many countries still maintain their lighthouses, keeping them as a last line of safety for the moments when satellite navigation does not work.",
+   "Lighthouses are also buildings that tell the history of people who have lived alongside the sea. Some old lighthouses are protected as cultural heritage, and others have become museums or observation decks that welcome travelers. The light that once swept the night sea now illuminates the history of technology and the memories of the people who depended on it."
+  ],
+  "qs": [
+   {
+    "q": "Where did the most famous ancient lighthouse in the passage stand?",
+    "o": [
+     "On the island of Pharos, off Alexandria",
+     "At the mouth of the Tiber in Rome",
+     "In the port of Piraeus near Athens",
+     "On a hill above the coast of Carthage"
+    ],
+    "a": 0,
+    "at": "the island of Pharos"
+   },
+   {
+    "q": "What drawback of early wood and coal fires does the passage mention?",
+    "o": [
+     "They were smoky and their brightness was uneven",
+     "They were so bright they dazzled sailors",
+     "Their color kept changing",
+     "They could not be seen from the water at all"
+    ],
+    "a": 0,
+    "at": "their brightness was uneven"
+   },
+   {
+    "q": "What was the key idea behind the Fresnel lens?",
+    "o": [
+     "Dividing a large lens into thin ring-shaped sections arranged like steps",
+     "Stacking two lenses to make one thicker lens",
+     "Surrounding the lamp with a ring of mirrors",
+     "Submerging the lens in water to bend the light"
+    ],
+    "a": 0,
+    "at": "arranged like steps"
+   },
+   {
+    "q": "Why was each lighthouse given its own light signal?",
+    "o": [
+     "So sailors could tell which lighthouse they were seeing",
+     "To save electricity",
+     "To keep migrating birds from hitting the tower",
+     "To announce when keepers changed shifts"
+    ],
+    "a": 0,
+    "at": "its own light signal"
+   },
+   {
+    "q": "When and where was Korea's first modern lighthouse lit?",
+    "o": [
+     "In 1903, on Palmido off Incheon",
+     "In 1876, on Yeongdo in Busan",
+     "In 1910, on Ulleungdo",
+     "In 1950, at Seongsan on Jeju"
+    ],
+    "a": 0,
+    "at": "Built on Palmido"
+   },
+   {
+    "q": "Why are lighthouses still maintained in the age of satellite navigation?",
+    "o": [
+     "As a backup when electronics fail or signals drop out",
+     "To earn money from tourism",
+     "Because the law forbids tearing them down",
+     "Because lighthouses relay satellite signals"
+    ],
+    "a": 0,
+    "at": "a last line of safety"
+   }
+  ]
+ },
+ {
+  "id": "en-bees",
+  "lang": "en",
+  "title": "The Bees That Dance Directions",
+  "paras": [
+   "Imagine a honeybee that has found a field full of flowers. It needs to fly back to the hive and tell its nestmates where the field is. But a honeybee has no words and no maps. Remarkably, it passes on this information through the way it moves its body: through a dance.",
+   "The person who uncovered this was the Austrian zoologist Karl von Frisch. Over several decades of watching honeybees, he noticed that a bee returning from a food source repeated a particular set of movements inside the hive. He then showed through experiments that these movements were a signal carrying both the direction and the distance to the food. For this work he shared the Nobel Prize in Physiology or Medicine in 1973.",
+   "Von Frisch began by placing dishes of sugar water where bees would find them and marking each visiting bee with a small dot of paint on its back. He then built an observation hive with a glass window so he could watch what the marked bees did when they returned. By moving the dishes closer to the hive or farther away, he carefully recorded how the bees' movements changed.",
+   "In a honeybee colony, gathering food is the job of older workers. Young workers mostly stay inside, caring for larvae, cleaning cells and building comb. After a few weeks some begin working outdoors, and a portion of these become scouts that set out to find new patches of flowers. When a scout finds good food, it uses the dance to recruit more nestmates to the spot.",
+   "His observations showed two main kinds of dance. When food was close to the hive, a bee would run around in small circles, first one way and then the other. This is called the round dance. The round dance announces only that food is nearby; it does not contain an exact direction. The other bees search the area using the scent of flowers clinging to the dancer's body as a clue.",
+   "When food is far away, a much more elaborate dance appears. The bee walks in a straight line while waggling its abdomen from side to side, then circles back to the starting point along a half loop. After walking the same straight line again, it loops back on the opposite side. Because the pattern resembles the number eight, it is called the figure-eight dance, or, after the waggling, the waggle dance.",
+   "The secret of the waggle dance lies in the straight run. The inside of the hive is dark, and the bees dance on vertical sheets of comb. On the comb, straight up stands for the direction of the sun. If the straight run points directly upward, the food lies toward the sun; if it tilts forty degrees to the right of vertical, the food lies forty degrees to the right of the sun's direction. In effect, the bee translates an angle in the sky into an angle on the comb.",
+   "Distance is shown by how long the straight run lasts. The farther away the food, the longer the bee keeps walking and waggling along the straight line. Nestmates read this signal by pressing their antennae against the dancer and following its movements. They then leave the hive and fly off in the indicated direction to find the food.",
+   "A dancing bee also adjusts its enthusiasm to the quality of the food. A bee that has found a field rich in sweet nectar repeats the same dance many more times and more vigorously. If the food is poor, it dances only a few rounds or not at all. As a result, more bees gather at the better feeding sites, and the colony as a whole harvests food efficiently.",
+   "There is one complication. The sun moves across the sky as the day goes on. A direction given in the morning would send bees to the wrong place if it were still used in the afternoon. Yet as time passed, the bees changed the angle of their dance by just the right amount. The same was true of bees that had stayed inside the hive for a while without seeing the sun. This means honeybees carry an internal sense of time and take the sun's movement into account.",
+   "Even on cloudy days, honeybees rarely lose their way. If only a small patch of blue sky shows between the clouds, they can read a property of light that human eyes cannot see and work out where the sun is. This lets them keep their bearings even when the sun itself is hidden.",
+   "The dance is not used only for food. When a colony splits in spring, the departing swarm gathers briefly on a branch while it looks for a new home. Scouts inspect candidate sites such as hollow trees, return, and announce their locations with the same kind of dance. Once one site has won the support of the largest number of scouts, the whole swarm flies there.",
+   "At first, many scientists found it hard to believe that such a small insect could exchange such precise information. Some argued that the recruited bees were simply following scent, not the dance. Over the following years, researchers tested the idea again and again in different ways, and experiments were even carried out in which a small robot bee imitating the dance sent real bees to a chosen spot. Through such studies, the idea that the dance truly conveys direction and distance became widely accepted.",
+   "The honeybee dance remains one of the clearest examples showing that animals can share information through agreed-upon signals. In this brief dance, performed in the darkness of the hive, the sun and the sky, time and distance are all brought together."
+  ],
+  "qs": [
+   {
+    "q": "Who received a Nobel Prize for research on the honeybee dance?",
+    "o": [
+     "Karl von Frisch",
+     "Charles Darwin",
+     "Gregor Mendel",
+     "Ivan Pavlov"
+    ],
+    "a": 0,
+    "at": "Nobel Prize in Physiology or Medicine in 1973"
+   },
+   {
+    "q": "How did von Frisch tell individual bees apart in his experiments?",
+    "o": [
+     "He marked each bee with a small dot of paint",
+     "He attached tiny rings to their legs",
+     "He trimmed the tips of their wings",
+     "He divided the hive by color"
+    ],
+    "a": 0,
+    "at": "a small dot of paint on its back"
+   },
+   {
+    "q": "What does the round dance tell other bees?",
+    "o": [
+     "That food is nearby",
+     "The exact direction of the food",
+     "How many flowers are in the field",
+     "How much honey is left in the hive"
+    ],
+    "a": 0,
+    "at": "it does not contain an exact direction"
+   },
+   {
+    "q": "In the waggle dance, what does straight up on the comb stand for?",
+    "o": [
+     "The direction of the sun",
+     "Always north",
+     "The entrance of the hive",
+     "The direction the wind is blowing from"
+    ],
+    "a": 0,
+    "at": "straight up stands for the direction of the sun"
+   },
+   {
+    "q": "How is the distance to the food shown?",
+    "o": [
+     "By how long the straight run lasts",
+     "By the number of half loops",
+     "By the pitch of the wing buzz",
+     "By how many bees dance together"
+    ],
+    "a": 0,
+    "at": "how long the straight run lasts"
+   },
+   {
+    "q": "Why do bees change the angle of their dance over time?",
+    "o": [
+     "Because the sun moves across the sky",
+     "Because the flowers wilt",
+     "Because the wind changes direction",
+     "Because the other bees get tired"
+    ],
+    "a": 0,
+    "at": "changed the angle of their dance"
+   }
+  ]
+ },
+ {
+  "id": "ko-paper",
+  "lang": "ko",
+  "title": "종이가 걸어온 길",
+  "paras": [
+   "우리는 날마다 종이를 만진다. 책과 공책, 영수증과 포장 상자까지 종이는 어디에나 있다. 너무 흔해서 특별하게 느껴지지 않지만, 종이가 없던 시절 사람들은 글을 남기기 위해 훨씬 무겁거나 값비싼 재료를 써야 했다. 종이가 어떻게 태어나 세계로 퍼졌는지 따라가 보면, 지식이 사람들 사이를 오간 길도 함께 보인다.",
+   "고대 이집트 사람들은 나일강 가에 자라는 파피루스라는 풀로 글을 쓸 바탕을 만들었다. 줄기를 얇게 잘라 가로세로로 겹쳐 놓고 눌러 말리면 납작한 판이 되었다. 영어에서 종이를 뜻하는 '페이퍼'라는 말은 이 파피루스에서 왔다. 하지만 파피루스는 식물 줄기를 펴서 붙인 것에 가까워서, 섬유를 잘게 풀었다가 다시 엉기게 하는 오늘날의 종이와는 만드는 방식이 다르다.",
+   "옛 중국에서는 대나무나 나무를 길고 좁게 깎은 조각에 글을 쓰고, 이것을 끈으로 엮어 책으로 삼았다. 이런 책은 무겁고 자리를 많이 차지했다. 비단에 쓰기도 했지만 비단은 너무 비싸서 아무나 쓸 수 없었다. 가볍고 값싸면서도 먹이 잘 스며드는 재료가 필요했다.",
+   "흔히 종이를 만든 사람으로 한나라의 관리 채륜이 꼽힌다. 그는 105년 무렵 나무껍질, 삼베 조각, 낡은 헝겊, 헌 그물 같은 재료로 종이를 만들어 황제에게 바쳤다고 전해진다. 다만 이보다 앞선 시기의 종이 조각이 유적에서 발견되기도 해서, 오늘날에는 채륜을 처음 발명한 사람이라기보다 만드는 방법을 크게 다듬고 널리 알린 인물로 보는 견해가 많다.",
+   "종이를 만드는 기본 원리는 지금도 크게 다르지 않다. 식물 섬유를 물에 불리고 두드려 아주 잘게 풀어 죽처럼 만든다. 이것을 물에 고루 풀어 놓고 촘촘한 발로 떠 올리면, 물은 빠지고 섬유만 얇은 막처럼 남는다. 이 막을 눌러 물기를 짜내고 말리면 한 장의 종이가 된다. 가늘게 풀린 섬유들이 서로 얽히면서 단단한 한 장을 이루는 것이다.",
+   "종이 만드는 기술은 이웃 나라로도 전해졌다. 한반도에서는 닥나무 껍질을 주재료로 한지를 만들었다. 한지는 섬유가 길고 질겨서 잘 찢어지지 않고 오래 보존된다. 종이는 천 년을 간다는 말이 전해질 만큼, 오래된 한지 기록 가운데에는 지금까지 형태를 지키고 있는 것도 있다. 한지는 글을 쓰는 데뿐 아니라 창문에 바르거나 생활용품을 만드는 데에도 두루 쓰였다. 이 기술은 일본에도 건너가 그곳 나름의 전통 종이로 발달했다.",
+   "서쪽으로 가는 길은 더 길었다. 8세기 무렵 종이 만드는 기술은 중앙아시아의 사마르칸트에 전해졌다. 전쟁 중에 붙잡힌 중국 장인들이 그 기술을 알려 주었다는 이야기가 유명하지만, 실제로 어떻게 전해졌는지는 학자마다 의견이 다르다. 이후 바그다드를 비롯한 이슬람 세계의 여러 도시에 종이 공방이 생겼고, 학자들은 종이에 책을 옮겨 쓰며 많은 지식을 모았다.",
+   "그 무렵 유럽에서는 주로 양피지를 썼다. 양피지는 양이나 송아지 같은 동물의 가죽을 얇게 펴서 말린 것으로, 튼튼하지만 책 한 권을 만들려면 많은 가죽이 필요했다. 종이는 이슬람 세계를 거쳐 스페인과 이탈리아 쪽으로 들어왔고, 12세기 무렵부터 유럽에도 종이 공방이 하나둘 생겨났다. 처음에는 양피지보다 약하다는 의심도 받았지만, 값이 싸다는 장점 덕분에 점점 자리를 넓혔다.",
+   "15세기 중반 유럽에서 금속 활자로 책을 찍는 인쇄기가 널리 쓰이기 시작하자 종이의 쓰임은 크게 늘었다. 같은 책을 수백 권씩 찍어 내려면 값싼 종이가 꼭 필요했기 때문이다. 종이와 인쇄술이 만나면서 책값이 내려가고, 더 많은 사람이 책을 읽을 수 있게 되었다.",
+   "그런데 종이가 많이 쓰일수록 재료가 모자랐다. 당시 유럽의 종이는 주로 낡은 천 조각으로 만들었는데, 헌 옷감을 모으는 데에는 한계가 있었다. 19세기에 이르러 나무를 갈거나 약품으로 녹여 섬유를 뽑아내는 방법이 자리 잡으면서 이 문제가 풀렸다. 숲의 나무가 종이의 주재료가 된 것이다.",
+   "기계도 종이 만드는 모습을 바꾸었다. 예전에는 장인이 발로 한 장씩 떠서 만들었지만, 19세기 초부터는 길게 돌아가는 그물 띠 위로 섬유 물을 흘려 끊김 없이 긴 종이를 만들어 내는 기계가 쓰였다. 커다란 두루마리로 감긴 종이는 신문과 책, 포장지가 되어 쏟아져 나왔고, 종이는 누구나 쉽게 구할 수 있는 물건이 되었다.",
+   "하지만 새로운 종이에는 약점도 있었다. 나무로 만든 종이 가운데 일부는 만드는 과정에서 남은 산성 물질 때문에 시간이 지나면 누렇게 변하고 쉽게 바스러졌다. 오래된 책장이 갈색으로 변해 부서지는 것도 이런 까닭이다. 그래서 오래 보관해야 하는 기록에는 산성을 줄인 종이를 쓰고, 도서관과 기록관에서는 이미 약해진 책을 되살리는 작업을 한다.",
+   "오늘날에는 화면으로 글을 읽는 일이 많아졌지만 종이는 여전히 우리 곁에 있다. 다 쓴 종이를 모아 다시 풀어서 새 종이로 만드는 재활용도 활발하다. 종이 한 장에는 풀과 나무껍질, 헝겊과 그물에서 시작해 여러 나라를 거쳐 온 오랜 이야기가 담겨 있다."
+  ],
+  "qs": [
+   {
+    "q": "고대 이집트 사람들은 파피루스로 글 쓸 바탕을 어떻게 만들었나요?",
+    "o": [
+     "줄기를 얇게 잘라 가로세로로 겹쳐 눌러 말렸다",
+     "줄기를 끓여 죽처럼 만든 뒤 발로 떠냈다",
+     "동물 가죽 위에 줄기를 붙였다",
+     "줄기를 태운 재를 물에 개어 굳혔다"
+    ],
+    "a": 0,
+    "at": "가로세로로 겹쳐 놓고"
+   },
+   {
+    "q": "글에 따르면 오늘날 채륜을 어떤 인물로 보는 견해가 많나요?",
+    "o": [
+     "종이 만드는 방법을 크게 다듬고 널리 알린 인물",
+     "종이를 처음으로 발명한 유일한 인물",
+     "종이를 서쪽 나라에 처음 전한 상인",
+     "종이 대신 비단을 쓰자고 주장한 인물"
+    ],
+    "a": 0,
+    "at": "널리 알린 인물로"
+   },
+   {
+    "q": "한반도에서 만든 한지의 주재료는 무엇인가요?",
+    "o": [
+     "닥나무 껍질",
+     "대나무 줄기",
+     "나일강의 파피루스",
+     "양의 가죽"
+    ],
+    "a": 0,
+    "at": "닥나무 껍질을 주재료로"
+   },
+   {
+    "q": "8세기 무렵 종이 만드는 기술이 전해진 중앙아시아의 도시는?",
+    "o": [
+     "사마르칸트",
+     "카이로",
+     "베네치아",
+     "콘스탄티노플"
+    ],
+    "a": 0,
+    "at": "중앙아시아의 사마르칸트"
+   },
+   {
+    "q": "19세기에 종이 재료가 모자라는 문제는 어떻게 풀렸나요?",
+    "o": [
+     "나무에서 섬유를 뽑아내는 방법이 자리 잡았다",
+     "양피지를 다시 쓰기 시작했다",
+     "헌 옷감을 수입하는 법을 만들었다",
+     "종이 대신 비단에 인쇄했다"
+    ],
+    "a": 0,
+    "at": "나무를 갈거나 약품으로"
+   },
+   {
+    "q": "일부 오래된 책장이 누렇게 변하고 부서지는 까닭은?",
+    "o": [
+     "만드는 과정에서 남은 산성 물질 때문에",
+     "종이에 쓴 먹이 너무 진해서",
+     "책을 너무 자주 펼쳐서",
+     "종이를 손으로 떠서 만들었기 때문에"
+    ],
+    "a": 0,
+    "at": "남은 산성 물질 때문에"
+   }
+  ]
+ },
+ {
+  "id": "en-paper",
+  "lang": "en",
+  "title": "The Story of Paper",
+  "paras": [
+   "We handle paper every day. Books, notebooks, receipts, and cardboard boxes are all made of it. It is so common that it hardly seems special, yet before paper existed, anyone who wanted to keep a written record had to rely on materials that were far heavier or far more expensive. Following paper from its birth to its spread across the world also reveals the routes along which knowledge traveled.",
+   "In ancient Egypt, people made a writing surface from papyrus, a reed that grew along the Nile. They cut the stems into thin strips, laid them in crisscrossing layers, and pressed and dried them into flat sheets. The English word \"paper\" comes from papyrus. Still, papyrus was really a plant flattened out, not quite paper as we know it today, which is made by breaking fibers apart and letting them bond again.",
+   "In early China, people wrote on long, narrow strips of bamboo or wood and tied them together with cord to form books. Such books were heavy and took up a great deal of space. Silk was another option, but it was far too costly for most people. What was needed was something light and cheap that still took ink well.",
+   "The name most often linked with paper is Cai Lun, an official at the Han court. Around 105 CE, he is said to have presented the emperor with paper made from tree bark, scraps of hemp, old rags, and worn-out fishing nets. Yet fragments of paper older than this have been found at archaeological sites, so many historians now see Cai Lun less as the first inventor than as the person who greatly improved the method and helped it spread.",
+   "The basic principle of papermaking has changed surprisingly little. Plant fibers are soaked and beaten until they come apart into a soft pulp. The pulp is stirred into a vat of water, and a fine screen is dipped in and lifted out. The water drains away, leaving a thin layer of fibers on the screen. When that layer is pressed and dried, it becomes a sheet of paper, held together because the loosened fibers tangle and bond with one another.",
+   "The craft soon reached China's neighbors. On the Korean Peninsula, people made a paper called hanji, mainly from the inner bark of the paper mulberry tree. Because its fibers are long and tough, hanji resists tearing and lasts a long time. There is even an old saying that paper endures for a thousand years, and some early records on hanji still keep their shape today. Hanji was used not only for writing but also for covering windows and making everyday objects. The technique also traveled to Japan, where a tradition of handmade paper grew of its own.",
+   "The road west was longer. By around the eighth century, papermaking had reached Samarkand in Central Asia. A famous story says that Chinese craftsmen captured in a battle taught the skill to their captors, but scholars disagree about how the knowledge actually traveled. Paper workshops later appeared in Baghdad and other cities of the Islamic world, where scholars copied books onto paper and gathered a vast amount of learning.",
+   "Meanwhile, Europeans mostly wrote on parchment, made from the skins of animals such as sheep and calves, stretched thin and dried. Parchment was strong, but a single book could require the hides of many animals. Paper reached Europe through the Islamic world, by way of Spain and Italy, and from roughly the twelfth century paper workshops began to appear there one by one. At first some doubted that it was as durable as parchment, but its low price helped it gain ground.",
+   "In the mid-fifteenth century, printing presses using metal type spread across Europe, and the demand for paper grew sharply. Printing hundreds of copies of the same book simply required cheap paper. Together, paper and printing lowered the price of books and allowed far more people to read.",
+   "But the more paper people used, the harder it became to find raw material. European paper at the time was made mostly from old cloth, and there were only so many rags to collect. The problem was solved in the nineteenth century, when methods of grinding wood or dissolving it with chemicals to extract its fibers became established. Trees from the forest became the main ingredient of paper.",
+   "Machines changed papermaking too. Where craftsmen had once formed sheets one at a time by hand, machines came into use in the early nineteenth century that spread pulp onto a long, moving belt of mesh and produced an unbroken length of paper. Wound into huge rolls, it poured out as newspapers, books, and wrapping, and paper became something anyone could easily buy.",
+   "The new paper had a weakness, however. Some wood-based paper contained acidic substances left over from manufacturing, and over time it turned yellow and grew brittle. That is why the pages of some old books turn brown and crumble. For records that must last, archives now use paper with the acid reduced, and libraries work to rescue books that have already weakened.",
+   "Today we read much of what we read on screens, yet paper remains all around us. Recycling, in which used paper is collected, broken down again, and made into new sheets, is common. A single sheet of paper carries a long story that began with reeds, bark, rags, and fishing nets and passed through many lands on its way to us."
+  ],
+  "qs": [
+   {
+    "q": "How did ancient Egyptians make a writing surface from papyrus?",
+    "o": [
+     "They laid thin strips in crisscrossing layers and pressed and dried them",
+     "They boiled the stems into pulp and lifted it with a screen",
+     "They glued the stems onto animal skins",
+     "They mixed ash from burned stems with water and let it harden"
+    ],
+    "a": 0,
+    "at": "crisscrossing layers"
+   },
+   {
+    "q": "How do many historians now see Cai Lun?",
+    "o": [
+     "As the person who greatly improved the method and helped it spread",
+     "As the only person who ever invented paper",
+     "As the merchant who first carried paper to the west",
+     "As an official who wanted silk used instead of paper"
+    ],
+    "a": 0,
+    "at": "greatly improved the method"
+   },
+   {
+    "q": "What is hanji mainly made from?",
+    "o": [
+     "The inner bark of the paper mulberry tree",
+     "Strips of bamboo",
+     "Papyrus from the Nile",
+     "Sheepskin"
+    ],
+    "a": 0,
+    "at": "paper mulberry tree"
+   },
+   {
+    "q": "Which Central Asian city had papermaking reached by around the eighth century?",
+    "o": [
+     "Samarkand",
+     "Cairo",
+     "Venice",
+     "Constantinople"
+    ],
+    "a": 0,
+    "at": "reached Samarkand"
+   },
+   {
+    "q": "How was the shortage of raw material for paper solved in the nineteenth century?",
+    "o": [
+     "Methods of extracting fibers from wood became established",
+     "People went back to using parchment",
+     "Laws were passed to import old clothing",
+     "Books began to be printed on silk instead"
+    ],
+    "a": 0,
+    "at": "grinding wood or dissolving it"
+   },
+   {
+    "q": "Why do the pages of some old books turn brown and crumble?",
+    "o": [
+     "Because of acidic substances left over from manufacturing",
+     "Because the ink used on them was too dark",
+     "Because the books were opened too often",
+     "Because the sheets were made by hand"
+    ],
+    "a": 0,
+    "at": "acidic substances left over"
+   }
+  ]
+ },
+ {
+  "id": "ko-hangul",
+  "lang": "ko",
+  "title": "한글은 어떻게 태어났을까",
+  "paras": [
+   "우리가 매일 쓰는 한글은 누가, 언제, 왜 만들었는지가 기록으로 분명하게 남아 있는 드문 문자다. 세계의 많은 문자는 오랜 세월에 걸쳐 조금씩 모양이 바뀌며 자리 잡았기 때문에 처음 만든 사람을 알기 어렵다. 그런데 한글은 조선의 세종이 새로 만들어 반포했다는 사실과 그 목적, 그리고 글자를 만든 원리를 설명한 책까지 함께 전해진다.",
+   "한글이 생기기 전, 우리 조상들은 말은 우리말로 하면서 글은 한자로 썼다. 한자는 중국어를 적기 위해 발달한 문자여서 우리말과는 문장의 짜임이 달랐다. 그래서 한자의 소리나 뜻을 빌려 우리말을 적는 이두나 향찰 같은 방법도 쓰였지만, 이런 방법 역시 한자를 많이 알아야만 쓸 수 있었다. 한자로 적힌 문장을 읽을 때에도, 그 뜻을 다시 우리말로 바꾸어 이해하는 과정을 한 번 더 거쳐야 했다.",
+   "한자는 글자 수가 매우 많아 익히는 데 오랜 시간이 걸렸다. 날마다 농사를 짓고 일을 해야 하는 백성들이 수천 자의 한자를 배우기는 어려웠다. 글을 모르면 억울한 일을 당해도 관청에 사정을 적어 올리기 힘들었고, 나라에서 알리는 내용도 제대로 이해하기 어려웠다. 글은 오랫동안 일부 계층의 것이었다.",
+   "세종은 이 점을 안타깝게 여겼다. 『훈민정음』의 머리말에서 세종은 우리말이 중국의 말과 달라 한자로는 뜻이 잘 통하지 않고, 그 때문에 백성이 하고 싶은 말을 글로 펴지 못하는 일이 많다고 하였다. 그래서 누구나 쉽게 익혀 날마다 편하게 쓰도록 스물여덟 글자를 새로 만들었다고 밝혔다.",
+   "새 문자는 1443년에 완성되었고, 1446년에 반포되었다. 훈민정음은 '백성을 가르치는 바른 소리'라는 뜻이다. 이 이름은 문자 자체를 가리키는 동시에, 그 원리와 쓰는 법을 풀이한 책의 이름이기도 하다. 오늘날 10월 9일을 한글날로 기념하는 것은 이 반포를 기리기 위해서다.",
+   "자음 글자는 소리를 낼 때 발음 기관이 움직이는 모양을 본떠 만들었다. 'ㄱ'은 혀뿌리가 목구멍을 막는 모양, 'ㄴ'은 혀끝이 윗잇몸에 닿는 모양, 'ㅁ'은 입의 모양, 'ㅅ'은 이의 모양, 'ㅇ'은 목구멍의 모양을 본떴다. 소리를 만드는 몸의 모습이 곧 글자의 모양이 된 것이다. 그래서 글자를 익힐 때 입 모양과 혀의 위치를 함께 떠올리면 소리와 글자를 쉽게 연결할 수 있다.",
+   "이 다섯 가지 기본 글자에서 다른 자음이 차례로 생겨났다. 소리가 더 세지면 획을 하나씩 더했다. 'ㄱ'에 획을 더하면 'ㅋ'이 되고, 'ㄴ'에서 'ㄷ'과 'ㅌ'이, 'ㅁ'에서 'ㅂ'과 'ㅍ'이 나왔다. 그래서 비슷한 자리에서 나는 소리끼리는 모양도 서로 닮았다. 글자의 모양만 보아도 소리 사이의 관계를 짐작할 수 있는 셈이다.",
+   "모음은 하늘, 땅, 사람을 본뜬 세 글자에서 출발했다. 둥근 점 '·'는 하늘, 평평한 가로선 'ㅡ'는 땅, 서 있는 세로선 'ㅣ'는 사람을 나타낸다. 이 세 가지를 서로 합쳐 'ㅏ', 'ㅓ', 'ㅗ', 'ㅜ' 같은 모음을 만들었다. 적은 수의 기본 글자로 많은 글자를 만들어 내는 짜임새 덕분에 한글은 배우기가 쉽다.",
+   "한글은 자음과 모음을 한 줄로 늘어놓지 않고, 소리의 마디인 음절 단위로 모아 쓴다. 첫소리, 가운뎃소리, 끝소리를 한 덩어리로 묶어 '한', '글'처럼 네모난 글자 한 자를 이룬다. 처음 만들어졌을 때는 기본 글자가 스물여덟 자였지만, 그 가운데 네 글자는 시간이 흐르며 쓰이지 않게 되어 오늘날에는 스물네 자를 기본으로 쓴다. 이렇게 모아 쓰면 만들어지는 글자 모양은 아주 많지만, 실제로 익혀야 할 기본 글자는 몇십 개에 지나지 않는다.",
+   "새 문자가 처음부터 모두에게 환영받은 것은 아니다. 일부 신하들은 한자를 두고 새 문자를 쓰는 것을 반대하는 글을 올리기도 했다. 그러나 한글은 점차 생활 속으로 퍼져 나갔다. 한자를 배울 기회가 적었던 여성과 백성들이 한글로 편지를 주고받았고, 소설과 노래 가사도 한글로 적혔다. 나라에서도 여러 책을 한글로 옮겨 펴냈다.",
+   "훈민정음의 원리를 자세히 풀이한 해설서는 『훈민정음 해례본』이라 불린다. 이 책은 세종의 명을 받은 집현전 학자들이 함께 지었다. 오랫동안 행방을 알 수 없었던 해례본은 1940년에 경상북도 안동에서 발견되었고, 그 덕분에 글자를 만든 원리가 분명하게 밝혀졌다. 이 책은 국보로 지정되었고 유네스코 세계기록유산에도 올랐다.",
+   "'한글'이라는 이름은 20세기 초에 쓰이기 시작했다. 국어학자 주시경이 이 이름을 처음 쓴 사람으로 알려져 있으며, '큰 글', '한국의 글' 같은 뜻으로 풀이된다. 일제강점기에 학자들은 우리말과 한글을 지키기 위해 맞춤법을 정리하고 사전을 만드는 일에 힘을 쏟았다.",
+   "오늘날 한글은 컴퓨터와 휴대전화에서도 빠르고 편리하게 쓰인다. 적은 수의 자음과 모음을 조합해 글자를 만드는 방식이 자판 입력과 잘 맞기 때문이다. 수백 년 전 백성이 쉽게 글을 쓰도록 하려던 뜻이 지금은 디지털 시대의 편리함으로 이어지고 있다. 한글은 오늘날 한국 사람들의 말과 생각을 담는 그릇이며, 한국어를 배우려는 세계 여러 나라 사람들이 가장 먼저 만나는 문자이기도 하다."
+  ],
+  "qs": [
+   {
+    "q": "글에서 한글을 '드문 문자'라고 한 까닭은 무엇인가요?",
+    "o": [
+     "누가, 언제, 왜 만들었는지가 기록으로 분명하게 남아 있어서",
+     "세계에서 가장 오래된 문자라서",
+     "한 사람도 만든 사람을 모르는 문자라서",
+     "한자보다 글자 수가 더 많아서"
+    ],
+    "a": 0,
+    "at": "기록으로 분명하게 남아"
+   },
+   {
+    "q": "세종이 처음 새로 만들었다고 밝힌 글자 수는?",
+    "o": [
+     "스물여덟 자",
+     "스물네 자",
+     "열네 자",
+     "서른두 자"
+    ],
+    "a": 0,
+    "at": "스물여덟 글자를 새로 만들었다"
+   },
+   {
+    "q": "자음 글자는 무엇을 본떠 만들었나요?",
+    "o": [
+     "소리를 낼 때 발음 기관이 움직이는 모양",
+     "하늘, 땅, 사람의 모양",
+     "한자의 획을 줄인 모양",
+     "자연의 산과 강의 모양"
+    ],
+    "a": 0,
+    "at": "발음 기관이 움직이는 모양"
+   },
+   {
+    "q": "기본 자음에서 더 센 소리의 글자를 만든 방법은?",
+    "o": [
+     "획을 하나씩 더했다",
+     "글자를 거꾸로 뒤집었다",
+     "점을 찍어 표시했다",
+     "글자 두 개를 나란히 붙였다"
+    ],
+    "a": 0,
+    "at": "획을 하나씩 더했다"
+   },
+   {
+    "q": "1940년 해례본이 발견되어 무엇이 분명해졌나요?",
+    "o": [
+     "글자를 만든 원리",
+     "한글날의 날짜",
+     "세종의 생일",
+     "이두와 향찰의 쓰는 법"
+    ],
+    "a": 0,
+    "at": "글자를 만든 원리가 분명하게"
+   },
+   {
+    "q": "글에서 한글이 컴퓨터와 휴대전화에서 편리하게 쓰이는 까닭으로 든 것은?",
+    "o": [
+     "적은 수의 자음과 모음을 조합하는 방식이 자판 입력과 잘 맞아서",
+     "글자 모양이 모두 네모여서 화면이 넓어 보여서",
+     "한자보다 획이 많아 구별이 쉬워서",
+     "모든 글자를 외워 입력할 수 있어서"
+    ],
+    "a": 0,
+    "at": "자판 입력과 잘 맞기 때문이다"
+   }
+  ]
+ },
+ {
+  "id": "en-hangul",
+  "lang": "en",
+  "title": "The Birth of Hangul",
+  "paras": [
+   "Hangul, the alphabet Koreans use every day, is unusual among the world's writing systems: we know who made it, when, and why. Most scripts took shape slowly over many centuries, changing a little at a time, so no one can name their creators. Hangul is different. Records tell us that King Sejong of the Joseon dynasty created and announced it, and a book explaining its purpose and design has come down to us as well.",
+   "Before Hangul, Koreans spoke Korean but wrote in Chinese characters. Those characters had developed to record the Chinese language, whose sentences are built quite differently from Korean ones. People devised ways of borrowing the sounds or meanings of Chinese characters to write Korean, such as the systems known as idu and hyangchal, but these methods still demanded a deep knowledge of Chinese characters. Even when reading a text written in Chinese characters, a reader had to take the extra step of turning its meaning back into Korean.",
+   "Learning Chinese characters took years, because there are so many of them. Farmers and laborers, busy with work from morning to night, could hardly master thousands of characters. People who could not write found it hard to put a complaint in writing to the authorities, even when they had been treated unjustly, and they struggled to understand official notices. For a long time, writing belonged mainly to a small privileged class.",
+   "King Sejong found this troubling. In the preface to Hunminjeongeum, he wrote that because the Korean language differs from that of China, Chinese characters could not express it well, and so many ordinary people were unable to put what they wanted to say into writing. He therefore created twenty-eight new letters, he explained, so that everyone could learn them easily and use them comfortably every day.",
+   "The new script was completed in 1443 and proclaimed in 1446. Hunminjeongeum means \"the correct sounds for instructing the people.\" The name refers to the script itself and also to the book that explains its principles and how to use it. Today, South Korea celebrates Hangul Day on October 9 to honor that proclamation.",
+   "The consonant letters were modeled on the shapes the speech organs make when producing each sound. The letter ㄱ shows the root of the tongue blocking the throat; ㄴ shows the tip of the tongue touching the ridge behind the upper teeth; ㅁ shows the shape of the mouth; ㅅ shows a tooth; and ㅇ shows the throat. In other words, the body's own way of making a sound became the shape of the letter. That is why picturing the position of the mouth and tongue makes it easier to connect each letter with its sound.",
+   "From these five basic letters, the other consonants were built step by step. When a sound was stronger, a stroke was added. Adding a stroke to ㄱ produces ㅋ; ㄴ leads to ㄷ and then ㅌ; and ㅁ leads to ㅂ and then ㅍ. As a result, sounds made in a similar place in the mouth also look alike on the page. Just by looking at the letters, a reader can sense how the sounds are related.",
+   "The vowels began with three letters inspired by heaven, earth, and humankind. A round dot stood for heaven, a flat horizontal line ㅡ for the earth, and an upright vertical line ㅣ for a standing person. By combining these three, the creators formed vowels such as ㅏ, ㅓ, ㅗ, and ㅜ. Because so many letters grow out of so few basic shapes, Hangul is easy to learn.",
+   "Hangul letters are not written in a single long row. Instead, they are grouped into syllables. An initial consonant, a vowel, and sometimes a final consonant are packed together into one square block, as in the two syllables of the word Hangul itself. The original alphabet had twenty-eight basic letters, but four of them gradually fell out of use, and today twenty-four letters form the basic set. Although this produces a very large number of possible blocks, the basic letters a learner must memorize number only a few dozen.",
+   "Not everyone welcomed the new script at first. Some court officials submitted writings objecting to the use of a new script alongside Chinese characters. Even so, Hangul gradually made its way into daily life. Women and commoners, who had had little chance to study Chinese characters, wrote letters to one another in Hangul, and novels and song lyrics came to be written in it. The government, too, published translations of many books in Hangul.",
+   "The book that explains the principles of the script in detail is known as the Hunminjeongeum Haerye. It was written jointly by scholars of the royal research institute, the Hall of Worthies, at the king's command. Its whereabouts were unknown for a long time until a copy was found in Andong in 1940, and that discovery made clear the principles by which the letters had been designed. The book has been named a National Treasure and listed in UNESCO's Memory of the World Register.",
+   "The name Hangul itself came into use in the early twentieth century. The linguist Ju Si-gyeong is generally known as the first person to use it, and it is often interpreted as meaning \"great script\" or \"the Korean script.\" During the period of Japanese colonial rule, scholars worked hard to protect the Korean language and its alphabet by standardizing spelling and compiling dictionaries.",
+   "Today Hangul works quickly and smoothly on computers and mobile phones. Its method of building syllables by combining a small number of consonants and vowels suits keyboard input well. The wish, centuries ago, to let ordinary people write with ease now carries on as convenience in the digital age. Hangul now holds the words and thoughts of Korean speakers, and it is also the first thing that people around the world meet when they set out to learn Korean."
+  ],
+  "qs": [
+   {
+    "q": "Why does the passage call Hangul unusual among writing systems?",
+    "o": [
+     "We know who made it, when, and why",
+     "It is the oldest script in the world",
+     "No one knows who created it",
+     "It has more letters than Chinese has characters"
+    ],
+    "a": 0,
+    "at": "we know who made it, when, and why"
+   },
+   {
+    "q": "How many new letters did King Sejong say he created?",
+    "o": [
+     "Twenty-eight",
+     "Twenty-four",
+     "Fourteen",
+     "Thirty-two"
+    ],
+    "a": 0,
+    "at": "created twenty-eight new letters"
+   },
+   {
+    "q": "What were the consonant letters modeled on?",
+    "o": [
+     "The shapes the speech organs make when producing each sound",
+     "The shapes of heaven, earth, and humankind",
+     "Simplified strokes of Chinese characters",
+     "The outlines of mountains and rivers"
+    ],
+    "a": 0,
+    "at": "modeled on the shapes the speech organs make"
+   },
+   {
+    "q": "How were letters for stronger sounds made from the basic consonants?",
+    "o": [
+     "A stroke was added",
+     "The letter was turned upside down",
+     "A dot was placed beside it",
+     "Two letters were joined side by side"
+    ],
+    "a": 0,
+    "at": "a stroke was added"
+   },
+   {
+    "q": "What did the 1940 discovery of the Haerye make clear?",
+    "o": [
+     "The principles by which the letters had been designed",
+     "The date of Hangul Day",
+     "King Sejong's birthday",
+     "How to write idu and hyangchal"
+    ],
+    "a": 0,
+    "at": "made clear the principles"
+   },
+   {
+    "q": "According to the passage, why does Hangul work well on computers and phones?",
+    "o": [
+     "Combining a small number of consonants and vowels suits keyboard input",
+     "Its square shapes make screens look larger",
+     "It has more strokes than Chinese characters, so letters are easy to tell apart",
+     "Users can memorize every syllable as a single key"
+    ],
+    "a": 0,
+    "at": "suits keyboard input well"
+   }
+  ]
+ },
+ {
+  "id": "ko-salt",
+  "lang": "ko",
+  "title": "바다에서 식탁까지, 소금 이야기",
+  "paras": [
+   "소금은 우리 식탁에서 가장 흔한 재료 가운데 하나다. 국을 끓일 때도, 나물을 무칠 때도, 김치를 담글 때도 소금은 빠지지 않는다. 너무 흔해서 특별하게 느껴지지 않지만, 소금은 오랫동안 사람들이 귀하게 여기고 먼 길을 마다하지 않고 구하러 다닌 물건이었다. 소금의 역사를 따라가 보면 사람들이 음식을 저장하고 물건을 사고팔며 살아온 모습이 함께 보인다.",
+   "소금의 정체는 염화나트륨이라는 물질이다. 나트륨과 염소가 규칙적으로 번갈아 늘어서 결합한 이 물질은 결정을 이루면 작은 정육면체 모양이 된다. 굵은 소금을 돋보기로 들여다보면 모서리가 반듯한 네모난 알갱이를 찾을 수 있는데, 바로 이 결정 구조 때문이다. 소금은 물에 잘 녹고, 물이 증발하면 다시 결정으로 돌아온다.",
+   "지구에서 소금이 가장 많이 모여 있는 곳은 바다다. 비와 강물이 오랜 세월 동안 땅의 암석에서 녹여 낸 성분이 바다로 흘러들고, 바닷물이 증발할 때 그 성분은 남아 쌓였다는 것이 바다가 짠 까닭에 대한 대표적인 설명이다. 바닷물 1리터에는 평균 35그램 정도의 염분이 녹아 있으며, 그 가운데 가장 많은 것이 염화나트륨이다.",
+   "사람들은 크게 세 가지 방법으로 소금을 얻어 왔다. 바닷물을 햇볕과 바람에 말리는 방법, 바닷물이나 짠 샘물을 불에 끓여 졸이는 방법, 그리고 땅속에 굳어 있는 소금을 캐내는 방법이다. 어느 방법을 쓸지는 그 지역의 기후와 땅의 사정에 따라 달라졌다. 햇볕이 강하고 비가 적은 곳에서는 말리는 방법이, 땔감이 넉넉한 곳에서는 끓이는 방법이 주로 쓰였다.",
+   "땅속의 소금은 아주 오래전 바다나 짠 호수였던 곳에서 생겼다. 물이 말라 소금이 쌓이고, 그 위를 흙과 돌이 덮어 오랜 시간 눌리면서 단단한 층이 된 것이다. 이렇게 생긴 소금을 암염이라고 한다. 유럽에는 수백 년 동안 땅속 깊이 갱도를 넓혀 온 소금 광산이 있는데, 폴란드의 비엘리치카 소금 광산에는 광부들이 소금 벽을 깎아 만든 넓은 방과 조각상이 남아 있어 지금은 많은 사람이 찾는 명소가 되었다.",
+   "우리나라는 삼면이 바다라 예로부터 바닷물에서 소금을 얻었다. 전통적인 방법은 갯벌의 흙을 갈아 햇볕에 말린 뒤, 그 흙에 바닷물을 부어 걸러서 짠맛이 진해진 물을 모으는 것으로 시작했다. 이 물을 큰 가마솥에 넣고 오랫동안 끓이면 소금이 남는다. 이렇게 만든 소금을 자염이라고 부른다. 끓이는 데 많은 땔감과 일손이 들었기 때문에 소금은 결코 값싼 물건이 아니었다.",
+   "지금 서해안에서 흔히 볼 수 있는 넓은 염전은 비교적 최근의 풍경이다. 햇볕과 바람만으로 바닷물을 증발시키는 천일염 방식은 20세기에 들어 우리나라에 널리 퍼졌다. 염전은 얕은 논처럼 여러 칸으로 나뉘어 있는데, 바닷물을 이 칸에서 저 칸으로 옮기며 증발시키면 물이 점점 짜진다. 마지막 칸에서 소금 결정이 생기면 일꾼들이 넓은 밀대로 소금을 긁어모은다. 비가 오면 애써 졸인 물이 묽어지기 때문에, 날씨는 염전 일의 가장 큰 변수다.",
+   "소금이 그토록 귀했던 가장 큰 이유는 음식을 오래 보관하게 해 주기 때문이다. 냉장고가 없던 시절, 고기와 생선은 금세 상했다. 그런데 소금을 듬뿍 뿌리면 음식 속의 물기가 빠져나오고, 음식을 상하게 하는 미생물이 살기 어려운 환경이 된다. 사람들은 이 원리를 이용해 생선을 절이고 젓갈을 담그고 고기를 말려, 긴 겨울과 먼 항해에 대비했다.",
+   "김치도 소금 없이는 만들 수 없다. 배추를 소금에 절이면 숨이 죽으면서 물기가 빠지고 양념이 잘 배어든다. 알맞은 소금기는 음식을 망치는 미생물은 억누르고, 김치를 익게 하는 유산균은 자랄 수 있게 돕는다. 된장과 간장도 마찬가지다. 소금은 맛을 내는 동시에 발효가 올바른 방향으로 이루어지도록 지켜 준다.",
+   "꼭 필요하면서도 아무 곳에서나 얻을 수 없었기 때문에 소금은 중요한 교역품이 되었다. 바닷가나 소금 산지에서 내륙으로 소금을 실어 나르는 길이 생겼고, 그 길을 따라 시장과 마을이 자라났다. 사막을 건너는 상인들이 낙타에 소금을 싣고 먼 지역까지 가서 다른 귀한 물건과 바꾸었다는 기록도 전해진다.",
+   "나라를 다스리는 사람들도 소금에 주목했다. 누구나 소금을 사야 했으므로, 소금에 세금을 매기면 안정적으로 큰 수입을 얻을 수 있었다. 그래서 동양과 서양의 여러 나라에서 소금에 세금을 붙이거나 나라가 소금의 생산과 판매를 직접 관리했다. 지나치게 무거운 소금세는 사람들의 큰 불만을 사기도 했다.",
+   "오늘날 소금은 식탁 위에서만 쓰이지 않는다. 세계에서 생산되는 소금 가운데 상당 부분은 공장에서 쓰이는 것으로 알려져 있다. 소금은 여러 화학 제품의 기본 원료가 되고, 그 제품들은 다시 플라스틱과 종이, 유리 같은 물건을 만드는 데 쓰인다.",
+   "눈이 많이 오는 지역에서는 겨울마다 도로에 소금을 뿌린다. 소금이 물에 녹으면 물이 어는 온도가 0도보다 낮아지기 때문에, 길 위의 얼음이 녹고 새로 얼기도 어려워진다. 다만 소금물은 자동차와 다리의 쇠를 녹슬게 하고 길가의 흙과 식물에도 영향을 줄 수 있어서, 뿌리는 양을 알맞게 조절하려는 노력이 이어지고 있다.",
+   "이처럼 소금은 바다에서 태어나 식탁과 공장, 겨울 도로에까지 쓰임새를 넓혀 왔다. 한때 먼 길을 걸어 구해야 했던 귀한 물건이 이제는 가게에서 손쉽게 살 수 있는 물건이 되었다. 그러나 소금 한 줌에는 여전히 바다와 햇볕, 그리고 그것을 얻기 위해 애써 온 사람들의 오랜 역사가 담겨 있다."
+  ],
+  "qs": [
+   {
+    "q": "글에서 말한 소금의 정체는 무엇인가요?",
+    "o": [
+     "염화나트륨",
+     "탄산칼슘",
+     "염화칼륨",
+     "황산마그네슘"
+    ],
+    "a": 0,
+    "at": "염화나트륨이라는 물질"
+   },
+   {
+    "q": "바닷물 1리터에 녹아 있는 염분은 평균 얼마 정도인가요?",
+    "o": [
+     "35그램 정도",
+     "3그램 정도",
+     "100그램 정도",
+     "350그램 정도"
+    ],
+    "a": 0,
+    "at": "35그램 정도의 염분"
+   },
+   {
+    "q": "우리나라 전통 소금인 자염은 어떻게 만들었나요?",
+    "o": [
+     "짠물을 큰 가마솥에 넣고 오랫동안 끓였다",
+     "바닷물을 염전에서 햇볕에만 말렸다",
+     "땅속의 소금층을 캐냈다",
+     "바닷물을 얼려 소금만 골라냈다"
+    ],
+    "a": 0,
+    "at": "큰 가마솥에 넣고"
+   },
+   {
+    "q": "소금을 뿌리면 음식을 오래 보관할 수 있는 까닭은?",
+    "o": [
+     "물기가 빠지고 미생물이 살기 어려워져서",
+     "음식이 얼어서 굳기 때문에",
+     "소금이 공기를 완전히 막아서",
+     "음식의 영양분이 늘어나서"
+    ],
+    "a": 0,
+    "at": "미생물이 살기 어려운 환경"
+   },
+   {
+    "q": "여러 나라에서 소금에 세금을 매긴 까닭은?",
+    "o": [
+     "누구나 사야 해서 안정적으로 큰 수입을 얻을 수 있었기 때문에",
+     "소금을 덜 먹게 하려고",
+     "소금 상인을 없애려고",
+     "바닷가 마을을 보호하려고"
+    ],
+    "a": 0,
+    "at": "안정적으로 큰 수입을"
+   },
+   {
+    "q": "겨울에 도로에 소금을 뿌리는 까닭은?",
+    "o": [
+     "물이 어는 온도가 0도보다 낮아져서",
+     "소금이 모래처럼 미끄럼을 막아서",
+     "소금이 햇빛을 모아 얼음을 데워서",
+     "눈의 색을 바꿔 잘 보이게 하려고"
+    ],
+    "a": 0,
+    "at": "어는 온도가 0도보다 낮아지기"
+   }
+  ]
+ },
+ {
+  "id": "en-salt",
+  "lang": "en",
+  "title": "From Sea to Table: The Story of Salt",
+  "paras": [
+   "Salt is one of the most ordinary things in any kitchen. It goes into soups, sauces, bread, and pickles, and most of us hardly notice it. Yet for much of human history, salt was precious. People traveled long distances to get it, traded valuable goods for it, and built their lives around the places where it could be found. Following the story of salt shows us how people learned to store food, trade with strangers, and organize their communities.",
+   "Chemically, salt is sodium chloride. Sodium and chlorine line up in a regular, alternating pattern, and when the substance forms crystals, they take the shape of tiny cubes. Look at coarse salt through a magnifying glass and you can often spot grains with neat, square edges. That shape comes straight from the orderly arrangement inside. Salt dissolves easily in water, and when the water evaporates, it turns back into crystals.",
+   "The largest store of salt on Earth is the ocean. The usual explanation for why the sea is salty goes like this: over immense stretches of time, rain and rivers dissolved minerals from rocks on land and carried them to the sea. When seawater evaporates, the water leaves but those minerals stay behind and build up. On average, a liter of seawater holds about 35 grams of dissolved salts, and the most abundant of them is sodium chloride.",
+   "Broadly speaking, people have gathered salt in three ways. They have dried seawater with sun and wind, boiled seawater or salty spring water over a fire, and dug solid salt out of the ground. Which method a community chose depended on its climate and landscape. Where the sun was strong and rain was scarce, drying worked well. Where firewood was plentiful, boiling was common.",
+   "Underground salt formed long ago in places that were once seas or salty lakes. As the water dried up, salt piled up in layers, and over time those layers were buried under soil and rock and pressed into solid beds. Salt of this kind is called rock salt. Some European salt mines have been dug deeper and wider for centuries. At the Wieliczka Salt Mine in Poland, miners carved large rooms and statues out of the salt walls, and today the mine is a well-known place to visit.",
+   "Surrounded by sea on three sides, Korea has long taken its salt from the ocean. The traditional method began on the tidal flats. Workers plowed the mud and let it dry in the sun, then poured seawater through it to collect a much saltier liquid. They boiled this liquid for hours in large iron cauldrons until only salt remained. Salt made this way is called jayeom. Because boiling took a great deal of firewood and labor, salt was never cheap.",
+   "The wide salt fields seen along Korea's west coast today are a fairly recent sight. The method of making salt with only sunshine and wind spread across Korea in the twentieth century. A salt field is divided into shallow, paddy-like ponds. Seawater is moved from one pond to the next, and as it evaporates step by step, it grows saltier. When crystals finally form in the last pond, workers gather the salt into piles with wide rakes. Rain can dilute brine that took days to concentrate, so weather is the biggest uncertainty in this work.",
+   "The main reason salt was so valued is that it keeps food from spoiling. Before refrigerators, meat and fish went bad quickly. When food is packed in plenty of salt, water is drawn out of it, and the microbes that cause spoilage find it hard to survive. Using this principle, people salted fish, made fermented seafood, and cured meat to carry them through long winters and long voyages at sea.",
+   "Kimchi, too, depends on salt. When cabbage is salted, it softens and releases water, which lets the seasoning soak in. The right amount of salt holds back the microbes that would ruin the food while allowing the lactic acid bacteria that ferment kimchi to grow. The same is true of soybean pastes and soy sauce. Salt adds flavor, and at the same time it guides fermentation in the right direction.",
+   "Because salt was necessary but could not be found everywhere, it became an important trade good. Routes formed to carry salt from coasts and salt-producing areas inland, and markets and towns grew up along them. There are also accounts of merchants loading salt onto camels, crossing deserts, and exchanging it in distant lands for other valuable goods.",
+   "Rulers noticed salt as well. Since everyone needed to buy it, a tax on salt could bring in large and steady income. Many states, in both Asia and Europe, taxed salt or took direct control of how it was produced and sold. When those taxes grew too heavy, they sometimes caused deep resentment among ordinary people.",
+   "Today salt is used far beyond the dinner table. A large share of the salt produced worldwide is known to go to industry. Salt is a basic raw material for many chemicals, and those chemicals are in turn used to make things such as plastics, paper, and glass.",
+   "In places with heavy snow, salt is spread on roads every winter. When salt dissolves in water, it lowers the temperature at which the water freezes to below zero degrees Celsius, so ice on the road melts and new ice has a harder time forming. Salty water, however, can rust the steel in cars and bridges and can affect roadside soil and plants, so efforts continue to use just the right amount.",
+   "From its origins in the sea, salt has found its way onto our tables, into factories, and onto winter roads. Something people once walked great distances to obtain can now be picked up at any store. Even so, a handful of salt still carries the sea, the sun, and the long history of the people who worked hard to gather it."
+  ],
+  "qs": [
+   {
+    "q": "According to the text, what is salt chemically?",
+    "o": [
+     "Sodium chloride",
+     "Calcium carbonate",
+     "Potassium chloride",
+     "Magnesium sulfate"
+    ],
+    "a": 0,
+    "at": "salt is sodium chloride"
+   },
+   {
+    "q": "On average, how much dissolved salt does a liter of seawater hold?",
+    "o": [
+     "About 35 grams",
+     "About 3 grams",
+     "About 100 grams",
+     "About 350 grams"
+    ],
+    "a": 0,
+    "at": "about 35 grams"
+   },
+   {
+    "q": "How was Korea's traditional salt, jayeom, made?",
+    "o": [
+     "By boiling salty liquid for hours in large cauldrons",
+     "By drying seawater in salt fields with only sunshine",
+     "By digging salt beds out of the ground",
+     "By freezing seawater and collecting the salt"
+    ],
+    "a": 0,
+    "at": "large iron cauldrons"
+   },
+   {
+    "q": "Why does packing food in salt keep it from spoiling?",
+    "o": [
+     "Water is drawn out and spoilage microbes find it hard to survive",
+     "The salt freezes the food solid",
+     "The salt seals the food completely from the air",
+     "The salt adds extra nutrients to the food"
+    ],
+    "a": 0,
+    "at": "find it hard to survive"
+   },
+   {
+    "q": "Why did many states tax salt?",
+    "o": [
+     "Everyone needed it, so the tax brought large and steady income",
+     "To make people eat less salt",
+     "To drive salt merchants out of business",
+     "To protect coastal villages"
+    ],
+    "a": 0,
+    "at": "large and steady income"
+   },
+   {
+    "q": "Why is salt spread on roads in winter?",
+    "o": [
+     "It lowers the temperature at which water freezes",
+     "It gives tires grip the way sand does",
+     "It gathers sunlight to warm the ice",
+     "It changes the color of snow so it is easier to see"
+    ],
+    "a": 0,
+    "at": "lowers the temperature"
+   }
+  ]
+ },
+ {
+  "id": "ko-birds",
+  "lang": "ko",
+  "title": "철새는 어떻게 길을 찾을까",
+  "paras": [
+   "가을이 깊어지면 하늘에 V자 모양으로 줄지어 날아가는 기러기 떼를 볼 수 있다. 이들은 북쪽의 번식지에서 여름을 보내고 겨울을 나기 위해 우리나라를 찾아온 철새다. 봄이 오면 이들은 다시 먼 북쪽으로 떠난다. 해마다 수천 킬로미터를 오가면서도 길을 잃지 않는 철새의 능력은 오랫동안 사람들의 호기심을 자극해 왔다.",
+   "새들이 먼 길을 떠나는 까닭은 주로 먹이와 번식에 있다. 북쪽 지역은 여름이 되면 낮이 길고 곤충과 식물이 풍부해 새끼를 키우기에 좋다. 하지만 겨울이 오면 땅이 얼고 먹이가 사라진다. 그래서 많은 새가 계절에 따라 먹이가 풍부한 곳을 찾아 오가는 생활 방식을 갖게 되었다.",
+   "철새가 이동하는 거리는 종에 따라 크게 다르다. 북극제비갈매기는 북극 가까운 곳에서 번식하고 남극 가까운 바다에서 겨울을 보내, 해마다 지구의 끝과 끝을 오가는 것으로 알려져 있다. 큰뒷부리도요는 가을에 알래스카에서 뉴질랜드까지 바다 위를 한 번도 쉬지 않고 날아가는 것으로 확인되어 과학자들을 놀라게 했다.",
+   "이렇게 긴 여행을 하려면 미리 준비해야 한다. 이동을 앞둔 새들은 평소보다 훨씬 많이 먹어 몸에 지방을 쌓는다. 지방은 무게에 비해 많은 에너지를 담을 수 있어 먼 거리를 나는 데 알맞은 연료다. 어떤 새는 출발 전 몇 주 사이에 몸무게가 눈에 띄게 늘기도 한다.",
+   "그렇다면 새들은 어떻게 방향을 알까? 과학자들은 새가 한 가지 단서가 아니라 여러 단서를 함께 쓴다고 본다. 태양, 별, 지구의 자기장, 그리고 눈에 보이는 땅의 모습이 대표적이다. 어떤 단서를 얼마나 중요하게 쓰는지는 새의 종류와 날씨, 여행의 단계에 따라 다른 것으로 보인다.",
+   "첫 번째 단서는 태양이다. 낮에 이동하는 새는 태양의 위치를 보고 방향을 잡을 수 있다. 문제는 태양이 하루 동안 하늘을 가로질러 움직인다는 점이다. 20세기 중반부터 이어진 실험들은 새가 몸속의 시계, 곧 하루의 시간 흐름을 느끼는 감각으로 태양의 움직임을 보정한다는 것을 보여 주었다. 실험실에서 새의 하루 리듬을 몇 시간 앞당기거나 늦추자, 새들은 그만큼 어긋난 방향을 고르는 경향을 보였다.",
+   "많은 작은 새들은 낮이 아니라 밤에 이동한다. 밤에는 포식자를 피하기 쉽고, 낮에는 쉬면서 먹이를 먹을 수 있기 때문으로 생각된다. 밤하늘에서 새가 쓰는 단서 가운데 하나는 별이다. 플라네타리움에서 인공 별하늘을 보여 준 실험에서, 어린 새들은 별자리 하나하나를 외우기보다 밤하늘 전체가 천천히 도는 중심을 익혀 북쪽을 찾는 것으로 나타났다.",
+   "구름이 하늘을 덮어 해도 별도 보이지 않을 때는 어떻게 할까? 이때 중요한 단서가 되는 것이 지구의 자기장이다. 지구는 거대한 자석처럼 자기장을 띠고 있는데, 새들이 이 자기장을 느낄 수 있다는 사실이 여러 실험으로 밝혀졌다. 새장 주변의 자기장 방향을 인공적으로 바꾸자, 이동 시기의 새들이 바뀐 방향에 맞추어 날아가려 한 것이다.",
+   "새가 자기장을 어떻게 느끼는지는 아직 완전히 밝혀지지 않았다. 유력한 가설 가운데 하나는 새의 눈 속에 있는 특정한 단백질이 빛을 받을 때 자기장의 영향을 받는다는 것이다. 이 생각이 맞다면 새는 자기장을 일종의 무늬처럼 보고 있을지도 모른다. 부리 근처의 철 성분이 자기장을 감지한다는 가설도 있었지만, 이에 대해서는 연구 결과가 엇갈린다.",
+   "목적지에 가까워지면 눈으로 보는 땅의 모습이 더욱 중요해진다. 새들은 해안선, 큰 강, 산줄기 같은 지형을 따라 날며 위치를 확인하는 것으로 보인다. 일부 새는 냄새를 길 찾기에 이용한다는 연구도 있다. 먼 곳에서는 나침반으로 방향을 잡고, 가까운 곳에서는 지도처럼 익숙한 풍경을 찾아가는 셈이다.",
+   "길 찾기 능력이 타고나는 것인지, 배워서 생기는 것인지도 흥미로운 문제다. 많은 작은 새는 부모 없이 홀로 첫 이동을 떠나는데도 대체로 올바른 방향으로 날아간다. 가야 할 방향과 대략의 거리에 대한 정보를 어느 정도 타고난다고 생각되는 이유다. 반면 기러기나 두루미처럼 가족이 함께 이동하는 새들은 어린 새가 어른 새를 따라 날며 경로와 쉬어 갈 곳을 익힌다.",
+   "긴 여행의 중간에는 쉬어 갈 곳이 꼭 필요하다. 철새들은 이런 중간 기착지에 내려앉아 먹이를 먹고 지방을 다시 채운다. 우리나라 서해안의 넓은 갯벌은 북쪽의 번식지와 남쪽의 오스트레일리아, 뉴질랜드 사이를 오가는 도요새와 물떼새에게 중요한 휴게소다. 봄과 가을이면 많은 새가 이곳에 들러 갯벌 속 작은 생물을 먹으며 힘을 보충한다.",
+   "그러나 철새의 여행길에는 사람이 만든 장애물도 많다. 밤에 이동하는 새들은 도시의 밝은 불빛에 이끌려 길을 잃거나 건물의 유리창에 부딪히기도 한다. 쉬어 갈 갯벌과 습지가 줄어드는 것도 큰 문제다. 그래서 일부 도시에서는 철새가 많이 지나가는 시기에 건물의 불을 줄이는 활동을 벌이고, 여러 나라가 함께 철새의 쉼터를 지키려고 노력하고 있다.",
+   "태양과 별, 보이지 않는 자기장, 그리고 기억 속의 풍경까지, 작은 새의 몸 안에는 여러 개의 나침반과 지도가 함께 들어 있는 셈이다. 과학자들이 많은 비밀을 밝혀냈지만 아직 풀리지 않은 질문도 많다. 다음에 하늘을 가로지르는 철새 떼를 보게 된다면, 그 작은 몸이 해내는 놀라운 여행을 떠올려 보자."
+  ],
+  "qs": [
+   {
+    "q": "글에서 기러기가 우리나라를 찾아오는 까닭은 무엇인가요?",
+    "o": [
+     "겨울을 나기 위해",
+     "새끼를 낳아 기르기 위해",
+     "여름 곤충을 먹기 위해",
+     "깃털을 갈기 위해"
+    ],
+    "a": 0,
+    "at": "겨울을 나기 위해"
+   },
+   {
+    "q": "큰뒷부리도요가 과학자들을 놀라게 한 까닭은?",
+    "o": [
+     "알래스카에서 뉴질랜드까지 한 번도 쉬지 않고 날아가서",
+     "북극과 남극을 해마다 오가서",
+     "밤에만 날고 낮에는 걸어서 이동해서",
+     "별자리를 모두 외워서"
+    ],
+    "a": 0,
+    "at": "한 번도 쉬지 않고"
+   },
+   {
+    "q": "이동을 앞둔 새들이 몸에 지방을 쌓는 까닭은?",
+    "o": [
+     "지방은 무게에 비해 많은 에너지를 담을 수 있어서",
+     "추위를 막는 깃털을 만들기 위해서",
+     "몸을 무겁게 해 바람에 날리지 않으려고",
+     "물 위에 잘 뜨기 위해서"
+    ],
+    "a": 0,
+    "at": "많은 에너지를 담을 수"
+   },
+   {
+    "q": "새가 태양의 움직임을 보정할 때 쓰는 것은?",
+    "o": [
+     "몸속의 시계",
+     "지구의 자기장",
+     "해안선의 모양",
+     "어른 새의 울음소리"
+    ],
+    "a": 0,
+    "at": "몸속의 시계"
+   },
+   {
+    "q": "해도 별도 보이지 않을 때 중요한 단서가 되는 것은?",
+    "o": [
+     "지구의 자기장",
+     "달의 모양",
+     "바람의 냄새",
+     "구름의 색깔"
+    ],
+    "a": 0,
+    "at": "중요한 단서가 되는 것이"
+   },
+   {
+    "q": "글에서 우리나라 서해안 갯벌은 도요새와 물떼새에게 어떤 곳인가요?",
+    "o": [
+     "이동 중에 쉬며 먹이를 먹는 휴게소",
+     "알을 낳는 번식지",
+     "겨울 내내 머무는 최종 목적지",
+     "새끼에게 나는 법을 가르치는 곳"
+    ],
+    "a": 0,
+    "at": "중요한 휴게소"
+   }
+  ]
+ },
+ {
+  "id": "en-birds",
+  "lang": "en",
+  "title": "How Do Migrating Birds Find Their Way?",
+  "paras": [
+   "Late in autumn, flocks of wild geese can be seen crossing the sky in long V-shaped lines. In Korea, many of these birds are visitors that spend the summer at breeding grounds far to the north and arrive to spend the winter. When spring returns, they head north again. Every year they travel thousands of kilometers without getting lost, and that ability has fascinated people for a very long time.",
+   "Birds make these long journeys mainly for food and for raising young. In summer, northern regions have long days and an abundance of insects and plants, which makes them good places to raise chicks. When winter comes, however, the ground freezes and food disappears. Over time, many bird species came to live by moving with the seasons toward wherever food is plentiful.",
+   "How far birds travel varies greatly from species to species. The Arctic tern breeds near the Arctic and spends the northern winter in waters near Antarctica, so it is known to travel almost from one end of the planet to the other every year. The bar-tailed godwit amazed scientists when tracking showed that in autumn it can fly from Alaska to New Zealand across the open ocean without stopping once.",
+   "A trip like that takes preparation. Before migrating, birds eat far more than usual and store fat in their bodies. Fat packs a lot of energy for its weight, which makes it an ideal fuel for long flights. Some birds put on a noticeable amount of weight in the few weeks before they set off.",
+   "So how do birds know which way to go? Scientists think birds rely not on a single clue but on several working together. The main ones are the sun, the stars, Earth's magnetic field, and the shape of the land below. Which clue matters most seems to depend on the kind of bird, the weather, and the stage of the journey.",
+   "The first clue is the sun. Birds that travel by day can use its position to choose a direction. The difficulty is that the sun moves across the sky over the course of the day. Experiments beginning in the mid-twentieth century showed that birds correct for this movement using an internal clock, a built-in sense of the time of day. When researchers shifted a bird's daily rhythm a few hours earlier or later in the lab, the bird tended to pick a direction that was off by a matching amount.",
+   "Many small birds migrate at night rather than during the day. This is thought to help them avoid predators and leave the daylight hours free for resting and feeding. One clue they use in the dark is the stars. In planetarium experiments that showed birds an artificial night sky, young birds did not memorize individual constellations. Instead, they learned the point around which the whole sky slowly turns and used it to find north.",
+   "What happens when clouds hide both the sun and the stars? Then Earth's magnetic field becomes a key source of direction. Earth behaves like a giant magnet, and a number of experiments have shown that birds can sense its field. When researchers artificially changed the direction of the magnetic field around a cage, birds ready to migrate tried to fly in the new direction.",
+   "Exactly how birds sense the magnetic field is still not fully understood. One leading idea is that certain proteins in a bird's eyes are affected by the field when light strikes them. If that is right, a bird might actually see the magnetic field as a kind of pattern. Another idea proposed that iron-containing material near the beak detects the field, but research on that point has produced mixed results.",
+   "As birds near their destination, the landscape becomes more important. They appear to follow coastlines, large rivers, and mountain ranges to check where they are. Some studies suggest that certain birds also use smell to find their way. In other words, over long distances they steer by compass, and close to home they look for familiar scenery, much as we would use a map.",
+   "Another fascinating question is whether this skill is inborn or learned. Many young songbirds set off on their first migration alone, with no parents to guide them, and still generally fly in the right direction. This is why scientists think they inherit some information about which direction to fly and roughly how far. In contrast, birds that travel as families, such as geese and cranes, learn the route and the places to rest by following the adults.",
+   "A long journey needs places to rest along the way. At these stopover sites, migrating birds land to feed and rebuild their fat reserves. The broad tidal flats on Korea's west coast are an important rest stop for sandpipers and plovers traveling between northern breeding grounds and Australia and New Zealand to the south. Each spring and autumn, large numbers of birds stop there to regain strength by eating the small creatures that live in the mud.",
+   "Migrating birds also face many obstacles made by people. Birds that fly at night can be drawn off course by bright city lights or crash into glass windows. The loss of the mudflats and wetlands where they rest is another serious problem. For this reason, some cities encourage buildings to dim their lights during peak migration, and many countries are working together to protect the places where these birds stop.",
+   "The sun and the stars, an invisible magnetic field, and remembered landscapes: inside a small bird, several compasses and maps seem to work side by side. Scientists have uncovered many of their secrets, yet many questions remain unanswered. The next time you see a flock crossing the sky, think about the remarkable journey those small bodies are making."
+  ],
+  "qs": [
+   {
+    "q": "According to the text, why do many wild geese come to Korea?",
+    "o": [
+     "To spend the winter",
+     "To lay eggs and raise chicks",
+     "To eat summer insects",
+     "To grow new feathers"
+    ],
+    "a": 0,
+    "at": "spend the winter"
+   },
+   {
+    "q": "Why did the bar-tailed godwit amaze scientists?",
+    "o": [
+     "It can fly from Alaska to New Zealand without stopping once",
+     "It travels between the Arctic and Antarctica every year",
+     "It flies only at night and walks by day",
+     "It memorizes every constellation"
+    ],
+    "a": 0,
+    "at": "without stopping once"
+   },
+   {
+    "q": "Why do birds store fat before migrating?",
+    "o": [
+     "Fat packs a lot of energy for its weight",
+     "Fat helps them grow warmer feathers",
+     "Extra weight keeps the wind from blowing them away",
+     "Fat helps them float on water"
+    ],
+    "a": 0,
+    "at": "energy for its weight"
+   },
+   {
+    "q": "What do birds use to correct for the sun's movement across the sky?",
+    "o": [
+     "An internal clock",
+     "Earth's magnetic field",
+     "The shape of coastlines",
+     "The calls of adult birds"
+    ],
+    "a": 0,
+    "at": "using an internal clock"
+   },
+   {
+    "q": "What becomes a key clue when clouds hide both the sun and the stars?",
+    "o": [
+     "Earth's magnetic field",
+     "The shape of the moon",
+     "The smell of the wind",
+     "The color of the clouds"
+    ],
+    "a": 0,
+    "at": "key source of direction"
+   },
+   {
+    "q": "What role do the tidal flats on Korea's west coast play for sandpipers and plovers?",
+    "o": [
+     "A rest stop where they feed during migration",
+     "A breeding ground where they lay eggs",
+     "The final destination where they stay all winter",
+     "A place where adults teach chicks to fly"
+    ],
+    "a": 0,
+    "at": "an important rest stop"
+   }
+  ]
+ },
+ {
+  "id": "ko-clocks",
+  "lang": "ko",
+  "title": "시간을 재는 도구, 시계",
+  "paras": [
+   "우리는 하루에도 몇 번씩 시계를 본다. 학교에 갈 시간, 버스가 올 시간, 약속한 시간을 확인하려면 시계가 꼭 필요하다. 그러나 사람들이 처음부터 하루를 분이나 초로 나누어 살았던 것은 아니다. 아주 오랫동안 사람들은 해가 뜨고 지는 것, 달이 차고 기우는 것을 보며 시간의 흐름을 짐작했다.",
+   "시간을 재는 가장 오래된 도구 가운데 하나는 해시계다. 땅에 막대를 세우면 해가 움직이는 데 따라 그림자의 방향과 길이가 바뀐다. 사람들은 그림자가 닿는 자리에 눈금을 새겨 하루를 여러 부분으로 나누었다. 해시계는 만들기 쉽고 고장 날 곳도 없었지만, 흐린 날이나 밤에는 쓸 수 없다는 뚜렷한 약점이 있었다.",
+   "이 약점을 보완한 것이 물시계다. 물시계는 그릇에 담긴 물이 일정한 빠르기로 흘러나가거나 흘러드는 것을 이용한다. 물의 높이가 얼마나 변했는지 보면 시간이 얼마나 지났는지 알 수 있다. 물시계는 고대 이집트와 그리스, 중국 등 여러 지역에서 쓰였다. 다만 물이 줄어들수록 흘러나가는 빠르기가 느려지고, 추운 밤에는 물이 얼기도 해서 정확하게 맞추려면 많은 궁리가 필요했다.",
+   "조선에서도 시간을 정확하게 알리는 일은 나라의 중요한 일이었다. 세종 때 장영실은 자격루라는 물시계를 만들었다. 자격루는 '스스로 치는 물시계'라는 뜻이다. 물이 차오르는 데 따라 작은 구슬이 굴러 장치를 움직였고, 정해진 시각이 되면 인형이 종과 북, 징을 쳐서 시간을 알렸다. 사람이 밤새 물시계를 지켜보다가 시각을 알리던 일을 기계가 대신하게 된 것이다.",
+   "같은 무렵 만들어진 앙부일구는 솥을 하늘로 향해 놓은 듯한 오목한 모양의 해시계다. 안쪽 면에 시각과 절기를 나타내는 선이 그어져 있어, 그림자 끝이 닿은 곳을 보면 하루의 시각뿐 아니라 계절도 알 수 있었다. 기록에 따르면 이런 해시계를 사람이 많이 다니는 길가에 놓아 지나가는 사람들도 시간을 볼 수 있게 했다.",
+   "유럽에서는 14세기 무렵부터 도시의 탑에 기계식 시계가 걸리기 시작했다. 이 시계는 무거운 추가 내려가는 힘으로 톱니바퀴를 돌렸다. 그런데 추가 그냥 떨어지면 바퀴가 순식간에 돌아 버리므로, 바퀴를 붙잡았다가 한 칸씩 놓아주어 일정하게 끊어서 돌게 하는 장치가 필요했다. 이것을 탈진기라고 부른다. 초기 기계식 시계는 하루에도 꽤 많이 틀려서, 해시계를 보고 자주 바늘을 다시 맞춰야 했다.",
+   "정확도를 크게 높인 것은 진자였다. 갈릴레오 갈릴레이는 흔들리는 추가 한 번 왕복하는 데 걸리는 시간이, 흔들림이 지나치게 크지 않으면 폭과 거의 관계없이 일정하다는 점에 주목했다. 17세기 중반 네덜란드의 크리스티안 하위헌스는 이 성질을 이용해 진자시계를 만들었다. 진자가 일정한 박자로 흔들리며 톱니바퀴의 움직임을 조절하자, 시계의 오차는 이전보다 훨씬 줄어들었다.",
+   "하지만 진자시계는 흔들리는 배 위에서는 제대로 작동하지 않았다. 그런데 바다 한가운데에서 배의 위치를 알려면 정확한 시각이 꼭 필요했다. 떠나온 항구의 시각과 배가 있는 곳의 시각이 얼마나 차이 나는지 알면, 동쪽이나 서쪽으로 얼마나 왔는지, 곧 경도를 계산할 수 있기 때문이다. 18세기 영국의 존 해리슨은 오랜 연구 끝에 파도에 흔들려도 정확함을 유지하는 항해용 시계를 만들어 이 문제를 푸는 데 크게 이바지했다.",
+   "19세기에 철도가 놓이자 시계는 사회 전체의 약속이 되었다. 예전에는 마을마다 해의 위치에 맞춰 시각을 정했기 때문에, 가까운 도시끼리도 시각이 조금씩 달랐다. 그러나 기차 시간표를 짜려면 넓은 지역이 같은 시각을 써야 했다. 그래서 여러 나라가 표준시를 정하고, 세계를 몇 개의 시간대로 나누어 쓰게 되었다.",
+   "시계는 점점 작아져 주머니와 손목으로 옮겨 갔다. 초기의 손목시계는 태엽을 감아 움직이는 기계식이었다. 20세기에 등장한 쿼츠 시계는 원리가 전혀 달랐다. 작은 수정 조각에 전기를 걸면 아주 일정한 빠르기로 떨리는데, 그 떨림은 1초에 수만 번에 이른다. 시계 안의 회로가 이 떨림을 세어 1초를 만들어 낸다. 쿼츠 시계는 값이 싸면서도 기계식 시계보다 훨씬 정확해 세계로 널리 퍼졌다.",
+   "오늘날 가장 정확한 시계는 원자시계다. 원자는 정해진 조건에서 언제나 똑같은 진동수의 전자기파를 흡수하거나 내보낸다. 원자시계는 이 진동수를 기준으로 시간을 잰다. 1967년부터 국제적으로 1초는 세슘 원자의 성질을 기준으로 정의되었다. 원자시계는 아주 오랜 세월이 지나도 오차가 매우 작다.",
+   "원자시계는 생각보다 우리 생활과 가깝다. 위성 항법 시스템의 인공위성에는 원자시계가 실려 있다. 스마트폰은 여러 위성에서 보낸 신호가 도착하는 데 걸린 시간을 비교해 자기 위치를 계산한다. 전파는 아주 빠르게 움직이기 때문에, 시각이 아주 조금만 어긋나도 계산한 위치가 크게 틀어진다. 휴대폰 화면에 보이는 시각도 이렇게 정밀하게 관리되는 표준 시각에 맞춰져 있다.",
+   "그림자의 길이를 재던 막대에서 원자의 떨림을 세는 장치까지, 시계의 역사는 더 고른 박자를 찾아온 역사다. 해에서 물로, 추에서 수정으로, 그리고 원자로 기준은 바뀌었다. 그러나 변하지 않고 되풀이되는 움직임을 찾아 그것을 세어 시간을 잰다는 생각은 처음부터 지금까지 그대로다."
+  ],
+  "qs": [
+   {
+    "q": "글에서 말한 해시계의 약점은 무엇인가요?",
+    "o": [
+     "흐린 날이나 밤에는 쓸 수 없다",
+     "만들기가 매우 어렵다",
+     "추운 날에는 물이 언다",
+     "자주 고장이 난다"
+    ],
+    "a": 0,
+    "at": "흐린 날이나 밤에는"
+   },
+   {
+    "q": "세종 때 자격루를 만든 사람은 누구인가요?",
+    "o": [
+     "장영실",
+     "정약용",
+     "김정호",
+     "최무선"
+    ],
+    "a": 0,
+    "at": "장영실은 자격루라는"
+   },
+   {
+    "q": "기계식 시계에서 탈진기가 하는 일은 무엇인가요?",
+    "o": [
+     "바퀴를 붙잡았다 놓아주어 한 칸씩 끊어서 돌게 한다",
+     "추를 다시 위로 끌어올린다",
+     "시각마다 종을 울린다",
+     "바늘의 길이를 조절한다"
+    ],
+    "a": 0,
+    "at": "탈진기라고 부른다"
+   },
+   {
+    "q": "바다에서 정확한 시각이 필요했던 이유는 무엇인가요?",
+    "o": [
+     "두 곳의 시각 차이로 경도를 계산할 수 있어서",
+     "선원들의 식사 시간을 맞추려고",
+     "밀물과 썰물의 높이를 재려고",
+     "항구의 시계탑과 신호를 주고받으려고"
+    ],
+    "a": 0,
+    "at": "곧 경도를 계산할 수"
+   },
+   {
+    "q": "쿼츠 시계는 무엇을 이용해 1초를 만드나요?",
+    "o": [
+     "전기를 건 수정 조각의 일정한 떨림",
+     "태엽이 풀리는 힘",
+     "흔들리는 진자의 박자",
+     "세슘 원자의 진동수"
+    ],
+    "a": 0,
+    "at": "작은 수정 조각에 전기를"
+   },
+   {
+    "q": "스마트폰이 위성을 이용해 위치를 계산하는 방법은?",
+    "o": [
+     "여러 위성 신호가 도착하는 데 걸린 시간을 비교한다",
+     "위성 사진으로 주변 건물을 알아본다",
+     "가장 가까운 기지국의 이름을 읽는다",
+     "해의 높이를 재어 계산한다"
+    ],
+    "a": 0,
+    "at": "도착하는 데 걸린 시간"
+   }
+  ]
+ },
+ {
+  "id": "en-clocks",
+  "lang": "en",
+  "title": "Measuring Time: The Story of Clocks",
+  "paras": [
+   "We glance at clocks many times a day. We check them to know when school starts, when the bus will arrive, and whether we are late for a meeting. Yet people did not always divide their days into minutes and seconds. For most of human history, people judged the passing of time by watching the sun rise and set and the moon grow and shrink.",
+   "One of the oldest tools for measuring time is the sundial. If you stand a stick upright in the ground, the direction and length of its shadow change as the sun moves across the sky. People carved marks where the shadow fell and used them to divide the day into parts. Sundials were easy to build and had nothing to break, but they had an obvious weakness: they were useless on cloudy days and at night.",
+   "The water clock helped fill that gap. A water clock relies on water flowing out of a container, or into one, at a steady rate. By checking how far the water level has changed, you can tell how much time has passed. Water clocks were used in many places, including ancient Egypt, Greece, and China. Getting them right was not simple, though. As a vessel empties, the water flows out more slowly, and on cold nights the water can freeze, so clockmakers had to come up with many clever fixes.",
+   "In Joseon Korea, announcing the correct time was an important duty of the state. During the reign of King Sejong, Jang Yeong-sil built a water clock called the Jagyeongnu, a name that means \"the self-striking water clock.\" As the water rose, small balls were released and rolled through the mechanism, setting it in motion. At fixed times, figures struck a bell, a drum, and a gong to announce the hour. Work that had once required a person to watch the water all night was now done by a machine.",
+   "Around the same period, a sundial called the Angbuilgu was also made. It is shaped like a cauldron turned up toward the sky. Lines on its inner surface mark both the hours and the seasons, so the tip of the shadow shows not only the time of day but also the time of year. According to records, such sundials were set up beside busy streets so that passersby could check the time.",
+   "In Europe, mechanical clocks began to appear in city towers around the fourteenth century. These clocks used the pull of a heavy falling weight to turn their gears. If the weight simply dropped, however, the wheels would spin around in an instant. A device was needed to catch the wheel and release it one tooth at a time, so that it turned in small, regular steps. This device is called an escapement. Early mechanical clocks still drifted a good deal each day and often had to be reset by checking a sundial.",
+   "The pendulum brought a great leap in accuracy. Galileo Galilei noticed that a swinging weight takes almost the same time to complete each swing, whether the swing is wide or narrow, as long as it is not too large. In the middle of the seventeenth century, the Dutch scientist Christiaan Huygens used this property to build a pendulum clock. With the pendulum keeping a steady beat and controlling the gears, clock errors became far smaller than before.",
+   "Pendulum clocks, however, did not work well on a rolling ship. Yet sailors badly needed accurate time in the middle of the ocean. If they knew both the time at their home port and the local time where the ship was, the difference told them how far east or west they had traveled, a measure called longitude. In eighteenth-century Britain, John Harrison spent many years building marine timekeepers that stayed accurate even when tossed by the waves, and his work did much to solve this problem.",
+   "When railways spread in the nineteenth century, clocks became a shared agreement for whole societies. Before then, each town set its clocks by the position of the sun, so even nearby cities kept slightly different times. Railway timetables, however, needed a wide region to use the same time. As a result, many countries adopted standard time, and the world came to be divided into time zones.",
+   "Clocks also shrank and moved into pockets and onto wrists. Early wristwatches were mechanical, powered by a spring that had to be wound. The quartz watch, which appeared in the twentieth century, worked on a completely different principle. When electricity is applied to a tiny piece of quartz crystal, it vibrates at a very steady rate, tens of thousands of times per second. A circuit inside the watch counts these vibrations to mark each second. Because quartz watches were cheap yet far more accurate than mechanical ones, they spread around the world.",
+   "The most accurate clocks today are atomic clocks. Under fixed conditions, atoms always absorb or give off electromagnetic waves at exactly the same frequency. An atomic clock measures time using this frequency as its reference. Since 1967, the second has been officially defined by a property of the cesium atom. Even over very long periods, atomic clocks drift by only tiny amounts.",
+   "Atomic clocks are closer to daily life than you might think. The satellites of satellite navigation systems carry atomic clocks on board. A smartphone works out where it is by comparing how long signals from several satellites take to arrive. Because radio waves travel so fast, even a tiny timing error would throw the calculated position far off. The time shown on your phone is also kept in step with this carefully managed standard time.",
+   "From a stick that cast a shadow to a device that counts the vibrations of atoms, the history of clocks is a search for an ever steadier beat. The reference has moved from the sun to water, from a swinging weight to a crystal, and finally to atoms. But the basic idea has stayed the same from the start: find a motion that repeats without changing, and count it to measure time."
+  ],
+  "qs": [
+   {
+    "q": "What weakness of the sundial does the passage mention?",
+    "o": [
+     "It was useless on cloudy days and at night",
+     "It was very hard to build",
+     "Its water froze on cold nights",
+     "It broke down often"
+    ],
+    "a": 0,
+    "at": "useless on cloudy days"
+   },
+   {
+    "q": "Who built the Jagyeongnu during King Sejong's reign?",
+    "o": [
+     "Jang Yeong-sil",
+     "Jeong Yak-yong",
+     "Kim Jeong-ho",
+     "Choe Mu-seon"
+    ],
+    "a": 0,
+    "at": "Jang Yeong-sil built"
+   },
+   {
+    "q": "What does the escapement do in a mechanical clock?",
+    "o": [
+     "Catches the wheel and releases it one tooth at a time",
+     "Lifts the weight back to the top",
+     "Rings a bell every hour",
+     "Adjusts the length of the hands"
+    ],
+    "a": 0,
+    "at": "called an escapement"
+   },
+   {
+    "q": "Why did sailors need accurate time at sea?",
+    "o": [
+     "The time difference let them work out their longitude",
+     "To schedule the crew's meals",
+     "To measure the height of the tides",
+     "To exchange signals with harbor clock towers"
+    ],
+    "a": 0,
+    "at": "a measure called longitude"
+   },
+   {
+    "q": "What does a quartz watch use to mark each second?",
+    "o": [
+     "The steady vibrations of a quartz crystal with electricity applied",
+     "The force of an unwinding spring",
+     "The beat of a swinging pendulum",
+     "The frequency of cesium atoms"
+    ],
+    "a": 0,
+    "at": "piece of quartz crystal"
+   },
+   {
+    "q": "How does a smartphone use satellites to find its position?",
+    "o": [
+     "By comparing how long signals from several satellites take to arrive",
+     "By recognizing nearby buildings in satellite photos",
+     "By reading the name of the nearest cell tower",
+     "By measuring the height of the sun"
+    ],
+    "a": 0,
+    "at": "take to arrive"
+   }
+  ]
+ },
+ {
+  "id": "ko-jeju",
+  "lang": "ko",
+  "title": "불과 물이 만든 섬, 제주",
+  "paras": [
+   "제주도는 우리나라에서 가장 큰 섬이다. 한반도 남쪽 바다에 자리한 이 섬은 화산 활동으로 만들어졌다. 오랜 세월 동안 땅속 깊은 곳의 마그마가 여러 차례 솟아올라 바다 위에 쌓였고, 그 위를 다시 비와 바람, 파도가 다듬었다. 제주의 풍경을 이해하려면 불과 물이 함께 써 내려간 이 긴 이야기를 알아야 한다.",
+   "섬 한가운데에는 한라산이 솟아 있다. 한라산은 남한에서 가장 높은 산으로, 높이가 2,000m에 조금 못 미친다. 제주도는 대체로 묽은 용암이 넓게 흘러 쌓여 만들어졌기 때문에, 멀리서 보면 방패를 엎어 놓은 듯 경사가 완만하다. 한라산 꼭대기에는 백록담이라는 분화구 호수가 있다. 날씨가 맑으면 섬의 여러 곳에서 한라산을 바라볼 수 있다.",
+   "제주 곳곳에는 오름이라고 부르는 작은 언덕들이 흩어져 있다. 오름은 큰 화산의 옆이나 주변에서 작은 분화가 일어나 생긴 화산체다. 제주에는 이런 오름이 수백 개나 있고, 꼭대기가 움푹 파인 분화구를 가진 것도 많다. 높은 곳에 올라가 보면 둥근 언덕들이 들판 여기저기에 솟아 있는 독특한 풍경이 펼쳐진다.",
+   "섬 동쪽 끝의 성산일출봉은 조금 다른 방식으로 태어났다. 이곳의 분화는 얕은 바닷속에서 일어났다. 뜨거운 마그마가 차가운 바닷물을 만나면 물이 순식간에 끓어오르며 강하게 터진다. 이때 잘게 부서진 화산재와 돌 조각이 쌓여 커다란 그릇 모양의 봉우리가 생겼다. 그 뒤 오랜 세월 파도가 둘레를 깎아 내면서 지금처럼 바다 위로 우뚝 솟은 모습이 되었다.",
+   "제주의 땅속에는 용암동굴이 많다. 용암이 흘러내릴 때 공기에 닿은 겉 부분은 먼저 식어 단단한 껍질이 된다. 그러나 그 안쪽은 아직 뜨거워 계속 흘러간다. 안쪽 용암이 다 빠져나가고 나면 껍질 아래에 긴 터널이 남는데, 이것이 용암동굴이다. 만장굴처럼 길이가 수 킬로미터에 이르는 동굴도 있다.",
+   "거문오름에서 흘러나온 용암이 만든 여러 동굴은 거문오름 용암동굴계라고 불린다. 2007년, 한라산과 성산일출봉, 그리고 이 용암동굴계는 '제주 화산섬과 용암동굴'이라는 이름으로 유네스코 세계자연유산에 등재되었다. 화산섬이 만들어지는 과정을 잘 보여 주는 귀중한 자연이라는 점을 인정받은 것이다.",
+   "제주의 바닷가에서는 용암이 식으면서 만든 신기한 모양도 볼 수 있다. 중문 해안의 주상절리는 육각형에 가까운 돌기둥이 빽빽하게 늘어선 절벽이다. 두꺼운 용암이 천천히 식으면 부피가 줄어들면서 갈라지는데, 이 틈이 고르게 생기면 바위가 기둥 모양으로 나뉜다. 마치 누군가 일부러 깎아 세운 것처럼 보이지만, 모두 자연이 만든 것이다.",
+   "제주의 돌은 대부분 검은 현무암이다. 현무암에는 작은 구멍이 숭숭 뚫려 있는 경우가 많다. 용암 속에 녹아 있던 기체가 빠져나가면서 거품 자국을 남긴 것이다. 이 돌은 섬 어디서나 쉽게 구할 수 있어 집을 짓거나 담을 쌓는 데 두루 쓰였고, 돌하르방 같은 석상도 이 돌을 깎아 만들었다.",
+   "화산섬의 땅은 물과의 관계도 특별하다. 제주에는 비가 많이 내리지만, 일 년 내내 물이 흐르는 내는 드물다. 구멍과 틈이 많은 화산암이 빗물을 땅속으로 빠르게 빨아들이기 때문이다. 그래서 제주의 하천은 큰비가 내린 뒤에만 잠시 물이 흐르고, 평소에는 바닥이 드러난 마른 내인 경우가 많다.",
+   "땅속으로 스며든 물은 사라지지 않는다. 물은 암석 사이를 따라 천천히 흘러 지하수가 되고, 낮은 해안가에 이르러 땅 위로 솟아난다. 이렇게 솟는 샘물을 용천수라고 한다. 예부터 제주 사람들은 용천수가 나오는 바닷가 가까이에 마을을 이루고, 이 물로 밥을 짓고 빨래를 했다.",
+   "제주는 바람이 센 곳으로도 유명하다. 넓은 바다 한가운데 있어 바람을 막아 줄 것이 적기 때문이다. 예부터 제주를 돌과 바람과 여자가 많은 섬이라는 뜻에서 '삼다도'라고 불렀다. 사람들은 거센 바람 속에서 살아가기 위해 여러 지혜를 모았다. 초가지붕은 낮게 만들고 그 위를 줄로 촘촘히 엮어 바람에 날아가지 않게 했다.",
+   "그 가운데 가장 눈에 띄는 것은 돌담이다. 제주에서는 밭을 일굴 때마다 흙 속에서 돌이 쏟아져 나왔다. 사람들은 이 돌을 골라내 밭 둘레에 차곡차곡 쌓았고, 그렇게 생긴 밭담이 섬 곳곳을 검은 선으로 이어 놓았다. 밭담은 바람을 누그러뜨리고 흙이 날아가는 것을 막으며, 소나 말이 밭에 들어오지 못하게 하는 역할도 했다.",
+   "제주 돌담에는 돌과 돌 사이에 틈이 많이 나 있다. 얼핏 엉성해 보이지만 여기에는 까닭이 있다. 틈으로 바람이 빠져나가기 때문에 담이 바람을 정면으로 다 받지 않아 쉽게 무너지지 않는다. 사람들은 돌 하나하나의 생김새를 살펴 서로 잘 맞물리도록 쌓았다. 집 둘레의 울담에서 무덤을 두른 산담까지, 돌담은 제주 사람들의 생활 곳곳에 자리 잡았다.",
+   "불이 만든 땅 위에 물이 길을 내고, 바람 속에서 사람들은 돌을 쌓아 삶터를 지켰다. 제주의 풍경은 자연의 힘과 그 안에서 살아온 사람들의 지혜가 함께 만들어 낸 결과다."
+  ],
+  "qs": [
+   {
+    "q": "글에서 한라산에 대해 말한 것은 무엇인가요?",
+    "o": [
+     "남한에서 가장 높은 산이다",
+     "제주도에서 가장 최근에 분화한 오름이다",
+     "꼭대기가 뾰족하고 분화구가 없다",
+     "바닷속 분화로 생긴 봉우리다"
+    ],
+    "a": 0,
+    "at": "남한에서 가장 높은 산"
+   },
+   {
+    "q": "성산일출봉은 어떻게 만들어졌나요?",
+    "o": [
+     "얕은 바닷속에서 일어난 분화로 화산재와 돌 조각이 쌓여서",
+     "묽은 용암이 넓게 흘러 쌓여서",
+     "용암동굴의 천장이 무너져서",
+     "바람에 날린 모래가 쌓여서"
+    ],
+    "a": 0,
+    "at": "얕은 바닷속에서"
+   },
+   {
+    "q": "용암동굴이 생기는 과정으로 알맞은 것은?",
+    "o": [
+     "겉이 식어 굳은 뒤 안쪽 용암이 빠져나가 터널이 남는다",
+     "빗물이 석회암을 녹여 구멍을 낸다",
+     "파도가 절벽을 깎아 굴을 만든다",
+     "지진으로 땅이 갈라져 틈이 생긴다"
+    ],
+    "a": 0,
+    "at": "껍질 아래에 긴 터널"
+   },
+   {
+    "q": "현무암에 작은 구멍이 많은 까닭은 무엇인가요?",
+    "o": [
+     "용암 속 기체가 빠져나가며 거품 자국을 남겨서",
+     "사람들이 담을 쌓으려고 구멍을 뚫어서",
+     "바닷물에 오래 깎여서",
+     "빗물이 돌을 녹여서"
+    ],
+    "a": 0,
+    "at": "거품 자국을"
+   },
+   {
+    "q": "제주에 일 년 내내 물이 흐르는 내가 드문 까닭은?",
+    "o": [
+     "구멍과 틈이 많은 화산암이 빗물을 빠르게 빨아들여서",
+     "비가 거의 내리지 않아서",
+     "바람이 물을 모두 말려 버려서",
+     "사람들이 물을 모두 끌어다 써서"
+    ],
+    "a": 0,
+    "at": "빗물을 땅속으로"
+   },
+   {
+    "q": "제주 돌담에 틈이 많아도 쉽게 무너지지 않는 까닭은?",
+    "o": [
+     "틈으로 바람이 빠져나가 바람을 정면으로 다 받지 않아서",
+     "돌 사이를 흙으로 단단히 메워서",
+     "담을 아주 높게 쌓아서",
+     "돌마다 구멍을 뚫어 줄로 묶어서"
+    ],
+    "a": 0,
+    "at": "틈으로 바람이 빠져나가기"
+   }
+  ]
+ },
+ {
+  "id": "en-jeju",
+  "lang": "en",
+  "title": "Jeju: An Island Made by Fire and Water",
+  "paras": [
+   "Jeju is the largest island in South Korea. Lying in the sea south of the Korean Peninsula, it was built by volcanic activity. Over a very long time, magma from deep underground rose again and again and piled up above the sea, and then rain, wind, and waves reshaped the land. To understand Jeju's landscape, you need to know this long story in which fire and water have worked together.",
+   "Hallasan rises in the middle of the island. It is the highest mountain in South Korea, standing a little under 2,000 meters tall. Jeju as a whole was built largely by runny lava that spread out widely as it flowed, so from a distance the island looks like a shield laid face down, with gentle slopes. At the summit of Hallasan lies a crater lake called Baengnokdam. On a clear day, the mountain can be seen from many parts of the island.",
+   "Scattered all over Jeju are small hills called oreum. An oreum is a small volcanic cone formed by a minor eruption on the side of, or near, a larger volcano. Jeju has hundreds of them, and many have a hollow crater at the top. If you climb to a high spot, you can see the island's distinctive landscape of round hills rising here and there across the fields.",
+   "Seongsan Ilchulbong, at the eastern tip of the island, was born in a different way. Its eruption took place in shallow seawater. When hot magma meets cold seawater, the water boils in an instant and the eruption turns violent. Fine ash and broken bits of rock piled up to form a huge bowl-shaped peak. Over a long time, waves cut away at its edges, leaving it standing tall above the sea as it does today.",
+   "Beneath Jeju lie many lava tubes. As lava flows downhill, its surface meets the air, cools first, and hardens into a solid crust. The lava inside is still hot, however, and keeps on flowing. Once the inner lava drains away, a long tunnel is left beneath the crust. That tunnel is a lava tube. Some, such as Manjanggul, stretch for several kilometers.",
+   "The caves formed by lava that flowed from Geomunoreum are known together as the Geomunoreum Lava Tube System. In 2007, Hallasan, Seongsan Ilchulbong, and this lava tube system were inscribed on the UNESCO World Natural Heritage list under the name \"Jeju Volcanic Island and Lava Tubes.\" They were recognized as precious natural sites that clearly show how a volcanic island is formed.",
+   "Along Jeju's coast you can also see unusual shapes made as lava cooled. The columnar joints on the Jungmun coast form a cliff of tightly packed stone pillars, many of them close to hexagonal. When a thick layer of lava cools slowly, it shrinks and cracks, and when the cracks form evenly, the rock splits into columns. The pillars look as if someone had carved them and stood them up on purpose, but they were all made by nature.",
+   "Most of the stone on Jeju is dark basalt. Basalt is often full of small holes. These are the marks of bubbles, left behind as gas that had been dissolved in the lava escaped. Because this stone could be found almost anywhere on the island, it was widely used for building houses and walls, and stone statues such as the dol hareubang were carved from it as well.",
+   "The ground of a volcanic island also has a special relationship with water. Jeju gets plenty of rain, but streams that flow all year round are rare. This is because volcanic rock, full of holes and cracks, quickly soaks rainwater down into the ground. As a result, many of Jeju's streams carry water only for a short time after heavy rain, and most of the time their beds lie dry.",
+   "The water that sinks into the ground does not disappear. It moves slowly through the rock as groundwater until it reaches the low-lying coast, where it rises to the surface. Springs that well up in this way are called yongcheonsu. For generations, Jeju people built their villages near the shore where these springs flowed, and used the water for cooking and washing.",
+   "Jeju is also famous for its strong winds. Sitting in the open sea, it has little to shelter it. People long called Jeju \"Samdado,\" the island with plenty of three things: stones, wind, and women. To live with fierce winds, islanders came up with many practical solutions. They kept thatched roofs low and tied them down with a tight net of ropes so that the wind could not tear them away.",
+   "The most striking of these solutions is the stone wall. Every time farmers dug their fields, stones came pouring out of the soil. As they cleared the stones, they stacked them neatly around the edges of their fields. These field walls now trace black lines across the island. They soften the wind, keep the soil from blowing away, and stop cattle and horses from wandering into the crops.",
+   "Jeju's stone walls are full of gaps between the stones. At first glance they look loosely built, but there is a reason for this. Because the wind can pass through the gaps, the wall does not take the full force of the wind head-on, so it does not easily fall down. Builders also studied the shape of each stone so that the pieces would lock firmly together. From the walls around houses to those surrounding graves, stone walls became part of every corner of life on Jeju.",
+   "On land made by fire, water carved its paths, and in the wind people stacked stones to protect their homes. Jeju's landscape is the shared work of nature's forces and of the wisdom of the people who have lived among them."
+  ],
+  "qs": [
+   {
+    "q": "What does the passage say about Hallasan?",
+    "o": [
+     "It is the highest mountain in South Korea",
+     "It is the most recently erupted oreum on Jeju",
+     "It has a sharp peak with no crater",
+     "It was formed by an eruption under the sea"
+    ],
+    "a": 0,
+    "at": "the highest mountain in South Korea"
+   },
+   {
+    "q": "How was Seongsan Ilchulbong formed?",
+    "o": [
+     "By an eruption in shallow seawater that piled up ash and broken rock",
+     "By runny lava spreading out widely",
+     "By the roof of a lava tube collapsing",
+     "By windblown sand piling up"
+    ],
+    "a": 0,
+    "at": "in shallow seawater"
+   },
+   {
+    "q": "How does a lava tube form?",
+    "o": [
+     "The surface hardens into a crust, then the inner lava drains away",
+     "Rainwater dissolves limestone to make a hole",
+     "Waves cut a cave into a cliff",
+     "An earthquake splits the ground open"
+    ],
+    "a": 0,
+    "at": "left beneath the crust"
+   },
+   {
+    "q": "Why is basalt often full of small holes?",
+    "o": [
+     "Gas escaping from the lava left bubble marks",
+     "People drilled holes to build walls",
+     "Seawater wore it away over time",
+     "Rainwater dissolved the stone"
+    ],
+    "a": 0,
+    "at": "the marks of bubbles"
+   },
+   {
+    "q": "Why are year-round streams rare on Jeju?",
+    "o": [
+     "Porous volcanic rock quickly soaks rainwater into the ground",
+     "It hardly ever rains on the island",
+     "The wind dries up all the water",
+     "People pump all the water away"
+    ],
+    "a": 0,
+    "at": "soaks rainwater down"
+   },
+   {
+    "q": "Why don't Jeju's stone walls fall down easily despite their gaps?",
+    "o": [
+     "Wind passes through the gaps, so the wall doesn't take its full force",
+     "The gaps are packed tightly with soil",
+     "The walls are built very high",
+     "Each stone is drilled and tied with rope"
+    ],
+    "a": 0,
+    "at": "pass through the gaps"
+   }
+  ]
+ },
+ {
+  "id": "ko-bridges",
+  "lang": "ko",
+  "title": "바람을 견디는 다리, 현수교",
+  "paras": [
+   "강이나 바다를 건너는 다리는 모양이 저마다 다르다. 짧은 거리라면 기둥 위에 상판을 올리기만 해도 충분하지만, 건너야 할 거리가 길어지면 이야기가 달라진다. 기둥을 물속 깊이 여러 개 세우기 어렵거나 큰 배가 그 아래로 지나가야 하는 곳에서는, 기둥 사이를 아주 넓게 벌릴 수 있는 다리가 필요하다. 이런 곳에 자주 쓰이는 것이 바로 줄에 매달린 다리, 현수교다.",
+   "현수교의 생각 자체는 아주 오래되었다. 깊은 골짜기를 사이에 둔 산악 지방 사람들은 덩굴이나 풀로 꼰 굵은 밧줄을 양쪽 절벽에 묶고, 그 위에 발판을 걸어 건너다녔다. 남아메리카의 안데스 산지에서는 풀을 엮어 만든 줄다리를 주민들이 함께 주기적으로 새로 엮는 전통이 지금까지 이어지는 곳도 있다. 줄이 낡으면 끊어지기 쉬우므로, 다리를 지키는 일은 곧 줄을 돌보는 일이었다.",
+   "오늘날의 현수교는 몇 가지 기본 부분으로 이루어진다. 먼저 다리 양쪽에 높은 탑, 곧 주탑이 선다. 두 주탑 꼭대기를 지나 길게 늘어진 굵은 줄을 주케이블이라 한다. 주케이블에서는 가는 줄이 일정한 간격으로 수직으로 내려오는데, 이 줄들이 사람과 차가 다니는 상판을 붙잡아 매단다. 그리고 주케이블의 양 끝은 땅속 깊이 묻힌 거대한 콘크리트 덩어리에 단단히 고정된다. 이 덩어리를 앵커리지라고 부른다.",
+   "힘이 전달되는 길을 따라가 보면 현수교의 원리가 보인다. 상판 위를 달리는 자동차의 무게는 수직 줄을 통해 주케이블로 올라간다. 주케이블은 그 무게를 잡아당기는 힘, 곧 장력으로 받아 주탑 꼭대기로 보낸다. 주탑은 위에서 누르는 힘을 받아 땅으로 내려보내고, 케이블이 양 끝에서 당기는 힘은 앵커리지가 붙잡는다. 결국 다리 전체의 무게는 당기는 줄과 누르는 탑, 그리고 묵직한 앵커리지가 나누어 맡는 셈이다.",
+   "줄은 누르는 힘에는 약하지만 당기는 힘에는 무척 강하다. 강철을 가는 철사로 뽑아 수천 가닥을 묶으면, 같은 무게의 쇠막대보다 훨씬 큰 장력을 견딜 수 있다. 현수교의 주케이블은 이렇게 수많은 강철 철사를 다발로 묶어 만든다. 공사할 때는 철사를 한 가닥씩 주탑 위로 넘겨 반대편까지 보내는 작업을 수없이 되풀이하고, 마지막에 다발을 둥글게 조여 하나의 굵은 케이블로 완성한다.",
+   "19세기 후반 미국 뉴욕에 세워진 브루클린 다리는 강철 철사로 만든 케이블을 쓴 초기의 대표적인 현수교다. 공사는 십 년이 넘게 걸렸고, 물속 기초를 놓는 과정에서 많은 노동자가 다치거나 병을 얻었다. 그럼에도 완성된 다리는 큰 강 위를 가로지르며 도시의 두 지역을 이어 주었고, 오늘날까지도 쓰이고 있다.",
+   "1937년에는 미국 샌프란시스코만 입구에 금문교가 문을 열었다. 거센 바닷바람과 짙은 안개, 빠른 물살 속에서 세운 이 다리는 붉은 주황빛 주탑으로 유명하다. 이 색은 안개 속에서도 다리가 잘 보이도록 하는 데 도움이 된다고 알려져 있다. 금문교는 완공 당시 주탑 사이 거리가 매우 길어 현수교 기술의 상징이 되었다.",
+   "그런데 현수교에는 큰 약점이 하나 있다. 바로 바람이다. 줄에 매달린 상판은 땅에 붙은 다리보다 가볍고 유연해서, 바람을 받으면 흔들리기 쉽다. 이 약점이 세상에 뚜렷하게 드러난 사건이 1940년 미국 워싱턴주의 타코마 내로스 다리 붕괴다.",
+   "이 다리는 상판이 얇고 폭이 좁아 개통 직후부터 바람이 불면 위아래로 크게 출렁였다. 그러다 개통한 지 몇 달 만에, 그리 세지 않은 바람 속에서 상판이 비틀리듯 흔들리기 시작했다. 흔들림은 점점 커졌고, 결국 상판의 큰 부분이 강으로 떨어져 내렸다. 다행히 이 사고로 목숨을 잃은 사람은 없었다고 전해진다.",
+   "이 사고가 남긴 교훈은 분명했다. 다리가 무게만 견디면 되는 것이 아니라, 바람이 만들어 내는 움직임까지 견뎌야 한다는 것이다. 바람이 상판 주위를 지나며 소용돌이를 만들고, 그 소용돌이가 다리의 흔들림과 맞물리면 작은 움직임이 점점 커질 수 있다. 이후 공학자들은 다리를 짓기 전에 모형을 만들어 바람 굴에서 시험하는 일을 중요하게 여기게 되었다.",
+   "그 결과 현수교의 상판은 모습이 크게 달라졌다. 어떤 다리는 상판 아래에 철골로 짠 깊은 뼈대를 달아 비틀림에 강하게 만들었고, 어떤 다리는 상판을 비행기 날개처럼 납작하고 매끈한 상자 모양으로 만들어 바람이 부드럽게 빠져나가게 했다. 상판에 틈을 내어 위아래의 공기 압력 차이를 줄이는 방법도 쓰인다.",
+   "우리나라에도 현수교가 여럿 있다. 부산의 광안대교는 바다 위에 놓인 현수교로, 밤이면 조명이 켜져 도시의 풍경을 이룬다. 남해안과 서해안처럼 섬이 많은 지역에서는 섬과 육지, 섬과 섬을 잇는 다리 가운데 현수교 방식으로 지은 것이 적지 않다.",
+   "현수교는 지금도 계속 길어지고 있다. 더 튼튼한 철사, 더 정밀한 계산, 바람과 지진에 대한 깊은 이해가 더해지면서 예전에는 불가능하다고 여겼던 거리도 한 번에 건너게 되었다. 공사가 끝난 뒤에도 기술자들은 센서로 케이블의 상태와 상판의 흔들림을 꾸준히 살피며 다리를 관리한다.",
+   "덩굴로 엮은 줄다리에서 강철 케이블의 대교까지, 현수교는 당기는 힘을 이용해 먼 거리를 잇는다는 같은 생각 위에 서 있다. 그리고 타코마 내로스 다리의 실패가 보여 주었듯이, 그 생각을 안전하게 실현하려면 자연의 힘을 겸손하게 살피는 태도가 함께해야 한다."
+  ],
+  "qs": [
+   {
+    "q": "건너야 할 거리가 긴 곳에서 현수교가 자주 쓰이는 이유로 글에서 말한 것은?",
+    "o": [
+     "기둥 사이를 아주 넓게 벌릴 수 있어서",
+     "공사비가 가장 적게 들어서",
+     "바람에 전혀 흔들리지 않아서",
+     "배가 다리 위로 지나갈 수 있어서"
+    ],
+    "a": 0,
+    "at": "아주 넓게 벌릴 수 있는"
+   },
+   {
+    "q": "주케이블의 양 끝을 땅속에 고정하는 거대한 콘크리트 덩어리를 무엇이라고 하나요?",
+    "o": [
+     "앵커리지",
+     "주탑",
+     "상판",
+     "수직 줄"
+    ],
+    "a": 0,
+    "at": "앵커리지라고 부른다"
+   },
+   {
+    "q": "글에 따르면 줄은 어떤 힘에 특히 강한가요?",
+    "o": [
+     "당기는 힘",
+     "누르는 힘",
+     "비트는 힘",
+     "열에 의한 힘"
+    ],
+    "a": 0,
+    "at": "당기는 힘에는 무척 강하다"
+   },
+   {
+    "q": "금문교의 주탑 색에 대해 글에서 말한 것은?",
+    "o": [
+     "안개 속에서도 다리가 잘 보이도록 하는 데 도움이 된다",
+     "녹이 슬지 않게 하는 유일한 방법이다",
+     "바람을 막아 주는 효과가 있다",
+     "배들에게 신호를 보내기 위해 칠했다"
+    ],
+    "a": 0,
+    "at": "안개 속에서도 다리가 잘 보이도록"
+   },
+   {
+    "q": "타코마 내로스 다리 붕괴 이후 공학자들이 중요하게 여기게 된 일은?",
+    "o": [
+     "모형을 만들어 바람 굴에서 시험하는 일",
+     "주탑을 더 낮게 짓는 일",
+     "케이블을 쇠막대로 바꾸는 일",
+     "다리 위 통행량을 줄이는 일"
+    ],
+    "a": 0,
+    "at": "바람 굴에서 시험하는 일"
+   },
+   {
+    "q": "공사가 끝난 뒤 기술자들이 다리를 관리하는 방법으로 글에서 말한 것은?",
+    "o": [
+     "센서로 케이블 상태와 상판의 흔들림을 살핀다",
+     "해마다 케이블을 모두 새로 바꾼다",
+     "바람이 불면 다리를 닫아 둔다",
+     "상판을 주기적으로 들어 올린다"
+    ],
+    "a": 0,
+    "at": "센서로 케이블의 상태와"
+   }
+  ]
+ },
+ {
+  "id": "en-bridges",
+  "lang": "en",
+  "title": "Bridges That Hang: The Suspension Bridge",
+  "paras": [
+   "Bridges that cross rivers and bays come in many shapes. Over a short distance, laying a deck on top of a few piers is enough. But as the gap grows wider, things change. Where it is hard to build many piers in deep water, or where large ships must pass underneath, engineers need a bridge whose supports can stand very far apart. In such places they often turn to a bridge that hangs from ropes: the suspension bridge.",
+   "The idea behind it is very old. In mountain regions divided by deep gorges, people tied thick ropes twisted from vines or grass to the cliffs on either side and laid walkways across them. In parts of the Andes in South America, there are still places where local communities come together to weave a grass rope bridge anew at regular intervals. Old ropes snap easily, so keeping a bridge safe meant caring for its ropes.",
+   "A modern suspension bridge is made of a few basic parts. First, tall towers rise near each end of the bridge. Thick cables pass over the tops of the two towers and sag in a long curve between them; these are the main cables. From the main cables, thinner cables hang straight down at regular intervals, and these hold up the deck where people and cars travel. Finally, the ends of the main cables are fixed firmly into huge blocks of concrete buried deep in the ground. These blocks are called anchorages.",
+   "Following the path of the forces reveals how the bridge works. The weight of a car on the deck travels up through the vertical cables into the main cables. The main cables carry that weight as a pulling force, called tension, and send it to the tops of the towers. The towers take the downward push and pass it into the ground, while the anchorages hold on to the pull of the cables at each end. In the end, the weight of the whole bridge is shared among pulling cables, pushing towers, and heavy anchorages.",
+   "A rope is weak when pushed but very strong when pulled. When steel is drawn into thin wire and thousands of strands are bundled together, the bundle can resist far more tension than a solid steel bar of the same weight. That is how the main cables of a suspension bridge are made. During construction, workers carry wire over the towers to the far side one strand at a time, repeating the trip again and again. At the end, the bundle is squeezed into a round shape to form a single thick cable.",
+   "The Brooklyn Bridge, built in New York in the late nineteenth century, is a well-known early suspension bridge that used cables made of steel wire. Its construction took more than a decade, and many workers were injured or fell ill while the underwater foundations were being laid. Even so, the finished bridge carried traffic over a wide river and linked two parts of the city, and it is still in use today.",
+   "In 1937 the Golden Gate Bridge opened at the entrance to San Francisco Bay. Built amid strong sea winds, thick fog, and fast currents, it is famous for its reddish-orange towers. The color is said to help the bridge stand out even in fog. Because the distance between its towers was remarkably long for its time, the Golden Gate became a symbol of suspension bridge engineering.",
+   "Yet the suspension bridge has one great weakness: wind. A deck hanging from cables is lighter and more flexible than a bridge resting directly on the ground, so it moves easily when the wind pushes on it. This weakness was made dramatically clear in 1940, when the Tacoma Narrows Bridge in Washington State collapsed.",
+   "That bridge had a thin, narrow deck, and from the time it opened it rose and fell in waves whenever the wind blew, earning it the nickname Galloping Gertie. Only a few months after opening, in a wind that was not especially strong, the deck began to twist from side to side. The motion grew larger and larger until a large section of the deck broke away and fell into the water. Fortunately, no person is reported to have died in the collapse.",
+   "The lesson was clear. A bridge must do more than carry weight; it must also withstand the motion that wind can create. As wind flows past a deck, it can form swirling eddies, and when those eddies fall into step with the bridge's own movement, a small motion can keep growing. After this, engineers came to treat wind tunnel tests on scale models as an essential step before building a long bridge.",
+   "As a result, the decks of suspension bridges changed a great deal. Some bridges were given deep steel frameworks beneath the deck to make them resist twisting. Others were shaped like a flat, smooth box, a little like an airplane wing, so that the wind would slip past more gently. Some designs also leave openings in the deck to reduce the difference in air pressure above and below it.",
+   "Korea has a number of suspension bridges as well. The Gwangan Bridge in Busan crosses the sea as a suspension bridge, and at night its lights become part of the city's skyline. Along the southern and western coasts, where islands are plentiful, quite a few of the bridges that link islands to the mainland and to one another are built in the suspension style.",
+   "Suspension bridges keep getting longer. Stronger wire, more precise calculation, and a deeper understanding of wind and earthquakes have made it possible to cross in a single span distances once thought impossible. Even after construction ends, engineers use sensors to keep watching the condition of the cables and the movement of the deck.",
+   "From rope bridges woven of vines to great bridges of steel cable, the suspension bridge rests on one idea: using the strength of a pulling force to join distant points. And as the failure at Tacoma Narrows showed, turning that idea into a safe structure requires a humble, careful respect for the forces of nature."
+  ],
+  "qs": [
+   {
+    "q": "According to the text, why are suspension bridges often used where the gap is wide?",
+    "o": [
+     "Their supports can stand very far apart",
+     "They are always the cheapest bridges to build",
+     "They never move in the wind",
+     "Ships can sail over the top of them"
+    ],
+    "a": 0,
+    "at": "can stand very far apart"
+   },
+   {
+    "q": "What are the huge concrete blocks that hold the ends of the main cables called?",
+    "o": [
+     "Anchorages",
+     "Towers",
+     "Decks",
+     "Hangers"
+    ],
+    "a": 0,
+    "at": "are called anchorages"
+   },
+   {
+    "q": "According to the text, what kind of force is a rope especially strong against?",
+    "o": [
+     "A pulling force",
+     "A pushing force",
+     "A twisting force",
+     "Heat"
+    ],
+    "a": 0,
+    "at": "very strong when pulled"
+   },
+   {
+    "q": "What does the text say about the color of the Golden Gate Bridge's towers?",
+    "o": [
+     "It is said to help the bridge stand out in fog",
+     "It is the only way to keep the steel from rusting",
+     "It blocks part of the wind",
+     "It was chosen to send signals to ships"
+    ],
+    "a": 0,
+    "at": "stand out even in fog"
+   },
+   {
+    "q": "After the Tacoma Narrows collapse, what did engineers come to treat as essential?",
+    "o": [
+     "Wind tunnel tests on scale models",
+     "Building shorter towers",
+     "Replacing cables with steel bars",
+     "Limiting the number of cars on bridges"
+    ],
+    "a": 0,
+    "at": "tests on scale models"
+   },
+   {
+    "q": "How do engineers look after a suspension bridge once it is built?",
+    "o": [
+     "They use sensors to watch the cables and the deck's movement",
+     "They replace every cable each year",
+     "They close the bridge whenever there is wind",
+     "They raise the deck at regular intervals"
+    ],
+    "a": 0,
+    "at": "engineers use sensors"
+   }
+  ]
+ },
+ {
+  "id": "ko-libraries",
+  "lang": "ko",
+  "title": "책을 모아 두는 곳, 도서관의 역사",
+  "paras": [
+   "사람들은 글자를 만든 뒤로 기록을 모아 두는 방법을 고민해 왔다. 기록이 흩어져 있으면 필요할 때 찾을 수 없고, 한 번 잃어버리면 되찾기 어렵다. 그래서 기록을 한곳에 모으고, 정리하고, 지키는 장소가 생겨났다. 이것이 도서관의 시작이다.",
+   "가장 오래된 기록 보관소 가운데 일부는 고대 메소포타미아에서 찾을 수 있다. 이곳 사람들은 젖은 점토판에 갈대 끝으로 글자를 새긴 뒤 말리거나 구워서 기록을 남겼다. 점토판은 종이보다 무겁고 다루기 불편했지만, 불에 구워지면 오히려 단단해져 수천 년 뒤까지 남을 수 있었다.",
+   "기원전 7세기 아시리아의 왕 아슈르바니팔은 수도 니네베에 많은 점토판을 모았다. 여기에는 나라의 행정 기록뿐 아니라 점술, 의술, 문학에 관한 글도 들어 있었다. 이 도시가 무너진 뒤 오랫동안 땅속에 묻혀 있던 점토판들은 근대에 발굴되었고, 그 가운데에는 오래된 서사시 『길가메시 서사시』의 일부도 있었다.",
+   "고대 세계에서 가장 이름난 도서관은 이집트 알렉산드리아의 도서관이다. 기원전 3세기 무렵 이 도시를 다스리던 프톨레마이오스 왕조는 학자들을 불러 모으고, 여러 지역의 책을 모으는 데 힘을 쏟았다. 당시 책은 주로 파피루스 두루마리였다. 학자들은 이곳에서 글을 베끼고 비교하며 연구했고, 도서관은 배움의 중심지로 이름을 떨쳤다.",
+   "알렉산드리아 도서관이 어떻게 사라졌는지는 지금도 분명하지 않다. 한 번의 큰 화재로 모든 것이 불탔다는 이야기가 널리 알려져 있지만, 역사학자들 사이에서는 여러 의견이 엇갈린다. 전쟁으로 인한 피해, 지원이 줄어든 일, 오랜 세월에 걸친 쇠퇴가 함께 작용했다고 보는 견해도 많다. 확실한 것은 이 도서관이 남긴 이름과 이야기가 오늘날까지 전해진다는 사실이다.",
+   "인쇄술이 없던 시대에 책을 늘리는 유일한 방법은 손으로 베끼는 것이었다. 중세 유럽의 수도원에서는 수도사들이 필사실에 앉아 한 글자씩 책을 옮겨 적었다. 책 한 권을 만드는 데 몇 달이 걸리기도 했으므로 책은 매우 귀했고, 어떤 도서관은 책이 없어지지 않도록 사슬로 책을 책상에 묶어 두었다. 필사하는 과정에서 글자가 빠지거나 잘못 옮겨지는 일도 생겼기 때문에, 학자들은 여러 사본을 서로 견주어 원래의 글을 되살리려고 애썼다.",
+   "같은 무렵 이슬람 세계에서도 학문이 활발했다. 아바스 왕조의 수도 바그다드에는 지혜의 집이라 불리는 학문 기관이 있었던 것으로 알려져 있다. 학자들은 그리스어를 비롯한 여러 언어의 책을 아랍어로 옮기고 연구했으며, 이렇게 보존된 지식의 일부는 훗날 유럽으로 다시 전해졌다.",
+   "15세기 중반 유럽에서 구텐베르크가 금속 활자를 이용한 인쇄기를 선보이면서 책의 세계는 크게 달라졌다. 같은 책을 짧은 시간에 많이 찍어 낼 수 있게 되자 책값이 내려갔고, 책을 가진 사람과 도서관도 점점 늘어났다. 도서관은 소수만 드나드는 보관소에서 더 많은 사람이 찾는 곳으로 바뀌어 갔다.",
+   "우리나라에도 책을 소중히 모아 둔 전통이 있다. 조선의 정조는 왕위에 오른 해에 궁궐 안에 규장각을 세웠다. 규장각은 왕실의 책과 기록을 보관하는 곳이었을 뿐 아니라, 젊은 학자들이 모여 책을 읽고 연구하며 정책을 논의하는 곳이기도 했다. 이곳에 모였던 자료의 상당수는 지금도 전해져 연구에 쓰인다.",
+   "19세기에 들어 여러 나라에서 누구나 무료로 이용할 수 있는 공공도서관이 늘어났다. 많은 사람이 글을 읽게 되면서, 책을 사기 어려운 사람도 배울 수 있어야 한다는 생각이 퍼졌기 때문이다. 미국의 사업가 앤드루 카네기는 큰돈을 기부해 영어권 여러 나라에 수많은 도서관 건물을 짓도록 도왔다.",
+   "책이 많아질수록 원하는 책을 찾는 일이 중요해졌다. 도서관은 주제에 따라 책에 번호를 붙여 같은 분야의 책이 한곳에 모이도록 정리했다. 그리고 제목, 지은이, 주제별로 책을 찾을 수 있도록 작은 카드에 정보를 적어 서랍에 넣어 두었다. 이 카드 목록은 오랫동안 도서관 이용의 출발점이었다. 사서들은 새 책이 들어올 때마다 카드를 만들어 알맞은 자리에 꽂았고, 이용자들은 서랍을 하나씩 넘기며 원하는 책의 번호를 찾아 서가로 향했다.",
+   "오늘날 카드 목록은 대부분 컴퓨터 검색으로 바뀌었다. 이용자는 집에서도 도서관이 가진 책을 찾아보고, 전자책이나 논문을 내려받아 읽을 수 있다. 오래된 책과 문서를 사진처럼 찍어 디지털 파일로 보존하는 작업도 곳곳에서 진행되고 있다.",
+   "그렇다고 도서관의 역할이 줄어든 것은 아니다. 많은 도서관은 책을 빌려주는 일에 그치지 않고 강연, 독서 모임, 어린이 프로그램을 열며 사람들이 모이는 공간이 되었다. 누구에게나 열린 공간으로서 정보를 고르게 나누는 일은 지금도 도서관의 중요한 몫이다.",
+   "점토판을 쌓아 둔 방에서 화면 속 검색창까지, 도서관의 모습은 크게 바뀌었다. 그러나 기록을 모으고 정리하여 다음 사람에게 전한다는 목적은 처음부터 지금까지 변하지 않았다."
+  ],
+  "qs": [
+   {
+    "q": "글에서 말한 도서관이 생겨난 이유는 무엇인가요?",
+    "o": [
+     "기록을 한곳에 모으고 정리하고 지키기 위해",
+     "왕의 보물을 숨기기 위해",
+     "글자를 새로 만들기 위해",
+     "학생들에게 시험을 보게 하기 위해"
+    ],
+    "a": 0,
+    "at": "정리하고, 지키는 장소가"
+   },
+   {
+    "q": "점토판이 오랫동안 남을 수 있었던 까닭으로 글에서 말한 것은?",
+    "o": [
+     "불에 구워지면 오히려 단단해졌기 때문에",
+     "종이보다 가벼웠기 때문에",
+     "물에 녹지 않는 잉크를 썼기 때문에",
+     "금속으로 덮어 두었기 때문에"
+    ],
+    "a": 0,
+    "at": "오히려 단단해져"
+   },
+   {
+    "q": "알렉산드리아 도서관이 사라진 과정에 대해 글은 어떻게 설명하나요?",
+    "o": [
+     "지금도 분명하지 않으며 여러 의견이 엇갈린다",
+     "한 번의 큰 화재로 모두 불탔다는 것이 확실하다",
+     "지진으로 하루아침에 무너졌다",
+     "도서관 전체가 다른 나라로 옮겨졌다"
+    ],
+    "a": 0,
+    "at": "여러 의견이 엇갈린다"
+   },
+   {
+    "q": "인쇄기가 등장한 뒤 일어난 변화로 글에서 말한 것은?",
+    "o": [
+     "책값이 내려가고 책을 가진 사람과 도서관이 늘었다",
+     "손으로 베낀 책의 값이 크게 떨어져 모두 버려졌다",
+     "도서관이 모두 문을 닫았다",
+     "책이 너무 많아 인쇄가 금지되었다"
+    ],
+    "a": 0,
+    "at": "책값이 내려갔고"
+   },
+   {
+    "q": "규장각은 어떤 곳이었나요?",
+    "o": [
+     "왕실의 책과 기록을 보관하고 학자들이 연구하던 곳",
+     "백성에게 책을 팔던 시장",
+     "외국 사신을 맞이하던 곳",
+     "인쇄용 활자를 만들던 공장"
+    ],
+    "a": 0,
+    "at": "궁궐 안에 규장각을 세웠다"
+   },
+   {
+    "q": "오늘날 도서관이 책을 빌려주는 일 외에 하는 일로 글에서 말한 것은?",
+    "o": [
+     "강연, 독서 모임, 어린이 프로그램을 연다",
+     "책을 직접 인쇄해 판매한다",
+     "점토판 만드는 법을 가르친다",
+     "전자책 이용을 금지한다"
+    ],
+    "a": 0,
+    "at": "강연, 독서 모임, 어린이 프로그램"
+   }
+  ]
+ },
+ {
+  "id": "en-libraries",
+  "lang": "en",
+  "title": "A History of Libraries",
+  "paras": [
+   "Ever since people invented writing, they have wondered how to keep their records safe. Scattered records cannot be found when they are needed, and once lost they are hard to recover. So places arose where records could be gathered together, put in order, and protected. That is how libraries began.",
+   "Some of the oldest collections of records come from ancient Mesopotamia. People there pressed letters into wet clay tablets with the tip of a reed, then dried or baked the tablets to keep them. Clay was heavier and clumsier than paper, but when it was fired it actually grew harder, which allowed many tablets to survive for thousands of years.",
+   "In the seventh century BC, the Assyrian king Ashurbanipal gathered a large number of clay tablets in his capital, Nineveh. Besides government records, the collection included writings on omens, medicine, and literature. After the city fell, the tablets lay buried for a very long time until they were dug up in the modern era. Among them were parts of an ancient poem, the Epic of Gilgamesh.",
+   "The most famous library of the ancient world was the Library of Alexandria in Egypt. Around the third century BC, the Ptolemaic dynasty that ruled the city invited scholars there and worked hard to collect books from many lands. Most books at the time were scrolls of papyrus. Scholars copied, compared, and studied texts there, and the library became known as a great center of learning.",
+   "How the Library of Alexandria disappeared is still not clear. A popular story says that a single great fire destroyed everything, but historians disagree about what really happened. Many think that damage from war, shrinking support, and a slow decline over a long period all played a part. What is certain is that the library's name and its story have been passed down to this day.",
+   "Before printing, the only way to make more books was to copy them by hand. In the monasteries of medieval Europe, monks sat in writing rooms and copied books letter by letter. Making a single book could take months, so books were precious, and some libraries even chained their books to the desks so that none would go missing. Because copying by hand also introduced missing or mistaken words, scholars compared several copies with one another to recover the original text.",
+   "Around the same time, learning flourished in the Islamic world. In Baghdad, the capital of the Abbasid caliphs, there is said to have been a center of scholarship known as the House of Wisdom. Scholars there translated books from Greek and other languages into Arabic and studied them, and some of the knowledge preserved in this way later made its way back to Europe.",
+   "In the middle of the fifteenth century, Gutenberg introduced a printing press using metal type in Europe, and the world of books changed dramatically. Once many copies of the same book could be printed quickly, books became cheaper, and the number of people who owned books, and the number of libraries, grew steadily. Libraries began to shift from storerooms visited by a few toward places that many more people could use.",
+   "Korea, too, has a long tradition of treasuring books. In the year he came to the throne, King Jeongjo of Joseon founded the Kyujanggak inside the royal palace. It was not only a place to store royal books and records but also a place where young scholars gathered to read, study, and discuss policy. Many of the materials once collected there survive today and are still used in research.",
+   "In the nineteenth century, public libraries that anyone could use free of charge spread in many countries. As more people learned to read, the idea grew that even those who could not afford books should have a chance to learn. The American businessman Andrew Carnegie gave large sums of money that helped build a great many library buildings across the English-speaking world.",
+   "As collections grew, finding the right book became more important. Libraries gave books numbers by subject so that books in the same field would sit together on the shelves. They also wrote each book's details on small cards and filed them in drawers so that readers could search by title, author, or subject. For a long time, this card catalog was where every visit to the library began. Librarians made new cards for every book that arrived and filed them in the right place, and readers flipped through the drawers one card at a time to find a book's number before heading to the shelves.",
+   "Today, card catalogs have largely been replaced by computer searches. Readers can look through a library's collection from home and download e-books or research papers to read. In many places, old books and documents are also being photographed page by page and preserved as digital files.",
+   "That does not mean libraries matter less. Many of them do far more than lend books: they host talks, reading groups, and programs for children, and they have become places where people gather. Serving as a space open to everyone, where information is shared fairly, remains one of the most important jobs a library does.",
+   "From rooms stacked with clay tablets to a search box on a screen, libraries have changed enormously. Yet their purpose has stayed the same from the very beginning: to gather records, put them in order, and pass them on to the people who come next."
+  ],
+  "qs": [
+   {
+    "q": "According to the text, why did libraries come into being?",
+    "o": [
+     "To gather, organize, and protect records in one place",
+     "To hide a king's treasure",
+     "To invent new kinds of writing",
+     "To hold examinations for students"
+    ],
+    "a": 0,
+    "at": "and protected"
+   },
+   {
+    "q": "Why could many clay tablets survive for so long?",
+    "o": [
+     "Firing made the clay grow harder",
+     "Clay was lighter than paper",
+     "They were written with waterproof ink",
+     "They were covered in metal"
+    ],
+    "a": 0,
+    "at": "it actually grew harder"
+   },
+   {
+    "q": "What does the text say about how the Library of Alexandria disappeared?",
+    "o": [
+     "It is still unclear, and historians disagree",
+     "It is certain that one great fire destroyed everything",
+     "An earthquake destroyed it overnight",
+     "The whole library was moved to another country"
+    ],
+    "a": 0,
+    "at": "historians disagree"
+   },
+   {
+    "q": "What change followed the arrival of the printing press?",
+    "o": [
+     "Books became cheaper, and more people and libraries had books",
+     "Hand-copied books were all thrown away",
+     "All libraries closed",
+     "Printing was banned because there were too many books"
+    ],
+    "a": 0,
+    "at": "books became cheaper"
+   },
+   {
+    "q": "What was the Kyujanggak?",
+    "o": [
+     "A place that stored royal books and where scholars studied",
+     "A market where books were sold to the public",
+     "A hall for receiving foreign envoys",
+     "A workshop that made printing type"
+    ],
+    "a": 0,
+    "at": "founded the Kyujanggak"
+   },
+   {
+    "q": "Besides lending books, what do many libraries do today?",
+    "o": [
+     "Host talks, reading groups, and programs for children",
+     "Print and sell their own books",
+     "Teach people how to make clay tablets",
+     "Forbid the use of e-books"
+    ],
+    "a": 0,
+    "at": "talks, reading groups"
+   }
+  ]
+ }
+]
