@@ -68,6 +68,7 @@
 - 박자: 1박 = 1초 × 빠르기(0.5~3×). C/D 이후 `cpmSteps`는 1분당 원 개수(30~1,500), RM은 1분당 글자(200~3,000, 대략값).
 - 책장 넘기기: 쪽이 바뀌면 원이 멈추고, 오른쪽 아래 탭 또는 →로 넘김. 걸린 시간 기록. "자동" 선택 가능.
 - 48일 진행: `LEVELS`(L0~L4, 과정별 시간 범위·원전 쪽수) → `dayPlan(d)`가 그날 훈련/시간 생성. 모형 순환과 시간 증가는 **설계**. 하루 다 마치면 다음 날 Day 열림(`sr-proto-prog-v1`).
+- 지원 범위 (2026-10-29 사용자 결정): iPadOS·iOS·macOS Safari 16.4 이상, Android·Mac Chrome 최신. 새 코드는 이 범위에서 동작하는 기능만 쓴다 (예: Wake Lock·전체 화면 16.4, `storage.persist` 17은 있을 때만 호출). 기기별 테스트는 `docs/기기별_테스트_가이드.md`.
 - 저장: localStorage만 (`sr-proto-v1` 훈련, `-meas-v1` 측정, `-calib-v1`, `-prefs-v1`, `-cfg-v1`, `-prog-v1`). 회원가입 없음(v1 결정).
 - i18n: `I18N.ko/en`, `DYN`, `data-i`/`data-ia` 속성, `L({ko,en})`, `T(key, vars)`. 테마 auto/light/dark (`data-theme`).
 - 1분 측정: 글자 단위 `[\p{L}\p{N}]` (원전 p.155 규칙과 표본 5줄 일치 확인). 이해도 = 객관식 % (서비스 추가, 9점 척도도 기록). R.E.I. = 속도 × 이해도.
