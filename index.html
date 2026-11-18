@@ -507,6 +507,16 @@ svg.stage g.sp.flip{animation:flip .26s ease-out}
   .seg button{min-height:44px;min-width:44px}
   .cardctl input{height:44px}
 }
+/* Reading activity on a portrait phone: the PACE cell was too narrow for "− value +", which squeezed the
+   buttons to ~30px and pushed + off a 320px screen. Same two rows: three readouts above, PACE full width below. */
+@media (max-width:760px) and (orientation:portrait){
+  #rm .hud{grid-template-columns:repeat(3,1fr)}
+  #rm .hud>div{padding-left:14px;padding-right:14px;min-width:0}
+  #rm .hud>div:nth-child(2){border-right:1px solid var(--line)}
+  #rm .hud>div:nth-child(3){border-right:0}
+  #rm .hud>div:last-child{grid-column:1 / -1}
+  #rm .pace{justify-content:flex-start}
+}
 </style>
 </head>
 <body>
