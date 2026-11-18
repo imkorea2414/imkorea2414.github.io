@@ -486,6 +486,27 @@ svg.stage g.sp.flip{animation:flip .26s ease-out}
   .rwrap{padding:10px 20px 6px}
   .rprog{margin:8px 20px 0}
 }
+/* Touch targets (design, 2026-11-18): on touch screens every control is at least 44×44 CSS px to press.
+   Mostly the pressable area grows (invisible ::after), not the drawn button. Placed last so the low
+   landscape rules above cannot shrink it again. Mouse/trackpad (MacBook) is unchanged. */
+@media (pointer:coarse){
+  .pref,.nav button,.textbtn,.homebtn,.rnd,.pace button{position:relative}
+  .pref::after,.nav button::after,.textbtn::after,.homebtn::after,.rnd::after,.pace button::after{content:"";position:absolute}
+  .pref::after{inset:-6px -3px}
+  /* the menu scrolls sideways, which clips; padding gives the larger area room inside it */
+  .nav{padding:10px 11px;margin:-10px -11px}
+  .nav button::after{inset:-10px -11px}
+  .textbtn::after{inset:-12px -4px}
+  .homebtn::after{inset:-11px -4px}
+  .rnd::after{inset:-3px}
+  .pace button::after{inset:-6px -8px}
+  /* stacked check rows: taller rows instead of extensions that would overlap the next row */
+  .checks{gap:0}
+  .checks label{padding:10px 0;min-height:44px}
+  /* Segmented choices can wrap onto touching rows, so they get real height instead of an overlapping extension. */
+  .seg button{min-height:44px;min-width:44px}
+  .cardctl input{height:44px}
+}
 </style>
 </head>
 <body>
