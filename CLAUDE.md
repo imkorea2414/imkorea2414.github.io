@@ -47,14 +47,16 @@
 | `src/passages.json` | 측정·독서용 글 20편 (ko 10, en 10: 등대·꿀벌·종이·한글·소금·철새·시계·제주·현수교·도서관) + 문항 6개씩. `passages.py`와 같은 내용(둘 다 고친다) |
 | `tools/build.py` | `python3 tools/build.py` → `index.html` 생성 + JS 문법 검사 |
 | `index.html` | 빌드 결과 (GitHub Pages가 서비스). 직접 고치지 않는다 |
-| `manifest.webmanifest`, `sw.js`, `icons/` | 설치·오프라인 (PWA). sw는 github.io/localhost에서만 등록 |
-| `privacy.html` | 개인정보처리방침 (한/영). **문의 이메일 자리 비어 있음** |
+| `manifest.webmanifest`, `sw.js`, `icons/` | 설치·오프라인 (PWA). sw는 github.io/localhost에서만 등록. 캐시 `sr-v2`(2026-11-18): 페이지마다 따로 저장(앱 `/`·`/index.html`·`?source=app` → index.html, privacy.html은 따로), 새 버전 설치 때 옛 캐시 삭제 |
+| `privacy.html` | 개인정보처리방침 (한/영, 2026-11-19 개정: 진도 기록·오프라인 저장·GitHub Pages 접속 정보 반영). **문의 이메일 자리 비어 있음** |
 | `.well-known/assetlinks.json` | 업로드 키 SHA-256 들어 있음. Play 앱 서명 키 지문 추가 필요 |
 | `android/` | Bubblewrap 1.25.0으로 만든 TWA 프로젝트. 패키지 `io.github.imkorea2414.speedread`, targetSdk 36, minSdk 24 |
-| `.github/workflows/android.yml` | 서명된 `.aab`/`.apk` 빌드 (secrets: KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_PASSWORD 등록 완료). main·`claude/**` push 또는 수동 실행. 로그에 서명 인증서 SHA-256 표시. 빌드 #4 APK로 실기기 테스트 중 |
-| `.github/workflows/tests.yml` | push마다 Chromium·WebKit에서 전체 시나리오 테스트 + index.html이 src와 맞는지 확인 |
+| `.github/workflows/android.yml` | 서명된 `.aab`/`.apk` 빌드 (secrets: KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_PASSWORD 등록 완료). main·`claude/**` push 또는 수동 실행. 로그에 서명 인증서 SHA-256 표시. 마지막 빌드 #5 (10/26, versionCode 5). `android/**`가 바뀔 때만 자동 실행 |
+| `.github/workflows/tests.yml` | `src/**`·`tests/**`·`index.html`·`sw.js`·`manifest` 등이 바뀐 push에서 Chromium·WebKit 전체 시나리오 테스트 + index.html이 src와 맞는지 확인 (문서만 바뀌면 안 돈다) |
+| `.github/workflows/pages.yml` | Pages 배포(2026-11-19 준비): 서비스 파일 9개만 배포(index.html, privacy.html, manifest, sw.js, icons 4개, `.well-known/assetlinks.json`). 업로드 도구 v5는 기본적으로 점 폴더를 빼므로 `include-hidden-files: true` 필수. 배포 뒤 `tools/verify_live.py`로 실제 사이트 검사. Settings → Pages → Source를 "GitHub Actions"로 바꾼 뒤 사용 (지금은 수동 실행만) |
+| `tools/verify_live.py` | 배포된 사이트 검사: 서비스 파일·assetlinks 일치·오프라인·개발 문서와 삭제한 원전 이미지 404 |
 | `tools/gen-android.mjs` | android/ 재생성 스크립트 (로컬 서버 http://localhost:8765 필요, 아래 참고) |
-| `tests/*.py` | Playwright 시나리오 테스트. 전체: `python3 tests/run_all.py` (`BROWSER=webkit`이면 Safari 계열). 끝 줄 `ERR []`이면 통과. `compattest.py`는 기기 크기별 화면 넘침·훈련 틀 크기 |
+| `tests/*.py` | Playwright 시나리오 테스트. 전체: `python3 tests/run_all.py` (`BROWSER=webkit`이면 Safari 계열). 끝 줄 `ERR []`이면 통과(16개). `compattest.py`는 기기 크기별 화면 넘침·훈련 틀 크기, `touchtest.py`는 터치 영역 44px·겹침(9개 화면 크기×한/영×라이트/다크), `swtest.py`는 오프라인 캐시(자체 서버, WebKit은 오프라인 단계 SKIP). `run_all.py`는 마지막 줄만 보므로 SKIP도 ok로 보인다 |
 | `tools/store_shots.py` | Play 스토어 그래픽·스크린샷 생성 → `docs/store/` |
 | `docs/` | **출시 계획(`출시_계획.md`, 11/16 개정)**, 테스트 체크리스트(실기기·기기별), Play Console 입력값 초안, 스토어 등록정보 초안, 테스터 모집 자료, `store/` 이미지 |
 
@@ -73,7 +75,7 @@
 - 48일 진행: `LEVELS`(L0~L4, 과정별 시간 범위·원전 쪽수) → `dayPlan(d)`가 그날 훈련/시간 생성. 모형 순환과 시간 증가는 **설계**. 하루 다 마치면 다음 날 Day 열림(`sr-proto-prog-v1`).
 - 지원 범위 (2026-10-29 사용자 결정): iPadOS·iOS·macOS Safari 16.4 이상, Android·Mac Chrome 최신. 새 코드는 이 범위에서 동작하는 기능만 쓴다 (예: Wake Lock·전체 화면 16.4, `storage.persist` 17은 있을 때만 호출). 기기별 테스트는 `docs/기기별_테스트_가이드.md`.
 - 저장: localStorage만 (`sr-proto-v1` 훈련, `-meas-v1` 측정, `-calib-v1`, `-prefs-v1`, `-cfg-v1`, `-prog-v1`). 회원가입 없음(v1 결정). 백업 파일 형식 `{app:'speedread', v:1, exportedAt, data:{키: 값}}` (`BK_KEYS`).
-- 화면 대응 (설계): 낮은 가로 화면(`orientation:landscape and max-height:500px`)은 훈련 제목줄·정보 칸을 한 줄로 줄임. 너비 360px 미만 화면 보정은 카드를 세로로 세워 표시(보정값은 긴 변 85.6mm 기준 그대로). 화면 켜짐 유지(wake lock)는 앱이 돌아오면 다시 요청, 사용자가 전체 화면을 풀면 일시정지.
+- 화면 대응 (설계): 낮은 가로 화면(`orientation:landscape and max-height:500px`)은 훈련 제목줄·정보 칸을 한 줄로 줄임. 화면 보정 카드가 칸에 안 들어가면 세로로 세워 표시(보정값은 긴 변 85.6mm 기준 그대로). 터치 기기(`pointer:coarse`)에서는 모든 조작 요소의 눌리는 범위를 44×44px 이상으로(대부분 투명 `::after` 확장, 선택 버튼·체크 항목·슬라이더는 실제 높이 44px). 마우스 기기 디자인은 그대로. 세로 760px 이하 독서활동 정보 칸은 위 3칸 + 아래 PACE 전체 폭. 화면 켜짐 유지(wake lock)는 앱이 돌아오면 다시 요청, 사용자가 전체 화면을 풀면 일시정지.
 - i18n: `I18N.ko/en`, `DYN`, `data-i`/`data-ia` 속성, `L({ko,en})`, `T(key, vars)`. 테마 auto/light/dark (`data-theme`).
 - 1분 측정: 글자 단위 `[\p{L}\p{N}]` (원전 p.155 규칙과 표본 5줄 일치 확인). 이해도 = 객관식 % (서비스 추가, 9점 척도도 기록). R.E.I. = 속도 × 이해도.
 - 안전·깜박임: 모든 훈련에 `guide`/`safe` 안내, 훈련 뒤 깜박임 횟수·처음 깜박인 때 기록, 기본단계 시간 사다리(3→5→8분, 같은 시간 2번 완료 시 권장) = 설계.
@@ -101,16 +103,19 @@
 
 ## 6. 남은 일 (우선순위 순)
 
-1. ~~배포 연결~~ **완료 (10/24~26)**: Pages 배포, Actions 서명 빌드 성공(#4부터 서명), 실기기 APK 테스트 진행 중. 작업 브랜치 `claude/friendly-heisenberg-3dhsah`(10월). 11/16부터는 작업마다 새 `claude/…` 브랜치를 만들고, main 병합은 사용자 지시가 있을 때만.
+1. ~~배포 연결~~ **완료 (10/24~26)**: Pages 배포, Actions 서명 빌드 성공(#4부터 서명). 실기기 확인 결과는 아직 없음. 브랜치(2026-11-19): `main`, 통합 브랜치 `claude/release-prep`(아래 모두 포함, 최종 병합 후보), `claude/blink-privacy-text`(코드), `claude/release-plan-1116`(문서), `claude/pages-actions`(main에 반영됨). main 병합은 사용자 지시가 있을 때만. 계획은 `docs/최종_병합_및_실기기_테스트_계획.md`.
 2. **Play 앱 서명 키 지문**을 `.well-known/assetlinks.json`에 추가 (없으면 앱 위에 주소창이 보임).
 3. ~~측정·독서용 글 20편~~ **완료 (10/29, ko 10·en 10)**. 더 늘릴 때도 같은 규칙: 직접 쓴 글, 사실 확인, 문항 6개, 정답 index 0, `at`은 제목+본문에서 한 번만, 글 앞부터 끝까지 고르게.
-4. **스토어 자료**: 초안 완료 (`docs/스토어_등록정보_초안.md`, `docs/store/`). 책 제목 사용 A/B판은 저작권 결정(11/9) 뒤 확정. 건강 효과 표현 금지, "태블릿 권장" 명시.
+4. **스토어 자료**: 초안 완료, 2026-11-19 표현 정리 (`docs/스토어_등록정보_초안.md`, `docs/store/`). 앱 이름 **"속독 트레이닝" 확정**. 책 제목 사용 A/B판은 저작권 결정 뒤 확정(날짜 미정). 권리 확인 전 공개 등록 금지. 건강 효과·공식 관계·"책 그대로" 표현 금지, "태블릿 권장" 명시. 스크린샷은 터치 UI 수정 전 화면이라 다시 만들어야 함.
 5. **책 실측값 반영** (사용자 측정 후 `BOOK_DEF`의 cDiam/cPitch/cRow/cGap, 필요하면 D용 값 분리).
 6. **테스터 피드백 반영** (특히 책장 넘기기 자연스러움, 깜박임, 휴대폰 화면 크기).
 7. ~~Training/Test 메뉴~~ **완료 (10/29)**: Training = 단계별 전체 훈련 목록(과정에서 처음 배정되는 Day·기록 횟수), Test = 1분 형성평가·시각능력 측정.
 8. 출시 뒤: 회원가입·서버 저장(계정 삭제 포함), 종이책 병행 모드, iOS.
 
 ## 7. 사용자 확인 대기 항목
+
+- **원전 확인 대기 (PDF 받은 뒤, 그 전에는 코드 변경 금지)**: 48일 시간 배정(책의 모형별 범위를 넘는 날 130건·못 미치는 날 156건, 길어진 날은 화면 안내 없음), 단계 관문(1,200/1,500/2,400개)이 표시만 되고 진행 조건이 아님, 사방훈련 하루 1모형, C-III/D-III 방향, R.E.I.의 이해도 정의(p.32), 제2·3단계 실측값. 확인할 쪽: p.32, 48, 53~76, 73~75, 111~113, 154~155, 174~175
+- **Git 기록 재작성 (미승인)**: 2026-11-19 이전 커밋에 원전 스캔 이미지와 `count_check.py`의 원전 본문 5줄이 남아 있음. 계획은 `docs/최종_병합_및_실기기_테스트_계획.md`
 
 - 저작권 문의 메일 발송 여부 (초안은 대화에서 제공함, 연락처 미확보: 판권면·한국저작권위원회·대학/학회 경유 제안)
 - C-III/D-III 사방훈련 "원8(원2)에서 원1로 되돌아가"를 "처음으로 돌아가 반복"으로 해석함 — 역방향일 수 있음
