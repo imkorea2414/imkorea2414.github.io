@@ -59,12 +59,12 @@ def shots(b, prefix, w, h, dpr):
     n = 0
     def snap(name):
         nonlocal n; n += 1
-        pg.wait_for_timeout(150); pg.screenshot(path=str(OUT / f'{prefix}-{n}-{name}.png'))
+        pg.evaluate('document.fonts.ready.then(() => true)'); pg.wait_for_timeout(150); pg.screenshot(path=str(OUT / f'{prefix}-{n}-{name}.png'))
     snap('dashboard')
     if prefix == 'phone':
         # 휴대폰 세로에서는 훈련 틀이 작아 가로 화면(1920×1080)으로 따로 찍는다
         n += 1
-        c2, p2 = open_ctx(b, h, w, dpr); training(p2); p2.wait_for_timeout(150)
+        c2, p2 = open_ctx(b, h, w, dpr); training(p2); p2.evaluate('document.fonts.ready.then(() => true)'); p2.wait_for_timeout(150)
         p2.screenshot(path=str(OUT / f'{prefix}-{n}-training-landscape.png')); c2.close()
     else:
         training(pg); snap('training')
