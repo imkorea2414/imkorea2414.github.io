@@ -144,7 +144,9 @@ with sync_playwright() as p:
     ctx, pg, pe = ctx_page(b, 1)
     pg.evaluate("document.querySelectorAll('#tabbar button, .nav button').forEach(b => { if (b.offsetParent && b.textContent == 'Progress') b.click(); })")
     pg.on('dialog', lambda d: d.accept())
-    pg.set_input_files('#bkFile', str(f)); pg.wait_for_timeout(600)
+    with pg.expect_navigation(timeout=15000):   # 가져오면 앱이 다시 열린다
+        pg.set_input_files('#bkFile', str(f))
+    pg.wait_for_timeout(300)
     n = pg.evaluate("JSON.parse(localStorage.getItem('sr-proto-v1') || '[]').length")
     check(n == 3, f'imported records {n}')
     for s in ['Progress', 'Training', 'Dashboard']:
