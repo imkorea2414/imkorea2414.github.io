@@ -17,3 +17,6 @@ android.keystore
 *.base64
 secrets.txt
 *.p12
+# 원전 표 스캔 이미지 (저작권) — 비공개 보관, 커밋 금지
+docs/훈련투입방법_원본표.png
+*원본표*.png
