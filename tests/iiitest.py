@@ -39,11 +39,11 @@ AIM = """skip => setInterval(() => { if (!__t.S || __t.S.phase !== 'intro' || !_
   if (__t.S.parts[__t.S.partI] === skip) { __t.S.ptr = null; return; }
   const t = __t.G.pts[__t.G.seq[__t.S.pos]]; __t.S.ptr = { x: t.x, y: t.y }; }, 50)"""
 
-def run(pg, until_check=True, quit_at=None, limit=200):
-    """5초씩 진행하며 지나간 곳을 기록. quit_at = (곳 순번, 'train')이면 그 곳 훈련 중에 그만둔다."""
+def run(pg, until_check=True, quit_at=None, limit=100):
+    """10초씩 진행하며 지나간 곳을 기록. quit_at = (곳 순번, 'train')이면 그 곳 훈련 중에 그만둔다."""
     seen = []
     for _ in range(limit):
-        pg.clock.run_for(5000); pg.wait_for_timeout(5)
+        pg.clock.run_for(10000); pg.wait_for_timeout(5)
         if pg.evaluate("document.querySelector('#check').classList.contains('on')"): break
         st = pg.evaluate("__t.S ? [__t.S.parts ? __t.S.parts.slice() : null, __t.S.partI, __t.S.phase] : null")
         if st and st[0] and (not seen or seen[-1] != (st[1], st[0][st[1]])): seen.append((st[1], st[0][st[1]]))
