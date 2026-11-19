@@ -1,7 +1,7 @@
 {
   "name": "속독 트레이닝",
   "short_name": "속독 트레이닝",
-  "description": "『과학적 속독법』의 훈련 과정을 화면에서 따라 하는 속독 훈련 앱",
+  "description": "속독 훈련서에 실린 훈련 과정을 화면에서 따라 하는 속독 훈련 앱",
   "lang": "ko",
   "id": "/",
   "start_url": "/?source=app",

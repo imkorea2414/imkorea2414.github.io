@@ -1,5 +1,8 @@
-/* Offline support: app shell cached on install, font files cached on first use.
+/* Offline support: app shell and the font files the app's text needs are cached on install.
    sr-v3 (2026-11-19): fonts are served from this site (fonts/), no Google Fonts requests.
+   fonts/precache.json (made by tools/build.py) lists the font pieces for every character in index.html,
+   so on the first install, and after an update, screens not opened yet also show the right font offline.
+   Other font pieces (characters the app never shows) are still cached on first use.
    sr-v2 (2026-11-18): each page is cached under its own key. sr-v1 stored every page it
    navigated to as './index.html', so after visiting privacy.html the offline app opened
    the privacy page. Changing VERSION makes activate delete the sr-v1 cache.
@@ -21,8 +24,10 @@ function pageKey(url){
 
 self.addEventListener('install', e => {
   // cache:'reload' skips the HTTP cache so the new version stores fresh copies.
-  e.waitUntil(caches.open(VERSION)
-    .then(c => c.addAll(SHELL.map(u => new Request(u, { cache: 'reload' }))))
+  // All or nothing: if a file fails, this version is not installed and the old one keeps working.
+  e.waitUntil(caches.open(VERSION).then(c =>
+    fetch(new Request('./fonts/precache.json', { cache: 'reload' })).then(r => { if (!r.ok) throw new Error('precache.json ' + r.status); return r.json(); })
+      .then(fonts => c.addAll(SHELL.concat(fonts.map(f => './fonts/' + f)).map(u => new Request(u, { cache: 'reload' })))))
     .then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', e => {

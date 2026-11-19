@@ -22,7 +22,7 @@
 | `.github/workflows/pages.yml` | 웹 앱 배포: 서비스에 필요한 파일만 Pages에 올리고, 배포 뒤 실제 사이트를 검사 (`tools/verify_live.py`) |
 | `.github/workflows/tests.yml` | 앱 원본이 바뀌면 Chromium·WebKit에서 시나리오 테스트 |
 | `fonts/` | 앱 글꼴 (IBM Plex Sans KR, Barlow Condensed). SIL Open Font License 1.1, 라이선스 전문은 `fonts/OFL-*.txt` |
-| `tests/` | 시나리오 테스트 17개. 전체 실행: `python3 -m http.server 8765` 를 켠 상태에서 `python3 tests/run_all.py` |
+| `tests/` | 시나리오 테스트 19개. 전체 실행: `python3 -m http.server 8765` 를 켠 상태에서 `python3 tests/run_all.py` |
 | `docs/` | 출시 계획, 테스트 체크리스트, Play Console·스토어 입력값 초안, 스토어 이미지 |
 
 ## 처음 한 번 설정

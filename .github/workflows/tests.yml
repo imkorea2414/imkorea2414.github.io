@@ -4,9 +4,9 @@ name: App tests
 on:
   workflow_dispatch:
   push:
-    paths: ['src/**', 'tests/**', 'tools/build.py', 'index.html', 'sw.js', 'manifest.webmanifest', '.github/workflows/tests.yml']
+    paths: ['src/**', 'tests/**', 'tools/build.py', 'index.html', 'sw.js', 'manifest.webmanifest', 'fonts/**', '.github/workflows/tests.yml']
   pull_request:
-    paths: ['src/**', 'tests/**', 'tools/build.py', 'index.html', 'sw.js', 'manifest.webmanifest', '.github/workflows/tests.yml']
+    paths: ['src/**', 'tests/**', 'tools/build.py', 'index.html', 'sw.js', 'manifest.webmanifest', 'fonts/**', '.github/workflows/tests.yml']
 
 jobs:
   test:
@@ -35,7 +35,7 @@ jobs:
       - name: Build and check index.html is up to date
         run: |
           python3 tools/build.py
-          git diff --exit-code index.html || (echo "::error::index.html이 src와 다릅니다. python3 tools/build.py 후 커밋하세요." && exit 1)
+          git diff --exit-code index.html fonts/precache.json || (echo "::error::index.html 또는 fonts/precache.json이 src와 다릅니다. python3 tools/build.py 후 커밋하세요." && exit 1)
 
       - name: Run scenario tests
         env:

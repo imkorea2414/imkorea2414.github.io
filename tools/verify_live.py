@@ -22,7 +22,7 @@ def status(path):
     except Exception as e: return 0, str(e).encode()
 for p in ['', 'index.html', 'privacy.html', 'manifest.webmanifest', 'sw.js',
           'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png',
-          'fonts/fonts.css', 'fonts/OFL-IBMPlexSansKR.txt', 'fonts/OFL-BarlowCondensed.txt']:
+          'fonts/fonts.css', 'fonts/precache.json', 'fonts/OFL-IBMPlexSansKR.txt', 'fonts/OFL-BarlowCondensed.txt']:
     s, _ = status(p); check(s == 200, f'{s} /{p}')
 s, body = status('.well-known/assetlinks.json')
 try: same = json.loads(body) == json.loads((ROOT / '.well-known/assetlinks.json').read_text())

@@ -9,6 +9,12 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / 'docs/store'
 OUT.mkdir(parents=True, exist_ok=True)
 URL = (ROOT / 'index.html').as_uri()
+# B판 (2026-11-19 사용자 결정): 스토어 이미지에 책 제목·저자·출판사가 보이면 멈춘다
+import re
+NO_TITLE = re.compile(r'과학적 ?속독법|실험독서|박화엽|독서개발사|Scientific Speed|Park Hwa|Hwa-?yeop')
+def no_title(pg, name):
+    hit = NO_TITLE.search(pg.evaluate('document.body.innerText'))
+    if hit: raise SystemExit(f'{name}: 책 제목·저자 표시가 보입니다 ({hit.group(0)})')
 
 # 예시 기록: Day 12까지 진행, 1분 측정 10회, 시각능력 측정 몇 회 (화면 설명용 가상 데이터)
 def seed():
@@ -60,13 +66,13 @@ def shots(b, prefix, w, h, dpr):
     n = 0
     def snap(name):
         nonlocal n; n += 1
-        pg.evaluate('document.fonts.ready.then(() => true)'); pg.wait_for_timeout(150); pg.screenshot(path=str(OUT / f'{prefix}-{n}-{name}.png'))
+        pg.evaluate('document.fonts.ready.then(() => true)'); pg.wait_for_timeout(150); no_title(pg, f'{prefix}-{name}'); pg.screenshot(path=str(OUT / f'{prefix}-{n}-{name}.png'))
     snap('dashboard')
     if prefix == 'phone':
         # 휴대폰 세로에서는 훈련 틀이 작아 가로 화면(1920×1080)으로 따로 찍는다
         n += 1
         c2, p2 = open_ctx(b, h, w, dpr); training(p2); p2.evaluate('document.fonts.ready.then(() => true)'); p2.wait_for_timeout(150)
-        p2.screenshot(path=str(OUT / f'{prefix}-{n}-training-landscape.png')); c2.close()
+        no_title(p2, f'{prefix}-training'); p2.screenshot(path=str(OUT / f'{prefix}-{n}-training-landscape.png')); c2.close()
     else:
         training(pg); snap('training')
         pg.goto(URL); pg.wait_for_timeout(300)
@@ -101,7 +107,7 @@ with sync_playwright() as p:
     b = p.chromium.launch()
     pg = b.new_page(viewport={'width': 1024, 'height': 500})
     tmp = OUT / '_feature.html'; tmp.write_text(FEATURE.replace('FONTS_CSS', (ROOT / 'fonts/fonts.css').as_uri()), encoding='utf-8')   # 저장소 글꼴로 (외부 요청 없음)
-    pg.goto(tmp.as_uri()); pg.evaluate('document.fonts.ready.then(() => true)'); pg.wait_for_timeout(300); pg.screenshot(path=str(OUT / 'feature-1024x500.png')); pg.close(); tmp.unlink()
+    pg.goto(tmp.as_uri()); pg.evaluate('document.fonts.ready.then(() => true)'); pg.wait_for_timeout(300); no_title(pg, 'feature'); pg.screenshot(path=str(OUT / 'feature-1024x500.png')); pg.close(); tmp.unlink()
     shots(b, 'phone', 360, 640, 3)        # 1080×1920
     shots(b, 'tablet7', 600, 960, 2)      # 1200×1920
     shots(b, 'tablet10', 1280, 800, 2)    # 2560×1600
