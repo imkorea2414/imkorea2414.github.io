@@ -43,9 +43,16 @@ with sync_playwright() as pw:
     pg.evaluate("navigator.serviceWorker.ready.then(() => true)")
     if not pg.evaluate("!!navigator.serviceWorker.controller"): pg.reload(); pg.wait_for_timeout(1000)
     check(pg.evaluate("!!navigator.serviceWorker.controller"), '서비스 워커 작동')
+    # 브라우저 HTTP 캐시(Pages는 약 10분)를 비워, 오프라인 결과가 서비스 워커 캐시에서만 나오게 한다
+    pg.goto(BASE + 'privacy.html'); pg.wait_for_timeout(800)   # 온라인에서 개인정보처리방침을 한 번 연 뒤 (예전 오류가 나던 순서)
+    ctx.new_cdp_session(pg).send('Network.clearBrowserCache')
     ctx.set_offline(True)
     pg.goto(BASE + '?source=app'); pg.wait_for_timeout(1000)
-    check(pg.evaluate("!!document.querySelector('#dash')"), '오프라인 앱 실행')
+    app_ok = pg.evaluate("!!document.querySelector('#dash')")
+    if not app_ok and old_sw:
+        print('KNOWN 개인정보처리방침을 연 뒤 오프라인 앱 실행 → ' + pg.title() + ' (옛 sr-v1 오류, 수정본은 main 미병합)'); known.append('offline app after privacy (sr-v1)')
+    else:
+        check(app_ok, '개인정보처리방침을 연 뒤 오프라인 앱 실행')
     pg.goto(BASE + 'privacy.html'); pg.wait_for_timeout(800)
     ok = '개인정보' in pg.title()
     if not ok and old_sw:   # sr-v1은 모든 페이지를 앱 칸에 저장하던 옛 버전 (claude/blink-privacy-text에서 sr-v2로 수정됨)
