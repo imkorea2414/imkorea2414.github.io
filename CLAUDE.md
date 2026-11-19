@@ -53,7 +53,7 @@
 | `android/` | Bubblewrap 1.25.0으로 만든 TWA 프로젝트. 패키지 `io.github.imkorea2414.speedread`, targetSdk 36, minSdk 24 |
 | `.github/workflows/android.yml` | 서명된 `.aab`/`.apk` 빌드 (secrets: KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_PASSWORD 등록 완료). main·`claude/**` push 또는 수동 실행. 로그에 서명 인증서 SHA-256 표시. 마지막 빌드 #5 (10/26, versionCode 5). `android/**`가 바뀔 때만 자동 실행 |
 | `.github/workflows/tests.yml` | `src/**`·`tests/**`·`index.html`·`sw.js`·`manifest` 등이 바뀐 push에서 Chromium·WebKit 전체 시나리오 테스트 + index.html이 src와 맞는지 확인 (문서만 바뀌면 안 돈다) |
-| `.github/workflows/pages.yml` | Pages 배포(2026-11-19 준비): 서비스 파일 9개만 배포(index.html, privacy.html, manifest, sw.js, icons 4개, `.well-known/assetlinks.json`). 업로드 도구 v5는 기본적으로 점 폴더를 빼므로 `include-hidden-files: true` 필수. 배포 뒤 `tools/verify_live.py`로 실제 사이트 검사. Settings → Pages → Source를 "GitHub Actions"로 바꾼 뒤 사용 (지금은 수동 실행만) |
+| `.github/workflows/pages.yml` | Pages 배포(2026-11-19 준비): 서비스 파일 9개만 배포(index.html, privacy.html, manifest, sw.js, icons 4개, `.well-known/assetlinks.json`). 업로드 도구 v5는 기본적으로 점 폴더를 빼므로 `include-hidden-files: true` 필수. 배포 뒤 `tools/verify_live.py`로 실제 사이트 검사. 2026-11-19 Source를 "GitHub Actions"로 전환, 첫 수동 배포·검사 통과, main push 자동 배포 켬. 되돌리기: Source → "Deploy from a branch" main / (root) |
 | `tools/verify_live.py` | 배포된 사이트 검사: 서비스 파일·assetlinks 일치·오프라인·개발 문서와 삭제한 원전 이미지 404 |
 | `tools/gen-android.mjs` | android/ 재생성 스크립트 (로컬 서버 http://localhost:8765 필요, 아래 참고) |
 | `tests/*.py` | Playwright 시나리오 테스트. 전체: `python3 tests/run_all.py` (`BROWSER=webkit`이면 Safari 계열). 끝 줄 `ERR []`이면 통과(16개). `compattest.py`는 기기 크기별 화면 넘침·훈련 틀 크기, `touchtest.py`는 터치 영역 44px·겹침(9개 화면 크기×한/영×라이트/다크), `swtest.py`는 오프라인 캐시(자체 서버, WebKit은 오프라인 단계 SKIP). `run_all.py`는 마지막 줄만 보므로 SKIP도 ok로 보인다 |
