@@ -28,7 +28,8 @@ def seed():
         if i % 1 == 0 and i < 10:
             sp = 820 + i * 55 + rnd.randint(-30, 30); comp = 67 if i % 2 else 100
             meas.append({'date': ds(k + 2 if k < 10 else k), 'ts': i * 1000 + 2, 'lang': 'ko', 'unit': 'chars', 'passage': 'ko-lighthouse', 'mode': 'normal',
-                         'elapsed': 60, 'count': sp, 'speed': sp, 'self9': 7, 'correct': 2 if i % 2 else 3, 'total': 3, 'comp': comp, 'rei': round(sp * comp / 100)})
+                         'elapsed': 60, 'count': sp, 'speed': sp, 'self9': 7, 'correct': 2 if i % 2 else 3, 'total': 3, 'comp': comp,
+                         'rei': round(sp * 7) / 10, 'reiV': 2})   # R.E.I. = 속도 × 9점 척도 × 0.1 (원전 p.32)
     done = {str(d): True for d in range(1, 12)}
     return {'sr-proto-v1': trains, 'sr-proto-meas-v1': meas, 'sr-proto-prog-v1': {'day': 12, 'done': done},
             'sr-proto-calib-v1': {'pxPerMm': 3.78, 'distance': 40, 'aDiam': 6, 'aGap': 11.8, 'bDiam': 7, 'bSpan': 251}}
@@ -80,7 +81,7 @@ def shots(b, prefix, w, h, dpr):
     ctx.close()
 
 FEATURE = """<!doctype html><html lang="ko"><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600&display=swap" rel="stylesheet">
+<link href="FONTS_CSS" rel="stylesheet">
 <style>
 html,body{margin:0;width:1024px;height:500px;background:#F4F5F6;font-family:"IBM Plex Sans KR",sans-serif;color:#14171A;overflow:hidden}
 .w{position:absolute;inset:0;padding:72px 80px;display:flex;flex-direction:column;justify-content:space-between}
@@ -99,7 +100,8 @@ p{font-size:26px;color:#656B72;margin:18px 0 0}
 with sync_playwright() as p:
     b = p.chromium.launch()
     pg = b.new_page(viewport={'width': 1024, 'height': 500})
-    pg.set_content(FEATURE); pg.wait_for_timeout(800); pg.screenshot(path=str(OUT / 'feature-1024x500.png')); pg.close()
+    tmp = OUT / '_feature.html'; tmp.write_text(FEATURE.replace('FONTS_CSS', (ROOT / 'fonts/fonts.css').as_uri()), encoding='utf-8')   # 저장소 글꼴로 (외부 요청 없음)
+    pg.goto(tmp.as_uri()); pg.evaluate('document.fonts.ready.then(() => true)'); pg.wait_for_timeout(300); pg.screenshot(path=str(OUT / 'feature-1024x500.png')); pg.close(); tmp.unlink()
     shots(b, 'phone', 360, 640, 3)        # 1080×1920
     shots(b, 'tablet7', 600, 960, 2)      # 1200×1920
     shots(b, 'tablet10', 1280, 800, 2)    # 2560×1600

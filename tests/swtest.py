@@ -5,7 +5,7 @@
 #     오프라인 앱이 정상인지, 학습 기록·설정(localStorage)이 그대로인지.
 # Playwright WebKit은 오프라인 흉내 + 서비스 워커 조합에서 내부 오류를 내므로(pwatest.py 참고)
 # WebKit에서는 오프라인 단계를 건너뛰고 "SKIP"으로 표시한다. 건너뛴 단계는 통과가 아니다.
-import os, json, shutil, tempfile, threading, functools, pathlib
+import os, re, json, shutil, tempfile, threading, functools, pathlib
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from playwright.sync_api import sync_playwright
 
@@ -13,6 +13,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 ENGINE = os.environ.get('BROWSER', 'chromium')
 OFFLINE_OK = ENGINE != 'webkit'
 NEW_SW = (ROOT / 'sw.js').read_text(encoding='utf-8')
+NEWV = re.search(r"VERSION = '([^']+)'", NEW_SW).group(1)   # 현재 캐시 이름 (sr-v3 등)
 # 2026-11-18 이전 sw.js (sr-v1). 탐색한 모든 페이지를 './index.html' 하나에 덮어써서 오류가 났다.
 OLD_SW = r"""/* Offline support: app shell cached on install, fonts cached on first use. */
 const VERSION = 'sr-v1';
@@ -63,6 +64,7 @@ def site(sw_text):
     d = pathlib.Path(tempfile.mkdtemp(prefix='swtest-'))
     for f in ['index.html', 'privacy.html', 'manifest.webmanifest']: shutil.copy(ROOT / f, d / f)
     shutil.copytree(ROOT / 'icons', d / 'icons')
+    shutil.copytree(ROOT / 'fonts', d / 'fonts')
     (d / 'sw.js').write_text(sw_text, encoding='utf-8')
     return d
 
@@ -96,8 +98,8 @@ with sync_playwright() as p:
     r = open_page(pg, base + '?source=app'); print('A1 online launch:', r); check(r == 'app', f'A1 online launch {r}')
     check(controlled(pg, base), 'A1 service worker not controlling the page')
     st = pg.evaluate(CACHE_STATE); print('   cache:', st)
-    check(st['keys'] == ['sr-v2'], f'A1 cache keys {st["keys"]}')
-    check(st.get('sr-v2:app') == 'app' and st.get('sr-v2:privacy') == 'privacy', f'A1 shell entries {st}')
+    check(st['keys'] == [NEWV], f'A1 cache keys {st["keys"]}')
+    check(st.get(NEWV + ':app') == 'app' and st.get(NEWV + ':privacy') == 'privacy', f'A1 shell entries {st}')
     def a2():
         ctx.set_offline(True)
         r = open_page(pg, base + '?source=app'); print('A2 offline relaunch:', r); check(r == 'app', f'A2 offline relaunch {r}')
@@ -105,7 +107,7 @@ with sync_playwright() as p:
     offline_step('A2 앱 실행 후 오프라인 재실행', a2)
     r = open_page(pg, base + 'privacy.html'); print('A3 online privacy:', r); check(r == 'privacy', f'A3 online privacy {r}')
     st = pg.evaluate(CACHE_STATE); print('   cache after privacy visit:', st)
-    check(st.get('sr-v2:app') == 'app', f'A3 app entry overwritten {st}')   # 오류의 직접 원인: 앱 항목이 덮이면 안 된다
+    check(st.get(NEWV + ':app') == 'app', f'A3 app entry overwritten {st}')   # 오류의 직접 원인: 앱 항목이 덮이면 안 된다
     def a4():
         ctx.set_offline(True)
         for u in ['?source=app', '', 'index.html']:
@@ -119,7 +121,7 @@ with sync_playwright() as p:
     r = open_page(pg, base + '?source=app'); fresh = pg.evaluate("document.documentElement.outerHTML.includes('swtest-v-next')")
     print('A6 reconnect:', r, '| fresh from network:', fresh)
     check(r == 'app' and fresh, f'A6 reconnect did not load fresh page {r} {fresh}')
-    st = pg.evaluate(CACHE_STATE); check(st.get('sr-v2:app') == 'app', f'A6 app entry after reconnect {st}')
+    st = pg.evaluate(CACHE_STATE); check(st.get(NEWV + ':app') == 'app', f'A6 app entry after reconnect {st}')
     check(not pe, f'A page errors {pe}')
     ctx.close(); srv.shutdown(); shutil.rmtree(d, ignore_errors=True)
 
@@ -145,12 +147,12 @@ with sync_playwright() as p:
     open_page(pg, base + '?source=app')
     pg.evaluate("navigator.serviceWorker.getRegistration().then(r => r && r.update())")
     for _ in range(50):
-        if pg.evaluate("caches.keys()") == ['sr-v2']: break
+        if pg.evaluate("caches.keys()") == [NEWV]: break
         pg.wait_for_timeout(200)
     open_page(pg, base + '?source=app')
     st = pg.evaluate(CACHE_STATE); print('B3 after update:', st)
-    check(st['keys'] == ['sr-v2'], f'B3 old cache not removed {st["keys"]}')
-    check(st.get('sr-v2:app') == 'app' and st.get('sr-v2:privacy') == 'privacy', f'B3 new entries {st}')
+    check(st['keys'] == [NEWV], f'B3 old cache not removed {st["keys"]}')
+    check(st.get(NEWV + ':app') == 'app' and st.get(NEWV + ':privacy') == 'privacy', f'B3 new entries {st}')
     def b4():
         ctx.set_offline(True)
         r = open_page(pg, base + '?source=app'); print('B4 offline app after update:', r); check(r == 'app', f'B4 offline app after update {r}')

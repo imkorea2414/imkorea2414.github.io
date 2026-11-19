@@ -21,7 +21,8 @@ def status(path):
     except urllib.error.HTTPError as e: return e.code, b''
     except Exception as e: return 0, str(e).encode()
 for p in ['', 'index.html', 'privacy.html', 'manifest.webmanifest', 'sw.js',
-          'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png']:
+          'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png',
+          'fonts/fonts.css', 'fonts/OFL-IBMPlexSansKR.txt', 'fonts/OFL-BarlowCondensed.txt']:
     s, _ = status(p); check(s == 200, f'{s} /{p}')
 s, body = status('.well-known/assetlinks.json')
 try: same = json.loads(body) == json.loads((ROOT / '.well-known/assetlinks.json').read_text())
@@ -36,10 +37,15 @@ for p in gone: check(p not in left, f'404 /{p}')
 old_sw = b"'sr-v1'" in status('sw.js')[1]
 print('배포된 서비스 워커:', 'sr-v1 (옛 버전)' if old_sw else 'sr-v2 이상')
 with sync_playwright() as pw:
-    b = pw.chromium.launch(); ctx = b.new_context(locale='ko-KR'); pg = ctx.new_page(); pe = []
+    b = pw.chromium.launch(); ctx = b.new_context(locale='ko-KR'); pg = ctx.new_page(); pe = []; ext = []
     pg.on('pageerror', lambda e: pe.append(str(e)))
+    host = urllib.parse.urlparse(BASE).netloc
+    pg.on('request', lambda r: ext.append(r.url) if urllib.parse.urlparse(r.url).netloc not in (host, '') else None)
     pg.goto(BASE + '?source=app'); pg.wait_for_timeout(1500)
     check(pg.evaluate("!!document.querySelector('#dash')"), '온라인 앱 실행')
+    fonts = pg.evaluate("document.fonts.ready.then(() => [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family.replace(/\"/g, '') + ' ' + f.weight))")
+    check(any('IBM Plex Sans KR' in f for f in fonts), f'글꼴 불러옴: {sorted(set(fonts))}')
+    check(not ext, f'외부 요청 없음: {ext[:3]}')
     pg.evaluate("navigator.serviceWorker.ready.then(() => true)")
     if not pg.evaluate("!!navigator.serviceWorker.controller"): pg.reload(); pg.wait_for_timeout(1000)
     check(pg.evaluate("!!navigator.serviceWorker.controller"), '서비스 워커 작동')

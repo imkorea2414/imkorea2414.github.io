@@ -1,11 +1,12 @@
-/* Offline support: app shell cached on install, fonts cached on first use.
+/* Offline support: app shell cached on install, font files cached on first use.
+   sr-v3 (2026-11-19): fonts are served from this site (fonts/), no Google Fonts requests.
    sr-v2 (2026-11-18): each page is cached under its own key. sr-v1 stored every page it
    navigated to as './index.html', so after visiting privacy.html the offline app opened
    the privacy page. Changing VERSION makes activate delete the sr-v1 cache.
    Only Cache Storage is touched here; localStorage (training records, settings) is not. */
-const VERSION = 'sr-v2';
+const VERSION = 'sr-v3';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './privacy.html',
-  './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png'];
+  './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './fonts/fonts.css'];
 const APP_KEY = './index.html', PRIVACY_KEY = './privacy.html';
 const BASE = new URL('./', self.location.href);
 const APP_PATHS = new Set([BASE.pathname, new URL(APP_KEY, BASE).pathname]);
@@ -49,10 +50,10 @@ self.addEventListener('fetch', e => {
       .then(hit => hit || offlinePage()))));
     return;
   }
-  // Same-origin files and Google Fonts: cache first.
-  if (url.origin === location.origin || /fonts\.(googleapis|gstatic)\.com$/.test(url.hostname)){
+  // Same-origin files (including fonts/*.woff2): cache first.
+  if (url.origin === location.origin){
     e.respondWith(caches.match(req).then(hit => hit || fetch(req).then(r => {
-      if (r.ok || r.type === 'opaque'){ const copy = r.clone(); caches.open(VERSION).then(c => c.put(req, copy)); }
+      if (r.ok){ const copy = r.clone(); caches.open(VERSION).then(c => c.put(req, copy)); }
       return r;
     })));
   }

@@ -1,6 +1,6 @@
 name: Deploy Pages (service files only)
 
-# 웹 앱 서비스에 필요한 파일만 Pages에 배포한다. 개발 문서(docs, CLAUDE.md, src, tests, tools, android)는 배포하지 않는다.
+# 웹 앱 서비스에 필요한 파일만 Pages에 배포한다 (2026-11-19부터 fonts/ 포함: 글꼴을 직접 제공). 개발 문서(docs, CLAUDE.md, src, tests, tools, android)는 배포하지 않는다.
 # 2026-11-19: Settings → Pages → Source = "GitHub Actions". 첫 수동 배포·실제 사이트 검사 통과 뒤 main push 자동 배포를 켰다.
 # 되돌리기: Source를 "Deploy from a branch" → main / (root)로 바꾸면 예전 방식(저장소 전체 공개)으로 바로 돌아간다.
 on:
@@ -35,6 +35,8 @@ jobs:
                  .well-known/assetlinks.json"
           rm -rf _site
           for f in $FILES; do mkdir -p "_site/$(dirname "$f")"; cp "$f" "_site/$f"; done
+          # 글꼴 (woff2 + fonts.css + OFL 라이선스)
+          cp -r fonts "_site/fonts"
           # TWA 연결 파일이 원본과 똑같이 들어갔는지 확인 (빠지면 안드로이드 앱 위에 주소창이 생긴다)
           cmp .well-known/assetlinks.json _site/.well-known/assetlinks.json
           find _site -type f | sort

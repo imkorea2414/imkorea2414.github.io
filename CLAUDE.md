@@ -47,16 +47,17 @@
 | `src/passages.json` | 측정·독서용 글 20편 (ko 10, en 10: 등대·꿀벌·종이·한글·소금·철새·시계·제주·현수교·도서관) + 문항 6개씩. `passages.py`와 같은 내용(둘 다 고친다) |
 | `tools/build.py` | `python3 tools/build.py` → `index.html` 생성 + JS 문법 검사 |
 | `index.html` | 빌드 결과 (GitHub Pages가 서비스). 직접 고치지 않는다 |
-| `manifest.webmanifest`, `sw.js`, `icons/` | 설치·오프라인 (PWA). sw는 github.io/localhost에서만 등록. 캐시 `sr-v2`(2026-11-18): 페이지마다 따로 저장(앱 `/`·`/index.html`·`?source=app` → index.html, privacy.html은 따로), 새 버전 설치 때 옛 캐시 삭제 |
+| `manifest.webmanifest`, `sw.js`, `icons/` | 설치·오프라인 (PWA). sw는 github.io/localhost에서만 등록. 캐시 `sr-v3`(2026-11-19, 글꼴 자체 제공): 페이지마다 따로 저장(앱 `/`·`/index.html`·`?source=app` → index.html, privacy.html은 따로), 같은 사이트 파일만 캐시 우선, 새 버전 설치 때 옛 캐시 삭제 |
+| `fonts/` | 글꼴 자체 제공(2026-11-19): IBM Plex Sans KR 400·500·600, Barlow Condensed 500·600 woff2 288개(fontsource 5.3.0, unicode-range), `fonts.css`, 라이선스 `OFL-*.txt`(SIL OFL 1.1). Google Fonts 요청 없음. 화면은 바꾸기 전과 픽셀 동일 확인 |
 | `privacy.html` | 개인정보처리방침 (한/영, 2026-11-19 개정: 진도 기록·오프라인 저장·GitHub Pages 접속 정보 반영). 문의 이메일 tom307860@gmail.com (2026-11-19 사용자 제공, 통합 브랜치에 반영) |
 | `.well-known/assetlinks.json` | 업로드 키 SHA-256 들어 있음. Play 앱 서명 키 지문 추가 필요 |
 | `android/` | Bubblewrap 1.25.0으로 만든 TWA 프로젝트. 패키지 `io.github.imkorea2414.speedread`, targetSdk 36, minSdk 24 |
 | `.github/workflows/android.yml` | 서명된 `.aab`/`.apk` 빌드 (secrets: KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_PASSWORD 등록 완료). main·`claude/**` push 또는 수동 실행. 로그에 서명 인증서 SHA-256 표시. 마지막 빌드 #5 (10/26, versionCode 5). `android/**`가 바뀔 때만 자동 실행 |
 | `.github/workflows/tests.yml` | `src/**`·`tests/**`·`index.html`·`sw.js`·`manifest` 등이 바뀐 push에서 Chromium·WebKit 전체 시나리오 테스트 + index.html이 src와 맞는지 확인 (문서만 바뀌면 안 돈다) |
-| `.github/workflows/pages.yml` | Pages 배포(2026-11-19 준비): 서비스 파일 9개만 배포(index.html, privacy.html, manifest, sw.js, icons 4개, `.well-known/assetlinks.json`). 업로드 도구 v5는 기본적으로 점 폴더를 빼므로 `include-hidden-files: true` 필수. 배포 뒤 `tools/verify_live.py`로 실제 사이트 검사. 2026-11-19 Source를 "GitHub Actions"로 전환, 첫 수동 배포·검사 통과, main push 자동 배포 켬. 되돌리기: Source → "Deploy from a branch" main / (root) |
+| `.github/workflows/pages.yml` | Pages 배포(2026-11-19 준비): 서비스 파일만 배포(index.html, privacy.html, manifest, sw.js, icons 4개, `.well-known/assetlinks.json`, `fonts/` 폴더). 업로드 도구 v5는 기본적으로 점 폴더를 빼므로 `include-hidden-files: true` 필수. 배포 뒤 `tools/verify_live.py`로 실제 사이트 검사. 2026-11-19 Source를 "GitHub Actions"로 전환, 첫 수동 배포·검사 통과, main push 자동 배포 켬. 되돌리기: Source → "Deploy from a branch" main / (root) |
 | `tools/verify_live.py` | 배포된 사이트 검사: 서비스 파일·assetlinks 일치·오프라인·개발 문서와 삭제한 원전 이미지 404 |
 | `tools/gen-android.mjs` | android/ 재생성 스크립트 (로컬 서버 http://localhost:8765 필요, 아래 참고) |
-| `tests/*.py` | Playwright 시나리오 테스트. 전체: `python3 tests/run_all.py` (`BROWSER=webkit`이면 Safari 계열). 끝 줄 `ERR []`이면 통과(16개). `compattest.py`는 기기 크기별 화면 넘침·훈련 틀 크기, `touchtest.py`는 터치 영역 44px·겹침(9개 화면 크기×한/영×라이트/다크), `swtest.py`는 오프라인 캐시(자체 서버, WebKit은 오프라인 단계 SKIP). `run_all.py`는 마지막 줄만 보므로 SKIP도 ok로 보인다 |
+| `tests/*.py` | Playwright 시나리오 테스트. 전체: `python3 tests/run_all.py` (`BROWSER=webkit`이면 Safari 계열). 끝 줄 `ERR []`이면 통과(17개). `srcfixtest.py`는 원전 검증 뒤 수정(A-III 인용 없음, 참고 목표, 정리 시간, 사방훈련 4곳+1, 원전보다 긴 날 안내, R.E.I.). `compattest.py`는 기기 크기별 화면 넘침·훈련 틀 크기, `touchtest.py`는 터치 영역 44px·겹침(9개 화면 크기×한/영×라이트/다크), `swtest.py`는 오프라인 캐시(자체 서버, WebKit은 오프라인 단계 SKIP). `run_all.py`는 마지막 줄만 보므로 SKIP도 ok로 보인다 |
 | `tools/store_shots.py` | Play 스토어 그래픽·스크린샷 생성 → `docs/store/` |
 | `docs/` | **출시 계획(`출시_계획.md`, 11/16 개정)**, **최종 병합·기록 재작성·글꼴 방안(`최종_병합_및_실기기_테스트_계획.md`)**, **실기기 최종 테스트 순서·합격 기준(`실기기_최종_테스트.md`)**, 테스트 체크리스트(실기기·기기별), Play Console 입력값 초안, 스토어 등록정보 초안, 테스터 모집 자료, `store/` 이미지 |
 
@@ -77,7 +78,8 @@
 - 저장: localStorage만 (`sr-proto-v1` 훈련, `-meas-v1` 측정, `-calib-v1`, `-prefs-v1`, `-cfg-v1`, `-prog-v1`). 회원가입 없음(v1 결정). 백업 파일 형식 `{app:'speedread', v:1, exportedAt, data:{키: 값}}` (`BK_KEYS`).
 - 화면 대응 (설계): 낮은 가로 화면(`orientation:landscape and max-height:500px`)은 훈련 제목줄·정보 칸을 한 줄로 줄임. 화면 보정 카드가 칸에 안 들어가면 세로로 세워 표시(보정값은 긴 변 85.6mm 기준 그대로). 터치 기기(`pointer:coarse`)에서는 모든 조작 요소의 눌리는 범위를 44×44px 이상으로(대부분 투명 `::after` 확장, 선택 버튼·체크 항목·슬라이더는 실제 높이 44px). 마우스 기기 디자인은 그대로. 세로 760px 이하 독서활동 정보 칸은 위 3칸 + 아래 PACE 전체 폭. 화면 켜짐 유지(wake lock)는 앱이 돌아오면 다시 요청, 사용자가 전체 화면을 풀면 일시정지.
 - i18n: `I18N.ko/en`, `DYN`, `data-i`/`data-ia` 속성, `L({ko,en})`, `T(key, vars)`. 테마 auto/light/dark (`data-theme`).
-- 1분 측정: 글자 단위 `[\p{L}\p{N}]` (원전 p.155 규칙과 표본 5줄 일치 확인). 이해도 = 객관식 % (서비스 추가, 9점 척도도 기록). R.E.I. = 속도 × 이해도.
+- 1분 측정: 글자 단위 `[\p{L}\p{N}]` (원전 p.155 규칙과 표본 5줄 일치 확인). R.E.I. = 속도 × 9점 척도 × 0.1 (원전 p.32 예시: 1점 = 10%), 기록에 `reiV:2`. 객관식은 "문항 정답률"(서비스 추가)로 따로 보여 준다. 2026-11-19 이전 기록(속도 × 객관식 %)은 값 그대로 두고 Progress 표에서 `*`로 구분.
+- 원전 검증 뒤 반영(2026-11-19): 단계 관문 → "참고 목표"(진행 조건 아님, L1만 p.154 1,200개 결과 설명, L2·L3는 "원전에 수치 없음"). 48일 계획의 사방훈련(C-III·D-III, 초기~완성 과정)은 4곳 모두(도입 30초·훈련 1분) + 정확도가 가장 낮았던 곳 1회(p.73·111), 적용 과정에는 배정하지 않음. 원전 모형별 표(`BOOK_TRAIN_MAX`)보다 길게 배정된 날은 안내 화면에 "과정별 시간전략에 따름" 표시. "정리 및 상담활동"은 "정리 시간"으로 따로 표시만 하고 상담을 제공한다고 쓰지 않음(타이머 없음). C-III/D-III 방향은 원전과 일치해 그대로
 - 안전·깜박임: 모든 훈련에 `guide`/`safe` 안내, 훈련 뒤 깜박임 횟수·처음 깜박인 때 기록, 기본단계 시간 사다리(3→5→8분, 같은 시간 2번 완료 시 권장) = 설계.
 
 ## 5. 출시 일정 (2026-11-16 개정, 새 목표 12/12경)
@@ -114,11 +116,11 @@
 
 ## 7. 사용자 확인 대기 항목
 
-- **원전 확인 완료 (2026-11-19, 결과: `docs/원전_검증_결과.md`), 수정은 승인 대기**: 48일 시간 배정은 과정별 시간전략 p.48·174·175와 일치(모형별 표와 다른 날은 안내 보강, "정리 및 상담활동" 미배정은 결정 필요), 단계 관문은 원전상 조건이 아닌 결과 설명(p.154 ⑲) → "참고 목표"로, 사방훈련은 4곳 모두 + 약한 곳 추가(p.73·111), C-III/D-III 방향은 현재 구현이 원전과 일치(화살표 모두 앞으로), R.E.I.는 9점 척도 × 10%(p.32 예시) → 현재 객관식 %와 다름, A-III 인용은 원전에 없음(모형 II 문구). 제2·3단계 실측값은 여전히 사용자 측정 필요. 모형 그림 쪽마다 저자 저작권 표시(2004, 1978)가 인쇄되어 있음
+- **원전 확인 완료·수정 반영 (2026-11-19, 결과: `docs/원전_검증_결과.md`, 반영 내용은 4장)**. 확인 당시 내용: 48일 시간 배정은 과정별 시간전략 p.48·174·175와 일치(모형별 표와 다른 날은 안내 보강, "정리 및 상담활동" 미배정은 결정 필요), 단계 관문은 원전상 조건이 아닌 결과 설명(p.154 ⑲) → "참고 목표"로, 사방훈련은 4곳 모두 + 약한 곳 추가(p.73·111), C-III/D-III 방향은 현재 구현이 원전과 일치(화살표 모두 앞으로), R.E.I.는 9점 척도 × 10%(p.32 예시) → 현재 객관식 %와 다름, A-III 인용은 원전에 없음(모형 II 문구). 제2·3단계 실측값은 여전히 사용자 측정 필요. 모형 그림 쪽마다 저자 저작권 표시(2004, 1978)가 인쇄되어 있음
 - **Git 기록 재작성 (미승인)**: 2026-11-19 이전 커밋에 원전 스캔 이미지와 `count_check.py`의 원전 본문 5줄이 남아 있음. 계획은 `docs/최종_병합_및_실기기_테스트_계획.md`
 
 - 저작권 문의 메일 발송 여부 (초안은 대화에서 제공함, 연락처 미확보: 판권면·한국저작권위원회·대학/학회 경유 제안)
-- 추정값: L2 7일/L3 8일 분할, 관문 1,500·2,400개/분, 제3단계 시작 빠르기 120개/분, R.M. 400자/분
+- 추정값: L2 7일/L3 8일 분할, 제3단계 시작 빠르기 120개/분, R.M. 400자/분
 - 테스트 피드백: 첫 피드백은 "깜박이면 안 되나, 8분 동안 뜨고 있어야 하나" → 안내·기록 추가로 대응함
 - Play 앱 서명 키 SHA-256 (첫 업로드 뒤), 책 실측값(제2·3단계), 책 PDF(원전 확인 작업 때 대화에 첨부)
 - 실기기 확인 대기: 반응 점검 버튼 색, 좁은 화면 보정 카드 세로 표시, Mac Esc 일시정지, iPad 두 번 탭 확대, 휴대폰 가로 훈련 화면 (`docs/기기별_테스트_가이드.md`)
