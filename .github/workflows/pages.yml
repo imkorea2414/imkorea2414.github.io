@@ -50,18 +50,24 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Verify deployed files
+      - name: Quick check (TWA link file)
         run: |
           set -euo pipefail
-          BASE="https://imkorea2414.github.io"
-          sleep 30
-          curl -fsS "$BASE/.well-known/assetlinks.json" -o served.json
+          sleep 20
+          curl -fsS "https://imkorea2414.github.io/.well-known/assetlinks.json" -o served.json
           python3 -c "import json,sys; a=json.load(open('served.json')); b=json.load(open('.well-known/assetlinks.json')); sys.exit(0 if a==b else 'assetlinks.json differs')"
-          for p in / /index.html /privacy.html /manifest.webmanifest /sw.js /icons/icon-512.png /icons/maskable-512.png; do
-            curl -fsS -o /dev/null -w "%{http_code} $p\n" "$BASE$p"
-          done
-          # 개발 문서는 배포되지 않아야 한다
-          for p in /CLAUDE.md /src/template.html /docs/출시_계획.md; do
-            code=$(curl -s -o /dev/null -w "%{http_code}" "$BASE$p" || true)
-            echo "$code $p"; [ "$code" = "404" ] || { echo "::error::$p is still public"; exit 1; }
-          done
+
+  verify-live:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Playwright
+        run: |
+          pip install playwright==1.63.0
+          python -m playwright install --with-deps chromium
+      - name: Verify live site (files, privacy, offline, assetlinks, removed files)
+        run: python3 tools/verify_live.py https://imkorea2414.github.io/
