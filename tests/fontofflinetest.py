@@ -6,7 +6,7 @@
 # 아직 열지 않은 화면의 글자까지 확인한다. 불러오지 못한 글꼴 조각(status 'error')이 하나도 없어야 한다.
 # 여러 화면(한/영, 밝게/어둡게)도 실제로 열어 본다. 외부(Google) 요청은 막는다.
 # WebKit은 오프라인 + 서비스 워커 흉내가 안 되므로(pwatest.py 참고) SKIP으로 표시한다. SKIP은 통과가 아니다.
-import os, re, json, shutil, tempfile, threading, functools, pathlib
+import os, re, json, time, shutil, tempfile, threading, functools, pathlib
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from playwright.sync_api import sync_playwright
 
@@ -40,6 +40,10 @@ def put_old(d):
     for f in ['privacy.html', 'manifest.webmanifest']: shutil.copy(ROOT / f, d / f)
     (d / 'sw.js').write_text(OLD_SW, encoding='utf-8')
     shutil.copytree(ROOT / 'icons', d / 'icons', dirs_exist_ok=True)
+    # 이 테스트 서버는 수정 시각(초 단위)으로 "바뀌지 않음(304)"을 판단한다. 새 파일을 같은 초에 덮어쓰면
+    # 브라우저가 새 sw.js를 받지 못하므로 옛 파일의 수정 시각을 5초 전으로 돌린다 (길게 돌리면 브라우저가 옛 파일을 캐시에서 꺼냄. GitHub Pages는 내용으로 판단)
+    past = time.time() - 5
+    for f in d.rglob('*'): os.utime(f, (past, past))
 def wait_eval(pg, expr, ms=15000):
     for _ in range(ms // 200):
         if pg.evaluate(expr): return True
