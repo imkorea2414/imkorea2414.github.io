@@ -52,14 +52,14 @@
 | `privacy.html` | 개인정보처리방침 (한/영, 2026-11-19 개정: 진도 기록·오프라인 저장·GitHub Pages 접속 정보 반영). 문의 이메일 tom307860@gmail.com (2026-11-19 사용자 제공, 통합 브랜치에 반영) |
 | `.well-known/assetlinks.json` | 업로드 키 SHA-256 들어 있음. Play 앱 서명 키 지문 추가 필요 |
 | `android/` | Bubblewrap 1.25.0으로 만든 TWA 프로젝트. 패키지 `io.github.imkorea2414.speedread`, targetSdk 36, minSdk 24 |
-| `.github/workflows/android.yml` | 서명된 `.aab`/`.apk` 빌드 (secrets: KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_PASSWORD 등록 완료). main·`claude/**` push 또는 수동 실행. 로그에 서명 인증서 SHA-256 표시. 마지막 빌드 #5 (10/26, versionCode 5). `android/**`가 바뀔 때만 자동 실행 |
+| `.github/workflows/android.yml` | 서명된 `.aab`/`.apk` 빌드 (secrets: KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_PASSWORD 등록 완료). main·`claude/**` push 또는 수동 실행. 로그에 서명 인증서 SHA-256 표시. 마지막 빌드 #5 (10/26, versionCode 5, 다음은 6). `android/**`가 바뀔 때만 자동 실행 — **release-prep에 android 변경(`b6c2c40`)이 있어 main 병합 때 빌드가 자동 실행된다** (승인 전이면 워크플로 Disable, `docs/최종_병합_및_실기기_테스트_계획.md` 2·8장) |
 | `.github/workflows/tests.yml` | `src/**`·`tests/**`·`index.html`·`sw.js`·`manifest` 등이 바뀐 push에서 Chromium·WebKit 전체 시나리오 테스트 + index.html이 src와 맞는지 확인 (문서만 바뀌면 안 돈다) |
 | `.github/workflows/pages.yml` | Pages 배포(2026-11-19 준비): 서비스 파일만 배포(index.html, privacy.html, manifest, sw.js, icons 4개, `.well-known/assetlinks.json`, `fonts/` 폴더). 업로드 도구 v5는 기본적으로 점 폴더를 빼므로 `include-hidden-files: true` 필수. 배포 뒤 `tools/verify_live.py`로 실제 사이트 검사. 2026-11-19 Source를 "GitHub Actions"로 전환, 첫 수동 배포·검사 통과, main push 자동 배포 켬. 되돌리기: Source → "Deploy from a branch" main / (root) |
 | `tools/verify_live.py` | 배포된 사이트 검사: 서비스 파일·assetlinks 일치·오프라인·개발 문서와 삭제한 원전 이미지 404 |
 | `tools/gen-android.mjs` | android/ 재생성 스크립트 (로컬 서버 http://localhost:8765 필요, 아래 참고) |
 | `tests/*.py` | Playwright 시나리오 테스트. 전체: `python3 tests/run_all.py` (`BROWSER=webkit`이면 Safari 계열). 끝 줄 `ERR []`이면 통과(19개). `iiitest.py`는 사방훈련 4곳 + 1(순서·가장 어려운 곳·동점·중도 종료·그곳만 다시·예상 시간·백업 호환), `fontofflinetest.py`는 처음 설치·업데이트 뒤 오프라인 글꼴(앱 글자 전부, WebKit SKIP). `srcfixtest.py`는 원전 검증 뒤 수정(A-III 인용 없음, 참고 목표, 정리 시간, 사방훈련 4곳+1, 원전보다 긴 날 안내, R.E.I.). `compattest.py`는 기기 크기별 화면 넘침·훈련 틀 크기, `touchtest.py`는 터치 영역 44px·겹침(9개 화면 크기×한/영×라이트/다크), `swtest.py`는 오프라인 캐시(자체 서버, WebKit은 오프라인 단계 SKIP). `run_all.py`는 마지막 줄만 보므로 SKIP도 ok로 보인다 |
 | `tools/store_shots.py` | Play 스토어 그래픽·스크린샷 생성 → `docs/store/` |
-| `docs/` | **출시 계획(`출시_계획.md`, 11/16 개정)**, **최종 병합·기록 재작성·글꼴 방안(`최종_병합_및_실기기_테스트_계획.md`)**, **실기기 최종 테스트 순서·합격 기준(`실기기_최종_테스트.md`)**, 테스트 체크리스트(실기기·기기별), Play Console 입력값 초안, 스토어 등록정보 초안, 테스터 모집 자료, `store/` 이미지 |
+| `docs/` | **출시 계획(`출시_계획.md`, 11/16 개정)**, **최종 병합·기록 재작성(11/20 재시험·영향)·최종 빌드 준비(`최종_병합_및_실기기_테스트_계획.md`)**, **실기기 최종 테스트(11/20 중요도 순 P1~P3, 휴대폰 필수 12분 코스, 오류 기록 양식·수정 위치: `실기기_최종_테스트.md`)**, 저작권 문의 자료(`저작권_사용허락_문의.md`), 테스트 체크리스트(실기기·기기별), Play Console 입력값 초안, 스토어 등록정보 초안, 테스터 모집 자료, `store/` 이미지 |
 
 **서명 키는 저장소에 없다.** 사용자가 `upload.keystore`, `upload.keystore.base64`, `secrets.txt`를 따로 보관 중. 절대 커밋하지 않는다.
 
@@ -117,7 +117,8 @@
 ## 7. 사용자 확인 대기 항목
 
 - **원전 확인 완료·수정 반영 (2026-11-19, 결과: `docs/원전_검증_결과.md`, 반영 내용은 4장)**. 확인 당시 내용: 48일 시간 배정은 과정별 시간전략 p.48·174·175와 일치(모형별 표와 다른 날은 안내 보강, "정리 및 상담활동" 미배정은 결정 필요), 단계 관문은 원전상 조건이 아닌 결과 설명(p.154 ⑲) → "참고 목표"로, 사방훈련은 4곳 모두 + 약한 곳 추가(p.73·111), C-III/D-III 방향은 현재 구현이 원전과 일치(화살표 모두 앞으로), R.E.I.는 9점 척도 × 10%(p.32 예시) → 현재 객관식 %와 다름, A-III 인용은 원전에 없음(모형 II 문구). 제2·3단계 실측값은 여전히 사용자 측정 필요. 모형 그림 쪽마다 저자 저작권 표시(2004, 1978)가 인쇄되어 있음
-- **Git 기록 재작성 (미승인)**: 2026-11-19 이전 커밋에 원전 스캔 이미지와 `count_check.py`의 원전 본문 5줄이 남아 있음. 계획은 `docs/최종_병합_및_실기기_테스트_계획.md`
+- **Git 기록 재작성 (미승인)**: 2026-11-19 이전 커밋에 원전 스캔 이미지와 `count_check.py`의 원전 본문 5줄이 남아 있음. 계획은 `docs/최종_병합_및_실기기_테스트_계획.md` 4장 (11/20 임시 복제본 재시험 통과: 5개 브랜치 최종 파일 동일, 원전 0건, 백업 복구 확인. 사용자 컴퓨터에서 실행 기준)
+- **공개 사이트는 아직 main(옛 버전: 책 제목 표시·Google Fonts·sr-v1)**. B판·수정 사항은 main 병합·배포 승인 뒤 공개된다. Android 앱도 이 웹 주소를 보여 주므로 실기기 최종 테스트는 배포 뒤
 
 - 저작권 문의 메일 발송 여부: 사용 요소·허락 범위·저자/출판사 문안·미허락 시 대체 방안은 `docs/저작권_사용허락_문의.md` (연락처 미확보, 문의 전 Git 기록 재작성 권장)
 - 추정값: L2 7일/L3 8일 분할, 제3단계 시작 빠르기 120개/분, R.M. 400자/분
