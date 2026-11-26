@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>숙제 알림장</title>
+<meta name="theme-color" content="#1f4d3a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="숙제 알림장">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* VOICE: 다정하고 또렷한 학원 알림장, 선생님·학생·부모님이 함께 쓰는 공책
+   IDEA: 칠판 머리띠 + 반 이름표 탭 + 줄 공책 + 도장 세 개(학생 했어요 / 부모님 확인 / 선생님 참 잘했어요)
+   PICTURE: 숙제 목록 자체. 선생님은 숙제마다 반 학생들의 도장 진행 막대와 학생별 도장 줄을 본다
+   COLOUR and TYPE: 칠판 초록 띠, 흰 공책, 도장 빨강, 연필 노랑 / Jua 제목 + Noto Sans KR 본문
+   LAYOUT: 칠판 띠(제목·누구인지·요약) → 반 탭 → 숙제 추가 → 필터 → 목록, 600px 아래는 도장이 제목 아래로 */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#111513);--ink:light-dark(#1b201d,#eef2ef);--mute:light-dark(#5f6b65,#9aa7a0);
+--line:light-dark(#e3e8e5,#262d29);--rule:light-dark(#dfe9f3,#1d2631);--card:light-dark(#ffffff,#171c19);--soft:light-dark(#f2f7f4,#18221d);
+--board:#1f4d3a;--board2:#183d2e;--chalk:#f4f7f2;--stamp:light-dark(#d23a2f,#ff6f62);--pencil:#f2c230;--ok:light-dark(#2f7d55,#6fcf97)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Noto Sans KR",system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(24px,4vw,48px) max(5vw,16px)}
+.wrap{max-width:980px;margin:0 auto}
+[hidden]{display:none!important}
+header{background:var(--board);color:var(--chalk);background-image:radial-gradient(120% 80% at 10% 0%,#2a6149 0,transparent 60%)}
+h1{font:400 clamp(34px,6vw,48px)/1.05 Jua,sans-serif;margin:0;text-wrap:balance}
+h2{font:400 26px/1.2 Jua,sans-serif;margin:0 0 6px}
+.sub{margin:6px 0 0;opacity:.85}
+.top{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+.who{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
+.who b{background:var(--board2);border-radius:999px;padding:8px 16px;font-weight:700}
+.linkbtn{font:inherit;font-size:14px;border:0;background:none;color:inherit;opacity:.8;text-decoration:underline;cursor:pointer;min-height:36px;padding:0 6px}
+.sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}
+.sum div{background:rgba(255,255,255,.08);border-radius:14px;padding:12px 16px}
+.sum b{display:block;font:400 32px/1.1 Jua,sans-serif;color:var(--pencil)}
+.sum span{font-size:14px;opacity:.85}
+.note{font-size:14px;color:var(--mute);margin:0 0 12px}
+.note.warn{color:var(--stamp)}
+label{display:grid;gap:4px;font-size:13px;color:var(--mute)}
+input,select{font:inherit;font-size:16px;min-height:44px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--pencil);outline-offset:2px}
+.btn{font:inherit;font-weight:700;min-height:44px;padding:0 20px;border:0;border-radius:10px;background:var(--board);color:var(--chalk);cursor:pointer}
+.btn:disabled{opacity:.5;cursor:default}
+.ghost{font:inherit;min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);cursor:pointer}
+.small{min-height:36px;font-size:14px;padding:0 12px}
+.card{padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.onb{max-width:560px;margin:8px auto 0}
+.onb .pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.onb .pick button{font:400 24px/1.2 Jua,sans-serif;min-height:96px;border:2px solid var(--line);border-radius:16px;background:var(--soft);color:var(--ink);cursor:pointer}
+.onb .pick button small{display:block;font:14px/1.4 "Noto Sans KR",sans-serif;color:var(--mute);margin-top:4px}
+.stackf{display:grid;gap:12px;margin-top:16px}
+.kids{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.kids label{display:flex;align-items:center;gap:8px;font-size:16px;color:var(--ink);min-height:44px;padding:0 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer}
+.kids input{min-height:0;width:20px;height:20px;accent-color:var(--board)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin:0 0 16px}
+.tabs button{flex:none;font:inherit;font-size:16px;min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:12px 12px 4px 4px;background:var(--soft);color:var(--ink);cursor:pointer;white-space:nowrap}
+.tabs button[aria-pressed=true]{background:var(--board);color:var(--chalk);border-color:var(--board);font-weight:700}
+.tabs i{font-style:normal;opacity:.65;margin-left:6px;font-size:14px}
+.newc{display:flex;gap:8px;flex:none}
+.newc input{width:150px}
+.subtabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin:0 0 16px}
+.subtabs button{font:inherit;min-height:44px;padding:0 14px;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;color:var(--mute);cursor:pointer}
+.subtabs button[aria-pressed=true]{color:var(--ink);border-color:var(--board);font-weight:700}
+.classbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:-4px 0 12px}
+.classbar h2{margin:0}
+form.addf{display:grid;grid-template-columns:120px minmax(0,1fr) 160px auto;gap:10px;align-items:end;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+.photo{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:0 0 12px;padding:14px 16px;border-radius:16px;background:var(--soft);border:2px dashed light-dark(#b9d3c4,#2f4a3c)}
+.photo.drag{border-color:var(--board)}
+.photo p{margin:0;flex:1 1 220px;font-size:15px;color:var(--mute)}
+.photo label.btn{display:inline-flex;align-items:center;gap:8px;color:var(--chalk);font-size:16px;cursor:pointer}
+.photo input{position:absolute;opacity:0;width:1px;height:1px}
+#review{margin:0 0 16px;padding:16px;border:2px solid var(--board);border-radius:16px;background:var(--card)}
+#review .thumb{float:right;width:88px;height:88px;object-fit:cover;border-radius:10px;margin:0 0 8px 12px;border:1px solid var(--line)}
+.rv{display:grid;grid-template-columns:28px 110px minmax(0,1fr) 160px;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.rv input[type=checkbox]{width:22px;height:22px;min-height:0;accent-color:var(--board)}
+.rvbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;clear:both}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp 1s linear infinite;vertical-align:-3px;margin-right:6px}
+@keyframes sp{to{transform:rotate(1turn)}}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 8px}
+.filters button{font:inherit;font-size:15px;min-height:40px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.filters i{font-style:normal;opacity:.6;margin-left:4px}
+ul{list-style:none;margin:0;padding:0}
+li.hw{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 20px;align-items:center;padding:16px 4px;border-bottom:2px solid var(--rule)}
+li.hw.done .ttl{color:var(--mute)}
+li.hw.t{grid-template-columns:minmax(0,1fr)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:14px;color:var(--mute)}
+.chip{display:inline-block;padding:1px 10px;border-radius:999px;font-size:13px;font-weight:700;color:#fff}
+.ttl{font-size:17px;font-weight:500;margin:4px 0 0;overflow-wrap:anywhere}
+.dday{white-space:nowrap;font-weight:700}
+.dday.late{color:var(--stamp)}.dday.today{color:#c58a00}
+.del{font:inherit;font-size:13px;border:0;background:none;color:var(--mute);cursor:pointer;padding:6px;min-height:32px;text-decoration:underline}
+.del.sure{color:var(--stamp);font-weight:700}
+.prog{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.prog div{font-size:13px;color:var(--mute)}
+.prog b{color:var(--ink);font-weight:700}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:4px}
+.bar span{display:block;height:100%;border-radius:99px;background:var(--ok)}
+.bar.p span{background:var(--pencil)}.bar.t span{background:var(--stamp)}
+.rowact{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.roster{margin-top:12px;border-top:1px dashed var(--line)}
+.sr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 16px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.sr .nm{font-weight:700}
+.sr .nm small{display:block;font-weight:400;color:var(--mute);font-size:13px}
+.stamps{display:flex;gap:10px}
+.st{display:grid;justify-items:center;gap:2px;font:inherit;background:none;border:0;padding:0;color:var(--mute);font-size:12px;cursor:pointer}
+.st:disabled{cursor:default}
+.st .o{width:58px;height:58px;border-radius:50%;border:2px dashed var(--line);display:grid;place-items:center;font:400 14px/1.05 Jua,sans-serif;text-align:center;color:transparent;transition:transform .18s}
+.sr .st .o{width:52px;height:52px;font-size:11px}
+.st.mine .o{border-color:var(--ink)}
+.st.on .o{border:3px double var(--stamp);color:var(--stamp);transform:rotate(-12deg);background:light-dark(rgba(210,58,47,.06),rgba(255,111,98,.08))}
+.st.on.s0 .o{border-color:var(--ok);color:var(--ok);background:light-dark(rgba(47,125,85,.07),rgba(111,207,151,.08))}
+.st small{font-size:11px;max-width:64px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font:inherit;font-size:14px;font-weight:500;min-height:36px;padding:0 12px;border:1px solid light-dark(#b9d3c4,#2f4a3c);border-radius:999px;background:var(--soft);color:var(--ok);cursor:pointer}
+.pfnote{margin:4px 0 0;font-size:13px;color:var(--mute)}
+.mem{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px 12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.mem select{min-height:36px;font-size:14px}
+.empty{padding:40px 16px;text-align:center;color:var(--mute);border:2px dashed var(--line);border-radius:16px}
+.empty b{display:block;font:400 26px/1.2 Jua,sans-serif;color:var(--ink);margin-bottom:6px}
+#lb{position:fixed;inset:0;z-index:10;background:rgba(10,16,13,.72);display:grid;place-items:center;padding:16px}
+.lbcard{background:var(--card);color:var(--ink);border-radius:18px;width:min(760px,100%);max-height:calc(100vh - 32px);overflow:auto;padding:18px}
+.lbhead{display:flex;gap:12px;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.lbhead h2{font-size:22px;overflow-wrap:anywhere}
+#lb-imgs{display:grid;gap:12px}
+#lb-imgs img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);display:block}
+@media(max-width:600px){
+ form.addf{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}form.addf .w{grid-column:1/-1}
+ li.hw{grid-template-columns:minmax(0,1fr)}
+ .sum b{font-size:26px}.sum span{font-size:13px}
+ .rv{grid-template-columns:28px minmax(0,1fr) minmax(0,1fr)}.rv .t{grid-column:2/-1;grid-row:1}
+ .sr{grid-template-columns:minmax(0,1fr)}
+ .mem{grid-template-columns:minmax(0,1fr) auto}.mem select{grid-column:1/-1;grid-row:2}
+ .onb .pick{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){.st .o,.spin{transition:none;animation:none}}
+</style>
+
+<style>
+header.band{padding-top:max(clamp(24px,4vw,48px),env(safe-area-inset-top))}
+#lb-x{flex:none;white-space:nowrap}
+.auth{max-width:460px;margin:8px auto 0}
+.seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:var(--soft);border-radius:14px;padding:4px;margin:12px 0 4px}
+.seg button{font:inherit;min-height:44px;border:0;border-radius:10px;background:none;color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--board);color:var(--chalk);font-weight:700}
+.pin{letter-spacing:.4em;font-variant-numeric:tabular-nums}
+.codechip{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--mute)}
+.codechip b{font:700 18px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;color:var(--ink);background:var(--soft);border:1px dashed light-dark(#b9d3c4,#2f4a3c);border-radius:8px;padding:6px 10px}
+.lock{color:var(--stamp);font-size:13px;font-weight:700}
+.memact{display:flex;flex-wrap:wrap;gap:4px 8px;justify-content:flex-end}
+.setcard{margin-top:16px}
+.btn.danger{background:var(--stamp);color:#fff}
+@media(max-width:760px){form.addf{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}form.addf .w{grid-column:1/-1}}
+.badge{font-style:normal;font-size:12px;font-weight:700;margin-left:6px;padding:1px 7px;border-radius:999px;background:var(--pencil);color:#3a2c00}
+.pendbox{margin:0 0 16px;padding:14px 16px;border-radius:14px;background:light-dark(#fff8e1,#2a2410);border:1px solid light-dark(#f2d98a,#5a4a1a);font-size:15px}
+.pendbox>b{display:block;font:400 20px/1.3 Jua,sans-serif;margin-bottom:2px}
+.pendbox .mem{border-color:light-dark(#f2d98a,#5a4a1a)}
+.own{font-size:12px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--soft);color:var(--ok);border:1px solid light-dark(#b9d3c4,#2f4a3c)}
+.own.t{color:var(--mute);border-color:var(--line)}
+</style>
+</head>
+<body>
+<header class="band">
+ <div class="wrap">
+  <div class="top">
+   <div><h1>숙제 알림장</h1><p class="sub" id="today"></p></div>
+   <div class="who" id="who"></div>
+  </div>
+  <div class="sum" id="sum" hidden></div>
+ </div>
+</header>
+
+<main class="band">
+ <div class="wrap">
+  <p class="note" id="status">불러오는 중…</p>
+  <div id="view"></div>
+  <input id="f-proof" type="file" accept="image/*" multiple hidden>
+ </div>
+</main>
+
+<div id="lb" hidden role="dialog" aria-modal="true" aria-labelledby="lb-t">
+ <div class="lbcard">
+  <div class="lbhead"><div><h2 id="lb-t"></h2><p class="note" id="lb-s"></p></div><button type="button" class="ghost" id="lb-x">닫기</button></div>
+  <div id="lb-imgs"></div>
+ </div>
+</div>
+
+<script>
+{
+// ---------- 설정 ----------
+const API_URL="https://iiyaxrwlfuodlahreipj.supabase.co";
+const API_KEY="sb_publishable_kg0crrsETsOR-ga_Iikdqw_ikWngdUR";
+
+const SUBJECTS=[["국어","#d9534f"],["수학","#2f6fd6"],["영어","#8a4fd1"],["과학","#1f9d73"],["사회","#d98a1f"],["예체능","#c2479a"],["기타","#6b7a73"]];
+const STAGES=[["student","학생","했어요"],["parent","부모님","확인"],["teacher","선생님","참 잘했어요"]];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}};
+const pad=n=>String(n).padStart(2,"0");
+const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const CAM='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+const PIC='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-8 8"/></svg>';
+$("today").textContent=new Date().toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"long"});
+
+// ---------- 서버 ----------
+const MSG={AUTH:"로그인이 끝났어요. 다시 로그인해 주세요.",FORBIDDEN:"이 작업을 할 권한이 없어요.",NOT_FOUND:"찾을 수 없어요. 새로고침해 주세요.",
+ NOT_EMPTY:"학생이 있는 반은 지울 수 없어요. 먼저 학생을 옮기거나 빼 주세요.",TAKEN:"옮길 반에 같은 이름의 학생이 이미 있어요.",NOT_SUBMITTED:"아이가 사진을 올린 뒤에 확인할 수 있어요.",
+ PHOTO_BAD:"사진을 저장하지 못했어요. 다시 찍어 올려 주세요.",PHOTO_COUNT:"사진은 1~3장 올릴 수 있어요.",NAME:"이름을 적어 주세요.",TITLE:"숙제 내용을 적어 주세요.",
+ BAD_LOGIN:"이름이나 비밀번호가 맞지 않아요.",BAD_PIN:"PIN이 맞지 않아요.",LOCKED:"여러 번 틀려서 15분 동안 잠겼어요. 잠시 후 다시 해 주세요.",NO_CLASS:"반 코드를 찾을 수 없어요. 선생님께 받은 코드를 확인해 주세요.",
+ NO_CHILD:"이 반에 그 이름의 학생이 없어요. 아이가 먼저 학생으로 등록해야 해요.",PIN_FORMAT:"PIN은 숫자 4자리예요.",PW_SHORT:"비밀번호는 6자 이상으로 정해 주세요.",ALREADY:"이미 선생님 계정이 있어요. 로그인해 주세요.",TOO_MANY:"개수가 너무 많아요. 정리한 뒤 다시 해 주세요.",PENDING:"아직 승인을 기다리고 있어요. 승인되면 같은 정보로 들어올 수 있어요.",CHILD_PENDING:"아이가 아직 선생님 승인을 기다리고 있어요. 승인된 뒤에 연결할 수 있어요.",TAKEN_NAME:"같은 이름의 선생님이 이미 있어요. 이름 뒤에 글자를 붙여 주세요.",CHECKED:"선생님이 검사한 숙제는 지울 수 없어요."};
+const msgOf=c=>MSG[c]||"잠시 문제가 생겼어요. 다시 해 주세요.";
+async function rpc(fn,args={}){
+ let r;
+ try{r=await fetch(`${API_URL}/rest/v1/rpc/${fn}`,{method:"POST",headers:{apikey:API_KEY,"Content-Type":"application/json"},body:JSON.stringify(args)})}
+ catch(e){throw{code:"NET"}}
+ const t=await r.text();let j=null;try{j=t?JSON.parse(t):null}catch(e){}
+ if(!r.ok){const code=String(j?.message||"").trim();if(code==="AUTH")logoutLocal();throw{code:MSG[code]?code:"SERVER"}}
+ if(j&&typeof j==="object"&&!Array.isArray(j)&&j.error)throw{code:j.error};
+ return j;
+}
+
+// ---------- 상태 ----------
+let token=ls.get("hw-token"),D=null,hasTeacher=true,loading=false;
+let curClass=ls.get("hw-class")||"",teacherTab="hw",filter="todo",kid="",open=new Set(),armed=null;
+let authRole=ls.get("hw-authrole")||"student",addKid=false,tSignup=false,pendingNote="",storage=null,cleanDays="30";
+const uploading=new Set(),busy=new Set();
+let checks={};
+
+function status(t,w){$("status").textContent=t;$("status").className="note"+(w?" warn":"")}
+function fail(e){status(e?.code==="NET"?"인터넷 연결을 확인해 주세요.":msgOf(e?.code),true)}
+function logoutLocal(){token=null;ls.set("hw-token",null);D=null;render()}
+async function refresh(quiet){
+ if(!token){D=null;render();return}
+ if(loading)return;loading=true;
+ try{D=await rpc("get_data",{p_token:token});checks={};for(const c of D.checks)checks[c.hw_id+"__"+c.student_id]=c;if(!quiet)status(hint())}
+ catch(e){if(e.code!=="AUTH"&&!quiet)fail(e)}
+ loading=false;render();
+}
+function hint(){const r=D?.role;return r==="teacher"?"반을 고르고 숙제를 내세요. 반 코드를 학생·부모님에게 알려 주면 가입할 수 있어요.":r==="student"?"받은 숙제를 직접 등록하고, 다 하면 사진을 찍어 ‘했어요’ 칸을 눌러 올려요.":r==="parent"?"아이가 사진을 올린 숙제에 ‘확인’ 도장을 찍어 주세요.":""}
+async function act(fn,args,ok){try{const r=await rpc(fn,{p_token:token,...args});if(ok)status(typeof ok==="function"?ok(r):ok);await refresh(true);return r}catch(e){fail(e);await refresh(true);throw e}}
+
+const subjColor=s=>(SUBJECTS.find(x=>x[0]===s)||SUBJECTS[6])[1];
+const classes=()=>D?.classes||[];
+const classOf=id=>classes().find(c=>c.id===id);
+const className=id=>classOf(id)?.name||"반 없음";
+const stu=id=>(D?.students||[]).find(s=>s.id===id);
+const stuName=id=>stu(id)?.name||"(나간 학생)";
+const classStudents=cid=>(D?.students||[]).filter(s=>s.class_id===cid&&s.approved!==false);
+const pendingStudents=cid=>(D?.students||[]).filter(s=>s.approved===false&&(!cid||s.class_id===cid));
+const pendingTeachers=()=>(D?.teachers||[]).filter(t=>t.approved===false);
+const classHw=cid=>(D?.homework||[]).filter(h=>h.class_id===cid);
+const ck=(hid,sid)=>checks[hid+"__"+sid];
+const targets=(h,sts)=>h.student_id?sts.filter(s=>s.id===h.student_id):sts;
+const studentHw=sid=>{const s=stu(sid);return (D?.homework||[]).filter(h=>h.student_id===sid||(!h.student_id&&s&&h.class_id===s.class_id))};
+const on=(c,k)=>!!(c&&c[k+"_at"]);
+const teacherName=id=>(D?.teachers||[]).find(t=>t.id===id)?.name;
+function dday(due){
+ if(!due)return["",""];
+ const n=Math.round((new Date(due+"T00:00:00")-new Date(ymd(new Date())+"T00:00:00"))/86400000);
+ if(n===0)return["오늘까지","today"];if(n<0)return[`${-n}일 지남`,"late"];return[`D-${n}`,""];
+}
+const byDue=(a,b)=>String(a.due).localeCompare(String(b.due))||String(a.created_at).localeCompare(String(b.created_at));
+const fmtD=t=>t?new Date(t).toLocaleDateString("ko-KR",{month:"numeric",day:"numeric"}):"";
+const fmtT=t=>t?new Date(t).toLocaleString("ko-KR",{month:"numeric",day:"numeric",hour:"numeric",minute:"2-digit"}):"";
+
+// ---------- 렌더 ----------
+function render(){
+ const r=D&&!addKid?D.role:null;
+ renderWho(r);
+ const v=$("view");
+ const keep=[...v.querySelectorAll("input[id]:not([type=file]),select[id]")].map(el=>[el.id,el.type==="checkbox"?el.checked:el.value]);
+ const a=document.activeElement,aid=v.contains(a)?a.id:"",sel=aid&&a.selectionStart!=null?[a.selectionStart,a.selectionEnd]:null;
+ let html;
+ if(!token)html=renderAuth();
+ else if(!D)html=`<p class="note"><span class="spin"></span>불러오는 중…</p>`;
+ else if(addKid)html=renderAddKid();
+ else html=r==="teacher"?renderTeacher():r==="student"?renderStudent():renderParent();
+ if(!r)$("sum").hidden=true;
+ v.innerHTML=html;
+ for(const [id,val] of keep){const el=document.getElementById(id);if(el&&v.contains(el)){if(el.type==="checkbox")el.checked=val;else if(el.tagName!=="SELECT"||[...el.options].some(o=>o.value===val))el.value=val}}
+ if(aid){const el=document.getElementById(aid);if(el){el.focus();if(sel)try{el.setSelectionRange(...sel)}catch(e){}}}
+}
+function renderWho(r){
+ let h="";
+ if(r==="teacher")h=`<b>${esc(D.me?.name||"선생님")} 선생님</b>`;
+ if(r==="student")h=`<b>${esc(D.me?.name)} · ${esc(className(D.me?.class_id))}</b>`;
+ if(r==="parent")h=`<b>부모님</b><button type="button" class="linkbtn" data-act="addkid">아이 추가</button>`;
+ if(token&&D)h+=`<button type="button" class="linkbtn" data-act="logout">로그아웃</button>`;
+ $("who").innerHTML=h;
+}
+function sumBox(items){$("sum").hidden=false;$("sum").innerHTML=items.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join("")}
+
+// --- 로그인 ---
+function renderAuth(){
+ if(!hasTeacher)return `<div class="card auth"><h2>처음 설정</h2><p class="note">이 앱을 쓸 선생님 계정을 먼저 만들어요. 이 화면은 맨 처음 한 번만 나와요.</p>
+  <form class="stackf" id="f-setup"><label>선생님 이름<input id="a-tname" required maxlength="20" autocomplete="username" placeholder="예: 박지은"></label>
+  <label>비밀번호 (6자 이상)<input id="a-tpw" type="password" required minlength="6" autocomplete="new-password"></label>
+  <button class="btn" type="submit">선생님 계정 만들기</button></form></div>`;
+ const seg=`<div class="seg" role="group" aria-label="누구세요">${[["student","학생"],["parent","부모님"],["teacher","선생님"]].map(([k,l])=>`<button type="button" data-act="authrole" data-v="${k}" aria-pressed="${authRole===k}">${l}</button>`).join("")}</div>`;
+ let f="";
+ if(authRole==="student")f=`<p class="note">처음이면 이름과 PIN을 정해서 가입 신청을 해요. 선생님이 승인하면 같은 이름과 PIN으로 들어와요.</p>
+  <form class="stackf" id="f-student"><label>반 코드 (선생님께 받은 6자리)<input id="a-code" required maxlength="8" autocapitalize="characters" autocomplete="off" placeholder="예: K7M2QX"></label>
+  <label>내 이름<input id="a-name" required maxlength="20" placeholder="예: 김민준"></label>
+  <label>PIN (숫자 4자리)<input id="a-pin" class="pin" required inputmode="numeric" pattern="\\d{4}" maxlength="4" autocomplete="off"></label>
+  <button class="btn" type="submit">들어가기</button></form>`;
+ if(authRole==="parent")f=`<p class="note">아이가 먼저 학생으로 등록해야 해요. 처음이면 부모님 PIN을 새로 정하게 돼요. 아이 PIN과 다르게 정해 주세요.</p>
+  <form class="stackf" id="f-parent"><label>아이의 반 코드<input id="a-code" required maxlength="8" autocapitalize="characters" autocomplete="off"></label>
+  <label>아이 이름<input id="a-name" required maxlength="20"></label>
+  <label>부모님 PIN (숫자 4자리)<input id="a-pin" class="pin" required inputmode="numeric" pattern="\\d{4}" maxlength="4" autocomplete="off"></label>
+  <button class="btn" type="submit">들어가기</button></form>`;
+ if(authRole==="teacher"&&!tSignup)f=`<form class="stackf" id="f-teacher"><label>선생님 이름<input id="a-tname" required maxlength="20" autocomplete="username"></label>
+  <label>비밀번호<input id="a-tpw" type="password" required autocomplete="current-password"></label>
+  <button class="btn" type="submit">로그인</button></form><p class="note" style="margin:14px 0 0">처음 오신 선생님이세요? <button type="button" class="linkbtn" style="color:var(--ok);opacity:1" data-act="tsignup" data-v="1">가입 신청하기</button></p>`;
+ if(authRole==="teacher"&&tSignup)f=`<p class="note">가입 신청을 하면 이미 쓰고 있는 선생님이 승인해 줘야 로그인할 수 있어요.</p>
+  <form class="stackf" id="f-tsignup"><label>선생님 이름<input id="a-tname" required maxlength="20" autocomplete="username" placeholder="예: 이수진"></label>
+  <label>비밀번호 (6자 이상)<input id="a-tpw" type="password" required minlength="6" autocomplete="new-password"></label>
+  <label>비밀번호 확인<input id="a-tpw2" type="password" required minlength="6" autocomplete="new-password"></label>
+  <div class="rvbar"><button class="btn" type="submit">가입 신청</button><button class="ghost" type="button" data-act="tsignup" data-v="">로그인으로</button></div></form>`;
+ const note=pendingNote?`<div class="pendbox"><b>승인 대기 중</b>${esc(pendingNote)}</div>`:"";
+ return `<div class="card auth"><h2>누구세요?</h2>${seg}${note}${f}</div>`;
+}
+function renderAddKid(){
+ return `<div class="card auth"><h2>아이 추가</h2><p class="note">형제자매가 있으면 한 명씩 추가하세요. 부모님 PIN은 그 아이용으로 정한 PIN이에요.</p>
+  <form class="stackf" id="f-addkid"><label>아이의 반 코드<input id="a-code" required maxlength="8" autocapitalize="characters" autocomplete="off"></label>
+  <label>아이 이름<input id="a-name" required maxlength="20"></label>
+  <label>부모님 PIN (숫자 4자리)<input id="a-pin" class="pin" required inputmode="numeric" pattern="\\d{4}" maxlength="4" autocomplete="off"></label>
+  <div class="rvbar"><button class="btn" type="submit">추가하기</button><button class="ghost" type="button" data-act="cancelkid">취소</button></div></form></div>`;
+}
+
+// --- 선생님 ---
+function renderTeacher(){
+ const cls=classes();
+ if(!cls.find(c=>c.id===curClass))curClass=cls[0]?.id||"";
+ const tabs=`<div class="tabs" role="group" aria-label="반">${cls.map(c=>`<button type="button" data-act="class" data-v="${esc(c.id)}" aria-pressed="${c.id===curClass&&teacherTab!=="set"}">${esc(c.name)}<i>${classStudents(c.id).length}명</i>${pendingStudents(c.id).length?`<em class="badge">대기 ${pendingStudents(c.id).length}</em>`:""}</button>`).join("")}
+  <form class="newc" id="newc"><input id="c-name" maxlength="20" placeholder="새 반 이름" aria-label="새 반 이름" required><button class="ghost" type="submit">반 만들기</button></form>
+  <button type="button" data-act="ttab" data-v="set" aria-pressed="${teacherTab==="set"}">설정${pendingTeachers().length?`<em class="badge">대기 ${pendingTeachers().length}</em>`:""}</button></div>`;
+ if(teacherTab==="set"){$("sum").hidden=true;return tabs+renderSettings()}
+ if(!curClass){$("sum").hidden=true;return tabs+`<div class="empty"><b>먼저 반을 만들어요</b>‘초5 A반’, ‘중1 수학’처럼 이름을 적고 ‘반 만들기’를 누르세요. 반마다 가입 코드가 생겨요.</div>`}
+ const c=classOf(curClass),sts=classStudents(curClass),list=classHw(curClass);
+ const waiting=list.reduce((n,h)=>n+targets(h,sts).filter(s=>on(ck(h.id,s.id),"student")&&!on(ck(h.id,s.id),"teacher")).length,0);
+ const done=h=>{const t=targets(h,sts);return t.length&&t.every(s=>on(ck(h.id,s.id),"teacher"))};
+ sumBox([[sts.length,"이 반 학생"],[waiting,"검사 기다리는 숙제"],[list.filter(h=>!done(h)).length,"진행 중인 숙제"]]);
+ const bar=`<div class="classbar"><div><h2>${esc(c.name)}</h2><span class="codechip">가입 코드 <b>${esc(c.code)}</b><button type="button" class="ghost small" data-act="copy" data-v="${esc(c.code)}">복사</button></span></div>
+  <div class="rowact" style="margin:0"><button type="button" class="ghost small" data-act="rename">반 이름 바꾸기</button>
+  ${!sts.length&&!pendingStudents(curClass).length?`<button type="button" class="del${armed==="class"?" sure":""}" data-act="delclass">${armed==="class"?"정말 이 반을 지울까요? (숙제도 지워져요)":"반 지우기"}</button>`:""}</div></div>`;
+ const pend=pendingStudents(curClass);
+ const sub=`<div class="subtabs" role="group"><button type="button" data-act="ttab" data-v="hw" aria-pressed="${teacherTab==="hw"}">숙제 (${list.length})</button><button type="button" data-act="ttab" data-v="mem" aria-pressed="${teacherTab==="mem"}">학생 명단 (${sts.length})${pend.length?`<em class="badge">대기 ${pend.length}</em>`:""}</button></div>`
+  +(pend.length&&teacherTab!=="mem"?`<div class="pendbox"><b>가입 신청 ${pend.length}명</b>${pend.slice(0,5).map(x=>esc(x.name)).join(", ")}${pend.length>5?" 외":""} 학생이 승인을 기다리고 있어요. <button type="button" class="ghost small" data-act="ttab" data-v="mem">명단에서 승인하기</button></div>`:"");
+ if(teacherTab==="mem")return tabs+bar+sub+renderMembers(sts);
+ const fl=[["todo","진행 중",list.filter(h=>!done(h)).length],["own","학생이 등록",list.filter(h=>h.student_id).length],["done","검사 완료",list.filter(done).length],["all","전체",list.length]];
+ let v=list.slice().sort(byDue);if(filter==="todo")v=v.filter(h=>!done(h));if(filter==="done")v=v.filter(done);if(filter==="own")v=v.filter(h=>h.student_id);
+ return tabs+bar+sub+`
+  <form class="addf" id="add" autocomplete="off">
+   <label>과목<select id="f-sub">${SUBJECTS.map(([s])=>`<option>${s}</option>`).join("")}</select></label>
+   <label class="w">숙제 내용<input id="f-title" required maxlength="120" placeholder="예: 수학익힘책 24~25쪽 풀기"></label>
+   <label>마감일<input id="f-due" type="date" required value="${ymd(new Date(Date.now()+86400000))}"></label>
+   <button class="btn w" type="submit">${esc(c.name)}에 숙제 내기</button>
+  </form>
+  <div class="filters" role="group" aria-label="보기">${fl.map(([k,l,n])=>`<button type="button" data-act="filter" data-v="${k}" aria-pressed="${k===filter}">${l}<i>${n}</i></button>`).join("")}</div>
+  <ul>${v.length?v.map(h=>teacherRow(h,sts)).join(""):`<li class="empty"><b>${list.length?"여기는 비어 있어요":"아직 낸 숙제가 없어요"}</b>${list.length?"다른 보기를 눌러 보세요.":"위 칸에 숙제를 적고 ‘숙제 내기’를 누르세요. 학생이 직접 등록한 숙제도 여기 보여요."}</li>`}</ul>`;
+}
+function teacherRow(h,all){
+ const sts=targets(h,all),n=sts.length||1,c=k=>sts.filter(s=>on(ck(h.id,s.id),k)).length;
+ const a=c("student"),p=c("parent"),t=c("teacher"),[dl,dc]=dday(h.due),isOpen=open.has(h.id);
+ const ready=sts.filter(s=>on(ck(h.id,s.id),"student")&&!on(ck(h.id,s.id),"teacher")).length;
+ return `<li class="hw t"><div>
+  <div class="meta"><span class="chip" style="background:${subjColor(h.subject)}">${esc(h.subject)}</span>${h.student_id?`<span class="own">${esc(stuName(h.student_id))} 등록</span>`:""}<span class="dday ${dc}">${dl}</span><span>${esc(h.due)}</span>
+  <button type="button" class="del${armed===h.id?" sure":""}" data-act="delhw" data-v="${esc(h.id)}">${armed===h.id?"정말 삭제할까요?":"삭제"}</button></div>
+  <p class="ttl">${esc(h.title)}</p>
+  <div class="prog">${[["사진 제출",a,""],["부모님 확인",p,"p"],["검사 완료",t,"t"]].map(([l,x,cl])=>`<div>${l} <b>${x}/${sts.length}</b><div class="bar ${cl}"><span style="width:${Math.round(x/n*100)}%"></span></div></div>`).join("")}</div>
+  <div class="rowact"><button type="button" class="ghost small" data-act="toggle" data-v="${esc(h.id)}" aria-expanded="${isOpen}">${isOpen?"학생별 접기":"학생별 보기"}</button>
+  ${ready?`<button type="button" class="btn small" data-act="checkall" data-v="${esc(h.id)}">제출한 ${ready}명 모두 검사</button>`:""}</div>
+  ${isOpen?`<div class="roster">${sts.length?sts.map(s=>studentLine(h,s)).join(""):`<p class="note" style="margin-top:12px">이 반에 등록한 학생이 아직 없어요.</p>`}</div>`:""}
+ </div></li>`;
+}
+function studentLine(h,s){
+ const c=ck(h.id,s.id),np=c?.photos||0;
+ return `<div class="sr"><div class="nm">${esc(s.name)}<small>${on(c,"student")?`${fmtT(c.student_at)} 제출`:"아직 안 냄"}</small>
+  ${np?`<button type="button" class="pf" data-act="photos" data-h="${esc(h.id)}" data-s="${esc(s.id)}">${PIC}사진 ${np}장</button>`:on(c,"student")?`<small>사진 정리됨</small>`:""}</div>
+  <div class="stamps">${stamps(h,s.id,c,"teacher")}</div></div>`;
+}
+function renderMembers(sts){
+ const c=classOf(curClass),pend=pendingStudents(curClass);
+ const pendHtml=pend.length?`<div class="pendbox"><b>가입 신청 ${pend.length}명</b>이름을 확인하고 우리 반 학생이 맞으면 승인해 주세요. 거절하면 신청이 지워져요.
+  ${pend.map(x=>`<div class="mem"><div><b>${esc(x.name)}</b><div class="note" style="margin:0">${fmtT(x.created_at)} 신청</div></div><span></span><div class="memact"><button type="button" class="btn small" data-act="approve" data-v="${esc(x.id)}">승인</button><button type="button" class="del${armed==="x"+x.id?" sure":""}" data-act="reject" data-v="${esc(x.id)}">${armed==="x"+x.id?"정말 거절할까요?":"거절"}</button></div></div>`).join("")}
+  ${pend.length>1?`<div class="rvbar"><button type="button" class="btn small" data-act="approveall">${pend.length}명 모두 승인</button></div>`:""}</div>`:"";
+ if(!sts.length)return pendHtml+`<div class="empty"><b>아직 승인된 학생이 없어요</b>학생에게 앱 주소와 가입 코드 <strong>${esc(c.code)}</strong>를 알려 주세요. 학생이 이름과 PIN을 정해 가입 신청을 하면 위에 승인 요청이 떠요.</div>`;
+ const opts=cur=>classes().map(x=>`<option value="${esc(x.id)}"${x.id===cur?" selected":""}>${esc(x.name)}</option>`).join("");
+ return pendHtml+`<p class="note">학생이 직접 이름을 등록해요. PIN을 잊었으면 ‘PIN 초기화’를 누르세요. 다음에 들어올 때 새 PIN을 정하게 돼요.</p>`+sts.map(s=>`<div class="mem"><div><b>${esc(s.name)}</b> ${s.locked?`<span class="lock">잠김</span>`:""}<div class="note" style="margin:0">${fmtD(s.created_at)} 등록</div></div>
+  <select data-act="move" data-v="${esc(s.id)}" aria-label="${esc(s.name)} 반 옮기기">${opts(s.class_id)}</select>
+  <div class="memact"><button type="button" class="del" data-act="resetpin" data-v="${esc(s.id)}" data-w="student">학생 PIN 초기화</button><button type="button" class="del" data-act="resetpin" data-v="${esc(s.id)}" data-w="parent">부모님 PIN 초기화</button>
+  <button type="button" class="del${armed==="m"+s.id?" sure":""}" data-act="delstu" data-v="${esc(s.id)}">${armed==="m"+s.id?"정말 뺄까요? (기록도 지워져요)":"명단에서 빼기"}</button></div></div>`).join("");
+}
+function renderSettings(){
+ const ts=(D.teachers||[]).filter(t=>t.approved!==false),pt=pendingTeachers();
+ const ptHtml=pt.length?`<div class="pendbox"><b>선생님 가입 신청 ${pt.length}명</b>함께 일하는 선생님이 맞는지 확인하고 승인해 주세요. 승인하면 모든 반과 학생 기록을 볼 수 있어요.
+  ${pt.map(t=>`<div class="mem"><div><b>${esc(t.name)}</b><div class="note" style="margin:0">${fmtT(t.created_at)} 신청</div></div><span></span><div class="memact"><button type="button" class="btn small" data-act="tapprove" data-v="${esc(t.id)}">승인</button><button type="button" class="del${armed==="t"+t.id?" sure":""}" data-act="treject" data-v="${esc(t.id)}">${armed==="t"+t.id?"정말 거절할까요?":"거절"}</button></div></div>`).join("")}</div>`:"";
+ return ptHtml+`<div class="card"><h2>선생님 계정</h2><p class="note">함께 가르치는 선생님은 로그인 화면에서 ‘가입 신청’을 하면 위에 승인 요청이 떠요. 여기서 바로 계정을 만들어 줄 수도 있어요.</p>
+  <p>${ts.map(t=>esc(t.name)).join(", ")}</p>
+  <form class="stackf" id="f-addteacher"><label>선생님 이름<input id="s-tname" required maxlength="20" autocomplete="off"></label>
+  <label>처음 비밀번호 (6자 이상)<input id="s-tpw" type="password" required minlength="6" autocomplete="new-password"></label>
+  <button class="btn" type="submit">선생님 추가</button></form></div>
+  ${storageCard()}
+  <div class="card setcard"><h2>앱처럼 쓰기</h2><p class="note">휴대폰에서 이 주소를 연 뒤 아이폰은 공유 버튼 → ‘홈 화면에 추가’, 안드로이드는 메뉴 → ‘홈 화면에 추가’를 누르면 아이콘이 생겨요. 학생·부모님에게도 같이 알려 주세요.</p></div>`;
+}
+
+function storageCard(){
+ if(!storage)return `<div class="card setcard"><h2>사진 저장 공간</h2><p class="note"><span class="spin"></span>확인하는 중…</p></div>`;
+ const mb=b=>(b/1048576).toFixed(b<10485760?1:0)+"MB",pct=Math.min(100,Math.round(storage.db_bytes/storage.limit_bytes*100));
+ const opts=[["30","검사 끝난 지 30일 지난 사진"],["14","검사 끝난 지 14일 지난 사진"],["7","검사 끝난 지 7일 지난 사진"],["0","검사 끝난 사진 전부"]];
+ const n=+(storage.checked?.[cleanDays]||0);
+ return `<div class="card setcard"><h2>사진 저장 공간</h2>
+  <p style="margin:0 0 4px"><b>${mb(storage.db_bytes)}</b> / ${mb(storage.limit_bytes)} 사용 중 (${pct}%)</p>
+  <div class="bar${pct>=80?" t":""}" style="height:12px"><span style="width:${Math.max(pct,1)}%"></span></div>
+  <p class="note" style="margin-top:8px">숙제 사진 ${storage.photo_count}장 (${mb(storage.photo_bytes)}). 무료 플랜은 500MB까지 쓸 수 있고, 다 차면 새 사진과 도장을 저장할 수 없어요.</p>
+  <p class="note">매일 새벽 3시에 <b>검사 끝난 지 30일 지난 사진</b>은 자동으로 지워져요. 도장 기록은 그대로 남아요.</p>
+  <div class="newc" style="flex-wrap:wrap"><select id="clean-days" aria-label="지울 사진">${opts.map(([v,l])=>`<option value="${v}"${v===cleanDays?" selected":""}>${l} (${storage.checked?.[v]||0}장)</option>`).join("")}</select>
+  <button type="button" class="${armed==="clean"?"btn danger":"ghost"}" data-act="clean"${n?"":" disabled"}>${armed==="clean"?`정말 ${n}장을 지울까요?`:"지금 지우기"}</button></div>
+  <p class="note" style="margin-top:8px">지운 사진은 되돌릴 수 없어요. 사용량 숫자는 바로 줄지 않을 수 있지만, 빈 공간은 새 사진에 다시 쓰여요.</p></div>`;
+}
+async function loadStorage(){try{storage=await rpc("storage_info",{p_token:token});render()}catch(e){}}
+
+// --- 학생 / 부모님 ---
+function personalList(sid,who){
+ const s=stu(sid);if(!s)return `<div class="empty"><b>학생 정보를 찾을 수 없어요</b>선생님께 확인해 주세요.</div>`;
+ const list=studentHw(sid),mine=h=>!on(ck(h.id,sid),who);
+ const fl=[["todo",who==="student"?"할 일":"확인할 것",list.filter(mine).length],["done","검사 완료",list.filter(h=>on(ck(h.id,sid),"teacher")).length],["all","전체",list.length]];
+ let v=list.slice().sort((a,b)=>(on(ck(a.id,sid),"teacher")-on(ck(b.id,sid),"teacher"))||byDue(a,b));
+ if(filter==="todo")v=v.filter(mine);if(filter==="done")v=v.filter(h=>on(ck(h.id,sid),"teacher"));
+ const rows=v.map(h=>{
+  const c=ck(h.id,sid),np=c?.photos||0,[dl,dc]=on(c,"teacher")?["검사 완료",""]:dday(h.due),key=h.id+"__"+sid;
+  let extra;
+  if(uploading.has(key))extra=`<p class="pfnote"><span class="spin"></span>숙제 사진 올리는 중…</p>`;
+  else if(np)extra=`<button type="button" class="pf" data-act="photos" data-h="${esc(h.id)}" data-s="${esc(sid)}">${PIC}숙제한 사진 ${np}장 보기</button>`;
+  else if(on(c,"student"))extra=`<p class="pfnote">사진은 정리됐어요. 도장 기록은 남아 있어요.</p>`;
+  else extra=`<p class="pfnote">${who==="student"?"숙제를 다 하면 사진을 찍어 ‘했어요’ 칸을 눌러 올려요.":"아이가 사진을 올리면 확인 도장을 찍을 수 있어요."}</p>`;
+  const ownTag=h.student_id?`<span class="own">${who==="student"?"내가 등록":"아이가 등록"}</span>`:`<span class="own t">선생님</span>`;
+  const del=who==="student"&&h.student_id&&!on(c,"teacher")?`<button type="button" class="del${armed===h.id?" sure":""}" data-act="delmy" data-v="${esc(h.id)}">${armed===h.id?"정말 지울까요?":"지우기"}</button>`:"";
+  return `<li class="hw${on(c,"teacher")?" done":""}"><div><div class="meta"><span class="chip" style="background:${subjColor(h.subject)}">${esc(h.subject)}</span>${ownTag}<span class="dday ${dc}">${dl}</span><span>${esc(h.due)}</span>${del}</div>
+   <p class="ttl">${esc(h.title)}</p>${extra}</div><div class="stamps">${stamps(h,sid,c,who)}</div></li>`;
+ }).join("");
+ const form=who==="student"?`<form class="addf" id="myhw" autocomplete="off">
+   <label>과목<select id="m-sub">${SUBJECTS.map(([x])=>`<option>${x}</option>`).join("")}</select></label>
+   <label class="w">오늘 받은 숙제<input id="m-title" required maxlength="120" placeholder="예: 학교 수학익힘책 24쪽"></label>
+   <label>마감일<input id="m-due" type="date" required value="${ymd(new Date(Date.now()+86400000))}"></label>
+   <button class="btn w" type="submit">내 숙제 추가</button></form><p class="note" style="margin-top:8px">내가 등록한 숙제는 나와 부모님, 선생님만 볼 수 있어요.</p>`:"";
+ return form+`<div class="filters" role="group" aria-label="보기">${fl.map(([k,l,n])=>`<button type="button" data-act="filter" data-v="${k}" aria-pressed="${k===filter}">${l}<i>${n}</i></button>`).join("")}</div>
+  <ul>${rows||`<li class="empty"><b>${list.length?"여기는 비어 있어요":"아직 숙제가 없어요"}</b>${list.length?"다른 보기를 눌러 보세요.":who==="student"?"위 칸에 오늘 받은 숙제를 적어 보세요.":"아이가 숙제를 등록하거나 선생님이 숙제를 내면 여기 보여요."}</li>`}</ul>`;
+}
+function stamps(h,sid,c,who){
+ return STAGES.map(([k,l,word],i)=>{
+  const o=on(c,k),mine=k===who;
+  let can=mine;if(k==="parent"&&!on(c,"student")&&!o)can=false;
+  const lab=o?(k==="teacher"&&teacherName(c.teacher_id))||fmtD(c[k+"_at"]):l;
+  const icon=!o&&mine&&k==="student"?`<span style="color:var(--ink)">${CAM}</span>`:"";
+  return `<button type="button" class="st s${i}${o?" on":""}${mine?" mine":""}" data-act="stamp" data-h="${esc(h.id)}" data-s="${esc(sid)}" data-k="${k}" ${can?"":"disabled"} aria-pressed="${o}" aria-label="${l} ${word}">
+   <span class="o">${o?word.replace(" ","<br>"):icon}</span><small>${esc(lab)}</small></button>`;
+ }).join("");
+}
+function renderStudent(){
+ const sid=D.me.id,list=studentHw(sid),c=h=>ck(h.id,sid);
+ sumBox([[list.filter(h=>!on(c(h),"student")).length,"아직 안 한 숙제"],[list.filter(h=>on(c(h),"student")&&!on(c(h),"parent")).length,"부모님 확인 기다리는 중"],[list.filter(h=>on(c(h),"teacher")).length,"선생님 검사 끝"]]);
+ return personalList(sid,"student");
+}
+function renderParent(){
+ const kids=(D.students||[]).map(s=>s.id);
+ if(!kids.includes(kid))kid=kids[0]||"";
+ if(!kid){$("sum").hidden=true;return `<div class="empty"><b>연결된 아이가 없어요</b>선생님이 PIN을 초기화했거나 아이가 명단에서 빠졌을 수 있어요. 위의 ‘아이 추가’를 눌러 다시 연결해 주세요.</div>`}
+ const s=stu(kid),list=studentHw(kid),c=h=>ck(h.id,kid);
+ sumBox([[list.filter(h=>!on(c(h),"student")).length,"아이가 아직 안 한 숙제"],[list.filter(h=>on(c(h),"student")&&!on(c(h),"parent")).length,"내가 확인할 숙제"],[list.filter(h=>on(c(h),"teacher")).length,"선생님 검사 끝"]]);
+ const tabs=kids.length>1?`<div class="tabs" role="group" aria-label="아이">${kids.map(id=>`<button type="button" data-act="kid" data-v="${esc(id)}" aria-pressed="${id===kid}">${esc(stuName(id))}<i>${esc(className(stu(id).class_id))}</i></button>`).join("")}</div>`:`<p class="note">${esc(s.name)} · ${esc(className(s.class_id))}</p>`;
+ return tabs+personalList(kid,"parent");
+}
+
+// ---------- 학생 사진 제출 ----------
+function loadImg(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),i=new Image();i.onload=()=>{URL.revokeObjectURL(u);res(i)};i.onerror=()=>{URL.revokeObjectURL(u);rej(new Error("img"))};i.src=u})}
+async function shrink(file,steps=[[1280,.72],[1080,.62],[900,.55],[720,.5]],limit=280000){
+ const img=await loadImg(file);
+ for(const [side,q] of steps){
+  const r=Math.min(1,side/Math.max(img.naturalWidth,img.naturalHeight)),c=document.createElement("canvas");
+  c.width=Math.round(img.naturalWidth*r);c.height=Math.round(img.naturalHeight*r);
+  const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);
+  const d=c.toDataURL("image/jpeg",q);if(d.length<limit)return d;
+ }
+ throw new Error("big");
+}
+let proofFor=null;
+async function submitProof(hid,files){
+ files=[...files].filter(f=>/^image\//.test(f.type)).slice(0,3);if(!files.length)return;
+ const key=hid+"__"+D.me.id;uploading.add(key);render();
+ try{const imgs=[];for(const f of files)imgs.push(await shrink(f));await act("submit_homework",{p_hw:hid,p_imgs:imgs},"숙제 사진을 올리고 ‘했어요’ 도장을 찍었어요.")}
+ catch(err){if(err?.message==="img")status("이 사진은 열 수 없어요. JPG나 PNG로 다시 올려 주세요.",true);else if(err?.message==="big")status("사진이 너무 커요. 조금 작게 찍어서 다시 올려 주세요.",true)}
+ uploading.delete(key);render();
+}
+$("f-proof").addEventListener("change",e=>{const f=e.target.files,id=proofFor;proofFor=null;if(id&&f?.length)submitProof(id,f);e.target.value=""});
+
+// ---------- 사진 보기 ----------
+const lb=$("lb");
+async function openPhotos(hid,sid){
+ const h=(D.homework||[]).find(x=>x.id===hid),c=ck(hid,sid);if(!h||!c)return;
+ $("lb-t").textContent=`${stuName(sid)} · ${h.subject} · ${h.title}`;
+ $("lb-s").textContent=`${fmtT(c.student_at)} 올림`;
+ const box=$("lb-imgs");box.innerHTML=`<p class="note"><span class="spin"></span>사진 불러오는 중…</p>`;
+ lb.hidden=false;$("lb-x").focus();
+ let pics=[];try{pics=await rpc("get_photos",{p_token:token,p_hw:hid,p_student:sid})||[]}catch(e){}
+ box.innerHTML="";
+ if(!pics.length){const p=document.createElement("p");p.className="note";p.textContent="사진을 불러오지 못했어요.";box.append(p)}
+ for(const d of pics){if(typeof d==="string"&&/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(d)){const i=new Image();i.src=d;i.alt="숙제한 사진";box.append(i)}}
+}
+const closeLb=()=>{lb.hidden=true;$("lb-imgs").innerHTML=""};
+$("lb-x").addEventListener("click",closeLb);
+lb.addEventListener("click",e=>{if(e.target===lb)closeLb()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!lb.hidden)closeLb()});
+
+// ---------- 이벤트 ----------
+function arm(k){armed=k;render();setTimeout(()=>{if(armed===k){armed=null;render()}},4000)}
+const view=$("view");
+async function login(fn,args){
+ try{const r=await rpc(fn,args);
+  if(r?.pending){pendingNote=fn==="student_login"?(r.new?"가입 신청을 보냈어요! 선생님이 승인하면 같은 반 코드, 이름, PIN으로 들어올 수 있어요.":MSG.PENDING):MSG.PENDING;status("");render();return}
+  token=r.token;ls.set("hw-token",token);addKid=false;filter="todo";D=null;render();await refresh()}catch(e){fail(e)}
+}
+$("who").addEventListener("click",async e=>{
+ const b=e.target.closest("[data-act]");if(!b)return;
+ if(b.dataset.act==="logout"){const t=token;logoutLocal();status("로그아웃했어요.");rpc("logout",{p_token:t}).catch(()=>{})}
+ if(b.dataset.act==="addkid"){addKid=true;render()}
+});
+view.addEventListener("click",async e=>{
+ const b=e.target.closest("[data-act]");if(!b||b.tagName==="SELECT")return;
+ const a=b.dataset.act,v=b.dataset.v;
+ if(a==="authrole"){authRole=v;ls.set("hw-authrole",v);tSignup=false;pendingNote="";render();return}
+ if(a==="tsignup"){tSignup=!!v;pendingNote="";render();return}
+ if(a==="approve"){act("approve_students",{p_ids:[v],p_ok:true},`${stuName(v)} 학생을 승인했어요.`).catch(()=>{});return}
+ if(a==="approveall"){const ids=pendingStudents(curClass).map(x=>x.id);act("approve_students",{p_ids:ids,p_ok:true},n=>`${n}명을 승인했어요.`).catch(()=>{});return}
+ if(a==="reject"){if(armed!=="x"+v)return arm("x"+v);armed=null;act("approve_students",{p_ids:[v],p_ok:false},"가입 신청을 거절했어요.").catch(()=>{});return}
+ if(a==="tapprove"){act("approve_teacher",{p_id:v,p_ok:true},"선생님을 승인했어요. 이제 로그인할 수 있어요.").catch(()=>{});return}
+ if(a==="treject"){if(armed!=="t"+v)return arm("t"+v);armed=null;act("approve_teacher",{p_id:v,p_ok:false},"선생님 가입 신청을 거절했어요.").catch(()=>{});return}
+ if(a==="cancelkid"){addKid=false;render();return}
+ if(a==="class"){curClass=v;ls.set("hw-class",v);open.clear();if(teacherTab==="set")teacherTab="hw";render();return}
+ if(a==="ttab"){teacherTab=v;if(v==="set"){storage=null;loadStorage()}render();return}
+ if(a==="clean"){if(armed!=="clean")return arm("clean");armed=null;const n=await act("cleanup_photos",{p_days:+cleanDays},n=>`사진 ${n}장을 지웠어요.`).catch(()=>null);loadStorage();return}
+ if(a==="filter"){filter=v;render();return}
+ if(a==="kid"){kid=v;render();return}
+ if(a==="toggle"){open.has(v)?open.delete(v):open.add(v);render();return}
+ if(a==="photos"){openPhotos(b.dataset.h,b.dataset.s);return}
+ if(a==="copy"){try{await navigator.clipboard.writeText(v);status(`가입 코드 ${v}를 복사했어요.`)}catch(err){status(`가입 코드: ${v}`)}return}
+ if(a==="rename"){const c=classOf(curClass);const bar=b.closest(".classbar");
+  bar.innerHTML=`<form class="newc" id="ren"><input id="ren-in" maxlength="20" required aria-label="반 이름"><button class="btn small" type="submit">저장</button><button class="ghost small" type="button" data-act="ttab" data-v="${teacherTab}">취소</button></form>`;
+  $("ren-in").value=c?.name||"";$("ren-in").focus();return}
+ if(a==="delclass"){if(armed!=="class")return arm("class");armed=null;act("delete_class",{p_id:curClass},"반을 지웠어요.").then(()=>{curClass=""}).catch(()=>{});return}
+ if(a==="delhw"){if(armed!==v)return arm(v);armed=null;act("delete_homework",{p_id:v},"숙제를 지웠어요.").catch(()=>{});return}
+ if(a==="delmy"){if(armed!==v)return arm(v);armed=null;act("student_delete_homework",{p_id:v},"숙제를 지웠어요.").catch(()=>{});return}
+ if(a==="delstu"){if(armed!=="m"+v)return arm("m"+v);armed=null;act("remove_student",{p_student:v},"명단에서 뺐어요.").catch(()=>{});return}
+ if(a==="resetpin"){const w=b.dataset.w;if(armed!=="r"+w+v){armed="r"+w+v;b.textContent="정말 초기화할까요?";b.classList.add("sure");setTimeout(()=>{if(armed==="r"+w+v){armed=null;render()}},4000);return}
+  armed=null;act("reset_pin",{p_student:v,p_which:w},`${stuName(v)} ${w==="parent"?"부모님":"학생"} PIN을 초기화했어요. 다음에 들어올 때 새 PIN을 정하면 돼요.`).catch(()=>{});return}
+ if(a==="checkall"){b.disabled=true;act("teacher_stamp_all",{p_hw:v},n=>`${n}명 검사 도장을 찍었어요.`).catch(()=>{});return}
+ if(a==="stamp"){
+  const hid=b.dataset.h,sid=b.dataset.s,k=b.dataset.k,key=hid+"__"+sid;if(busy.has(key)||uploading.has(key))return;
+  const c=ck(hid,sid),o=on(c,k);
+  if(k==="student"&&!o){proofFor=hid;$("f-proof").click();return}
+  busy.add(key);
+  try{
+   if(k==="student")await act("unsubmit_homework",{p_hw:hid},"제출을 취소했어요.");
+   if(k==="parent")await act("parent_stamp",{p_hw:hid,p_student:sid,p_on:!o});
+   if(k==="teacher")await act("teacher_stamp",{p_hw:hid,p_student:sid,p_on:!o});
+  }catch(err){}
+  busy.delete(key);
+ }
+});
+view.addEventListener("change",e=>{
+ const t=e.target;
+ if(t.id==="clean-days"){cleanDays=t.value;armed=null;render();return}
+ if(t.dataset.act==="move")act("move_student",{p_student:t.dataset.v,p_class:t.value},`${stuName(t.dataset.v)} 학생을 ${className(t.value)}(으)로 옮겼어요.`).catch(()=>{});
+});
+view.addEventListener("submit",async e=>{
+ e.preventDefault();const f=e.target,val=id=>($(id)?.value||"").trim();
+ const btn=f.querySelector("button[type=submit]");if(btn)btn.disabled=true;
+ try{
+  if(f.id==="f-setup"){const r=await rpc("teacher_setup",{p_name:val("a-tname"),p_pw:$("a-tpw").value}).catch(err=>{fail(err);return null});if(r){hasTeacher=true;token=r.token;ls.set("hw-token",token);await refresh()}}
+  if(f.id==="f-tsignup"){if($("a-tpw").value!==$("a-tpw2").value){status("비밀번호가 서로 달라요. 다시 확인해 주세요.",true)}else{try{await rpc("teacher_signup",{p_name:val("a-tname"),p_pw:$("a-tpw").value});tSignup=false;pendingNote="가입 신청을 보냈어요! 이미 쓰고 있는 선생님이 ‘설정’에서 승인하면 같은 이름과 비밀번호로 로그인할 수 있어요.";status("");render()}catch(err){fail(err)}}}
+  if(f.id==="f-teacher")await login("teacher_login",{p_name:val("a-tname"),p_pw:$("a-tpw").value});
+  if(f.id==="f-student")await login("student_login",{p_code:val("a-code"),p_name:val("a-name"),p_pin:val("a-pin")});
+  if(f.id==="f-parent")await login("parent_login",{p_code:val("a-code"),p_child:val("a-name"),p_pin:val("a-pin")});
+  if(f.id==="f-addkid")await login("parent_login",{p_code:val("a-code"),p_child:val("a-name"),p_pin:val("a-pin"),p_token:token});
+  if(f.id==="newc"){const name=val("c-name");if(name){$("c-name").value="";const r=await act("create_class",{p_name:name},r=>`반을 만들었어요. 가입 코드는 ${r.code}예요.`).catch(()=>null);if(r){curClass=r.id;ls.set("hw-class",r.id);teacherTab="hw";render()}}}
+  if(f.id==="ren"){await act("rename_class",{p_id:curClass,p_name:val("ren-in")},"반 이름을 바꿨어요.").catch(()=>{})}
+  if(f.id==="add"){const title=val("f-title");if(title){await act("add_homework",{p_class:curClass,p_subject:$("f-sub").value,p_title:title,p_due:$("f-due").value},"숙제를 냈어요.").then(()=>{$("f-title").value="";$("f-title").focus()}).catch(()=>{})}}
+  if(f.id==="myhw"){const title=val("m-title");if(title){await act("student_add_homework",{p_subject:$("m-sub").value,p_title:title,p_due:$("m-due").value},"숙제를 등록했어요. 다 하면 사진을 찍어 ‘했어요’ 칸을 눌러요.").then(()=>{$("m-title").value="";$("m-title").focus()}).catch(()=>{})}}
+  if(f.id==="f-addteacher"){const r=await act("add_teacher",{p_name:val("s-tname"),p_pw:$("s-tpw").value}).catch(()=>null);if(r){$("s-tname").value="";$("s-tpw").value="";status("선생님을 추가했어요. 이름과 비밀번호를 그 선생님께 알려 주세요.")}}
+ }finally{if(btn&&document.contains(btn))btn.disabled=false}
+});
+
+// ---------- 시작 ----------
+(async()=>{
+ if(token)await refresh();
+ else{try{hasTeacher=!!(await rpc("app_state"))?.has_teacher}catch(e){}status(hasTeacher?"반 코드나 계정으로 들어와 주세요.":"처음 설정을 해 주세요.");render()}
+ setInterval(()=>{if(token&&document.visibilityState==="visible"&&lb.hidden)refresh(true)},20000);
+ document.addEventListener("visibilitychange",()=>{if(token&&document.visibilityState==="visible")refresh(true)});
+})();
+if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
+}
+</script>
+</body>
+</html>

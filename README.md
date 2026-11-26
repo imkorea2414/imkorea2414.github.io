@@ -16,6 +16,7 @@
 | `privacy.html` | 개인정보처리방침 |
 | `.well-known/assetlinks.json` | 웹 주소와 Android 앱을 연결하는 확인 파일 |
 | `android/` | Google Play용 Android 프로젝트 (Trusted Web Activity) |
+| `homework-app/` | 숙제 알림장 (선생님·학생·부모님 숙제 체크 앱, 별도 웹 앱). 주소 https://imkorea2414.github.io/homework-app/ · 데이터는 Supabase `homework-checker` 프로젝트 |
 | `.github/workflows/android.yml` | Play에 올릴 `.aab` 파일을 자동으로 만드는 작업 |
 
 ## 처음 한 번 설정

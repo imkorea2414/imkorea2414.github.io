@@ -13,6 +13,8 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
+  // 숙제 알림장(/homework-app/)은 자기 서비스 워커가 따로 처리한다. 속독 앱 캐시에 섞이지 않게 그냥 통과.
+  if (url.pathname.startsWith('/homework-app/')) return;
   // Pages: network first so updates arrive, cache as fallback when offline.
   if (req.mode === 'navigate'){
     e.respondWith(fetch(req).then(r => { const copy = r.clone(); caches.open(VERSION).then(c => c.put('./index.html', copy)); return r; })

@@ -35,6 +35,8 @@ jobs:
                  .well-known/assetlinks.json"
           rm -rf _site
           for f in $FILES; do mkdir -p "_site/$(dirname "$f")"; cp "$f" "_site/$f"; done
+          # 숙제 알림장 앱 (별도 웹 앱, 2026-11-26 추가): 폴더째 배포
+          cp -r homework-app _site/homework-app
           # TWA 연결 파일이 원본과 똑같이 들어갔는지 확인 (빠지면 안드로이드 앱 위에 주소창이 생긴다)
           cmp .well-known/assetlinks.json _site/.well-known/assetlinks.json
           find _site -type f | sort
