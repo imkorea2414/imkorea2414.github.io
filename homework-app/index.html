@@ -210,6 +210,16 @@ button.cell{cursor:pointer}
 .c-wait{color:var(--mute)}
 .rate{display:inline-block;min-width:44px;font-weight:700}
 .rate.low{color:var(--stamp)}
+.c-na{color:var(--line);font-weight:400}
+.whoto{display:grid;gap:8px}
+.whoto>span{font-size:13px;color:var(--mute)}
+.seg2{display:inline-flex;gap:4px;background:var(--soft);border-radius:12px;padding:4px;justify-self:start}
+.seg2 button{font:inherit;font-size:15px;min-height:40px;padding:0 16px;border:0;border-radius:9px;background:none;color:var(--ink);cursor:pointer}
+.seg2 button[aria-pressed=true]{background:var(--board);color:var(--chalk);font-weight:700}
+.whoto .kids label{font-size:15px}
+.whoto .kids label:has(input:checked){border-color:var(--board);background:var(--soft);font-weight:700}
+.pickbar{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:14px;color:var(--mute)}
+.tg{font-size:12px;font-weight:700;padding:1px 8px;border-radius:999px;background:light-dark(#eef3ff,#1a2233);color:light-dark(#2f5fb8,#8fb3ff);border:1px solid light-dark(#cddcf7,#2b3b5c)}
 </style>
 </head>
 <body>
@@ -277,7 +287,7 @@ let token=ls.get("hw-token"),D=null,hasTeacher=true,loading=false;
 let curClass=ls.get("hw-class")||"",teacherTab="hw",filter="todo",kid="",open=new Set(),armed=null;
 let authRole=ls.get("hw-authrole")||"student",addKid=false,tSignup=false,pendingNote="",storage=null,cleanDays="30";
 const uploading=new Set(),busy=new Set(),openDt=new Set();
-let gridRange="14";
+let gridRange="14",assignMode="all";const picked=new Set();
 let bulkOpen=false,bulk=[],bulkSrc="",sub=null;
 let checks={};
 
@@ -305,8 +315,10 @@ const pendingStudents=cid=>(D?.students||[]).filter(s=>s.approved===false&&(!cid
 const pendingTeachers=()=>(D?.teachers||[]).filter(t=>t.approved===false);
 const classHw=cid=>(D?.homework||[]).filter(h=>h.class_id===cid);
 const ck=(hid,sid)=>checks[hid+"__"+sid];
-const targets=(h,sts)=>h.student_id?sts.filter(s=>s.id===h.student_id):sts;
-const studentHw=sid=>{const s=stu(sid);return (D?.homework||[]).filter(h=>h.student_id===sid||(!h.student_id&&s&&h.class_id===s.class_id))};
+const targets=(h,sts)=>h.student_id?sts.filter(s=>s.id===h.student_id):h.targets?sts.filter(s=>h.targets.includes(s.id)):sts;
+const forStu=(h,sid)=>!h.targets||h.targets.includes(sid);
+function tgTag(h){if(!h.targets)return "";const n=h.targets.map(stuName);return `<span class="tg" title="${esc(n.join(", "))}">${n.length<=2?esc(n.join(", ")):`${esc(n[0])} 외 ${n.length-1}명`}</span>`}
+const studentHw=sid=>{const s=stu(sid);return (D?.homework||[]).filter(h=>h.student_id===sid||(!h.student_id&&s&&h.class_id===s.class_id&&forStu(h,sid)))};
 const on=(c,k)=>!!(c&&c[k+"_at"]);
 const teacherName=id=>(D?.teachers||[]).find(t=>t.id===id)?.name;
 function dday(due){
@@ -393,6 +405,16 @@ function renderAddKid(){
   <div class="rvbar"><button class="btn" type="submit">추가하기</button><button class="ghost" type="button" data-act="cancelkid">취소</button></div></form></div>`;
 }
 
+function whoTo(sts){
+ for(const id of [...picked])if(!sts.some(s=>s.id===id))picked.delete(id);
+ const seg=`<div class="seg2" role="group" aria-label="숙제 받을 학생"><button type="button" data-act="amode" data-v="all" aria-pressed="${assignMode==="all"}">반 전체</button><button type="button" data-act="amode" data-v="pick" aria-pressed="${assignMode==="pick"}">학생 고르기</button></div>`;
+ if(assignMode!=="pick")return `<div class="full whoto"><span>누구에게</span>${seg}</div>`;
+ if(!sts.length)return `<div class="full whoto"><span>누구에게</span>${seg}<p class="note" style="margin:0">아직 승인된 학생이 없어요.</p></div>`;
+ return `<div class="full whoto"><span>누구에게</span>${seg}
+  <div class="kids">${sts.map(s=>`<label><input type="checkbox" data-act="pick" data-v="${esc(s.id)}"${picked.has(s.id)?" checked":""}>${esc(s.name)}</label>`).join("")}</div>
+  <div class="pickbar"><span>${picked.size}명 골랐어요. 고른 학생에게만 숙제가 보여요.</span><button type="button" class="ghost small" data-act="pickall" data-v="1">모두 고르기</button><button type="button" class="ghost small" data-act="pickall" data-v="">모두 풀기</button></div></div>`;
+}
+
 // --- 여러 줄 붙여넣기 ---
 const SUBJ_WORDS=[["국어",/국어|받아쓰기|독서록|일기/],["수학",/수학|연산|익힘/],["영어",/영어|단어|english/i],["과학",/과학|실험/],["사회",/사회|도덕|역사/],["예체능",/예체능|체육|음악|미술|리코더|줄넘기/]];
 const WD="일월화수목금토";
@@ -434,7 +456,8 @@ function bulkPanel(c){
   <div class="rvbar"><label>날짜가 없는 줄의 마감일<input type="date" id="bk-due" value="${ymd(new Date(Date.now()+86400000))}"></label>
   <button type="button" class="btn" data-act="bkparse">목록으로 나누기</button><button type="button" class="ghost" data-act="bkclose">닫기</button></div>
   ${bulk.length?`<div style="margin-top:16px">${rows}</div>${bulk.length>30?`<p class="note warn" style="margin-top:8px">한 번에 30개까지 등록할 수 있어요. 필요 없는 줄의 체크를 풀어 주세요.</p>`:""}
-  <div class="rvbar"><button type="button" class="btn" data-act="bksend"${n&&n<=30?"":" disabled"}>체크한 ${n}개를 ${esc(c.name)}에 내기</button><button type="button" class="ghost" data-act="bkclear">목록 지우기</button></div>`:""}</div>`;
+  <p class="note" style="margin:12px 0 0">받는 학생: <b>${assignMode==="pick"?`위 ‘누구에게’에서 고른 ${picked.size}명`:"반 전체"}</b></p>
+  <div class="rvbar"><button type="button" class="btn" data-act="bksend"${n&&n<=30&&!(assignMode==="pick"&&!picked.size)?"":" disabled"}>체크한 ${n}개를 ${assignMode==="pick"?`고른 ${picked.size}명에게`:esc(c.name)+"에"} 내기</button><button type="button" class="ghost" data-act="bkclear">목록 지우기</button></div>`:""}</div>`;
 }
 
 // --- 선생님 ---
@@ -466,7 +489,8 @@ function renderTeacher(){
    <label class="w">숙제 내용<input id="f-title" required maxlength="120" placeholder="예: 수학익힘책 24~25쪽 풀기"></label>
    <label>마감일<input id="f-due" type="date" required value="${ymd(new Date(Date.now()+86400000))}"></label>
    <label class="full">자세한 설명 (선택)<textarea id="f-detail" maxlength="2000" rows="2" placeholder="예: 1~5번은 풀이 과정까지 쓰기. 모르는 문제는 표시해 오기"></textarea></label>
-   <button class="btn sendb" type="submit">${esc(c.name)}에 숙제 내기</button>
+   ${whoTo(sts)}
+   <button class="btn sendb" type="submit">${assignMode==="pick"?`고른 ${[...picked].filter(id=>sts.some(s=>s.id===id)).length}명에게 숙제 내기`:`${esc(c.name)} 전체에 숙제 내기`}</button>
   </form>
   ${bulkOpen?bulkPanel(c):`<div class="bulkbar"><button type="button" class="ghost small" data-act="bkopen">여러 개 붙여넣어 한꺼번에 내기</button><span class="note" style="margin:0">알림장 글을 통째로 붙여넣으면 한 줄씩 숙제가 돼요.</span></div>`}
   <div class="filters" role="group" aria-label="보기">${fl.map(([k,l,n])=>`<button type="button" data-act="filter" data-v="${k}" aria-pressed="${k===filter}">${l}<i>${n}</i></button>`).join("")}</div>
@@ -477,7 +501,7 @@ function teacherRow(h,all){
  const a=c("student"),p=c("parent"),t=c("teacher"),[dl,dc]=dday(h.due),isOpen=open.has(h.id);
  const ready=sts.filter(s=>on(ck(h.id,s.id),"student")&&!on(ck(h.id,s.id),"teacher")).length;
  return `<li class="hw t"><div>
-  <div class="meta"><span class="chip" style="background:${subjColor(h.subject)}">${esc(h.subject)}</span>${h.student_id?`<span class="own">${esc(stuName(h.student_id))} 등록</span>`:""}<span class="dday ${dc}">${dl}</span><span>${esc(h.due)}</span>
+  <div class="meta"><span class="chip" style="background:${subjColor(h.subject)}">${esc(h.subject)}</span>${h.student_id?`<span class="own">${esc(stuName(h.student_id))} 등록</span>`:tgTag(h)}<span class="dday ${dc}">${dl}</span><span>${esc(h.due)}</span>
   <button type="button" class="del${armed===h.id?" sure":""}" data-act="delhw" data-v="${esc(h.id)}">${armed===h.id?"정말 삭제할까요?":"삭제"}</button></div>
   <p class="ttl">${esc(h.title)}</p>${detailHtml(h)}
   <div class="prog">${[["제출",a,""],["부모님 확인",p,"p"],["검사 완료",t,"t"]].map(([l,x,cl])=>`<div>${l} <b>${x}/${sts.length}</b><div class="bar ${cl}"><span style="width:${Math.round(x/n*100)}%"></span></div></div>`).join("")}</div>
@@ -496,6 +520,7 @@ function studentLine(h,s){
 const localYmd=t=>t?ymd(new Date(t)):"";
 function cellState(h,s){
  const c=ck(h.id,s.id),today=ymd(new Date());
+ if(!forStu(h,s.id))return["na","–","대상 아님"];
  if(on(c,"teacher"))return["chk","참","검사 완료"];
  if(on(c,"student"))return localYmd(c.student_at)>h.due?["late","늦음","늦게 제출"]:["ok","✓","제출"];
  return h.due<today?["miss","✗","안 냄"]:["wait","·","아직 마감 전"];
@@ -503,7 +528,7 @@ function cellState(h,s){
 function gridData(sts,list){
  const today=ymd(new Date()),from=gridRange==="all"?"":ymd(new Date(Date.now()-(+gridRange)*86400000));
  const hws=list.filter(h=>!h.student_id&&(!from||h.due>=from)).sort((a,b)=>byDue(b,a));
- const rows=sts.map(s=>{const st=hws.map(h=>cellState(h,s)),due=hws.filter(h=>h.due<=today).length,done=st.filter((x,i)=>["ok","late","chk"].includes(x[0])).length,dueDone=hws.filter((h,i)=>h.due<=today&&["ok","late","chk"].includes(st[i][0])).length;
+ const rows=sts.map(s=>{const st=hws.map(h=>cellState(h,s)),due=hws.filter(h=>h.due<=today&&forStu(h,s.id)).length,done=st.filter((x,i)=>["ok","late","chk"].includes(x[0])).length,dueDone=hws.filter((h,i)=>h.due<=today&&["ok","late","chk"].includes(st[i][0])).length;
   return{s,st,due,done,dueDone,miss:st.filter(x=>x[0]==="miss").length,late:st.filter(x=>x[0]==="late").length,rate:due?Math.round(dueDone/due*100):null}});
  return{hws,rows};
 }
@@ -517,12 +542,12 @@ function renderGrid(c,sts,list){
  const tot=rows.reduce((a,r)=>a+r.due,0),totDone=rows.reduce((a,r)=>a+r.dueDone,0),totMiss=rows.reduce((a,r)=>a+r.miss,0);
  const worst=rows.filter(r=>r.miss).sort((a,b)=>b.miss-a.miss).slice(0,5);
  sumBox([[tot?Math.round(totDone/tot*100)+"%":"–","마감 지난 숙제 제출률"],[totMiss,"안 낸 숙제 (마감 지남)"],[rows.reduce((a,r)=>a+r.late,0),"늦게 낸 숙제"]]);
- const legend=`<div class="legend"><span><i class="cell c-ok">✓</i>제출</span><span><i class="cell c-late">늦음</i>마감 뒤 제출</span><span><i class="cell c-chk">참</i>검사 완료</span><span><i class="cell c-miss">✗</i>안 냄</span><span><i class="cell c-wait">·</i>마감 전</span><span>칸을 누르면 낸 숙제를 볼 수 있어요.</span></div>`;
+ const legend=`<div class="legend"><span><i class="cell c-ok">✓</i>제출</span><span><i class="cell c-late">늦음</i>마감 뒤 제출</span><span><i class="cell c-chk">참</i>검사 완료</span><span><i class="cell c-miss">✗</i>안 냄</span><span><i class="cell c-wait">·</i>마감 전</span><span><i class="cell c-na">–</i>대상 아님</span><span>칸을 누르면 낸 숙제를 볼 수 있어요.</span></div>`;
  const note=worst.length?`<div class="pendbox"><b>챙겨볼 학생</b>${worst.map(r=>`${esc(r.s.name)} (${r.miss}개 안 냄)`).join(", ")}</div>`:`<p class="note">마감이 지난 숙제를 모두 냈어요.</p>`;
- const head=`<tr><th class="nm">학생 · 제출률</th>${hws.map(h=>`<th><div class="hh"><span class="chip" style="background:${subjColor(h.subject)}">${esc(h.subject)}</span><span class="t" title="${esc(h.title)}">${esc(h.title)}</span><small>${esc(fmtD(h.due+"T00:00:00"))}까지</small></div></th>`).join("")}</tr>`;
+ const head=`<tr><th class="nm">학생 · 제출률</th>${hws.map(h=>`<th><div class="hh"><span class="chip" style="background:${subjColor(h.subject)}">${esc(h.subject)}</span><span class="t" title="${esc(h.title)}">${esc(h.title)}</span>${h.targets?`<small>${h.targets.length}명 지정</small>`:""}<small>${esc(fmtD(h.due+"T00:00:00"))}까지</small></div></th>`).join("")}</tr>`;
  const body=rows.map(r=>`<tr><td class="nm"><b>${esc(r.s.name)}</b><small><span class="rate${r.rate!=null&&r.rate<70?" low":""}">${r.rate==null?"–":r.rate+"%"}</span>${r.dueDone}/${r.due}${r.miss?` · 안 냄 ${r.miss}`:""}</small></td>${hws.map((h,i)=>{const [k,t,l]=r.st[i],c=ck(h.id,r.s.id),has=c&&(c.photos||c.note);
    return `<td>${has?`<button type="button" class="cell c-${k}" data-act="photos" data-h="${esc(h.id)}" data-s="${esc(r.s.id)}" aria-label="${esc(r.s.name)} ${esc(h.title)} ${l}, 낸 숙제 보기">${t}</button>`:`<span class="cell c-${k}" aria-label="${l}">${t}</span>`}</td>`}).join("")}</tr>`).join("");
- const foot=`<tr><td class="nm">숙제별 제출</td>${hws.map(h=>{const n=rows.filter(r=>["ok","late","chk"].includes(cellState(h,r.s)[0])).length;return `<td>${n}/${rows.length}</td>`}).join("")}</tr>`;
+ const foot=`<tr><td class="nm">숙제별 제출</td>${hws.map(h=>{const n=rows.filter(r=>["ok","late","chk"].includes(cellState(h,r.s)[0])).length,m=rows.filter(r=>forStu(h,r.s.id)).length;return `<td>${n}/${m}</td>`}).join("")}</tr>`;
  return tools+note+legend+`<div class="gw"><table class="grid"><thead>${head}</thead><tbody>${body}</tbody><tfoot>${foot}</tfoot></table></div>`;
 }
 function downloadCsv(){
@@ -730,10 +755,13 @@ view.addEventListener("click",async e=>{
  if(a==="tapprove"){act("approve_teacher",{p_id:v,p_ok:true},"선생님을 승인했어요. 이제 로그인할 수 있어요.").catch(()=>{});return}
  if(a==="treject"){if(armed!=="t"+v)return arm("t"+v);armed=null;act("approve_teacher",{p_id:v,p_ok:false},"선생님 가입 신청을 거절했어요.").catch(()=>{});return}
  if(a==="cancelkid"){addKid=false;render();return}
- if(a==="class"){curClass=v;ls.set("hw-class",v);open.clear();if(teacherTab==="set")teacherTab="hw";render();return}
+ if(a==="class"){if(v!==curClass){picked.clear();assignMode="all"}curClass=v;ls.set("hw-class",v);open.clear();if(teacherTab==="set")teacherTab="hw";render();return}
  if(a==="ttab"){teacherTab=v;if(v==="set"){storage=null;loadStorage()}render();return}
  if(a==="clean"){if(armed!=="clean")return arm("clean");armed=null;const n=await act("cleanup_photos",{p_days:+cleanDays},n=>`사진 ${n}장을 지웠어요.`).catch(()=>null);loadStorage();return}
  if(a==="filter"){filter=v;render();return}
+ if(a==="amode"){assignMode=v;render();return}
+ if(a==="pickall"){if(v)classStudents(curClass).forEach(s=>picked.add(s.id));else picked.clear();render();return}
+ if(a==="pick")return;
  if(a==="grange"){gridRange=v;render();return}
  if(a==="csv"){downloadCsv();return}
  if(a==="dt"){openDt.has(v)?openDt.delete(v):openDt.add(v);render();return}
@@ -742,7 +770,8 @@ view.addEventListener("click",async e=>{
  if(a==="bkclear"){bulk=[];render();return}
  if(a==="bkparse"){const src=$("bk-src")?.value||"";bulk=parseBulk(src,"기타",$("bk-due")?.value||ymd(new Date(Date.now()+86400000)));
   if(!bulk.length)status("나눌 줄이 없어요. 숙제 글을 붙여넣어 주세요.",true);else status(`${bulk.length}줄로 나눴어요. 과목과 마감일을 확인하고 필요 없는 줄은 체크를 풀어 주세요.`);if(bulk.length>30)bulk.slice(30).forEach(x=>x.on=false);render();return}
- if(a==="bksend"){const items=bulk.filter(x=>x.on&&x.title.trim()).map(x=>({subject:x.subject,title:x.title.trim(),due:x.due||null}));if(!items.length)return;b.disabled=true;
+ if(a==="bksend"){const tg=assignMode==="pick"?[...picked]:null;if(tg&&!tg.length){status("숙제를 받을 학생을 골라 주세요.",true);return}
+  const items=bulk.filter(x=>x.on&&x.title.trim()).map(x=>({subject:x.subject,title:x.title.trim(),due:x.due||null,...(tg?{targets:tg}:{})}));if(!items.length)return;b.disabled=true;
   act("add_homework_many",{p_class:curClass,p_items:items},n=>`숙제 ${n}개를 한꺼번에 냈어요.`).then(()=>{bulk=[];bulkOpen=false;render()}).catch(()=>{});return}
  if(a==="kid"){kid=v;render();return}
  if(a==="toggle"){open.has(v)?open.delete(v):open.add(v);render();return}
@@ -776,6 +805,7 @@ view.addEventListener("input",e=>{syncBulk(e.target)});
 view.addEventListener("change",e=>{
  const t=e.target;
  if(syncBulk(t)){if(t.type==="checkbox")render();return}
+ if(t.dataset.act==="pick"){t.checked?picked.add(t.dataset.v):picked.delete(t.dataset.v);render();return}
  if(t.id==="clean-days"){cleanDays=t.value;armed=null;render();return}
  if(t.dataset.act==="move")act("move_student",{p_student:t.dataset.v,p_class:t.value},`${stuName(t.dataset.v)} 학생을 ${className(t.value)}(으)로 옮겼어요.`).catch(()=>{});
 });
@@ -791,7 +821,7 @@ view.addEventListener("submit",async e=>{
   if(f.id==="f-addkid")await login("parent_login",{p_code:val("a-code"),p_child:val("a-name"),p_pin:val("a-pin"),p_token:token});
   if(f.id==="newc"){const name=val("c-name");if(name){$("c-name").value="";const r=await act("create_class",{p_name:name},r=>`반을 만들었어요. 가입 코드는 ${r.code}예요.`).catch(()=>null);if(r){curClass=r.id;ls.set("hw-class",r.id);teacherTab="hw";render()}}}
   if(f.id==="ren"){await act("rename_class",{p_id:curClass,p_name:val("ren-in")},"반 이름을 바꿨어요.").catch(()=>{})}
-  if(f.id==="add"){const title=val("f-title");if(title){await act("add_homework",{p_class:curClass,p_subject:$("f-sub").value,p_title:title,p_due:$("f-due").value,p_detail:val("f-detail")||null},"숙제를 냈어요.").then(()=>{$("f-title").value="";$("f-detail").value="";$("f-title").focus()}).catch(()=>{})}}
+  if(f.id==="add"){const title=val("f-title"),tg=assignMode==="pick"?[...picked]:null;if(tg&&!tg.length){status("숙제를 받을 학생을 골라 주세요.",true)}else if(title){await act("assign_homework",{p_class:curClass,p_subject:$("f-sub").value,p_title:title,p_due:$("f-due").value,p_detail:val("f-detail")||null,p_targets:tg},tg?`고른 ${tg.length}명에게 숙제를 냈어요.`:"반 전체에 숙제를 냈어요.").then(()=>{$("f-title").value="";$("f-detail").value="";$("f-title").focus()}).catch(()=>{})}}
   if(f.id==="myhw"){const title=val("m-title");if(title){await act("student_add_homework",{p_subject:$("m-sub").value,p_title:title,p_due:$("m-due").value},"숙제를 등록했어요. 다 하면 ‘했어요’ 칸을 눌러 글이나 사진으로 제출해요.").then(()=>{$("m-title").value="";$("m-title").focus()}).catch(()=>{})}}
   if(f.id==="f-addteacher"){const r=await act("add_teacher",{p_name:val("s-tname"),p_pw:$("s-tpw").value}).catch(()=>null);if(r){$("s-tname").value="";$("s-tpw").value="";status("선생님을 추가했어요. 이름과 비밀번호를 그 선생님께 알려 주세요.")}}
  }finally{if(btn&&document.contains(btn))btn.disabled=false}
