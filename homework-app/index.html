@@ -184,6 +184,32 @@ form.addf .sendb{grid-column:1/-1;justify-self:end;min-width:220px}
 .bulk .rv{border-color:light-dark(#d4e3da,#2a3a31)}
 .bulk .rv input:not([type=checkbox]),.bulk .rv select{min-height:40px;font-size:15px}
 @media(max-width:600px){form.addf .sendb{justify-self:stretch}}
+.gridtools{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin:0 0 12px}
+.gridtools .filters{margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--mute);margin:0 0 10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.gw{overflow:auto;max-height:70vh;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table.grid{border-collapse:separate;border-spacing:0;font-size:14px;min-width:100%}
+.grid th,.grid td{padding:8px 6px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);text-align:center;white-space:nowrap;background:var(--card)}
+.grid thead th{position:sticky;top:0;z-index:2;vertical-align:bottom;font-weight:500;background:var(--soft)}
+.grid th.nm,.grid td.nm{position:sticky;left:0;z-index:1;text-align:left;padding:8px 12px;min-width:130px;max-width:170px}
+.grid thead th.nm{z-index:3}
+.grid td.nm b{display:block;overflow:hidden;text-overflow:ellipsis}
+.grid td.nm small{font-size:12px;color:var(--mute)}
+.grid .hh{display:grid;gap:3px;justify-items:center;width:92px}
+.grid .hh .chip{font-size:11px;padding:0 7px}
+.grid .hh span.t{display:block;width:92px;overflow:hidden;text-overflow:ellipsis;font-size:13px;color:var(--ink)}
+.grid .hh small{font-size:12px;color:var(--mute)}
+.grid tfoot td{position:sticky;bottom:0;background:var(--soft);font-weight:700;font-size:13px}
+.cell{display:inline-grid;place-items:center;width:40px;height:32px;border-radius:8px;font:700 13px/1 "Noto Sans KR",sans-serif;border:0;padding:0}
+button.cell{cursor:pointer}
+.c-ok{background:light-dark(#e3f4ea,#16301f);color:var(--ok)}
+.c-chk{background:light-dark(#fde8e6,#3a1714);color:var(--stamp)}
+.c-late{background:light-dark(#fff1d6,#33280f);color:light-dark(#9a6a00,#f2c230)}
+.c-miss{background:light-dark(#f4f4f4,#222826);color:light-dark(#c0392b,#ff8a7d)}
+.c-wait{color:var(--mute)}
+.rate{display:inline-block;min-width:44px;font-weight:700}
+.rate.low{color:var(--stamp)}
 </style>
 </head>
 <body>
@@ -251,6 +277,7 @@ let token=ls.get("hw-token"),D=null,hasTeacher=true,loading=false;
 let curClass=ls.get("hw-class")||"",teacherTab="hw",filter="todo",kid="",open=new Set(),armed=null;
 let authRole=ls.get("hw-authrole")||"student",addKid=false,tSignup=false,pendingNote="",storage=null,cleanDays="30";
 const uploading=new Set(),busy=new Set(),openDt=new Set();
+let gridRange="14";
 let bulkOpen=false,bulk=[],bulkSrc="",sub=null;
 let checks={};
 
@@ -427,9 +454,10 @@ function renderTeacher(){
   <div class="rowact" style="margin:0"><button type="button" class="ghost small" data-act="rename">반 이름 바꾸기</button>
   ${!sts.length&&!pendingStudents(curClass).length?`<button type="button" class="del${armed==="class"?" sure":""}" data-act="delclass">${armed==="class"?"정말 이 반을 지울까요? (숙제도 지워져요)":"반 지우기"}</button>`:""}</div></div>`;
  const pend=pendingStudents(curClass);
- const sub=`<div class="subtabs" role="group"><button type="button" data-act="ttab" data-v="hw" aria-pressed="${teacherTab==="hw"}">숙제 (${list.length})</button><button type="button" data-act="ttab" data-v="mem" aria-pressed="${teacherTab==="mem"}">학생 명단 (${sts.length})${pend.length?`<em class="badge">대기 ${pend.length}</em>`:""}</button></div>`
+ const sub=`<div class="subtabs" role="group"><button type="button" data-act="ttab" data-v="hw" aria-pressed="${teacherTab==="hw"}">숙제 (${list.length})</button><button type="button" data-act="ttab" data-v="grid" aria-pressed="${teacherTab==="grid"}">한눈에 보기</button><button type="button" data-act="ttab" data-v="mem" aria-pressed="${teacherTab==="mem"}">학생 명단 (${sts.length})${pend.length?`<em class="badge">대기 ${pend.length}</em>`:""}</button></div>`
   +(pend.length&&teacherTab!=="mem"?`<div class="pendbox"><b>가입 신청 ${pend.length}명</b>${pend.slice(0,5).map(x=>esc(x.name)).join(", ")}${pend.length>5?" 외":""} 학생이 승인을 기다리고 있어요. <button type="button" class="ghost small" data-act="ttab" data-v="mem">명단에서 승인하기</button></div>`:"");
  if(teacherTab==="mem")return tabs+bar+sub+renderMembers(sts);
+ if(teacherTab==="grid")return tabs+bar+sub+renderGrid(c,sts,list);
  const fl=[["todo","진행 중",list.filter(h=>!done(h)).length],["own","학생이 등록",list.filter(h=>h.student_id).length],["done","검사 완료",list.filter(done).length],["all","전체",list.length]];
  let v=list.slice().sort(byDue);if(filter==="todo")v=v.filter(h=>!done(h));if(filter==="done")v=v.filter(done);if(filter==="own")v=v.filter(h=>h.student_id);
  return tabs+bar+sub+`
@@ -464,6 +492,49 @@ function studentLine(h,s){
   ${subBtn(h,s.id,c,false)||(on(c,"student")?`<small>사진 정리됨</small>`:"")}</div>
   <div class="stamps">${stamps(h,s.id,c,"teacher")}</div></div>`;
 }
+// --- 한눈에 보기 (학생 × 숙제 표) ---
+const localYmd=t=>t?ymd(new Date(t)):"";
+function cellState(h,s){
+ const c=ck(h.id,s.id),today=ymd(new Date());
+ if(on(c,"teacher"))return["chk","참","검사 완료"];
+ if(on(c,"student"))return localYmd(c.student_at)>h.due?["late","늦음","늦게 제출"]:["ok","✓","제출"];
+ return h.due<today?["miss","✗","안 냄"]:["wait","·","아직 마감 전"];
+}
+function gridData(sts,list){
+ const today=ymd(new Date()),from=gridRange==="all"?"":ymd(new Date(Date.now()-(+gridRange)*86400000));
+ const hws=list.filter(h=>!h.student_id&&(!from||h.due>=from)).sort((a,b)=>byDue(b,a));
+ const rows=sts.map(s=>{const st=hws.map(h=>cellState(h,s)),due=hws.filter(h=>h.due<=today).length,done=st.filter((x,i)=>["ok","late","chk"].includes(x[0])).length,dueDone=hws.filter((h,i)=>h.due<=today&&["ok","late","chk"].includes(st[i][0])).length;
+  return{s,st,due,done,dueDone,miss:st.filter(x=>x[0]==="miss").length,late:st.filter(x=>x[0]==="late").length,rate:due?Math.round(dueDone/due*100):null}});
+ return{hws,rows};
+}
+function renderGrid(c,sts,list){
+ if(!sts.length)return `<div class="empty"><b>아직 승인된 학생이 없어요</b>학생이 가입하면 여기서 반 전체 제출 현황을 한눈에 볼 수 있어요.</div>`;
+ const {hws,rows}=gridData(sts,list);
+ const ranges=[["7","최근 1주"],["14","최근 2주"],["31","최근 한 달"],["all","전체"]];
+ const tools=`<div class="gridtools"><div class="filters" role="group" aria-label="기간">${ranges.map(([k,l])=>`<button type="button" data-act="grange" data-v="${k}" aria-pressed="${k===gridRange}">${l}</button>`).join("")}</div>
+  <button type="button" class="ghost small" data-act="csv"${hws.length?"":" disabled"}>엑셀로 받기</button></div>`;
+ if(!hws.length)return tools+`<div class="empty"><b>이 기간에 낸 숙제가 없어요</b>기간을 넓히거나 ‘숙제’ 탭에서 숙제를 내 보세요.</div>`;
+ const tot=rows.reduce((a,r)=>a+r.due,0),totDone=rows.reduce((a,r)=>a+r.dueDone,0),totMiss=rows.reduce((a,r)=>a+r.miss,0);
+ const worst=rows.filter(r=>r.miss).sort((a,b)=>b.miss-a.miss).slice(0,5);
+ sumBox([[tot?Math.round(totDone/tot*100)+"%":"–","마감 지난 숙제 제출률"],[totMiss,"안 낸 숙제 (마감 지남)"],[rows.reduce((a,r)=>a+r.late,0),"늦게 낸 숙제"]]);
+ const legend=`<div class="legend"><span><i class="cell c-ok">✓</i>제출</span><span><i class="cell c-late">늦음</i>마감 뒤 제출</span><span><i class="cell c-chk">참</i>검사 완료</span><span><i class="cell c-miss">✗</i>안 냄</span><span><i class="cell c-wait">·</i>마감 전</span><span>칸을 누르면 낸 숙제를 볼 수 있어요.</span></div>`;
+ const note=worst.length?`<div class="pendbox"><b>챙겨볼 학생</b>${worst.map(r=>`${esc(r.s.name)} (${r.miss}개 안 냄)`).join(", ")}</div>`:`<p class="note">마감이 지난 숙제를 모두 냈어요.</p>`;
+ const head=`<tr><th class="nm">학생 · 제출률</th>${hws.map(h=>`<th><div class="hh"><span class="chip" style="background:${subjColor(h.subject)}">${esc(h.subject)}</span><span class="t" title="${esc(h.title)}">${esc(h.title)}</span><small>${esc(fmtD(h.due+"T00:00:00"))}까지</small></div></th>`).join("")}</tr>`;
+ const body=rows.map(r=>`<tr><td class="nm"><b>${esc(r.s.name)}</b><small><span class="rate${r.rate!=null&&r.rate<70?" low":""}">${r.rate==null?"–":r.rate+"%"}</span>${r.dueDone}/${r.due}${r.miss?` · 안 냄 ${r.miss}`:""}</small></td>${hws.map((h,i)=>{const [k,t,l]=r.st[i],c=ck(h.id,r.s.id),has=c&&(c.photos||c.note);
+   return `<td>${has?`<button type="button" class="cell c-${k}" data-act="photos" data-h="${esc(h.id)}" data-s="${esc(r.s.id)}" aria-label="${esc(r.s.name)} ${esc(h.title)} ${l}, 낸 숙제 보기">${t}</button>`:`<span class="cell c-${k}" aria-label="${l}">${t}</span>`}</td>`}).join("")}</tr>`).join("");
+ const foot=`<tr><td class="nm">숙제별 제출</td>${hws.map(h=>{const n=rows.filter(r=>["ok","late","chk"].includes(cellState(h,r.s)[0])).length;return `<td>${n}/${rows.length}</td>`}).join("")}</tr>`;
+ return tools+note+legend+`<div class="gw"><table class="grid"><thead>${head}</thead><tbody>${body}</tbody><tfoot>${foot}</tfoot></table></div>`;
+}
+function downloadCsv(){
+ const c=classOf(curClass),sts=classStudents(curClass),{hws,rows}=gridData(sts,classHw(curClass));
+ const q=v=>{v=String(v??"");return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+ const lines=[["학생","제출률(마감 지난 숙제)","낸 개수","마감 지난 숙제","안 낸 개수","늦게 낸 개수",...hws.map(h=>`${h.subject} ${h.title} (${h.due})`)].map(q).join(",")];
+ for(const r of rows)lines.push([r.s.name,r.rate==null?"":r.rate+"%",r.dueDone,r.due,r.miss,r.late,...r.st.map(x=>x[2])].map(q).join(","));
+ const blob=new Blob(["\ufeff"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);a.download=`${c?.name||"반"}_숙제제출현황_${ymd(new Date())}.csv`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+ status("제출 현황 파일을 받았어요. 엑셀에서 바로 열 수 있어요.");
+}
+
 function renderMembers(sts){
  const c=classOf(curClass),pend=pendingStudents(curClass);
  const pendHtml=pend.length?`<div class="pendbox"><b>가입 신청 ${pend.length}명</b>이름을 확인하고 우리 반 학생이 맞으면 승인해 주세요. 거절하면 신청이 지워져요.
@@ -663,6 +734,8 @@ view.addEventListener("click",async e=>{
  if(a==="ttab"){teacherTab=v;if(v==="set"){storage=null;loadStorage()}render();return}
  if(a==="clean"){if(armed!=="clean")return arm("clean");armed=null;const n=await act("cleanup_photos",{p_days:+cleanDays},n=>`사진 ${n}장을 지웠어요.`).catch(()=>null);loadStorage();return}
  if(a==="filter"){filter=v;render();return}
+ if(a==="grange"){gridRange=v;render();return}
+ if(a==="csv"){downloadCsv();return}
  if(a==="dt"){openDt.has(v)?openDt.delete(v):openDt.add(v);render();return}
  if(a==="bkopen"){bulkOpen=true;render();$("bk-src")?.focus();return}
  if(a==="bkclose"){bulkOpen=false;bulk=[];render();return}
