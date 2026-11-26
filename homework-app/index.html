@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
 <style>
 /* VOICE: 다정하고 또렷한 학원 알림장, 선생님·학생·부모님이 함께 쓰는 공책
-   IDEA: 칠판 머리띠 + 반 이름표 탭 + 줄 공책 + 도장 세 개(학생 했어요 / 부모님 확인 / 선생님 참 잘했어요)
+   IDEA: 칠판 머리띠 + 반 이름표 탭 + 줄 공책 + 도장 두 개(학생 했어요 / 선생님 참 잘했어요). 부모님은 보기만 함
    PICTURE: 숙제 목록 자체. 선생님은 숙제마다 반 학생들의 도장 진행 막대와 학생별 도장 줄을 본다
    COLOUR and TYPE: 칠판 초록 띠, 흰 공책, 도장 빨강, 연필 노랑 / Jua 제목 + Noto Sans KR 본문
    LAYOUT: 칠판 띠(제목·누구인지·요약) → 반 탭 → 숙제 추가 → 필터 → 목록, 600px 아래는 도장이 제목 아래로 */
@@ -255,7 +255,7 @@ const API_URL="https://iiyaxrwlfuodlahreipj.supabase.co";
 const API_KEY="sb_publishable_kg0crrsETsOR-ga_Iikdqw_ikWngdUR";
 
 const SUBJECTS=[["국어","#d9534f"],["수학","#2f6fd6"],["영어","#8a4fd1"],["과학","#1f9d73"],["사회","#d98a1f"],["예체능","#c2479a"],["기타","#6b7a73"]];
-const STAGES=[["student","학생","했어요"],["parent","부모님","확인"],["teacher","선생님","참 잘했어요"]];
+const STAGES=[["student","학생","했어요"],["teacher","선생님","참 잘했어요"]];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
 const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}};
@@ -301,7 +301,7 @@ async function refresh(quiet){
  catch(e){if(e.code!=="AUTH"&&!quiet)fail(e)}
  loading=false;render();
 }
-function hint(){const r=D?.role;return r==="teacher"?"반을 고르고 숙제를 내세요. 반 코드를 학생·부모님에게 알려 주면 가입할 수 있어요.":r==="student"?"받은 숙제를 직접 등록하고, 다 하면 ‘했어요’ 칸을 눌러 글이나 사진으로 제출해요.":r==="parent"?"아이가 제출한 숙제에 ‘확인’ 도장을 찍어 주세요.":""}
+function hint(){const r=D?.role;return r==="teacher"?"반을 고르고 숙제를 내세요. 반 코드를 학생·부모님에게 알려 주면 가입할 수 있어요.":r==="student"?"받은 숙제를 직접 등록하고, 다 하면 ‘했어요’ 칸을 눌러 글이나 사진으로 제출해요.":r==="parent"?"아이가 받은 숙제, 낸 숙제, 선생님 검사 결과를 볼 수 있어요.":""}
 async function act(fn,args,ok){try{const r=await rpc(fn,{p_token:token,...args});if(ok)status(typeof ok==="function"?ok(r):ok);await refresh(true);return r}catch(e){fail(e);await refresh(true);throw e}}
 
 const subjColor=s=>(SUBJECTS.find(x=>x[0]===s)||SUBJECTS[6])[1];
@@ -498,13 +498,13 @@ function renderTeacher(){
 }
 function teacherRow(h,all){
  const sts=targets(h,all),n=sts.length||1,c=k=>sts.filter(s=>on(ck(h.id,s.id),k)).length;
- const a=c("student"),p=c("parent"),t=c("teacher"),[dl,dc]=dday(h.due),isOpen=open.has(h.id);
+ const a=c("student"),t=c("teacher"),[dl,dc]=dday(h.due),isOpen=open.has(h.id);
  const ready=sts.filter(s=>on(ck(h.id,s.id),"student")&&!on(ck(h.id,s.id),"teacher")).length;
  return `<li class="hw t"><div>
   <div class="meta"><span class="chip" style="background:${subjColor(h.subject)}">${esc(h.subject)}</span>${h.student_id?`<span class="own">${esc(stuName(h.student_id))} 등록</span>`:tgTag(h)}<span class="dday ${dc}">${dl}</span><span>${esc(h.due)}</span>
   <button type="button" class="del${armed===h.id?" sure":""}" data-act="delhw" data-v="${esc(h.id)}">${armed===h.id?"정말 삭제할까요?":"삭제"}</button></div>
   <p class="ttl">${esc(h.title)}</p>${detailHtml(h)}
-  <div class="prog">${[["제출",a,""],["부모님 확인",p,"p"],["검사 완료",t,"t"]].map(([l,x,cl])=>`<div>${l} <b>${x}/${sts.length}</b><div class="bar ${cl}"><span style="width:${Math.round(x/n*100)}%"></span></div></div>`).join("")}</div>
+  <div class="prog" style="grid-template-columns:repeat(2,minmax(0,1fr))">${[["제출",a,""],["검사 완료",t,"t"]].map(([l,x,cl])=>`<div>${l} <b>${x}/${sts.length}</b><div class="bar ${cl}"><span style="width:${Math.round(x/n*100)}%"></span></div></div>`).join("")}</div>
   <div class="rowact"><button type="button" class="ghost small" data-act="toggle" data-v="${esc(h.id)}" aria-expanded="${isOpen}">${isOpen?"학생별 접기":"학생별 보기"}</button>
   ${ready?`<button type="button" class="btn small" data-act="checkall" data-v="${esc(h.id)}">제출한 ${ready}명 모두 검사</button>`:""}</div>
   ${isOpen?`<div class="roster">${sts.length?sts.map(s=>studentLine(h,s)).join(""):`<p class="note" style="margin-top:12px">이 반에 등록한 학생이 아직 없어요.</p>`}</div>`:""}
@@ -604,8 +604,8 @@ async function loadStorage(){try{storage=await rpc("storage_info",{p_token:token
 // --- 학생 / 부모님 ---
 function personalList(sid,who){
  const s=stu(sid);if(!s)return `<div class="empty"><b>학생 정보를 찾을 수 없어요</b>선생님께 확인해 주세요.</div>`;
- const list=studentHw(sid),mine=h=>!on(ck(h.id,sid),who);
- const fl=[["todo",who==="student"?"할 일":"확인할 것",list.filter(mine).length],["done","검사 완료",list.filter(h=>on(ck(h.id,sid),"teacher")).length],["all","전체",list.length]];
+ const list=studentHw(sid),mine=h=>!on(ck(h.id,sid),"student");
+ const fl=[["todo",who==="student"?"할 일":"아직 안 낸 것",list.filter(mine).length],["done","검사 완료",list.filter(h=>on(ck(h.id,sid),"teacher")).length],["all","전체",list.length]];
  let v=list.slice().sort((a,b)=>(on(ck(a.id,sid),"teacher")-on(ck(b.id,sid),"teacher"))||byDue(a,b));
  if(filter==="todo")v=v.filter(mine);if(filter==="done")v=v.filter(h=>on(ck(h.id,sid),"teacher"));
  const rows=v.map(h=>{
@@ -614,7 +614,7 @@ function personalList(sid,who){
   if(uploading.has(key))extra=`<p class="pfnote"><span class="spin"></span>숙제 제출하는 중…</p>`;
   else if(subBtn(h,sid,c))extra=subBtn(h,sid,c,who==="student");
   else if(on(c,"student"))extra=`<p class="pfnote">사진은 정리됐어요. 도장 기록은 남아 있어요.</p>`;
-  else extra=`<p class="pfnote">${who==="student"?"숙제를 다 하면 ‘했어요’ 칸을 눌러 글이나 사진으로 제출해요.":"아이가 숙제를 제출하면 확인 도장을 찍을 수 있어요."}</p>`;
+  else extra=`<p class="pfnote">${who==="student"?"숙제를 다 하면 ‘했어요’ 칸을 눌러 글이나 사진으로 제출해요.":"아이가 숙제를 내면 여기서 글과 사진을 볼 수 있어요."}</p>`;
   const ownTag=h.student_id?`<span class="own">${who==="student"?"내가 등록":"아이가 등록"}</span>`:`<span class="own t">선생님</span>`;
   const del=who==="student"&&h.student_id&&!on(c,"teacher")?`<button type="button" class="del${armed===h.id?" sure":""}" data-act="delmy" data-v="${esc(h.id)}">${armed===h.id?"정말 지울까요?":"지우기"}</button>`:"";
   return `<li class="hw${on(c,"teacher")?" done":""}"><div><div class="meta"><span class="chip" style="background:${subjColor(h.subject)}">${esc(h.subject)}</span>${ownTag}<span class="dday ${dc}">${dl}</span><span>${esc(h.due)}</span>${del}</div>
@@ -640,7 +640,7 @@ function stamps(h,sid,c,who){
 }
 function renderStudent(){
  const sid=D.me.id,list=studentHw(sid),c=h=>ck(h.id,sid);
- sumBox([[list.filter(h=>!on(c(h),"student")).length,"아직 안 한 숙제"],[list.filter(h=>on(c(h),"student")&&!on(c(h),"parent")).length,"부모님 확인 기다리는 중"],[list.filter(h=>on(c(h),"teacher")).length,"선생님 검사 끝"]]);
+ sumBox([[list.filter(h=>!on(c(h),"student")).length,"아직 안 한 숙제"],[list.filter(h=>on(c(h),"student")&&!on(c(h),"teacher")).length,"선생님 검사 기다리는 중"],[list.filter(h=>on(c(h),"teacher")).length,"선생님 검사 끝"]]);
  return personalList(sid,"student");
 }
 function renderParent(){
@@ -648,7 +648,7 @@ function renderParent(){
  if(!kids.includes(kid))kid=kids[0]||"";
  if(!kid){$("sum").hidden=true;return `<div class="empty"><b>연결된 아이가 없어요</b>선생님이 PIN을 초기화했거나 아이가 명단에서 빠졌을 수 있어요. 위의 ‘아이 추가’를 눌러 다시 연결해 주세요.</div>`}
  const s=stu(kid),list=studentHw(kid),c=h=>ck(h.id,kid);
- sumBox([[list.filter(h=>!on(c(h),"student")).length,"아이가 아직 안 한 숙제"],[list.filter(h=>on(c(h),"student")&&!on(c(h),"parent")).length,"내가 확인할 숙제"],[list.filter(h=>on(c(h),"teacher")).length,"선생님 검사 끝"]]);
+ sumBox([[list.filter(h=>!on(c(h),"student")).length,"아이가 아직 안 한 숙제"],[list.filter(h=>on(c(h),"student")&&!on(c(h),"teacher")).length,"선생님 검사 기다리는 숙제"],[list.filter(h=>on(c(h),"teacher")).length,"선생님 검사 끝"]]);
  const tabs=kids.length>1?`<div class="tabs" role="group" aria-label="아이">${kids.map(id=>`<button type="button" data-act="kid" data-v="${esc(id)}" aria-pressed="${id===kid}">${esc(stuName(id))}<i>${esc(className(stu(id).class_id))}</i></button>`).join("")}</div>`:`<p class="note">${esc(s.name)} · ${esc(className(s.class_id))}</p>`;
  return tabs+personalList(kid,"parent");
 }
