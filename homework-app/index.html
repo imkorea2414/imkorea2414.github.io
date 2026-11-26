@@ -164,6 +164,26 @@ header.band{padding-top:max(clamp(24px,4vw,48px),env(safe-area-inset-top))}
 .pendbox .mem{border-color:light-dark(#f2d98a,#5a4a1a)}
 .own{font-size:12px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--soft);color:var(--ok);border:1px solid light-dark(#b9d3c4,#2f4a3c)}
 .own.t{color:var(--mute);border-color:var(--line)}
+textarea{font:inherit;font-size:16px;line-height:1.5;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);resize:vertical;width:100%}
+textarea:focus-visible{outline:3px solid var(--pencil);outline-offset:2px}
+form.addf .full{grid-column:1/-1}
+form.addf .sendb{grid-column:1/-1;justify-self:end;min-width:220px}
+.dt{margin:6px 0 0;font-size:15px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;border-left:3px solid var(--rule);padding-left:10px;color:light-dark(#38423d,#c9d3ce)}
+.more{font:inherit;font-size:13px;border:0;background:none;color:var(--ok);cursor:pointer;padding:2px 0 0 13px;min-height:30px;text-decoration:underline}
+.notebox{white-space:pre-wrap;overflow-wrap:anywhere;padding:12px 14px;border-radius:12px;background:var(--soft);border:1px solid var(--line);margin:0 0 12px;font-size:16px;line-height:1.6}
+.notebox small{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
+.thumbs{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 0}
+.thumbs figure{margin:0;position:relative}
+.thumbs img{width:88px;height:88px;object-fit:cover;border-radius:10px;border:1px solid var(--line);display:block}
+.thumbs button{position:absolute;top:-8px;right:-8px;width:28px;height:28px;border-radius:50%;border:0;background:var(--ink);color:var(--bg);font:700 15px/1 sans-serif;cursor:pointer}
+.sbf{display:grid;gap:4px}
+.bulkbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 0}
+.bulk{margin-top:12px;padding:16px;border:2px dashed light-dark(#b9d3c4,#2f4a3c);border-radius:16px;background:var(--soft)}
+.bulk h2{font-size:22px}
+.bulk .rvbar{align-items:end}
+.bulk .rv{border-color:light-dark(#d4e3da,#2a3a31)}
+.bulk .rv input:not([type=checkbox]),.bulk .rv select{min-height:40px;font-size:15px}
+@media(max-width:600px){form.addf .sendb{justify-self:stretch}}
 </style>
 </head>
 <body>
@@ -211,8 +231,8 @@ $("today").textContent=new Date().toLocaleDateString("ko-KR",{month:"long",day:"
 
 // ---------- 서버 ----------
 const MSG={AUTH:"로그인이 끝났어요. 다시 로그인해 주세요.",FORBIDDEN:"이 작업을 할 권한이 없어요.",NOT_FOUND:"찾을 수 없어요. 새로고침해 주세요.",
- NOT_EMPTY:"학생이 있는 반은 지울 수 없어요. 먼저 학생을 옮기거나 빼 주세요.",TAKEN:"옮길 반에 같은 이름의 학생이 이미 있어요.",NOT_SUBMITTED:"아이가 사진을 올린 뒤에 확인할 수 있어요.",
- PHOTO_BAD:"사진을 저장하지 못했어요. 다시 찍어 올려 주세요.",PHOTO_COUNT:"사진은 1~3장 올릴 수 있어요.",NAME:"이름을 적어 주세요.",TITLE:"숙제 내용을 적어 주세요.",
+ NOT_EMPTY:"학생이 있는 반은 지울 수 없어요. 먼저 학생을 옮기거나 빼 주세요.",TAKEN:"옮길 반에 같은 이름의 학생이 이미 있어요.",NOT_SUBMITTED:"아이가 숙제를 제출한 뒤에 확인할 수 있어요.",EMPTY:"숙제한 내용을 글로 쓰거나 사진을 올려 주세요.",COUNT:"한 번에 1~30개까지 등록할 수 있어요.",
+ PHOTO_BAD:"사진을 저장하지 못했어요. 다시 찍어 올려 주세요.",PHOTO_COUNT:"사진은 3장까지 올릴 수 있어요.",NAME:"이름을 적어 주세요.",TITLE:"숙제 내용을 적어 주세요.",
  BAD_LOGIN:"이름이나 비밀번호가 맞지 않아요.",BAD_PIN:"PIN이 맞지 않아요.",LOCKED:"여러 번 틀려서 15분 동안 잠겼어요. 잠시 후 다시 해 주세요.",NO_CLASS:"반 코드를 찾을 수 없어요. 선생님께 받은 코드를 확인해 주세요.",
  NO_CHILD:"이 반에 그 이름의 학생이 없어요. 아이가 먼저 학생으로 등록해야 해요.",PIN_FORMAT:"PIN은 숫자 4자리예요.",PW_SHORT:"비밀번호는 6자 이상으로 정해 주세요.",ALREADY:"이미 선생님 계정이 있어요. 로그인해 주세요.",TOO_MANY:"개수가 너무 많아요. 정리한 뒤 다시 해 주세요.",PENDING:"아직 승인을 기다리고 있어요. 승인되면 같은 정보로 들어올 수 있어요.",CHILD_PENDING:"아이가 아직 선생님 승인을 기다리고 있어요. 승인된 뒤에 연결할 수 있어요.",TAKEN_NAME:"같은 이름의 선생님이 이미 있어요. 이름 뒤에 글자를 붙여 주세요.",CHECKED:"선생님이 검사한 숙제는 지울 수 없어요."};
 const msgOf=c=>MSG[c]||"잠시 문제가 생겼어요. 다시 해 주세요.";
@@ -230,7 +250,8 @@ async function rpc(fn,args={}){
 let token=ls.get("hw-token"),D=null,hasTeacher=true,loading=false;
 let curClass=ls.get("hw-class")||"",teacherTab="hw",filter="todo",kid="",open=new Set(),armed=null;
 let authRole=ls.get("hw-authrole")||"student",addKid=false,tSignup=false,pendingNote="",storage=null,cleanDays="30";
-const uploading=new Set(),busy=new Set();
+const uploading=new Set(),busy=new Set(),openDt=new Set();
+let bulkOpen=false,bulk=[],bulkSrc="",sub=null;
 let checks={};
 
 function status(t,w){$("status").textContent=t;$("status").className="note"+(w?" warn":"")}
@@ -243,7 +264,7 @@ async function refresh(quiet){
  catch(e){if(e.code!=="AUTH"&&!quiet)fail(e)}
  loading=false;render();
 }
-function hint(){const r=D?.role;return r==="teacher"?"반을 고르고 숙제를 내세요. 반 코드를 학생·부모님에게 알려 주면 가입할 수 있어요.":r==="student"?"받은 숙제를 직접 등록하고, 다 하면 사진을 찍어 ‘했어요’ 칸을 눌러 올려요.":r==="parent"?"아이가 사진을 올린 숙제에 ‘확인’ 도장을 찍어 주세요.":""}
+function hint(){const r=D?.role;return r==="teacher"?"반을 고르고 숙제를 내세요. 반 코드를 학생·부모님에게 알려 주면 가입할 수 있어요.":r==="student"?"받은 숙제를 직접 등록하고, 다 하면 ‘했어요’ 칸을 눌러 글이나 사진으로 제출해요.":r==="parent"?"아이가 제출한 숙제에 ‘확인’ 도장을 찍어 주세요.":""}
 async function act(fn,args,ok){try{const r=await rpc(fn,{p_token:token,...args});if(ok)status(typeof ok==="function"?ok(r):ok);await refresh(true);return r}catch(e){fail(e);await refresh(true);throw e}}
 
 const subjColor=s=>(SUBJECTS.find(x=>x[0]===s)||SUBJECTS[6])[1];
@@ -267,6 +288,17 @@ function dday(due){
  if(n===0)return["오늘까지","today"];if(n<0)return[`${-n}일 지남`,"late"];return[`D-${n}`,""];
 }
 const byDue=(a,b)=>String(a.due).localeCompare(String(b.due))||String(a.created_at).localeCompare(String(b.created_at));
+function detailHtml(h){
+ const d=h.detail;if(!d)return "";
+ const long=d.length>140||d.split("\n").length>3,show=!long||openDt.has(h.id);
+ const txt=show?d:d.split("\n").slice(0,2).join("\n").slice(0,120)+"…";
+ return `<p class="dt">${esc(txt)}</p>${long?`<button type="button" class="more" data-act="dt" data-v="${esc(h.id)}">${show?"설명 접기":"설명 더 보기"}</button>`:""}`;
+}
+function subBtn(h,sid,c,mine){
+ const np=c?.photos||0,nt=!!c?.note;if(!np&&!nt)return "";
+ const l=mine?"내가 낸 숙제 보기":np&&nt?`사진 ${np}장 · 글 보기`:np?`사진 ${np}장 보기`:"제출한 글 보기";
+ return `<button type="button" class="pf" data-act="photos" data-h="${esc(h.id)}" data-s="${esc(sid)}">${PIC}${l}</button>`;
+}
 const fmtD=t=>t?new Date(t).toLocaleDateString("ko-KR",{month:"numeric",day:"numeric"}):"";
 const fmtT=t=>t?new Date(t).toLocaleString("ko-KR",{month:"numeric",day:"numeric",hour:"numeric",minute:"2-digit"}):"";
 
@@ -275,7 +307,7 @@ function render(){
  const r=D&&!addKid?D.role:null;
  renderWho(r);
  const v=$("view");
- const keep=[...v.querySelectorAll("input[id]:not([type=file]),select[id]")].map(el=>[el.id,el.type==="checkbox"?el.checked:el.value]);
+ const keep=[...v.querySelectorAll("input[id]:not([type=file]),select[id],textarea[id]")].filter(el=>!/^bk-(on|s|t|d)-/.test(el.id)).map(el=>[el.id,el.type==="checkbox"?el.checked:el.value]);
  const a=document.activeElement,aid=v.contains(a)?a.id:"",sel=aid&&a.selectionStart!=null?[a.selectionStart,a.selectionEnd]:null;
  let html;
  if(!token)html=renderAuth();
@@ -334,6 +366,50 @@ function renderAddKid(){
   <div class="rvbar"><button class="btn" type="submit">추가하기</button><button class="ghost" type="button" data-act="cancelkid">취소</button></div></form></div>`;
 }
 
+// --- 여러 줄 붙여넣기 ---
+const SUBJ_WORDS=[["국어",/국어|받아쓰기|독서록|일기/],["수학",/수학|연산|익힘/],["영어",/영어|단어|english/i],["과학",/과학|실험/],["사회",/사회|도덕|역사/],["예체능",/예체능|체육|음악|미술|리코더|줄넘기/]];
+const WD="일월화수목금토";
+function guessDue(t,base){
+ const today=new Date(ymd(base)+"T00:00:00"),add=n=>ymd(new Date(today.getTime()+n*86400000));
+ let m=t.match(/(\d{1,2})\s*월\s*(\d{1,2})\s*일/)||t.match(/(?:^|[^\d.\/~-])(\d{1,2})\s*[\/.]\s*(\d{1,2})(?![\d.\/])/);
+ if(m){const mo=+m[1],d=+m[2];if(mo>=1&&mo<=12&&d>=1&&d<=31){let y=today.getFullYear();let dt=new Date(y,mo-1,d);if(dt<today-30*86400000)dt=new Date(y+1,mo-1,d);return ymd(dt)}}
+ if(/모레/.test(t))return add(2);
+ if(/내일/.test(t))return add(1);
+ if(/오늘/.test(t))return add(0);
+ m=t.match(/(다음\s*주\s*)?([일월화수목금토])요일/);
+ if(m){const w=WD.indexOf(m[2]),cur=today.getDay();
+  if(m[1]){const toMon=((8-cur)%7)||7;return add(toMon+((w+6)%7))}
+  let n=(w-cur+7)%7;if(n===0)n=7;return add(n)}
+ return "";
+}
+function parseBulk(text,defSub,defDue){
+ const out=[];
+ for(let line of String(text||"").replace(/\r/g,"").split("\n")){
+  line=line.replace(/^\s*(?:[-*•·▪◦‣○●□■☐✓✔▶►]|\d{1,2}\s*[.)]|[①-⑳]|\(\d{1,2}\))\s*/,"").replace(/\s+/g," ").trim();
+  if(line.length<2)continue;
+  let subj="";const head=line.match(/^\[?(국어|수학|영어|과학|사회|예체능|체육|음악|미술|도덕)\]?\s*[:)\]·\-]\s*/);
+  if(head){subj=/체육|음악|미술/.test(head[1])?"예체능":head[1]==="도덕"?"사회":head[1];line=line.slice(head[0].length).trim()||line}
+  if(!subj)subj=(SUBJ_WORDS.find(([,re])=>re.test(line))||[defSub])[0];
+  out.push({on:!/알림장|준비물|공지|안내|가정통신/.test(line),subject:subj,title:line.slice(0,120),due:guessDue(line,new Date())||defDue});
+  if(out.length>=40)break;
+ }
+ return out;
+}
+function bulkPanel(c){
+ const n=bulk.filter(x=>x.on).length;
+ const rows=bulk.map((x,i)=>`<div class="rv"><input type="checkbox" id="bk-on-${i}" data-bk="${i}" data-f="on" aria-label="${i+1}번 등록"${x.on?" checked":""}>
+  <select id="bk-s-${i}" data-bk="${i}" data-f="subject" aria-label="${i+1}번 과목">${SUBJECTS.map(([s])=>`<option${s===x.subject?" selected":""}>${s}</option>`).join("")}</select>
+  <input class="t" id="bk-t-${i}" data-bk="${i}" data-f="title" maxlength="120" value="${esc(x.title)}" aria-label="${i+1}번 숙제 내용">
+  <input type="date" id="bk-d-${i}" data-bk="${i}" data-f="due" value="${esc(x.due)}" aria-label="${i+1}번 마감일"></div>`).join("");
+ return `<div class="bulk"><h2>여러 숙제 한꺼번에 내기</h2>
+  <p class="note">알림장 글을 통째로 붙여넣고 ‘목록으로 나누기’를 누르세요. 한 줄이 숙제 하나가 되고, 줄에 ‘수학’ 같은 과목이나 ‘금요일까지’, ‘12/3’ 같은 날짜가 있으면 알아서 채워요. 등록하기 전에 꼭 확인해 주세요.</p>
+  <textarea id="bk-src" rows="6" placeholder="예:&#10;1. 수학 익힘책 24~25쪽&#10;2. 영어 단어 10개 외우기 (금요일까지)&#10;3. 독서록 한 편"></textarea>
+  <div class="rvbar"><label>날짜가 없는 줄의 마감일<input type="date" id="bk-due" value="${ymd(new Date(Date.now()+86400000))}"></label>
+  <button type="button" class="btn" data-act="bkparse">목록으로 나누기</button><button type="button" class="ghost" data-act="bkclose">닫기</button></div>
+  ${bulk.length?`<div style="margin-top:16px">${rows}</div>${bulk.length>30?`<p class="note warn" style="margin-top:8px">한 번에 30개까지 등록할 수 있어요. 필요 없는 줄의 체크를 풀어 주세요.</p>`:""}
+  <div class="rvbar"><button type="button" class="btn" data-act="bksend"${n&&n<=30?"":" disabled"}>체크한 ${n}개를 ${esc(c.name)}에 내기</button><button type="button" class="ghost" data-act="bkclear">목록 지우기</button></div>`:""}</div>`;
+}
+
 // --- 선생님 ---
 function renderTeacher(){
  const cls=classes();
@@ -361,8 +437,10 @@ function renderTeacher(){
    <label>과목<select id="f-sub">${SUBJECTS.map(([s])=>`<option>${s}</option>`).join("")}</select></label>
    <label class="w">숙제 내용<input id="f-title" required maxlength="120" placeholder="예: 수학익힘책 24~25쪽 풀기"></label>
    <label>마감일<input id="f-due" type="date" required value="${ymd(new Date(Date.now()+86400000))}"></label>
-   <button class="btn w" type="submit">${esc(c.name)}에 숙제 내기</button>
+   <label class="full">자세한 설명 (선택)<textarea id="f-detail" maxlength="2000" rows="2" placeholder="예: 1~5번은 풀이 과정까지 쓰기. 모르는 문제는 표시해 오기"></textarea></label>
+   <button class="btn sendb" type="submit">${esc(c.name)}에 숙제 내기</button>
   </form>
+  ${bulkOpen?bulkPanel(c):`<div class="bulkbar"><button type="button" class="ghost small" data-act="bkopen">여러 개 붙여넣어 한꺼번에 내기</button><span class="note" style="margin:0">알림장 글을 통째로 붙여넣으면 한 줄씩 숙제가 돼요.</span></div>`}
   <div class="filters" role="group" aria-label="보기">${fl.map(([k,l,n])=>`<button type="button" data-act="filter" data-v="${k}" aria-pressed="${k===filter}">${l}<i>${n}</i></button>`).join("")}</div>
   <ul>${v.length?v.map(h=>teacherRow(h,sts)).join(""):`<li class="empty"><b>${list.length?"여기는 비어 있어요":"아직 낸 숙제가 없어요"}</b>${list.length?"다른 보기를 눌러 보세요.":"위 칸에 숙제를 적고 ‘숙제 내기’를 누르세요. 학생이 직접 등록한 숙제도 여기 보여요."}</li>`}</ul>`;
 }
@@ -373,17 +451,17 @@ function teacherRow(h,all){
  return `<li class="hw t"><div>
   <div class="meta"><span class="chip" style="background:${subjColor(h.subject)}">${esc(h.subject)}</span>${h.student_id?`<span class="own">${esc(stuName(h.student_id))} 등록</span>`:""}<span class="dday ${dc}">${dl}</span><span>${esc(h.due)}</span>
   <button type="button" class="del${armed===h.id?" sure":""}" data-act="delhw" data-v="${esc(h.id)}">${armed===h.id?"정말 삭제할까요?":"삭제"}</button></div>
-  <p class="ttl">${esc(h.title)}</p>
-  <div class="prog">${[["사진 제출",a,""],["부모님 확인",p,"p"],["검사 완료",t,"t"]].map(([l,x,cl])=>`<div>${l} <b>${x}/${sts.length}</b><div class="bar ${cl}"><span style="width:${Math.round(x/n*100)}%"></span></div></div>`).join("")}</div>
+  <p class="ttl">${esc(h.title)}</p>${detailHtml(h)}
+  <div class="prog">${[["제출",a,""],["부모님 확인",p,"p"],["검사 완료",t,"t"]].map(([l,x,cl])=>`<div>${l} <b>${x}/${sts.length}</b><div class="bar ${cl}"><span style="width:${Math.round(x/n*100)}%"></span></div></div>`).join("")}</div>
   <div class="rowact"><button type="button" class="ghost small" data-act="toggle" data-v="${esc(h.id)}" aria-expanded="${isOpen}">${isOpen?"학생별 접기":"학생별 보기"}</button>
   ${ready?`<button type="button" class="btn small" data-act="checkall" data-v="${esc(h.id)}">제출한 ${ready}명 모두 검사</button>`:""}</div>
   ${isOpen?`<div class="roster">${sts.length?sts.map(s=>studentLine(h,s)).join(""):`<p class="note" style="margin-top:12px">이 반에 등록한 학생이 아직 없어요.</p>`}</div>`:""}
  </div></li>`;
 }
 function studentLine(h,s){
- const c=ck(h.id,s.id),np=c?.photos||0;
+ const c=ck(h.id,s.id);
  return `<div class="sr"><div class="nm">${esc(s.name)}<small>${on(c,"student")?`${fmtT(c.student_at)} 제출`:"아직 안 냄"}</small>
-  ${np?`<button type="button" class="pf" data-act="photos" data-h="${esc(h.id)}" data-s="${esc(s.id)}">${PIC}사진 ${np}장</button>`:on(c,"student")?`<small>사진 정리됨</small>`:""}</div>
+  ${subBtn(h,s.id,c,false)||(on(c,"student")?`<small>사진 정리됨</small>`:"")}</div>
   <div class="stamps">${stamps(h,s.id,c,"teacher")}</div></div>`;
 }
 function renderMembers(sts){
@@ -435,16 +513,16 @@ function personalList(sid,who){
  let v=list.slice().sort((a,b)=>(on(ck(a.id,sid),"teacher")-on(ck(b.id,sid),"teacher"))||byDue(a,b));
  if(filter==="todo")v=v.filter(mine);if(filter==="done")v=v.filter(h=>on(ck(h.id,sid),"teacher"));
  const rows=v.map(h=>{
-  const c=ck(h.id,sid),np=c?.photos||0,[dl,dc]=on(c,"teacher")?["검사 완료",""]:dday(h.due),key=h.id+"__"+sid;
+  const c=ck(h.id,sid),[dl,dc]=on(c,"teacher")?["검사 완료",""]:dday(h.due),key=h.id+"__"+sid;
   let extra;
-  if(uploading.has(key))extra=`<p class="pfnote"><span class="spin"></span>숙제 사진 올리는 중…</p>`;
-  else if(np)extra=`<button type="button" class="pf" data-act="photos" data-h="${esc(h.id)}" data-s="${esc(sid)}">${PIC}숙제한 사진 ${np}장 보기</button>`;
+  if(uploading.has(key))extra=`<p class="pfnote"><span class="spin"></span>숙제 제출하는 중…</p>`;
+  else if(subBtn(h,sid,c))extra=subBtn(h,sid,c,who==="student");
   else if(on(c,"student"))extra=`<p class="pfnote">사진은 정리됐어요. 도장 기록은 남아 있어요.</p>`;
-  else extra=`<p class="pfnote">${who==="student"?"숙제를 다 하면 사진을 찍어 ‘했어요’ 칸을 눌러 올려요.":"아이가 사진을 올리면 확인 도장을 찍을 수 있어요."}</p>`;
+  else extra=`<p class="pfnote">${who==="student"?"숙제를 다 하면 ‘했어요’ 칸을 눌러 글이나 사진으로 제출해요.":"아이가 숙제를 제출하면 확인 도장을 찍을 수 있어요."}</p>`;
   const ownTag=h.student_id?`<span class="own">${who==="student"?"내가 등록":"아이가 등록"}</span>`:`<span class="own t">선생님</span>`;
   const del=who==="student"&&h.student_id&&!on(c,"teacher")?`<button type="button" class="del${armed===h.id?" sure":""}" data-act="delmy" data-v="${esc(h.id)}">${armed===h.id?"정말 지울까요?":"지우기"}</button>`:"";
   return `<li class="hw${on(c,"teacher")?" done":""}"><div><div class="meta"><span class="chip" style="background:${subjColor(h.subject)}">${esc(h.subject)}</span>${ownTag}<span class="dday ${dc}">${dl}</span><span>${esc(h.due)}</span>${del}</div>
-   <p class="ttl">${esc(h.title)}</p>${extra}</div><div class="stamps">${stamps(h,sid,c,who)}</div></li>`;
+   <p class="ttl">${esc(h.title)}</p>${detailHtml(h)}${extra}</div><div class="stamps">${stamps(h,sid,c,who)}</div></li>`;
  }).join("");
  const form=who==="student"?`<form class="addf" id="myhw" autocomplete="off">
    <label>과목<select id="m-sub">${SUBJECTS.map(([x])=>`<option>${x}</option>`).join("")}</select></label>
@@ -459,8 +537,8 @@ function stamps(h,sid,c,who){
   const o=on(c,k),mine=k===who;
   let can=mine;if(k==="parent"&&!on(c,"student")&&!o)can=false;
   const lab=o?(k==="teacher"&&teacherName(c.teacher_id))||fmtD(c[k+"_at"]):l;
-  const icon=!o&&mine&&k==="student"?`<span style="color:var(--ink)">${CAM}</span>`:"";
-  return `<button type="button" class="st s${i}${o?" on":""}${mine?" mine":""}" data-act="stamp" data-h="${esc(h.id)}" data-s="${esc(sid)}" data-k="${k}" ${can?"":"disabled"} aria-pressed="${o}" aria-label="${l} ${word}">
+  const icon=!o&&mine&&k==="student"?`<span style="color:var(--ink);font:500 12px/1.2 'Noto Sans KR',sans-serif">제출</span>`:"";
+  return `<button type="button" class="st s${i}${o?" on":""}${mine?" mine":""}" data-act="stamp" data-h="${esc(h.id)}" data-s="${esc(sid)}" data-k="${k}" ${can?"":"disabled"} aria-pressed="${o}" aria-label="${l} ${word}${!o&&mine&&k==="student"?" (눌러서 제출)":""}">
    <span class="o">${o?word.replace(" ","<br>"):icon}</span><small>${esc(lab)}</small></button>`;
  }).join("");
 }
@@ -491,30 +569,68 @@ async function shrink(file,steps=[[1280,.72],[1080,.62],[900,.55],[720,.5]],limi
  }
  throw new Error("big");
 }
-let proofFor=null;
-async function submitProof(hid,files){
- files=[...files].filter(f=>/^image\//.test(f.type)).slice(0,3);if(!files.length)return;
- const key=hid+"__"+D.me.id;uploading.add(key);render();
- try{const imgs=[];for(const f of files)imgs.push(await shrink(f));await act("submit_homework",{p_hw:hid,p_imgs:imgs},"숙제 사진을 올리고 ‘했어요’ 도장을 찍었어요.")}
- catch(err){if(err?.message==="img")status("이 사진은 열 수 없어요. JPG나 PNG로 다시 올려 주세요.",true);else if(err?.message==="big")status("사진이 너무 커요. 조금 작게 찍어서 다시 올려 주세요.",true)}
- uploading.delete(key);render();
+// ---------- 학생 제출 창 (글 + 사진) ----------
+const lbBox=()=>$("lb-imgs");
+function openSubmit(hid){
+ const h=(D.homework||[]).find(x=>x.id===hid);if(!h)return;
+ for(const f of sub?.files||[])URL.revokeObjectURL(f.url);
+ sub={hid,files:[]};
+ $("lb-t").textContent=`${h.subject} · ${h.title}`;
+ $("lb-s").textContent="숙제한 내용을 글로 쓰거나 사진을 올려요. 둘 다 해도 돼요.";
+ const box=lbBox();box.innerHTML="";
+ if(h.detail){const d=document.createElement("div");d.className="notebox";const sm=document.createElement("small");sm.textContent="선생님 설명";d.append(sm,h.detail);box.append(d)}
+ box.insertAdjacentHTML("beforeend",`<label class="sbf">숙제한 내용 (글로 쓰기)<textarea id="sb-note" maxlength="2000" rows="5" placeholder="예: 익힘책 24~25쪽 다 풀었어요. 7번이 어려웠어요."></textarea></label>
+  <div class="thumbs" id="sb-thumbs"></div>
+  <div class="rvbar"><button type="button" class="ghost" data-sb="pick">${CAM} 사진 찍기·고르기 (3장까지)</button><button type="button" class="btn" data-sb="go">제출하기</button></div>
+  <p class="note" id="sb-msg" style="margin-top:8px"></p>`);
+ lb.hidden=false;$("sb-note").focus();
 }
-$("f-proof").addEventListener("change",e=>{const f=e.target.files,id=proofFor;proofFor=null;if(id&&f?.length)submitProof(id,f);e.target.value=""});
+function drawThumbs(){
+ const t=$("sb-thumbs");if(!t||!sub)return;t.innerHTML="";
+ sub.files.forEach((f,i)=>{const fg=document.createElement("figure"),im=new Image(),x=document.createElement("button");im.src=f.url;im.alt=`고른 사진 ${i+1}`;x.type="button";x.textContent="×";x.dataset.sb="rm";x.dataset.i=i;x.setAttribute("aria-label",`사진 ${i+1} 빼기`);fg.append(im,x);t.append(fg)});
+}
+async function sendSubmit(){
+ if(!sub)return;const note=($("sb-note")?.value||"").trim(),files=sub.files.map(f=>f.file),hid=sub.hid,msg=$("sb-msg");
+ if(!note&&!files.length){msg.className="note warn";msg.textContent=MSG.EMPTY;return}
+ const go=lb.querySelector("[data-sb=go]");go.disabled=true;msg.className="note";msg.innerHTML=`<span class="spin"></span>제출하는 중…`;
+ try{
+  const imgs=[];for(const f of files)imgs.push(await shrink(f));
+  await rpc("submit_homework",{p_token:token,p_hw:hid,p_imgs:imgs,p_note:note||null});
+  closeLb();status(`${files.length&&note?"글과 사진으로":files.length?"사진으로":"글로"} 숙제를 내고 ‘했어요’ 도장을 찍었어요.`);await refresh(true);
+ }catch(err){
+  go.disabled=false;msg.className="note warn";
+  msg.textContent=err?.message==="img"?"열 수 없는 사진이 있어요. JPG나 PNG로 다시 골라 주세요.":err?.message==="big"?"사진이 너무 커요. 조금 작게 찍어서 다시 골라 주세요.":err?.code==="NET"?"인터넷 연결을 확인해 주세요.":msgOf(err?.code);
+ }
+}
+$("f-proof").addEventListener("change",e=>{
+ if(sub){for(const f of [...e.target.files].filter(f=>/^image\//.test(f.type))){if(sub.files.length>=3){$("sb-msg").textContent="사진은 3장까지 올릴 수 있어요.";break}sub.files.push({file:f,url:URL.createObjectURL(f)})}drawThumbs()}
+ e.target.value="";
+});
 
-// ---------- 사진 보기 ----------
+// ---------- 제출한 숙제 보기 (글 + 사진) ----------
 const lb=$("lb");
 async function openPhotos(hid,sid){
  const h=(D.homework||[]).find(x=>x.id===hid),c=ck(hid,sid);if(!h||!c)return;
+ sub=null;
  $("lb-t").textContent=`${stuName(sid)} · ${h.subject} · ${h.title}`;
- $("lb-s").textContent=`${fmtT(c.student_at)} 올림`;
- const box=$("lb-imgs");box.innerHTML=`<p class="note"><span class="spin"></span>사진 불러오는 중…</p>`;
+ $("lb-s").textContent=`${fmtT(c.student_at)} 제출`;
+ const box=lbBox();box.innerHTML="";
+ if(c.note){const d=document.createElement("div");d.className="notebox";const sm=document.createElement("small");sm.textContent="글로 쓴 내용";d.append(sm,c.note);box.append(d)}
  lb.hidden=false;$("lb-x").focus();
+ if(!c.photos){if(!c.note){const p=document.createElement("p");p.className="note";p.textContent="사진은 정리됐어요.";box.append(p)}return}
+ const ld=document.createElement("p");ld.className="note";ld.innerHTML=`<span class="spin"></span>사진 불러오는 중…`;box.append(ld);
  let pics=[];try{pics=await rpc("get_photos",{p_token:token,p_hw:hid,p_student:sid})||[]}catch(e){}
- box.innerHTML="";
+ ld.remove();
  if(!pics.length){const p=document.createElement("p");p.className="note";p.textContent="사진을 불러오지 못했어요.";box.append(p)}
  for(const d of pics){if(typeof d==="string"&&/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(d)){const i=new Image();i.src=d;i.alt="숙제한 사진";box.append(i)}}
 }
-const closeLb=()=>{lb.hidden=true;$("lb-imgs").innerHTML=""};
+const closeLb=()=>{lb.hidden=true;$("lb-imgs").innerHTML="";if(sub){for(const f of sub.files)URL.revokeObjectURL(f.url);sub=null}};
+lb.addEventListener("input",e=>{if(e.target.id==="sb-note"&&$("sb-msg")?.classList.contains("warn")){$("sb-msg").textContent="";$("sb-msg").className="note"}});
+lb.addEventListener("click",e=>{const b=e.target.closest("[data-sb]");if(!b||!sub)return;
+ if(b.dataset.sb==="pick")$("f-proof").click();
+ if(b.dataset.sb==="rm"){const f=sub.files.splice(+b.dataset.i,1)[0];if(f)URL.revokeObjectURL(f.url);drawThumbs()}
+ if(b.dataset.sb==="go")sendSubmit();
+});
 $("lb-x").addEventListener("click",closeLb);
 lb.addEventListener("click",e=>{if(e.target===lb)closeLb()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!lb.hidden)closeLb()});
@@ -547,6 +663,14 @@ view.addEventListener("click",async e=>{
  if(a==="ttab"){teacherTab=v;if(v==="set"){storage=null;loadStorage()}render();return}
  if(a==="clean"){if(armed!=="clean")return arm("clean");armed=null;const n=await act("cleanup_photos",{p_days:+cleanDays},n=>`사진 ${n}장을 지웠어요.`).catch(()=>null);loadStorage();return}
  if(a==="filter"){filter=v;render();return}
+ if(a==="dt"){openDt.has(v)?openDt.delete(v):openDt.add(v);render();return}
+ if(a==="bkopen"){bulkOpen=true;render();$("bk-src")?.focus();return}
+ if(a==="bkclose"){bulkOpen=false;bulk=[];render();return}
+ if(a==="bkclear"){bulk=[];render();return}
+ if(a==="bkparse"){const src=$("bk-src")?.value||"";bulk=parseBulk(src,"기타",$("bk-due")?.value||ymd(new Date(Date.now()+86400000)));
+  if(!bulk.length)status("나눌 줄이 없어요. 숙제 글을 붙여넣어 주세요.",true);else status(`${bulk.length}줄로 나눴어요. 과목과 마감일을 확인하고 필요 없는 줄은 체크를 풀어 주세요.`);if(bulk.length>30)bulk.slice(30).forEach(x=>x.on=false);render();return}
+ if(a==="bksend"){const items=bulk.filter(x=>x.on&&x.title.trim()).map(x=>({subject:x.subject,title:x.title.trim(),due:x.due||null}));if(!items.length)return;b.disabled=true;
+  act("add_homework_many",{p_class:curClass,p_items:items},n=>`숙제 ${n}개를 한꺼번에 냈어요.`).then(()=>{bulk=[];bulkOpen=false;render()}).catch(()=>{});return}
  if(a==="kid"){kid=v;render();return}
  if(a==="toggle"){open.has(v)?open.delete(v):open.add(v);render();return}
  if(a==="photos"){openPhotos(b.dataset.h,b.dataset.s);return}
@@ -564,7 +688,7 @@ view.addEventListener("click",async e=>{
  if(a==="stamp"){
   const hid=b.dataset.h,sid=b.dataset.s,k=b.dataset.k,key=hid+"__"+sid;if(busy.has(key)||uploading.has(key))return;
   const c=ck(hid,sid),o=on(c,k);
-  if(k==="student"&&!o){proofFor=hid;$("f-proof").click();return}
+  if(k==="student"&&!o){openSubmit(hid);return}
   busy.add(key);
   try{
    if(k==="student")await act("unsubmit_homework",{p_hw:hid},"제출을 취소했어요.");
@@ -574,8 +698,11 @@ view.addEventListener("click",async e=>{
   busy.delete(key);
  }
 });
+function syncBulk(t){const i=t.dataset?.bk;if(i==null||!bulk[+i])return false;bulk[+i][t.dataset.f]=t.type==="checkbox"?t.checked:t.value;return true}
+view.addEventListener("input",e=>{syncBulk(e.target)});
 view.addEventListener("change",e=>{
  const t=e.target;
+ if(syncBulk(t)){if(t.type==="checkbox")render();return}
  if(t.id==="clean-days"){cleanDays=t.value;armed=null;render();return}
  if(t.dataset.act==="move")act("move_student",{p_student:t.dataset.v,p_class:t.value},`${stuName(t.dataset.v)} 학생을 ${className(t.value)}(으)로 옮겼어요.`).catch(()=>{});
 });
@@ -591,8 +718,8 @@ view.addEventListener("submit",async e=>{
   if(f.id==="f-addkid")await login("parent_login",{p_code:val("a-code"),p_child:val("a-name"),p_pin:val("a-pin"),p_token:token});
   if(f.id==="newc"){const name=val("c-name");if(name){$("c-name").value="";const r=await act("create_class",{p_name:name},r=>`반을 만들었어요. 가입 코드는 ${r.code}예요.`).catch(()=>null);if(r){curClass=r.id;ls.set("hw-class",r.id);teacherTab="hw";render()}}}
   if(f.id==="ren"){await act("rename_class",{p_id:curClass,p_name:val("ren-in")},"반 이름을 바꿨어요.").catch(()=>{})}
-  if(f.id==="add"){const title=val("f-title");if(title){await act("add_homework",{p_class:curClass,p_subject:$("f-sub").value,p_title:title,p_due:$("f-due").value},"숙제를 냈어요.").then(()=>{$("f-title").value="";$("f-title").focus()}).catch(()=>{})}}
-  if(f.id==="myhw"){const title=val("m-title");if(title){await act("student_add_homework",{p_subject:$("m-sub").value,p_title:title,p_due:$("m-due").value},"숙제를 등록했어요. 다 하면 사진을 찍어 ‘했어요’ 칸을 눌러요.").then(()=>{$("m-title").value="";$("m-title").focus()}).catch(()=>{})}}
+  if(f.id==="add"){const title=val("f-title");if(title){await act("add_homework",{p_class:curClass,p_subject:$("f-sub").value,p_title:title,p_due:$("f-due").value,p_detail:val("f-detail")||null},"숙제를 냈어요.").then(()=>{$("f-title").value="";$("f-detail").value="";$("f-title").focus()}).catch(()=>{})}}
+  if(f.id==="myhw"){const title=val("m-title");if(title){await act("student_add_homework",{p_subject:$("m-sub").value,p_title:title,p_due:$("m-due").value},"숙제를 등록했어요. 다 하면 ‘했어요’ 칸을 눌러 글이나 사진으로 제출해요.").then(()=>{$("m-title").value="";$("m-title").focus()}).catch(()=>{})}}
   if(f.id==="f-addteacher"){const r=await act("add_teacher",{p_name:val("s-tname"),p_pw:$("s-tpw").value}).catch(()=>null);if(r){$("s-tname").value="";$("s-tpw").value="";status("선생님을 추가했어요. 이름과 비밀번호를 그 선생님께 알려 주세요.")}}
  }finally{if(btn&&document.contains(btn))btn.disabled=false}
 });
