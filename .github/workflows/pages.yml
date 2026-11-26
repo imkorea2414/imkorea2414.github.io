@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  actions: read   # deploy-pages가 업로드된 파일을 찾을 때 필요 (2026-11-26 '0 artifact' 오류로 추가)
   pages: write
   id-token: write
 
