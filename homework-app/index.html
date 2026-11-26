@@ -304,7 +304,12 @@ async function refresh(quiet){
 function hint(){const r=D?.role;return r==="teacher"?"반을 고르고 숙제를 내세요. 반 코드를 학생·부모님에게 알려 주면 가입할 수 있어요.":r==="student"?"받은 숙제를 직접 등록하고, 다 하면 ‘했어요’ 칸을 눌러 글이나 사진으로 제출해요.":r==="parent"?"아이가 받은 숙제, 낸 숙제, 선생님 검사 결과를 볼 수 있어요.":""}
 async function act(fn,args,ok){try{const r=await rpc(fn,{p_token:token,...args});if(ok)status(typeof ok==="function"?ok(r):ok);await refresh(true);return r}catch(e){fail(e);await refresh(true);throw e}}
 
-const subjColor=s=>(SUBJECTS.find(x=>x[0]===s)||SUBJECTS[6])[1];
+const EXTRA=["#0f7c8c","#7a5cc7","#b5543a","#3d7d2f","#a23a72","#2c6aa0","#8a6d1f","#5d6bb3","#b03d4f","#2f8a6a"];
+const subjColor=s=>{const k=SUBJECTS.find(x=>x[0]===s);if(k)return k[1];let h=0;for(const ch of String(s||""))h=(h*31+ch.codePointAt(0))>>>0;return EXTRA[h%EXTRA.length]};
+const usedSubjects=()=>{const m=new Map();for(const h of D?.homework||[])if(h.subject)m.set(h.subject,(m.get(h.subject)||0)+1);return [...m.entries()].sort((a,b)=>b[1]-a[1]).map(x=>x[0])};
+const subjList=()=>[...new Set([...usedSubjects(),...SUBJECTS.map(x=>x[0])])].slice(0,40);
+const subjDl=()=>`<datalist id="subj-dl">${subjList().map(x=>`<option value="${esc(x)}"></option>`).join("")}</datalist>`;
+const lastSub=()=>ls.get("hw-lastsub")||"국어";
 const classes=()=>D?.classes||[];
 const classOf=id=>classes().find(c=>c.id===id);
 const className=id=>classOf(id)?.name||"반 없음";
@@ -438,6 +443,7 @@ function parseBulk(text,defSub,defDue){
   if(line.length<2)continue;
   let subj="";const head=line.match(/^\[?(국어|수학|영어|과학|사회|예체능|체육|음악|미술|도덕)\]?\s*[:)\]·\-]\s*/);
   if(head){subj=/체육|음악|미술/.test(head[1])?"예체능":head[1]==="도덕"?"사회":head[1];line=line.slice(head[0].length).trim()||line}
+  if(!subj){const u=usedSubjects().filter(x=>x.length>=2&&!SUBJECTS.some(k=>k[0]===x)).find(x=>line.startsWith(x));if(u){subj=u;line=line.slice(u.length).replace(/^\s*[:)\]·\-]?\s*/,"").trim()||line}}
   if(!subj)subj=(SUBJ_WORDS.find(([,re])=>re.test(line))||[defSub])[0];
   out.push({on:!/알림장|준비물|공지|안내|가정통신/.test(line),subject:subj,title:line.slice(0,120),due:guessDue(line,new Date())||defDue});
   if(out.length>=40)break;
@@ -447,7 +453,7 @@ function parseBulk(text,defSub,defDue){
 function bulkPanel(c){
  const n=bulk.filter(x=>x.on).length;
  const rows=bulk.map((x,i)=>`<div class="rv"><input type="checkbox" id="bk-on-${i}" data-bk="${i}" data-f="on" aria-label="${i+1}번 등록"${x.on?" checked":""}>
-  <select id="bk-s-${i}" data-bk="${i}" data-f="subject" aria-label="${i+1}번 과목">${SUBJECTS.map(([s])=>`<option${s===x.subject?" selected":""}>${s}</option>`).join("")}</select>
+  <input id="bk-s-${i}" data-bk="${i}" data-f="subject" list="subj-dl" maxlength="20" value="${esc(x.subject)}" aria-label="${i+1}번 과목">
   <input class="t" id="bk-t-${i}" data-bk="${i}" data-f="title" maxlength="120" value="${esc(x.title)}" aria-label="${i+1}번 숙제 내용">
   <input type="date" id="bk-d-${i}" data-bk="${i}" data-f="due" value="${esc(x.due)}" aria-label="${i+1}번 마감일"></div>`).join("");
  return `<div class="bulk"><h2>여러 숙제 한꺼번에 내기</h2>
@@ -485,7 +491,7 @@ function renderTeacher(){
  let v=list.slice().sort(byDue);if(filter==="todo")v=v.filter(h=>!done(h));if(filter==="done")v=v.filter(done);if(filter==="own")v=v.filter(h=>h.student_id);
  return tabs+bar+sub+`
   <form class="addf" id="add" autocomplete="off">
-   <label>과목<select id="f-sub">${SUBJECTS.map(([s])=>`<option>${s}</option>`).join("")}</select></label>
+   <label>과목<input id="f-sub" list="subj-dl" maxlength="20" required value="${esc(lastSub())}" placeholder="예: 국어, 논술" autocomplete="off">${subjDl()}</label>
    <label class="w">숙제 내용<input id="f-title" required maxlength="120" placeholder="예: 수학익힘책 24~25쪽 풀기"></label>
    <label>마감일<input id="f-due" type="date" required value="${ymd(new Date(Date.now()+86400000))}"></label>
    <label class="full">자세한 설명 (선택)<textarea id="f-detail" maxlength="2000" rows="2" placeholder="예: 1~5번은 풀이 과정까지 쓰기. 모르는 문제는 표시해 오기"></textarea></label>
@@ -621,7 +627,7 @@ function personalList(sid,who){
    <p class="ttl">${esc(h.title)}</p>${detailHtml(h)}${extra}</div><div class="stamps">${stamps(h,sid,c,who)}</div></li>`;
  }).join("");
  const form=who==="student"?`<form class="addf" id="myhw" autocomplete="off">
-   <label>과목<select id="m-sub">${SUBJECTS.map(([x])=>`<option>${x}</option>`).join("")}</select></label>
+   <label>과목<input id="m-sub" list="subj-dl" maxlength="20" required value="${esc(lastSub())}" placeholder="예: 국어, 학원 영어" autocomplete="off">${subjDl()}</label>
    <label class="w">오늘 받은 숙제<input id="m-title" required maxlength="120" placeholder="예: 학교 수학익힘책 24쪽"></label>
    <label>마감일<input id="m-due" type="date" required value="${ymd(new Date(Date.now()+86400000))}"></label>
    <button class="btn w" type="submit">내 숙제 추가</button></form><p class="note" style="margin-top:8px">내가 등록한 숙제는 나와 부모님, 선생님만 볼 수 있어요.</p>`:"";
@@ -821,8 +827,8 @@ view.addEventListener("submit",async e=>{
   if(f.id==="f-addkid")await login("parent_login",{p_code:val("a-code"),p_child:val("a-name"),p_pin:val("a-pin"),p_token:token});
   if(f.id==="newc"){const name=val("c-name");if(name){$("c-name").value="";const r=await act("create_class",{p_name:name},r=>`반을 만들었어요. 가입 코드는 ${r.code}예요.`).catch(()=>null);if(r){curClass=r.id;ls.set("hw-class",r.id);teacherTab="hw";render()}}}
   if(f.id==="ren"){await act("rename_class",{p_id:curClass,p_name:val("ren-in")},"반 이름을 바꿨어요.").catch(()=>{})}
-  if(f.id==="add"){const title=val("f-title"),tg=assignMode==="pick"?[...picked]:null;if(tg&&!tg.length){status("숙제를 받을 학생을 골라 주세요.",true)}else if(title){await act("assign_homework",{p_class:curClass,p_subject:$("f-sub").value,p_title:title,p_due:$("f-due").value,p_detail:val("f-detail")||null,p_targets:tg},tg?`고른 ${tg.length}명에게 숙제를 냈어요.`:"반 전체에 숙제를 냈어요.").then(()=>{$("f-title").value="";$("f-detail").value="";$("f-title").focus()}).catch(()=>{})}}
-  if(f.id==="myhw"){const title=val("m-title");if(title){await act("student_add_homework",{p_subject:$("m-sub").value,p_title:title,p_due:$("m-due").value},"숙제를 등록했어요. 다 하면 ‘했어요’ 칸을 눌러 글이나 사진으로 제출해요.").then(()=>{$("m-title").value="";$("m-title").focus()}).catch(()=>{})}}
+  if(f.id==="add"){const title=val("f-title"),tg=assignMode==="pick"?[...picked]:null;if(tg&&!tg.length){status("숙제를 받을 학생을 골라 주세요.",true)}else if(title){await act("assign_homework",{p_class:curClass,p_subject:(ls.set("hw-lastsub",val("f-sub")),val("f-sub")),p_title:title,p_due:$("f-due").value,p_detail:val("f-detail")||null,p_targets:tg},tg?`고른 ${tg.length}명에게 숙제를 냈어요.`:"반 전체에 숙제를 냈어요.").then(()=>{$("f-title").value="";$("f-detail").value="";$("f-title").focus()}).catch(()=>{})}}
+  if(f.id==="myhw"){const title=val("m-title");if(title){await act("student_add_homework",{p_subject:(ls.set("hw-lastsub",val("m-sub")),val("m-sub")),p_title:title,p_due:$("m-due").value},"숙제를 등록했어요. 다 하면 ‘했어요’ 칸을 눌러 글이나 사진으로 제출해요.").then(()=>{$("m-title").value="";$("m-title").focus()}).catch(()=>{})}}
   if(f.id==="f-addteacher"){const r=await act("add_teacher",{p_name:val("s-tname"),p_pw:$("s-tpw").value}).catch(()=>null);if(r){$("s-tname").value="";$("s-tpw").value="";status("선생님을 추가했어요. 이름과 비밀번호를 그 선생님께 알려 주세요.")}}
  }finally{if(btn&&document.contains(btn))btn.disabled=false}
 });
